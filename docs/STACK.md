@@ -67,6 +67,42 @@ npm
 
 package-lock.json é parte da fonte de verdade das dependências.
 
+## Unit Testing
+
+Vitest: 4.1.11
+
+Responsabilidade atual:
+
+- Domain Value Objects
+- Domain Rules
+- Application Rules futuramente
+
+Scripts:
+
+- `npm run test`
+- `npm run test:watch`
+
+Quality Gate agregado:
+
+`npm run check`
+
+Executa:
+
+lint
+→ typecheck
+→ unit tests
+→ production build
+
+Última evidência comprovada:
+
+- 3 test files passed;
+- 18 testes passaram;
+- 0 testes falharam;
+- ESLint aprovado;
+- TypeScript aprovado;
+- Production Build aprovado;
+- Aggregated Check aprovado.
+
 ## Deploy Target
 
 Vercel.

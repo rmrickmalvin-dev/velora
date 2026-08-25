@@ -23,6 +23,7 @@ export type InventoryId = string;
 export type InventoryMovementId = string;
 
 export type CartId = string;
+export type CartItemId = string;
 export type OrderId = string;
 
 export type PromotionId = string;

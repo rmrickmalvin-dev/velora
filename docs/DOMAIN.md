@@ -4,10 +4,9 @@ Last update: 2026-08-25
 
 ## Central principle
 
-```text
 Domain does not know Framework.
+
 Framework knows Domain.
-```
 
 ## Forbidden Domain dependencies
 
@@ -57,8 +56,6 @@ ProductCategory
 ProductVariant     ProductMedia
 ```
 
-Product and ProductVariant do not store stock.
-
 ## Inventory Domain
 
 ```text
@@ -71,103 +68,126 @@ Inventory
 InventoryMovement
 ```
 
-### Inventory
+## Cart Domain
 
-Responsibility:
+```text
+ProductVariant
+      |
+      v
+   CartItem
+      |
+      v
+     Cart
+```
 
-Represent current stock state for a ProductVariant.
+Cart represents current purchase intent.
+
+Cart remains separate from Order.
+
+### CartItem
 
 Structure:
 
 ```text
-Inventory
+CartItem
 |- id
 |- productVariantId
-`- quantityOnHand
+|- unitPrice
+`- quantity
 ```
 
 Invariants:
 
 - id required
 - productVariantId required
-- quantityOnHand is a safe integer
-- quantityOnHand >= 0
+- quantity is a positive safe integer
+- unitPrice is Money
+- unitPrice cannot be negative
+- CartItem is immutable
 
-### InventoryMovement
+CartItem does not contain:
 
-Responsibility:
+- Inventory
+- stock
+- Order state
+- persistence provider
 
-Represent one historical stock change.
+### Cart
 
 Structure:
 
 ```text
-InventoryMovement
+Cart
 |- id
-|- inventoryId
-|- type
-|- delta
-`- reason
+`- items[]
 ```
 
-Types:
+Invariants:
 
-- ENTRY
-- EXIT
-- ADJUSTMENT
+- id required
+- Cart is immutable
+- items collection is immutable
+- CartItem ids are unique
+- ProductVariant ids are unique inside the Cart
 
-Delta semantics:
+The one-variant-per-line rule prevents duplicate commercial lines.
+
+### Cart Service
+
+Functions:
+
+- addCartItem
+- removeCartItem
+- updateCartItemQuantity
+- calculateCartSubtotal
+
+Transitions return a new Cart.
+
+Original Cart and CartItem objects are not mutated.
+
+### Cart subtotal
+
+Each line total is:
 
 ```text
-ENTRY      delta > 0
-EXIT       delta < 0
-ADJUSTMENT delta != 0
+unitPrice * quantity
 ```
 
-For all movements:
-
-- delta must be a safe integer
-- delta cannot be zero
-- reason is required
-
-### Inventory Service
-
-`applyInventoryMovement` performs an immutable stock transition.
+Subtotal uses Money operations.
 
 Rules:
 
-1. movement.inventoryId must match inventory.id
-2. resulting quantity must remain a safe integer
-3. resulting quantity cannot be negative
-4. returns a new Inventory
-5. never mutates Product or ProductVariant
+- quantity multiplication is integer-only
+- different currencies are rejected
+- empty cart returns null because no currency exists yet
 
-## Catalog vs Inventory
+## Cart vs Inventory
 
-Forbidden:
+Cart quantity is purchase intent.
 
-```text
-Product.stock
-Product.quantity
-ProductVariant.stock
-ProductVariant.quantity
-```
+Inventory quantityOnHand is stock state.
 
-Inventory references ProductVariantId.
+They are different concepts.
 
-## Cart
+Cart does not mutate Inventory directly.
 
-Not implemented yet.
+Application use cases will coordinate availability later.
 
-Cart represents current purchase intent and remains distinct from Order.
+## Cart vs Order
 
-## Order
+Cart:
 
-Not implemented yet.
+- mutable through immutable state transitions
+- represents current intent
+- may change before checkout
 
-Order will represent a transaction snapshot.
+Order:
 
-OrderItem will preserve commercial snapshot data.
+- not implemented yet
+- will preserve transaction history
+- OrderItem will store commercial snapshots
+
+CartItem is not OrderItem.
 
 ## Persistence Boundary
 
@@ -184,24 +204,22 @@ v
 Data Provider
 ```
 
-Domain remains provider-independent.
-
-## Internationalization Boundary
-
-`src/domain` does not depend on `src/i18n`.
-
 ## Test State
 
-PASSO 14:
+PASSO 14 checkpoint:
 
-- 46 total tests
+- 46 tests
 
-PASSO 15:
+PASSO 15 checkpoint:
 
-- 26 new tests
-- 72 total tests
+- 72 tests
+
+PASSO 16:
+
+- 28 new tests
+- 100 total tests
 - 0 failures
 
 ## Next milestone
 
-PASSO 16 - Cart + CartItem.
+PASSO 17 - Order + OrderItem.

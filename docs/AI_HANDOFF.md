@@ -12,23 +12,13 @@ Unit 01B - Domain Foundation
 
 Latest validated step:
 
-PASSO 15 - Inventory + InventoryMovement
+PASSO 16 - Cart + CartItem
 
 ## Checkpoints
 
 - `90f2d42` - domain primitives
 - `d682c43` - catalog domain
-
-## Stack
-
-- Node.js 24.13.0
-- npm 11.6.2
-- Next.js 16.3.1
-- React 19.2.8
-- React DOM 19.2.8
-- TypeScript 5.9.3
-- ESLint 9.39.5
-- Vitest 4.1.11
+- `c06a5d3` - inventory domain
 
 ## Current Domain
 
@@ -52,86 +42,83 @@ Inventory:
 - InventoryMovement
 - applyInventoryMovement
 
-## Inventory Rules
+Cart:
 
-Inventory:
+- CartItem
+- Cart
+- addCartItem
+- removeCartItem
+- updateCartItemQuantity
+- calculateCartSubtotal
+
+## Cart Rules
+
+CartItem:
 
 ```text
 id
 productVariantId
-quantityOnHand
+unitPrice
+quantity
 ```
 
-quantityOnHand:
+- quantity > 0
+- quantity is safe integer
+- unitPrice >= 0
+- immutable
 
-- safe integer
-- >= 0
+Cart:
 
-InventoryMovement:
+- immutable
+- unique item ids
+- one CartItem per ProductVariant
+- immutable items collection
 
-```text
-id
-inventoryId
-type
-delta
-reason
-```
+Subtotal:
 
-Semantics:
+- Money-based
+- integer multiplication
+- cross-currency rejected
+- empty cart => null
 
-- ENTRY => positive delta
-- EXIT => negative delta
-- ADJUSTMENT => positive or negative non-zero delta
+## Critical architecture rules
 
-Movement reason is required.
+Do not merge Cart with Order.
 
-`applyInventoryMovement`:
+Do not put Inventory inside Cart.
 
-- validates inventoryId
-- rejects negative stock
-- rejects unsafe result
-- returns a new Inventory
+Do not mutate ProductVariant when Cart quantity changes.
 
-## Critical architecture rule
-
-Do not add stock or quantity to Product/ProductVariant.
-
-Inventory remains separate from Catalog.
+Cart quantity is purchase intent, not stock quantity.
 
 ## Quality Gate
 
 Latest evidence:
 
 ```text
-PASSO 15 targeted: 26/26
-Full suite:         72/72
+PASSO 16 targeted: 28/28
+Full suite:         100/100
 lint:               passed
 typecheck:          passed
 build:              passed
 check:              passed
 ```
 
-Routes:
-
-- /pt-BR SSG
-- /en SSG
-- /es SSG
-
 ## Decisions
 
-After PASSO 15:
+After PASSO 16:
 
-`CODAL-DEC-001 -> CODAL-DEC-049`
+`CODAL-DEC-001 -> CODAL-DEC-057`
 
 Next:
 
-`CODAL-DEC-050`
+`CODAL-DEC-058`
 
 ## Next action
 
-PASSO 16 - Cart + CartItem.
+PASSO 17 - Order + OrderItem.
 
-Do not start Order before Cart is stable.
+OrderItem must preserve commercial snapshot data and must not depend on the current Catalog state.
 
 ## Reading order
 

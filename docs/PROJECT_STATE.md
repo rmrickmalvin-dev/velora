@@ -26,36 +26,15 @@ IN PROGRESS
 
 ## Git checkpoints
 
-Previous domain checkpoint:
-
-`90f2d42` - `feat: add domain primitives and unit test foundation`
-
-Catalog checkpoint:
-
-`d682c43` - `feat: add catalog domain entities and slug`
+- `90f2d42` - domain primitives
+- `d682c43` - catalog domain
+- `c06a5d3` - inventory domain and movements
 
 ## Latest validated step
 
-PASSO 15 - Inventory + InventoryMovement
+PASSO 16 - Cart + CartItem
 
-## Architecture
-
-```text
-UI
-|
-v
-Application
-|
-v
-Domain Contracts
-^
-|
-Infrastructure
-```
-
-Domain remains independent from React, Next.js, Zustand, DOM, CSS, localStorage, IndexedDB, Supabase, fetch and external providers.
-
-## Implemented Domain
+## Current Domain
 
 Value Objects:
 
@@ -77,82 +56,77 @@ Inventory:
 - InventoryMovement
 - Inventory Service
 
-## Inventory
+Cart:
 
-Represents current stock state for a ProductVariant.
+- Cart
+- CartItem
+- Cart Service
+
+## Cart
+
+Cart is the aggregate for current purchase intent.
+
+Fields:
+
+- id
+- items
+
+Rules:
+
+- id is required
+- items collection is immutable
+- CartItem ids are unique
+- a ProductVariant appears at most once in a Cart
+
+## CartItem
 
 Fields:
 
 - id
 - productVariantId
-- quantityOnHand
-
-Invariants:
-
-- id required
-- productVariantId required
-- quantityOnHand must be a safe integer
-- quantityOnHand cannot be negative
-
-## InventoryMovement
-
-Represents historical stock change.
-
-Fields:
-
-- id
-- inventoryId
-- type
-- delta
-- reason
-
-Types:
-
-- ENTRY
-- EXIT
-- ADJUSTMENT
+- unitPrice
+- quantity
 
 Rules:
 
-- delta is a non-zero safe integer
-- ENTRY requires positive delta
-- EXIT requires negative delta
-- ADJUSTMENT accepts positive or negative delta
-- reason is required
+- id required
+- productVariantId required
+- quantity is a positive safe integer
+- unitPrice cannot be negative
+- SKU and Inventory are not duplicated into CartItem
 
-## Inventory Service
+## Cart Service
 
-`applyInventoryMovement`:
+Implemented:
 
-- validates movement ownership
-- calculates the next quantity
-- rejects negative resulting stock
-- rejects unsafe integer results
-- returns a new immutable Inventory
-- does not mutate Catalog
+- addCartItem
+- removeCartItem
+- updateCartItemQuantity
+- calculateCartSubtotal
 
-## Catalog vs Inventory
+All transitions are immutable.
 
-Product and ProductVariant still do not contain stock or quantity.
+Subtotal:
 
-Relationship:
+- uses Money
+- uses integer multiplication
+- rejects currency mismatch through Money rules
+- returns null for empty cart
 
-```text
-ProductVariant
-      |
-      v
-Inventory
-      |
-      v
-InventoryMovement
-```
+## Cart vs Order
+
+Cart represents current purchase intent.
+
+Order remains a separate future transaction snapshot.
+
+Cart is not an Order draft.
 
 ## Quality Gate
 
 Latest evidence:
 
-- PASSO 15 targeted tests: 26/26
-- complete suite: 72/72
+- PASSO 16 targeted tests: 28/28
+- complete suite: 100/100
 - lint passed
 - typecheck passed
 - production build passed
@@ -164,14 +138,14 @@ Latest evidence:
 
 ## Decisions
 
-After PASSO 15:
+After PASSO 16:
 
-`CODAL-DEC-001 -> CODAL-DEC-049`
+`CODAL-DEC-001 -> CODAL-DEC-057`
 
 Next available decision:
 
-`CODAL-DEC-050`
+`CODAL-DEC-058`
 
 ## Next step
 
-PASSO 16 - Cart + CartItem.
+PASSO 17 - Order + OrderItem.

@@ -533,3 +533,119 @@ Next available decision:
 #### Next
 
 PASSO 16 - Cart + CartItem.
+---
+
+### PASSO 16 - Cart Domain
+
+Status: COMPLETED AND TECHNICALLY VALIDATED
+
+#### CartItem
+
+Added:
+
+- CartItemId
+- CartItem
+- ProductVariantId relation
+- Money unitPrice
+- quantity
+- immutable CartItem
+
+Validated:
+
+- required id
+- required ProductVariantId
+- positive safe-integer quantity
+- zero quantity rejection
+- negative quantity rejection
+- fractional quantity rejection
+- negative unit price rejection
+
+#### Cart
+
+Added:
+
+- Cart aggregate
+- immutable items collection
+- unique CartItem ids
+- one CartItem per ProductVariant
+
+Validated:
+
+- empty Cart
+- Cart with items
+- required Cart id
+- duplicate item rejection
+- duplicate ProductVariant rejection
+- defensive copy of input collection
+
+#### Cart Service
+
+Added:
+
+- addCartItem
+- removeCartItem
+- updateCartItemQuantity
+- calculateCartSubtotal
+
+Validated:
+
+- immutable add
+- immutable remove
+- immutable quantity update
+- unknown item rejection
+- subtotal for one item
+- subtotal for multiple items
+- empty Cart subtotal
+- cross-currency rejection
+
+#### Architecture
+
+Cart remains separate from:
+
+- Inventory
+- Order
+- React
+- Next.js
+- persistence providers
+
+Cart quantity represents purchase intent.
+
+Inventory quantityOnHand represents stock state.
+
+#### Testing
+
+PASSO 16 targeted validation:
+
+- 3 test files passed
+- 28 tests passed
+- 0 tests failed
+
+Complete suite:
+
+- 14 test files passed
+- 100 tests passed
+- 0 tests failed
+
+#### Technical Validation
+
+Passed:
+
+- npm run lint
+- npm run typecheck
+- npm run test
+- npm run build
+- npm run check
+
+#### Decisions
+
+Added:
+
+- CODAL-DEC-050 through CODAL-DEC-057
+
+Next available decision:
+
+- CODAL-DEC-058
+
+#### Next
+
+PASSO 17 - Order + OrderItem.

@@ -77,6 +77,14 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-047 | ACEITA | InventoryMovement requires a reason | Preserve minimum audit context for stock changes |
 | CODAL-DEC-048 | ACEITA | Inventory movements are applied through an immutable transition that validates the target Inventory | Avoid silent mutation and movement application to the wrong inventory |
 | CODAL-DEC-049 | ACEITA | No movement may produce negative or unsafe stock quantity | Preserve inventory invariants after every transition |
+| CODAL-DEC-058 | ACEITA | Cart is the aggregate for current purchase intent and remains separate from Order | Keep temporary shopping state distinct from transaction history |
+| CODAL-DEC-051 | ACEITA | CartItem references ProductVariantId and does not duplicate Inventory responsibility | Keep the cart attached to the sellable unit without owning stock |
+| CODAL-DEC-052 | ACEITA | CartItem quantity must be a positive safe integer | Prevent zero, negative, fractional or unsafe purchase quantities |
+| CODAL-DEC-053 | ACEITA | CartItem unitPrice uses Money and cannot be negative | Keep cart calculations deterministic and compatible with monetary rules |
+| CODAL-DEC-054 | ACEITA | Cart and its items collection are immutable domain values | Prevent silent mutation and simplify state transitions |
+| CODAL-DEC-055 | ACEITA | A Cart may contain at most one line per ProductVariant and unique CartItem ids | Avoid duplicated commercial lines and ambiguous quantity state |
+| CODAL-DEC-056 | ACEITA | Cart add, remove and quantity updates are immutable Domain Service transitions | Preserve aggregate invariants across cart operations |
+| CODAL-DEC-057 | ACEITA | Cart subtotal is calculated from unitPrice times quantity using Money; empty Cart returns null | Preserve currency safety while acknowledging that an empty cart has no currency context |
 
 ## Decisões por área
 
@@ -170,7 +178,7 @@ Uma IA ou desenvolvedor que continuar a VELORA deve:
 - não substituir decisões ACEITAS silenciosamente;
 - verificar se uma nova implementação contradiz alguma decisão existente;
 - registrar novas decisões com numeração sequencial;
-- utilizar o próximo número disponível após CODAL-DEC-041;
+- utilizar o próximo número disponível após CODAL-DEC-057;
 - preservar decisões históricas mesmo quando forem superadas.
 
 ## Próxima decisão disponível

@@ -860,3 +860,104 @@ Next available decision:
 #### Next
 
 PASSO 19 - Seed Foundation.
+---
+
+### PASSO 19 - Seed Foundation
+
+Status: COMPLETED AND TECHNICALLY VALIDATED
+
+#### Added
+
+Infrastructure seed module:
+
+- createVeloraSeed
+- veloraSeed
+- VeloraSeed
+- seed barrel export
+
+#### Fictional baseline
+
+Added:
+
+- 4 ProductCategory records
+- 8 Product records
+- 15 ProductVariant records
+- 16 ProductMedia records
+- 15 Inventory records
+- 15 initial InventoryMovement records
+
+Fictional brands:
+
+- Aster
+- Nivalis
+- Halo
+- Flux
+- Veil
+
+#### Integrity
+
+Validated:
+
+- deterministic recreation
+- frozen seed container
+- frozen collections
+- frozen Domain entities
+- unique category ids and slugs
+- unique product ids and slugs
+- unique variant ids and SKUs
+- valid ProductCategory references
+- valid Product references
+- coherent ProductMedia references
+- one Inventory per ProductVariant
+- one initial ENTRY movement per Inventory
+- initial movement matches quantityOnHand
+- featured products available
+- every category represented
+
+#### Architecture
+
+Seed lives in Infrastructure.
+
+Seed records are created through Domain factories.
+
+Cart and Order are intentionally excluded from immutable baseline state.
+
+Media uses logical local paths until final Storefront assets are produced.
+
+#### Testing
+
+PASSO 19 targeted validation:
+
+- 1 test file passed
+- 12 tests passed
+- 0 tests failed
+
+Complete suite:
+
+- 18 test files passed
+- 144 tests passed
+- 0 tests failed
+
+#### Technical Validation
+
+Passed:
+
+- npm run lint
+- npm run typecheck
+- npm run test
+- npm run build
+- npm run check
+
+#### Decisions
+
+Added:
+
+- CODAL-DEC-074 through CODAL-DEC-081
+
+Next available decision:
+
+- CODAL-DEC-082
+
+#### Next
+
+PASSO 20 - Local Repository Implementations.

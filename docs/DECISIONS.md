@@ -101,6 +101,14 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-071 | ACEITA | CartRepository may remove Cart state because Cart is temporary purchase intent | Allow disposal of abandoned or completed temporary cart state |
 | CODAL-DEC-072 | ACEITA | OrderRepository does not expose delete | Preserve transaction history as durable domain data |
 | CODAL-DEC-073 | ACEITA | Repository Contracts never expose provider-specific query or storage types | Prevent Infrastructure details from leaking into Domain or Application |
+| CODAL-DEC-082 | ACEITA | Seed Foundation belongs to Infrastructure and creates records through Domain factories | Preserve Domain invariants while keeping baseline data outside Domain |
+| CODAL-DEC-075 | ACEITA | The VELORA seed baseline is deterministic and immutable | Enable predictable demo reset and reproducible repository initialization |
+| CODAL-DEC-076 | ACEITA | Initial catalog brands, products and commercial data are entirely fictional | Preserve portfolio freedom without implying a real commercial operation |
+| CODAL-DEC-077 | ACEITA | Seed ids, slugs and SKUs are explicit and stable rather than generated at runtime | Keep references deterministic across resets, tests and future migrations |
+| CODAL-DEC-078 | ACEITA | Every seeded ProductVariant has exactly one Inventory baseline record | Maintain one clear stock state per sellable unit |
+| CODAL-DEC-079 | ACEITA | Every seeded Inventory begins with one ENTRY InventoryMovement matching initial quantityOnHand | Keep initial stock state and movement history coherent |
+| CODAL-DEC-080 | ACEITA | Seed ProductMedia uses logical local asset paths before final visual assets exist | Allow data architecture and Storefront development to progress independently from final imagery |
+| CODAL-DEC-081 | ACEITA | Immutable baseline seed excludes Cart and Order state | Keep mutable session and transaction state outside resettable catalog baseline |
 
 ## Decisões por área
 
@@ -194,7 +202,7 @@ Uma IA ou desenvolvedor que continuar a VELORA deve:
 - não substituir decisões ACEITAS silenciosamente;
 - verificar se uma nova implementação contradiz alguma decisão existente;
 - registrar novas decisões com numeração sequencial;
-- utilizar o próximo número disponível após CODAL-DEC-073;
+- utilizar o próximo número disponível após CODAL-DEC-081;
 - preservar decisões históricas mesmo quando forem superadas.
 
 ## Próxima decisão disponível

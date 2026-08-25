@@ -31,78 +31,102 @@ IN PROGRESS
 - `c06a5d3` - inventory domain and movements
 - `0e461a3` - cart domain and cart operations
 - `bffa30d` - order domain and lifecycle
+- `9ee0376` - domain repository contracts
 
 ## Latest validated step
 
-PASSO 18 - Repository Contracts
+PASSO 19 - Seed Foundation
 
-## Current Domain
+## Seed Foundation
 
-Implemented:
+The first deterministic fictional VELORA baseline now exists in Infrastructure.
 
-- Catalog
-- Inventory
+Collections:
+
+- 4 ProductCategory records
+- 8 Product records
+- 15 ProductVariant records
+- 16 ProductMedia records
+- 15 Inventory records
+- 15 initial InventoryMovement records
+
+The baseline uses Domain factories rather than raw unvalidated objects.
+
+## Fictional catalog
+
+Brands:
+
+- Aster
+- Nivalis
+- Halo
+- Flux
+- Veil
+
+Product families include:
+
+- smartphones
+- audio
+- charging
+- protection
+
+All catalog data is fictional and exists only for the VELORA portfolio case.
+
+## Seed immutability
+
+The seed container is frozen.
+
+Every seed collection is frozen.
+
+Domain entities are created through their existing factories and remain immutable.
+
+`createVeloraSeed` can recreate the same deterministic baseline.
+
+`veloraSeed` exposes the ready baseline instance.
+
+## Referential coherence
+
+Validated:
+
+- unique category ids and slugs
+- unique product ids and slugs
+- valid Product -> ProductCategory relations
+- unique variant ids and SKUs
+- valid ProductVariant -> Product relations
+- every Product has at least one ProductVariant
+- valid ProductMedia relations
+- optional media variant belongs to the same Product
+- exactly one Inventory per ProductVariant
+- exactly one initial ENTRY movement per Inventory
+- initial movement delta equals initial quantityOnHand
+
+## Seed media
+
+Media records use logical local paths such as:
+
+`/images/catalog/...`
+
+PASSO 19 defines the data contract only.
+
+Final visual assets will be produced or connected during Storefront work.
+
+## Mutable state boundary
+
+The immutable baseline does not seed:
+
 - Cart
 - Order
-- Repository Contracts
 
-## Repository Contracts
-
-Created:
-
-- ProductCategoryRepository
-- ProductRepository
-- ProductVariantRepository
-- ProductMediaRepository
-- InventoryRepository
-- InventoryMovementRepository
-- CartRepository
-- OrderRepository
-
-Contracts live in Domain and know only Domain concepts.
-
-They do not know:
-
-- IndexedDB
-- localStorage
-- Supabase
-- PostgreSQL
-- HTTP
-- fetch
-- Next.js
-- React
-
-## Contract semantics
-
-Read operations are asynchronous and return Promise.
-
-Missing entities return `null`.
-
-Collection queries return readonly arrays.
-
-State repositories use `save`.
-
-InventoryMovement uses `append` because movement history is conceptually append-only.
-
-CartRepository supports removal because a temporary Cart may be discarded.
-
-OrderRepository intentionally does not expose delete because Order is historical transaction data.
+Cart and Order are runtime/demo state and will be created through repositories/use cases later.
 
 ## Quality Gate
 
-PASSO 18 adds no runtime behavior and therefore no artificial runtime tests.
-
-Primary proof:
-
-- TypeScript contract validation
-- ESLint
-- full regression suite
-
 Latest evidence:
 
-- repository typecheck passed
-- repository lint passed
-- full suite: 132/132
+- PASSO 19 targeted tests: 12/12
+- complete suite: 144/144
+- 18 test files passed
+- lint passed
+- typecheck passed
 - production build passed
 - `/pt-BR` SSG passed
 - `/en` SSG passed
@@ -112,14 +136,14 @@ Latest evidence:
 
 ## Decisions
 
-After PASSO 18:
+After PASSO 19:
 
-`CODAL-DEC-001 -> CODAL-DEC-073`
+`CODAL-DEC-001 -> CODAL-DEC-081`
 
 Next available decision:
 
-`CODAL-DEC-074`
+`CODAL-DEC-082`
 
 ## Next step
 
-PASSO 19 - Seed Foundation.
+PASSO 20 - Local Repository Implementations.

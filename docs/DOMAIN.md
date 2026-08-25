@@ -23,158 +23,138 @@ Domain Contracts
 Infrastructure
 ```
 
-## Implemented domains
+## Current layers
+
+Domain:
 
 - Catalog
 - Inventory
 - Cart
 - Order
+- Repository Contracts
 
-## Repository Boundary
+Infrastructure:
 
-Repository Contracts are Domain ports.
+- Seed Foundation
 
-They describe what the application needs from persistence without describing how persistence works.
+## Seed Boundary
+
+Seed is Infrastructure, not Domain.
+
+The seed provides a deterministic baseline implementation input while respecting Domain rules.
+
+Seed records are created through Domain factories.
+
+Raw seed objects do not bypass entity invariants.
+
+## Seed API
+
+Infrastructure exports:
+
+- `createVeloraSeed`
+- `veloraSeed`
+- `VeloraSeed`
+
+`createVeloraSeed` recreates a fresh deterministic baseline using Domain factories.
+
+`veloraSeed` exposes the ready immutable baseline instance.
+
+The factory exists so local repositories and demo reset flows can rebuild known baseline state without mutating the exported seed instance.
+
+## VELORA baseline
 
 ```text
-Application
+4  ProductCategory
+8  Product
+15 ProductVariant
+16 ProductMedia
+15 Inventory
+15 InventoryMovement
+```
+
+All content is fictional.
+
+## Seed rules
+
+The baseline is:
+
+- deterministic
+- immutable
+- internally coherent
+- provider-independent at the Domain boundary
+- safe to reset
+
+Stable ids, slugs and SKUs are explicit.
+
+This makes demo reset behavior predictable and allows later local repositories to rebuild from a known baseline.
+
+## Inventory baseline
+
+Every seeded ProductVariant has exactly one Inventory.
+
+Every seeded Inventory begins with one ENTRY InventoryMovement.
+
+The initial movement delta equals quantityOnHand.
+
+This preserves a coherent initial inventory history.
+
+## Media baseline
+
+ProductMedia records use logical local asset paths.
+
+Example:
+
+```text
+/images/catalog/aster-one-x-pro/front.webp
+```
+
+The data contract exists before final visual assets.
+
+Final images belong to the Storefront asset phase.
+
+## Mutable state exclusion
+
+The immutable baseline intentionally excludes:
+
+- Cart
+- Order
+
+Those concepts represent mutable runtime/demo state.
+
+They will be created by repository implementations and Application Use Cases.
+
+## Repository relationship
+
+Next architecture step:
+
+```text
+VELORA Seed
+    |
+    v
+Local Repository
     |
     v
 Repository Contract
-    ^
     |
-Infrastructure Adapter
+    v
+Application Use Case
 ```
 
-## Provider independence
+The seed does not implement repositories itself.
 
-Repository Contracts must not expose:
+## Test state
 
-- IndexedDB transaction types
-- localStorage APIs
-- Supabase clients
-- PostgreSQL types
-- HTTP response objects
-- fetch
-- React
-- Next.js
+PASSO 19 adds:
 
-## Async contract
+- 12 seed-integrity tests
 
-Repository methods return Promise from the beginning.
+Current complete suite:
 
-This allows the same Application layer to work with:
-
-- in-memory demo repositories
-- IndexedDB
-- remote APIs
-- Supabase
-- PostgreSQL-backed services
-
-without changing Domain contracts.
-
-## Missing entity semantic
-
-Single-entity lookup returns:
-
-```text
-Entity | null
-```
-
-Missing data is not automatically an exceptional condition.
-
-Application Use Cases decide whether a missing entity becomes a user-facing error.
-
-## Collection semantic
-
-List queries return:
-
-```text
-readonly Entity[]
-```
-
-Callers must not mutate repository-owned collections.
-
-## Catalog repositories
-
-### ProductCategoryRepository
-
-- findById
-- findBySlug
-- list
-- save
-
-### ProductRepository
-
-- findById
-- findBySlug
-- list
-- save
-
-### ProductVariantRepository
-
-- findById
-- findBySku
-- listByProductId
-- save
-
-### ProductMediaRepository
-
-- findById
-- listByProductId
-- listByVariantId
-- save
-
-## Inventory repositories
-
-### InventoryRepository
-
-- findById
-- findByProductVariantId
-- save
-
-### InventoryMovementRepository
-
-- listByInventoryId
-- append
-
-InventoryMovement uses `append` instead of generic `save`.
-
-The name communicates historical append semantics.
-
-## CartRepository
-
-- findById
-- save
-- remove
-
-Cart is temporary purchase intent and may be discarded.
-
-## OrderRepository
-
-- findById
-- listByCustomerId
-- save
-
-OrderRepository intentionally has no delete contract.
-
-Order is transaction history.
-
-## Current test state
-
-Repository interfaces add no runtime behavior.
-
-Therefore PASSO 18 adds no artificial interface tests.
-
-Regression remains:
-
-- 17 test files
-- 132 tests
-- 132 passed
+- 18 test files
+- 144 tests
+- 144 passed
 - 0 failed
-
-TypeScript typecheck is the primary contract proof for this step.
 
 ## Next milestone
 
-PASSO 19 - Seed Foundation.
+PASSO 20 - Local Repository Implementations.

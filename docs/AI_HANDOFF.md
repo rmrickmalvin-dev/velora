@@ -12,7 +12,7 @@ Unit 01B - Domain Foundation
 
 Latest validated step:
 
-PASSO 18 - Repository Contracts
+PASSO 19 - Seed Foundation
 
 ## Checkpoints
 
@@ -21,74 +21,83 @@ PASSO 18 - Repository Contracts
 - `c06a5d3` - inventory domain
 - `0e461a3` - cart domain
 - `bffa30d` - order domain
+- `9ee0376` - repository contracts
 
-## Repository Contracts
+## Seed Foundation
 
-Available:
+Location:
 
-- ProductCategoryRepository
-- ProductRepository
-- ProductVariantRepository
-- ProductMediaRepository
-- InventoryRepository
-- InventoryMovementRepository
-- CartRepository
-- OrderRepository
+`src/infrastructure/seed`
 
-## Critical repository rules
+Exports:
 
-Contracts know only Domain types.
+- createVeloraSeed
+- veloraSeed
+- VeloraSeed
 
-Do not import:
+Baseline:
 
-- IndexedDB
-- Supabase
-- PostgreSQL
-- fetch
-- React
-- Next.js
+```text
+Categories:           4
+Products:             8
+Variants:            15
+Media:               16
+Inventory:           15
+InventoryMovements:  15
+```
 
-All repository operations are async Promise-based.
+All catalog data is fictional.
 
-Single lookups return Entity or null.
+## Seed rules
 
-Collection queries return readonly arrays.
+- use Domain factories
+- keep baseline deterministic
+- keep baseline immutable
+- keep ids stable
+- keep slugs stable
+- keep SKUs stable
+- preserve referential coherence
+- one Inventory per ProductVariant
+- one initial ENTRY movement per Inventory
+- do not seed Cart or Order as immutable baseline
 
-InventoryMovement history uses append.
+## Media rule
 
-OrderRepository has no delete contract.
+Seed media paths are logical contracts.
+
+Final image assets may be added later without changing Domain entities.
 
 ## Quality Gate
 
 Latest evidence:
 
 ```text
-Repository typecheck: passed
-Repository lint:      passed
-Full suite:           132/132
-Build:                passed
-Check:                passed
+PASSO 19 targeted: 12/12
+Full suite:         144/144
+Test files:         18/18
+lint:               passed
+typecheck:          passed
+build:              passed
+check:              passed
 ```
-
-No new runtime tests were added because PASSO 18 introduces interfaces, not runtime behavior.
 
 ## Decisions
 
-After PASSO 18:
+After PASSO 19:
 
-`CODAL-DEC-001 -> CODAL-DEC-073`
+`CODAL-DEC-001 -> CODAL-DEC-081`
 
 Next:
 
-`CODAL-DEC-074`
+`CODAL-DEC-082`
 
 ## Next action
 
-PASSO 19 - Seed Foundation.
+PASSO 20 - Local Repository Implementations.
 
-Seed data must be deterministic, coherent and immutable as baseline.
+Local repositories should initialize from the immutable seed but maintain mutable working state separately.
 
-It must use Domain factories instead of raw unvalidated objects.
+Do not mutate `veloraSeed`.
 
 ## Reading order
 

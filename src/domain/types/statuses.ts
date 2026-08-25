@@ -27,6 +27,14 @@ export const orderStatuses = [
 export type OrderStatus =
   (typeof orderStatuses)[number];
 
+export function isOrderStatus(
+  value: string,
+): value is OrderStatus {
+  return orderStatuses.includes(
+    value as OrderStatus,
+  );
+}
+
 export const inventoryMovementTypes = [
   "ENTRY",
   "EXIT",

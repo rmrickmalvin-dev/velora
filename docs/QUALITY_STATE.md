@@ -37,46 +37,57 @@ Status: IN PROGRESS
 - [x] Inventory
 - [x] InventoryMovement
 - [x] Inventory Service
-- [x] 26/26 targeted tests
 - [x] 72/72 total tests at checkpoint
 
 ### Cart Domain - PASSO 16
 
-- [x] CartItem
 - [x] Cart
+- [x] CartItem
 - [x] Cart Service
-- [x] CartItemId
-- [x] positive safe-integer quantity
-- [x] non-negative unit price
-- [x] immutable CartItem
-- [x] immutable Cart
-- [x] immutable item collection
-- [x] unique CartItem ids
-- [x] one line per ProductVariant
-- [x] immutable add
-- [x] immutable remove
-- [x] immutable quantity update
-- [x] subtotal by Money
-- [x] empty subtotal is null
-- [x] multi-currency subtotal rejected
+- [x] 100/100 total tests at checkpoint
 
-## PASSO 16 Test Evidence
+### Order Domain - PASSO 17
+
+- [x] OrderItemId
+- [x] OrderItem
+- [x] commercial snapshots
+- [x] ProductId snapshot reference
+- [x] ProductVariantId snapshot reference
+- [x] product name snapshot
+- [x] SKU snapshot
+- [x] Money unit price snapshot
+- [x] positive safe-integer quantity
+- [x] Order
+- [x] optional CustomerId
+- [x] guest order support
+- [x] non-empty Order
+- [x] unique OrderItem ids
+- [x] Order status runtime validation
+- [x] immutable Order
+- [x] immutable items collection
+- [x] subtotal calculation
+- [x] currency mismatch protection
+- [x] explicit status transition graph
+- [x] terminal DELIVERED
+- [x] terminal CANCELLED
+
+## PASSO 17 Test Evidence
 
 Targeted:
 
 ```text
 3 test files
-28 tests
-28 passed
+32 tests
+32 passed
 0 failed
 ```
 
 Complete suite:
 
 ```text
-14 test files
-100 tests
-100 passed
+17 test files
+132 tests
+132 passed
 0 failed
 ```
 
@@ -95,8 +106,6 @@ Complete suite:
 
 ## Pending - Unit 01B
 
-- [ ] Order
-- [ ] OrderItem
 - [ ] Repository Contracts
 - [ ] Seed Foundation
 - [ ] IndexedDB provider
@@ -104,4 +113,4 @@ Complete suite:
 
 ## Next Quality Gate
 
-PASSO 17 - Order + OrderItem.
+PASSO 18 - Repository Contracts.

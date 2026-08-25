@@ -85,6 +85,14 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-055 | ACEITA | A Cart may contain at most one line per ProductVariant and unique CartItem ids | Avoid duplicated commercial lines and ambiguous quantity state |
 | CODAL-DEC-056 | ACEITA | Cart add, remove and quantity updates are immutable Domain Service transitions | Preserve aggregate invariants across cart operations |
 | CODAL-DEC-057 | ACEITA | Cart subtotal is calculated from unitPrice times quantity using Money; empty Cart returns null | Preserve currency safety while acknowledging that an empty cart has no currency context |
+| CODAL-DEC-066 | ACEITA | Order and OrderItem remain separate from Cart and CartItem | Preserve the boundary between current purchase intent and transaction history |
+| CODAL-DEC-059 | ACEITA | OrderItem preserves explicit commercial snapshots for product name, SKU and unit price | Historical orders must not change when Catalog data changes |
+| CODAL-DEC-060 | ACEITA | Order requires at least one OrderItem while customerId remains optional for guest orders | Prevent empty transactions while preserving guest checkout capability |
+| CODAL-DEC-061 | ACEITA | OrderItem quantity must be a positive safe integer and unitPriceSnapshot cannot be negative | Preserve deterministic commercial history |
+| CODAL-DEC-062 | ACEITA | OrderItem ids are unique inside an Order, while variant duplication is not prohibited at the Order layer | Preserve line identity without blocking future pricing or promotion scenarios |
+| CODAL-DEC-063 | ACEITA | OrderStatus is runtime-validated and changes only through an explicit transition graph | Prevent invalid lifecycle jumps |
+| CODAL-DEC-064 | ACEITA | DELIVERED and CANCELLED are terminal Order states | Preserve lifecycle finality |
+| CODAL-DEC-065 | ACEITA | Order subtotal is derived from OrderItem snapshots using Money and rejects currency mismatch | Keep historical totals deterministic and currency-safe |
 
 ## Decisões por área
 
@@ -178,7 +186,7 @@ Uma IA ou desenvolvedor que continuar a VELORA deve:
 - não substituir decisões ACEITAS silenciosamente;
 - verificar se uma nova implementação contradiz alguma decisão existente;
 - registrar novas decisões com numeração sequencial;
-- utilizar o próximo número disponível após CODAL-DEC-057;
+- utilizar o próximo número disponível após CODAL-DEC-065;
 - preservar decisões históricas mesmo quando forem superadas.
 
 ## Próxima decisão disponível

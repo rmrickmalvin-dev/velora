@@ -649,3 +649,111 @@ Next available decision:
 #### Next
 
 PASSO 17 - Order + OrderItem.
+---
+
+### PASSO 17 - Order Domain
+
+Status: COMPLETED AND TECHNICALLY VALIDATED
+
+#### OrderItem
+
+Added:
+
+- OrderItemId
+- OrderItem
+- ProductId reference
+- ProductVariantId reference
+- productNameSnapshot
+- skuSnapshot
+- unitPriceSnapshot
+- quantity
+- immutable commercial snapshot
+
+Validated:
+
+- required identifiers
+- required product name snapshot
+- SKU normalization
+- positive safe-integer quantity
+- non-negative unit price snapshot
+- immutable OrderItem
+
+#### Order
+
+Added:
+
+- Order
+- optional CustomerId
+- guest-order support
+- OrderStatus
+- immutable items collection
+
+Validated:
+
+- required Order id
+- optional but non-blank CustomerId
+- at least one OrderItem
+- unique OrderItem ids
+- runtime OrderStatus validation
+- immutable Order
+
+#### Order Service
+
+Added:
+
+- calculateOrderSubtotal
+- transitionOrderStatus
+
+Validated:
+
+- single-line subtotal
+- multi-line subtotal
+- cross-currency rejection
+- explicit lifecycle transitions
+- terminal DELIVERED
+- terminal CANCELLED
+- immutable status transition
+
+#### Architecture
+
+Cart and Order remain separate.
+
+OrderItem snapshots remain readable without current Catalog data.
+
+#### Testing
+
+PASSO 17 targeted validation:
+
+- 3 test files passed
+- 32 tests passed
+- 0 tests failed
+
+Complete suite:
+
+- 17 test files passed
+- 132 tests passed
+- 0 tests failed
+
+#### Technical Validation
+
+Passed:
+
+- npm run lint
+- npm run typecheck
+- npm run test
+- npm run build
+- npm run check
+
+#### Decisions
+
+Added:
+
+- CODAL-DEC-058 through CODAL-DEC-065
+
+Next available decision:
+
+- CODAL-DEC-066
+
+#### Next
+
+PASSO 18 - Repository Contracts.

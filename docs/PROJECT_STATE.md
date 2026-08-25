@@ -29,10 +29,11 @@ IN PROGRESS
 - `90f2d42` - domain primitives
 - `d682c43` - catalog domain
 - `c06a5d3` - inventory domain and movements
+- `0e461a3` - cart domain and cart operations
 
 ## Latest validated step
 
-PASSO 16 - Cart + CartItem
+PASSO 17 - Order + OrderItem
 
 ## Current Domain
 
@@ -62,71 +63,83 @@ Cart:
 - CartItem
 - Cart Service
 
-## Cart
+Order:
 
-Cart is the aggregate for current purchase intent.
+- Order
+- OrderItem
+- Order Service
+
+## OrderItem
+
+OrderItem is a commercial snapshot.
 
 Fields:
 
 - id
+- productId
+- productVariantId
+- productNameSnapshot
+- skuSnapshot
+- unitPriceSnapshot
+- quantity
+
+The snapshot prevents future Catalog changes from rewriting historical order data.
+
+## Order
+
+Fields:
+
+- id
+- optional customerId
+- status
 - items
 
 Rules:
 
-- id is required
-- items collection is immutable
-- CartItem ids are unique
-- a ProductVariant appears at most once in a Cart
-
-## CartItem
-
-Fields:
-
-- id
-- productVariantId
-- unitPrice
-- quantity
-
-Rules:
-
 - id required
-- productVariantId required
-- quantity is a positive safe integer
-- unitPrice cannot be negative
-- SKU and Inventory are not duplicated into CartItem
+- guest orders are allowed
+- customerId is optional but cannot be blank when provided
+- at least one OrderItem required
+- OrderItem ids must be unique
+- status must be valid
+- Order and items collection are immutable
 
-## Cart Service
+## Order Service
 
 Implemented:
 
-- addCartItem
-- removeCartItem
-- updateCartItemQuantity
-- calculateCartSubtotal
+- calculateOrderSubtotal
+- transitionOrderStatus
 
-All transitions are immutable.
+Status graph:
 
-Subtotal:
+```text
+PENDING
+|-- CONFIRMED
+|   |-- PREPARING
+|   |   |-- SHIPPED
+|   |   |   `-- DELIVERED
+|   |   `-- CANCELLED
+|   `-- CANCELLED
+`-- CANCELLED
+```
 
-- uses Money
-- uses integer multiplication
-- rejects currency mismatch through Money rules
-- returns null for empty cart
+DELIVERED and CANCELLED are terminal.
 
 ## Cart vs Order
 
 Cart represents current purchase intent.
 
-Order remains a separate future transaction snapshot.
+Order represents transaction history.
 
-Cart is not an Order draft.
+CartItem and OrderItem remain distinct.
 
 ## Quality Gate
 
 Latest evidence:
 
-- PASSO 16 targeted tests: 28/28
-- complete suite: 100/100
+- PASSO 17 targeted tests: 32/32
+- complete suite: 132/132
 - lint passed
 - typecheck passed
 - production build passed
@@ -138,14 +151,14 @@ Latest evidence:
 
 ## Decisions
 
-After PASSO 16:
+After PASSO 17:
 
-`CODAL-DEC-001 -> CODAL-DEC-057`
+`CODAL-DEC-001 -> CODAL-DEC-065`
 
 Next available decision:
 
-`CODAL-DEC-058`
+`CODAL-DEC-066`
 
 ## Next step
 
-PASSO 17 - Order + OrderItem.
+PASSO 18 - Repository Contracts.

@@ -36,160 +36,172 @@ Domain Contracts
 Infrastructure
 ```
 
-## Value Objects
+## Implemented domains
 
-- CurrencyCode
-- Money
-- SKU
-- Slug
+- Catalog
+- Inventory
+- Cart
+- Order
 
-## Catalog Domain
+## Order Domain
 
-```text
-ProductCategory
-       |
-       v
-    Product
-       |
-       +---------------+
-       v               v
-ProductVariant     ProductMedia
-```
+Order represents transaction history.
 
-## Inventory Domain
+Order is not Cart.
 
-```text
-ProductVariant
-      |
-      v
-Inventory
-      |
-      v
-InventoryMovement
-```
-
-## Cart Domain
-
-```text
-ProductVariant
-      |
-      v
-   CartItem
-      |
-      v
-     Cart
-```
-
-Cart represents current purchase intent.
-
-Cart remains separate from Order.
-
-### CartItem
+### OrderItem
 
 Structure:
 
 ```text
-CartItem
+OrderItem
 |- id
+|- productId
 |- productVariantId
-|- unitPrice
+|- productNameSnapshot
+|- skuSnapshot
+|- unitPriceSnapshot
 `- quantity
 ```
+
+OrderItem preserves commercial data that must not depend on future Catalog state.
+
+Snapshot fields are intentionally explicit.
 
 Invariants:
 
 - id required
+- productId required
 - productVariantId required
+- productNameSnapshot required
+- skuSnapshot validated through SKU
+- unitPriceSnapshot uses Money
+- unitPriceSnapshot cannot be negative
 - quantity is a positive safe integer
-- unitPrice is Money
-- unitPrice cannot be negative
-- CartItem is immutable
+- OrderItem is immutable
 
-CartItem does not contain:
-
-- Inventory
-- stock
-- Order state
-- persistence provider
-
-### Cart
+### Order
 
 Structure:
 
 ```text
-Cart
+Order
 |- id
+|- customerId?
+|- status
 `- items[]
 ```
 
 Invariants:
 
 - id required
-- Cart is immutable
+- customerId optional
+- customerId cannot be blank when provided
+- at least one OrderItem required
+- OrderItem ids are unique
+- status must be a valid OrderStatus
+- Order is immutable
 - items collection is immutable
-- CartItem ids are unique
-- ProductVariant ids are unique inside the Cart
 
-The one-variant-per-line rule prevents duplicate commercial lines.
+Guest orders are allowed by omitting customerId.
 
-### Cart Service
+### Order subtotal
 
-Functions:
-
-- addCartItem
-- removeCartItem
-- updateCartItemQuantity
-- calculateCartSubtotal
-
-Transitions return a new Cart.
-
-Original Cart and CartItem objects are not mutated.
-
-### Cart subtotal
-
-Each line total is:
+Order subtotal is calculated from snapshots:
 
 ```text
-unitPrice * quantity
+unitPriceSnapshot * quantity
 ```
 
-Subtotal uses Money operations.
+Money rules remain active.
 
-Rules:
+Cross-currency totals are rejected.
 
-- quantity multiplication is integer-only
-- different currencies are rejected
-- empty cart returns null because no currency exists yet
+### Order status transitions
 
-## Cart vs Inventory
+Allowed graph:
 
-Cart quantity is purchase intent.
+```text
+PENDING
+|-- CONFIRMED
+|   |-- PREPARING
+|   |   |-- SHIPPED
+|   |   |   `-- DELIVERED
+|   |   `-- CANCELLED
+|   `-- CANCELLED
+`-- CANCELLED
+```
 
-Inventory quantityOnHand is stock state.
+Terminal states:
 
-They are different concepts.
+- DELIVERED
+- CANCELLED
 
-Cart does not mutate Inventory directly.
+Invalid jumps are rejected.
 
-Application use cases will coordinate availability later.
+Transitions return a new Order and do not mutate the previous state.
+
+## Order Service
+
+Implemented:
+
+- `calculateOrderSubtotal`
+- `transitionOrderStatus`
+
+`calculateOrderSubtotal` derives totals from OrderItem snapshots using Money.
+
+`transitionOrderStatus` applies the explicit Order lifecycle without mutating the original Order.
+
+Allowed transitions:
+
+```text
+PENDING -> CONFIRMED
+PENDING -> CANCELLED
+CONFIRMED -> PREPARING
+CONFIRMED -> CANCELLED
+PREPARING -> SHIPPED
+PREPARING -> CANCELLED
+SHIPPED -> DELIVERED
+```
+
+Terminal states:
+
+- DELIVERED
+- CANCELLED
+
+Invalid lifecycle jumps are rejected.
 
 ## Cart vs Order
 
 Cart:
 
-- mutable through immutable state transitions
-- represents current intent
-- may change before checkout
+- current purchase intent
+- can be modified
+- CartItem stores current cart price state
 
 Order:
 
-- not implemented yet
-- will preserve transaction history
-- OrderItem will store commercial snapshots
+- historical transaction
+- status-controlled lifecycle
+- OrderItem stores commercial snapshots
 
-CartItem is not OrderItem.
+CartItem and OrderItem must not be merged.
+
+## Order vs Catalog
+
+Order history must remain readable even when:
+
+- Product name changes
+- SKU changes
+- price changes
+- Product is archived
+- ProductVariant changes
+
+Therefore OrderItem snapshot fields do not depend on current Catalog lookup for historical display.
 
 ## Persistence Boundary
+
+Next phase:
 
 ```text
 Use Case
@@ -204,6 +216,8 @@ v
 Data Provider
 ```
 
+Repository Contracts remain provider-independent.
+
 ## Test State
 
 PASSO 14 checkpoint:
@@ -214,12 +228,16 @@ PASSO 15 checkpoint:
 
 - 72 tests
 
-PASSO 16:
+PASSO 16 checkpoint:
 
-- 28 new tests
-- 100 total tests
+- 100 tests
+
+PASSO 17:
+
+- 32 new tests
+- 132 total tests
 - 0 failures
 
 ## Next milestone
 
-PASSO 17 - Order + OrderItem.
+PASSO 18 - Repository Contracts.

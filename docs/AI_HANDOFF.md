@@ -12,22 +12,16 @@ Unit 01B - Domain Foundation
 
 Latest validated step:
 
-PASSO 16 - Cart + CartItem
+PASSO 17 - Order + OrderItem
 
 ## Checkpoints
 
 - `90f2d42` - domain primitives
 - `d682c43` - catalog domain
 - `c06a5d3` - inventory domain
+- `0e461a3` - cart domain
 
 ## Current Domain
-
-Value Objects:
-
-- CurrencyCode
-- Money
-- SKU
-- Slug
 
 Catalog:
 
@@ -51,53 +45,60 @@ Cart:
 - updateCartItemQuantity
 - calculateCartSubtotal
 
-## Cart Rules
+Order:
 
-CartItem:
+- OrderItem
+- Order
+- calculateOrderSubtotal
+- transitionOrderStatus
 
-```text
-id
-productVariantId
-unitPrice
-quantity
-```
+## Order snapshot rule
 
-- quantity > 0
-- quantity is safe integer
-- unitPrice >= 0
-- immutable
+OrderItem preserves:
 
-Cart:
+- productId
+- productVariantId
+- productNameSnapshot
+- skuSnapshot
+- unitPriceSnapshot
+- quantity
 
-- immutable
-- unique item ids
-- one CartItem per ProductVariant
-- immutable items collection
+Historical order rendering must not require current Catalog values.
 
-Subtotal:
+## Order status rule
 
-- Money-based
-- integer multiplication
-- cross-currency rejected
-- empty cart => null
+Allowed transitions:
+
+- PENDING -> CONFIRMED
+- PENDING -> CANCELLED
+- CONFIRMED -> PREPARING
+- CONFIRMED -> CANCELLED
+- PREPARING -> SHIPPED
+- PREPARING -> CANCELLED
+- SHIPPED -> DELIVERED
+
+Terminal:
+
+- DELIVERED
+- CANCELLED
 
 ## Critical architecture rules
 
 Do not merge Cart with Order.
 
-Do not put Inventory inside Cart.
+Do not replace OrderItem snapshots with current Product data.
 
-Do not mutate ProductVariant when Cart quantity changes.
+Do not put persistence inside Domain entities.
 
-Cart quantity is purchase intent, not stock quantity.
+Do not bypass Money for order totals.
 
 ## Quality Gate
 
 Latest evidence:
 
 ```text
-PASSO 16 targeted: 28/28
-Full suite:         100/100
+PASSO 17 targeted: 32/32
+Full suite:         132/132
 lint:               passed
 typecheck:          passed
 build:              passed
@@ -106,19 +107,19 @@ check:              passed
 
 ## Decisions
 
-After PASSO 16:
+After PASSO 17:
 
-`CODAL-DEC-001 -> CODAL-DEC-057`
+`CODAL-DEC-001 -> CODAL-DEC-065`
 
 Next:
 
-`CODAL-DEC-058`
+`CODAL-DEC-066`
 
 ## Next action
 
-PASSO 17 - Order + OrderItem.
+PASSO 18 - Repository Contracts.
 
-OrderItem must preserve commercial snapshot data and must not depend on the current Catalog state.
+Repository Contracts must not know IndexedDB, Supabase, PostgreSQL or API clients.
 
 ## Reading order
 

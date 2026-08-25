@@ -12,7 +12,7 @@ Unit 01B - Domain Foundation
 
 Latest validated step:
 
-PASSO 17 - Order + OrderItem
+PASSO 18 - Repository Contracts
 
 ## Checkpoints
 
@@ -20,106 +20,75 @@ PASSO 17 - Order + OrderItem
 - `d682c43` - catalog domain
 - `c06a5d3` - inventory domain
 - `0e461a3` - cart domain
+- `bffa30d` - order domain
 
-## Current Domain
+## Repository Contracts
 
-Catalog:
+Available:
 
-- ProductCategory
-- Product
-- ProductVariant
-- ProductMedia
+- ProductCategoryRepository
+- ProductRepository
+- ProductVariantRepository
+- ProductMediaRepository
+- InventoryRepository
+- InventoryMovementRepository
+- CartRepository
+- OrderRepository
 
-Inventory:
+## Critical repository rules
 
-- Inventory
-- InventoryMovement
-- applyInventoryMovement
+Contracts know only Domain types.
 
-Cart:
+Do not import:
 
-- CartItem
-- Cart
-- addCartItem
-- removeCartItem
-- updateCartItemQuantity
-- calculateCartSubtotal
+- IndexedDB
+- Supabase
+- PostgreSQL
+- fetch
+- React
+- Next.js
 
-Order:
+All repository operations are async Promise-based.
 
-- OrderItem
-- Order
-- calculateOrderSubtotal
-- transitionOrderStatus
+Single lookups return Entity or null.
 
-## Order snapshot rule
+Collection queries return readonly arrays.
 
-OrderItem preserves:
+InventoryMovement history uses append.
 
-- productId
-- productVariantId
-- productNameSnapshot
-- skuSnapshot
-- unitPriceSnapshot
-- quantity
-
-Historical order rendering must not require current Catalog values.
-
-## Order status rule
-
-Allowed transitions:
-
-- PENDING -> CONFIRMED
-- PENDING -> CANCELLED
-- CONFIRMED -> PREPARING
-- CONFIRMED -> CANCELLED
-- PREPARING -> SHIPPED
-- PREPARING -> CANCELLED
-- SHIPPED -> DELIVERED
-
-Terminal:
-
-- DELIVERED
-- CANCELLED
-
-## Critical architecture rules
-
-Do not merge Cart with Order.
-
-Do not replace OrderItem snapshots with current Product data.
-
-Do not put persistence inside Domain entities.
-
-Do not bypass Money for order totals.
+OrderRepository has no delete contract.
 
 ## Quality Gate
 
 Latest evidence:
 
 ```text
-PASSO 17 targeted: 32/32
-Full suite:         132/132
-lint:               passed
-typecheck:          passed
-build:              passed
-check:              passed
+Repository typecheck: passed
+Repository lint:      passed
+Full suite:           132/132
+Build:                passed
+Check:                passed
 ```
+
+No new runtime tests were added because PASSO 18 introduces interfaces, not runtime behavior.
 
 ## Decisions
 
-After PASSO 17:
+After PASSO 18:
 
-`CODAL-DEC-001 -> CODAL-DEC-065`
+`CODAL-DEC-001 -> CODAL-DEC-073`
 
 Next:
 
-`CODAL-DEC-066`
+`CODAL-DEC-074`
 
 ## Next action
 
-PASSO 18 - Repository Contracts.
+PASSO 19 - Seed Foundation.
 
-Repository Contracts must not know IndexedDB, Supabase, PostgreSQL or API clients.
+Seed data must be deterministic, coherent and immutable as baseline.
+
+It must use Domain factories instead of raw unvalidated objects.
 
 ## Reading order
 

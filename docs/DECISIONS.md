@@ -93,6 +93,14 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-063 | ACEITA | OrderStatus is runtime-validated and changes only through an explicit transition graph | Prevent invalid lifecycle jumps |
 | CODAL-DEC-064 | ACEITA | DELIVERED and CANCELLED are terminal Order states | Preserve lifecycle finality |
 | CODAL-DEC-065 | ACEITA | Order subtotal is derived from OrderItem snapshots using Money and rejects currency mismatch | Keep historical totals deterministic and currency-safe |
+| CODAL-DEC-074 | ACEITA | Repository Contracts live in Domain and expose only Domain concepts | Preserve persistence independence and dependency direction |
+| CODAL-DEC-067 | ACEITA | Repository operations are asynchronous Promise-based contracts from the start | Support local and remote providers without changing Application signatures |
+| CODAL-DEC-068 | ACEITA | Single-entity repository lookups return Entity or null when data is absent | Treat absence as a normal data outcome and let Application decide error semantics |
+| CODAL-DEC-069 | ACEITA | Repository collection queries return readonly arrays | Prevent callers from mutating repository-owned collections |
+| CODAL-DEC-070 | ACEITA | InventoryMovementRepository exposes append instead of generic save | Make historical append semantics explicit |
+| CODAL-DEC-071 | ACEITA | CartRepository may remove Cart state because Cart is temporary purchase intent | Allow disposal of abandoned or completed temporary cart state |
+| CODAL-DEC-072 | ACEITA | OrderRepository does not expose delete | Preserve transaction history as durable domain data |
+| CODAL-DEC-073 | ACEITA | Repository Contracts never expose provider-specific query or storage types | Prevent Infrastructure details from leaking into Domain or Application |
 
 ## Decisões por área
 
@@ -186,7 +194,7 @@ Uma IA ou desenvolvedor que continuar a VELORA deve:
 - não substituir decisões ACEITAS silenciosamente;
 - verificar se uma nova implementação contradiz alguma decisão existente;
 - registrar novas decisões com numeração sequencial;
-- utilizar o próximo número disponível após CODAL-DEC-065;
+- utilizar o próximo número disponível após CODAL-DEC-073;
 - preservar decisões históricas mesmo quando forem superadas.
 
 ## Próxima decisão disponível

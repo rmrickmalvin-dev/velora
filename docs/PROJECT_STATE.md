@@ -30,118 +30,79 @@ IN PROGRESS
 - `d682c43` - catalog domain
 - `c06a5d3` - inventory domain and movements
 - `0e461a3` - cart domain and cart operations
+- `bffa30d` - order domain and lifecycle
 
 ## Latest validated step
 
-PASSO 17 - Order + OrderItem
+PASSO 18 - Repository Contracts
 
 ## Current Domain
 
-Value Objects:
-
-- CurrencyCode
-- Money
-- SKU
-- Slug
-
-Catalog:
-
-- ProductCategory
-- Product
-- ProductVariant
-- ProductMedia
-
-Inventory:
-
-- Inventory
-- InventoryMovement
-- Inventory Service
-
-Cart:
-
-- Cart
-- CartItem
-- Cart Service
-
-Order:
-
-- Order
-- OrderItem
-- Order Service
-
-## OrderItem
-
-OrderItem is a commercial snapshot.
-
-Fields:
-
-- id
-- productId
-- productVariantId
-- productNameSnapshot
-- skuSnapshot
-- unitPriceSnapshot
-- quantity
-
-The snapshot prevents future Catalog changes from rewriting historical order data.
-
-## Order
-
-Fields:
-
-- id
-- optional customerId
-- status
-- items
-
-Rules:
-
-- id required
-- guest orders are allowed
-- customerId is optional but cannot be blank when provided
-- at least one OrderItem required
-- OrderItem ids must be unique
-- status must be valid
-- Order and items collection are immutable
-
-## Order Service
-
 Implemented:
 
-- calculateOrderSubtotal
-- transitionOrderStatus
+- Catalog
+- Inventory
+- Cart
+- Order
+- Repository Contracts
 
-Status graph:
+## Repository Contracts
 
-```text
-PENDING
-|-- CONFIRMED
-|   |-- PREPARING
-|   |   |-- SHIPPED
-|   |   |   `-- DELIVERED
-|   |   `-- CANCELLED
-|   `-- CANCELLED
-`-- CANCELLED
-```
+Created:
 
-DELIVERED and CANCELLED are terminal.
+- ProductCategoryRepository
+- ProductRepository
+- ProductVariantRepository
+- ProductMediaRepository
+- InventoryRepository
+- InventoryMovementRepository
+- CartRepository
+- OrderRepository
 
-## Cart vs Order
+Contracts live in Domain and know only Domain concepts.
 
-Cart represents current purchase intent.
+They do not know:
 
-Order represents transaction history.
+- IndexedDB
+- localStorage
+- Supabase
+- PostgreSQL
+- HTTP
+- fetch
+- Next.js
+- React
 
-CartItem and OrderItem remain distinct.
+## Contract semantics
+
+Read operations are asynchronous and return Promise.
+
+Missing entities return `null`.
+
+Collection queries return readonly arrays.
+
+State repositories use `save`.
+
+InventoryMovement uses `append` because movement history is conceptually append-only.
+
+CartRepository supports removal because a temporary Cart may be discarded.
+
+OrderRepository intentionally does not expose delete because Order is historical transaction data.
 
 ## Quality Gate
 
+PASSO 18 adds no runtime behavior and therefore no artificial runtime tests.
+
+Primary proof:
+
+- TypeScript contract validation
+- ESLint
+- full regression suite
+
 Latest evidence:
 
-- PASSO 17 targeted tests: 32/32
-- complete suite: 132/132
-- lint passed
-- typecheck passed
+- repository typecheck passed
+- repository lint passed
+- full suite: 132/132
 - production build passed
 - `/pt-BR` SSG passed
 - `/en` SSG passed
@@ -151,14 +112,14 @@ Latest evidence:
 
 ## Decisions
 
-After PASSO 17:
+After PASSO 18:
 
-`CODAL-DEC-001 -> CODAL-DEC-065`
+`CODAL-DEC-001 -> CODAL-DEC-073`
 
 Next available decision:
 
-`CODAL-DEC-066`
+`CODAL-DEC-074`
 
 ## Next step
 
-PASSO 18 - Repository Contracts.
+PASSO 19 - Seed Foundation.

@@ -757,3 +757,106 @@ Next available decision:
 #### Next
 
 PASSO 18 - Repository Contracts.
+---
+
+### PASSO 18 - Repository Contracts
+
+Status: COMPLETED AND TECHNICALLY VALIDATED
+
+#### Added
+
+Repository Contracts:
+
+- ProductCategoryRepository
+- ProductRepository
+- ProductVariantRepository
+- ProductMediaRepository
+- InventoryRepository
+- InventoryMovementRepository
+- CartRepository
+- OrderRepository
+
+Also added:
+
+- repository barrel export
+
+#### Architecture
+
+Established:
+
+- Repository Contracts live in Domain
+- contracts know only Domain concepts
+- contracts are Promise-based
+- missing single entities return null
+- collection queries return readonly arrays
+- provider-specific types are forbidden
+
+Provider implementations may later use:
+
+- in-memory data
+- seed data
+- IndexedDB
+- API
+- Supabase
+- PostgreSQL
+
+without changing the contracts.
+
+#### Semantics
+
+InventoryMovementRepository:
+
+- uses append for historical movement records
+
+CartRepository:
+
+- supports remove for temporary Cart state
+
+OrderRepository:
+
+- intentionally exposes no delete contract
+
+#### Testing Strategy
+
+No new runtime behavior was introduced.
+
+No artificial runtime tests were added for TypeScript interfaces.
+
+Validation used:
+
+- TypeScript typecheck
+- ESLint
+- existing full regression suite
+- production build
+
+#### Test Evidence
+
+Complete suite remains:
+
+- 17 test files passed
+- 132 tests passed
+- 0 tests failed
+
+#### Technical Validation
+
+Passed:
+
+- npm run typecheck
+- npm run lint
+- npm run test
+- npm run build
+- npm run check
+
+#### Decisions
+
+Added:
+
+- CODAL-DEC-066 through CODAL-DEC-073
+
+Next available decision:
+
+- CODAL-DEC-074
+
+#### Next
+
+PASSO 19 - Seed Foundation.

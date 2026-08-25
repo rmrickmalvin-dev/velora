@@ -8,19 +8,6 @@ Domain does not know Framework.
 
 Framework knows Domain.
 
-## Forbidden Domain dependencies
-
-- React
-- Next.js
-- Zustand
-- DOM
-- CSS
-- localStorage
-- IndexedDB
-- Supabase
-- fetch
-- external providers
-
 ## Dependency direction
 
 ```text
@@ -43,201 +30,151 @@ Infrastructure
 - Cart
 - Order
 
-## Order Domain
+## Repository Boundary
 
-Order represents transaction history.
+Repository Contracts are Domain ports.
 
-Order is not Cart.
-
-### OrderItem
-
-Structure:
+They describe what the application needs from persistence without describing how persistence works.
 
 ```text
-OrderItem
-|- id
-|- productId
-|- productVariantId
-|- productNameSnapshot
-|- skuSnapshot
-|- unitPriceSnapshot
-`- quantity
-```
-
-OrderItem preserves commercial data that must not depend on future Catalog state.
-
-Snapshot fields are intentionally explicit.
-
-Invariants:
-
-- id required
-- productId required
-- productVariantId required
-- productNameSnapshot required
-- skuSnapshot validated through SKU
-- unitPriceSnapshot uses Money
-- unitPriceSnapshot cannot be negative
-- quantity is a positive safe integer
-- OrderItem is immutable
-
-### Order
-
-Structure:
-
-```text
-Order
-|- id
-|- customerId?
-|- status
-`- items[]
-```
-
-Invariants:
-
-- id required
-- customerId optional
-- customerId cannot be blank when provided
-- at least one OrderItem required
-- OrderItem ids are unique
-- status must be a valid OrderStatus
-- Order is immutable
-- items collection is immutable
-
-Guest orders are allowed by omitting customerId.
-
-### Order subtotal
-
-Order subtotal is calculated from snapshots:
-
-```text
-unitPriceSnapshot * quantity
-```
-
-Money rules remain active.
-
-Cross-currency totals are rejected.
-
-### Order status transitions
-
-Allowed graph:
-
-```text
-PENDING
-|-- CONFIRMED
-|   |-- PREPARING
-|   |   |-- SHIPPED
-|   |   |   `-- DELIVERED
-|   |   `-- CANCELLED
-|   `-- CANCELLED
-`-- CANCELLED
-```
-
-Terminal states:
-
-- DELIVERED
-- CANCELLED
-
-Invalid jumps are rejected.
-
-Transitions return a new Order and do not mutate the previous state.
-
-## Order Service
-
-Implemented:
-
-- `calculateOrderSubtotal`
-- `transitionOrderStatus`
-
-`calculateOrderSubtotal` derives totals from OrderItem snapshots using Money.
-
-`transitionOrderStatus` applies the explicit Order lifecycle without mutating the original Order.
-
-Allowed transitions:
-
-```text
-PENDING -> CONFIRMED
-PENDING -> CANCELLED
-CONFIRMED -> PREPARING
-CONFIRMED -> CANCELLED
-PREPARING -> SHIPPED
-PREPARING -> CANCELLED
-SHIPPED -> DELIVERED
-```
-
-Terminal states:
-
-- DELIVERED
-- CANCELLED
-
-Invalid lifecycle jumps are rejected.
-
-## Cart vs Order
-
-Cart:
-
-- current purchase intent
-- can be modified
-- CartItem stores current cart price state
-
-Order:
-
-- historical transaction
-- status-controlled lifecycle
-- OrderItem stores commercial snapshots
-
-CartItem and OrderItem must not be merged.
-
-## Order vs Catalog
-
-Order history must remain readable even when:
-
-- Product name changes
-- SKU changes
-- price changes
-- Product is archived
-- ProductVariant changes
-
-Therefore OrderItem snapshot fields do not depend on current Catalog lookup for historical display.
-
-## Persistence Boundary
-
-Next phase:
-
-```text
-Use Case
-|
-v
+Application
+    |
+    v
 Repository Contract
-|
-v
-Repository Implementation
-|
-v
-Data Provider
+    ^
+    |
+Infrastructure Adapter
 ```
 
-Repository Contracts remain provider-independent.
+## Provider independence
 
-## Test State
+Repository Contracts must not expose:
 
-PASSO 14 checkpoint:
+- IndexedDB transaction types
+- localStorage APIs
+- Supabase clients
+- PostgreSQL types
+- HTTP response objects
+- fetch
+- React
+- Next.js
 
-- 46 tests
+## Async contract
 
-PASSO 15 checkpoint:
+Repository methods return Promise from the beginning.
 
-- 72 tests
+This allows the same Application layer to work with:
 
-PASSO 16 checkpoint:
+- in-memory demo repositories
+- IndexedDB
+- remote APIs
+- Supabase
+- PostgreSQL-backed services
 
-- 100 tests
+without changing Domain contracts.
 
-PASSO 17:
+## Missing entity semantic
 
-- 32 new tests
-- 132 total tests
-- 0 failures
+Single-entity lookup returns:
+
+```text
+Entity | null
+```
+
+Missing data is not automatically an exceptional condition.
+
+Application Use Cases decide whether a missing entity becomes a user-facing error.
+
+## Collection semantic
+
+List queries return:
+
+```text
+readonly Entity[]
+```
+
+Callers must not mutate repository-owned collections.
+
+## Catalog repositories
+
+### ProductCategoryRepository
+
+- findById
+- findBySlug
+- list
+- save
+
+### ProductRepository
+
+- findById
+- findBySlug
+- list
+- save
+
+### ProductVariantRepository
+
+- findById
+- findBySku
+- listByProductId
+- save
+
+### ProductMediaRepository
+
+- findById
+- listByProductId
+- listByVariantId
+- save
+
+## Inventory repositories
+
+### InventoryRepository
+
+- findById
+- findByProductVariantId
+- save
+
+### InventoryMovementRepository
+
+- listByInventoryId
+- append
+
+InventoryMovement uses `append` instead of generic `save`.
+
+The name communicates historical append semantics.
+
+## CartRepository
+
+- findById
+- save
+- remove
+
+Cart is temporary purchase intent and may be discarded.
+
+## OrderRepository
+
+- findById
+- listByCustomerId
+- save
+
+OrderRepository intentionally has no delete contract.
+
+Order is transaction history.
+
+## Current test state
+
+Repository interfaces add no runtime behavior.
+
+Therefore PASSO 18 adds no artificial interface tests.
+
+Regression remains:
+
+- 17 test files
+- 132 tests
+- 132 passed
+- 0 failed
+
+TypeScript typecheck is the primary contract proof for this step.
 
 ## Next milestone
 
-PASSO 18 - Repository Contracts.
+PASSO 19 - Seed Foundation.

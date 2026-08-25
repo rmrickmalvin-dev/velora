@@ -6,97 +6,56 @@ Last update: 2026-08-25
 
 Status: IN PROGRESS
 
-## Unit 01A
-
-Status: COMPLETED, VALIDATED AND VERSIONED
-
 ## Unit 01B - Domain Foundation
-
-Status: IN PROGRESS
 
 ### Foundation
 
-- [x] architecture boundaries
-- [x] DomainValidationError
-- [x] CurrencyCode
-- [x] Money
-- [x] SKU
-- [x] Slug
-- [x] Vitest
+- [x] Domain primitives
+- [x] Catalog Domain
+- [x] Inventory Domain
+- [x] Cart Domain
+- [x] Order Domain
 
-### Catalog Domain - PASSO 14
+### Repository Contracts - PASSO 18
 
-- [x] ProductCategory
-- [x] Product
-- [x] ProductVariant
-- [x] ProductMedia
-- [x] 46/46 total tests at checkpoint
+- [x] ProductCategoryRepository
+- [x] ProductRepository
+- [x] ProductVariantRepository
+- [x] ProductMediaRepository
+- [x] InventoryRepository
+- [x] InventoryMovementRepository
+- [x] CartRepository
+- [x] OrderRepository
+- [x] provider-independent signatures
+- [x] async Promise contracts
+- [x] null for missing entity
+- [x] readonly collection results
+- [x] append-only movement semantic
+- [x] no provider imports
+- [x] no React imports
+- [x] no Next.js imports
 
-### Inventory Domain - PASSO 15
+## PASSO 18 Test Strategy
 
-- [x] Inventory
-- [x] InventoryMovement
-- [x] Inventory Service
-- [x] 72/72 total tests at checkpoint
+Repository Contracts contain interfaces only.
 
-### Cart Domain - PASSO 16
+No runtime behavior was introduced.
 
-- [x] Cart
-- [x] CartItem
-- [x] Cart Service
-- [x] 100/100 total tests at checkpoint
+Therefore no artificial unit tests were added for interface declarations.
 
-### Order Domain - PASSO 17
+Validation uses:
 
-- [x] OrderItemId
-- [x] OrderItem
-- [x] commercial snapshots
-- [x] ProductId snapshot reference
-- [x] ProductVariantId snapshot reference
-- [x] product name snapshot
-- [x] SKU snapshot
-- [x] Money unit price snapshot
-- [x] positive safe-integer quantity
-- [x] Order
-- [x] optional CustomerId
-- [x] guest order support
-- [x] non-empty Order
-- [x] unique OrderItem ids
-- [x] Order status runtime validation
-- [x] immutable Order
-- [x] immutable items collection
-- [x] subtotal calculation
-- [x] currency mismatch protection
-- [x] explicit status transition graph
-- [x] terminal DELIVERED
-- [x] terminal CANCELLED
-
-## PASSO 17 Test Evidence
-
-Targeted:
-
-```text
-3 test files
-32 tests
-32 passed
-0 failed
-```
-
-Complete suite:
-
-```text
-17 test files
-132 tests
-132 passed
-0 failed
-```
+- TypeScript typecheck
+- ESLint
+- existing 132-test regression suite
+- production build
 
 ## Latest Technical Gate
 
-- [x] targeted Vitest
-- [x] npm run lint
 - [x] npm run typecheck
+- [x] npm run lint
 - [x] npm run test
+- [x] 132/132 tests
 - [x] npm run build
 - [x] npm run check
 - [x] /pt-BR SSG
@@ -106,11 +65,11 @@ Complete suite:
 
 ## Pending - Unit 01B
 
-- [ ] Repository Contracts
 - [ ] Seed Foundation
+- [ ] Local Repository implementations
+- [ ] Application Use Cases
 - [ ] IndexedDB provider
-- [ ] Local repositories
 
 ## Next Quality Gate
 
-PASSO 18 - Repository Contracts.
+PASSO 19 - Seed Foundation.

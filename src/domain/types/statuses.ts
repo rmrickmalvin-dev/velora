@@ -7,6 +7,14 @@ export const productStatuses = [
 export type ProductStatus =
   (typeof productStatuses)[number];
 
+export function isProductStatus(
+  value: string,
+): value is ProductStatus {
+  return productStatuses.includes(
+    value as ProductStatus,
+  );
+}
+
 export const orderStatuses = [
   "PENDING",
   "CONFIRMED",

@@ -1,12 +1,12 @@
-# CHANGELOG — VELORA
+# CHANGELOG â€” VELORA
 
-Última atualização: 2026-08-24
+Ãšltima atualizaÃ§Ã£o: 2026-08-24
 
-## BUILD 01 — Foundation
+## BUILD 01 â€” Foundation
 
-### Unidade 01A — Bootstrap + Locale Foundation
+### Unidade 01A â€” Bootstrap + Locale Foundation
 
-Status: CONCLUÍDA, VALIDADA E VERSIONADA
+Status: CONCLUÃDA, VALIDADA E VERSIONADA
 
 #### Added
 
@@ -23,7 +23,7 @@ Status: CONCLUÍDA, VALIDADA E VERSIONADA
 - localized `html lang`;
 - locale switcher;
 - pathname-preserving locale navigation;
-- default locale redirect `/` → `/pt-BR`;
+- default locale redirect `/` â†’ `/pt-BR`;
 - Proxy de locale;
 - Pearl + Champagne Design Tokens;
 - semantic color tokens;
@@ -103,9 +103,9 @@ Unidade 01A approved as the first stable technical checkpoint of VELORA.
 
 ---
 
-### Unidade 01B — Domain Foundation
+### Unidade 01B â€” Domain Foundation
 
-Status: EM EXECUÇÃO
+Status: EM EXECUÃ‡ÃƒO
 
 #### Architecture
 
@@ -132,9 +132,9 @@ Added:
 Established dependency direction:
 
 UI
-→ Application
-→ Domain Contracts
-← Infrastructure
+â†’ Application
+â†’ Domain Contracts
+â† Infrastructure
 
 Established Domain restrictions:
 
@@ -291,15 +291,15 @@ Passed:
 Aggregated Quality Gate:
 
 lint
-→ typecheck
-→ unit tests
-→ production build
+â†’ typecheck
+â†’ unit tests
+â†’ production build
 
 Latest validated result:
 
 - ESLint passed;
 - TypeScript passed;
-- Vitest passed — 18/18;
+- Vitest passed â€” 18/18;
 - production build passed;
 - `/pt-BR` SSG passed;
 - `/en` SSG passed;
@@ -349,7 +349,7 @@ Required next validations:
 
 - product identity invariants;
 - slug invariants;
-- ProductVariant → Product relationship;
+- ProductVariant â†’ Product relationship;
 - SKU ownership by variant;
 - non-negative variant price;
 - predictable ProductMedia structure;
@@ -362,3 +362,70 @@ Required next validations:
 - unit tests;
 - production build;
 - aggregated Quality Gate.
+---
+
+### PASSO 14 â€” Catalog Domain
+
+Status: CONCLUÃDO E TECNICAMENTE VALIDADO
+
+#### Added
+
+- Slug Value Object;
+- ProductCategory;
+- Product;
+- ProductVariant;
+- ProductMedia;
+- ProductCategoryId;
+- ProductMediaId;
+- generic immutable Variant attributes;
+- Product/Variant media association.
+
+#### Invariants
+
+- slug normalization and validation;
+- ProductCategory identity;
+- Product identity/category/status;
+- ProductVariant belongs to Product;
+- SKU belongs to ProductVariant;
+- ProductVariant price cannot be negative;
+- attributes cannot contain empty keys/values;
+- ProductMedia belongs to Product;
+- ProductMedia may optionally target ProductVariant;
+- ProductMedia position is non-negative safe integer;
+- Catalog remains independent from Inventory and Infrastructure.
+
+#### Testing
+
+PASSO 14 isolated:
+
+- 5 test files passed;
+- 28 tests passed;
+- 0 failed.
+
+Complete suite:
+
+- 8 test files passed;
+- 46 tests passed;
+- 0 failed.
+
+#### Technical Validation
+
+Passed:
+
+- `npm run typecheck`;
+- `npm run lint`;
+- `npm run test`;
+- `npm run build`;
+- `npm run check`.
+
+Production build confirmed PT-BR, EN and ES via SSG and Proxy recognized by Next.js.
+
+#### Decisions
+
+Added CODAL-DEC-034 through CODAL-DEC-041.
+
+Next decision: CODAL-DEC-042.
+
+#### Next
+
+PASSO 15 â€” Inventory + InventoryMovement.

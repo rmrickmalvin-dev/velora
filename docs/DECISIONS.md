@@ -1,140 +1,158 @@
-# DECISIONS — VELORA
+# DECISIONS â€” VELORA
 
-Última atualização: 2026-08-24
+Ãšltima atualizaÃ§Ã£o: 2026-08-24
 
 ## Objetivo
 
-Este documento representa o Registro Oficial de Decisões da VELORA.
+Este documento representa o Registro Oficial de DecisÃµes da VELORA.
 
-Decisões aceitas não devem ser apagadas silenciosamente.
+DecisÃµes aceitas nÃ£o devem ser apagadas silenciosamente.
 
-Quando uma decisão precisar mudar:
+Quando uma decisÃ£o precisar mudar:
 
-1. preservar a decisão original;
-2. registrar uma nova decisão;
+1. preservar a decisÃ£o original;
+2. registrar uma nova decisÃ£o;
 3. marcar a anterior como SUPERADA;
-4. indicar qual decisão a substituiu;
+4. indicar qual decisÃ£o a substituiu;
 5. documentar a justificativa;
 6. revalidar os gates afetados.
 
-## Status possíveis
+## Status possÃ­veis
 
 - PROPOSTA
 - ACEITA
 - SUPERADA
 - REJEITADA
 
-## Registro Oficial de Decisões
+## Registro Oficial de DecisÃµes
 
-| ID | Status | Decisão | Razão |
+| ID | Status | DecisÃ£o | RazÃ£o |
 | --- | --- | --- | --- |
-| CODAL-DEC-001 | ACEITA | A navegação principal da VELORA seguirá estrutura vertical convencional de e-commerce | Preservar previsibilidade, escaneabilidade e familiaridade para usuários de comércio eletrônico |
-| CODAL-DEC-002 | ACEITA | O sistema possuirá três papéis conceituais: GUEST, CUSTOMER e ADMIN | Demonstrar uma experiência completa baseada em papéis sem misturar responsabilidades |
-| CODAL-DEC-003 | ACEITA | O papel ativo modifica globalmente as ações e capacidades disponíveis na experiência | Permitir que storefront e áreas operacionais reajam de forma consistente ao contexto do usuário |
-| CODAL-DEC-004 | ACEITA | ADMIN poderá utilizar a própria Storefront com controles contextuais discretos de edição e operação | Demonstrar administração integrada sem criar uma experiência visual desconectada do produto público |
-| CODAL-DEC-005 | ACEITA | A persistência local permanecerá desacoplada da UI | Permitir substituição futura do provider sem reconstruir componentes React |
-| CODAL-DEC-006 | ACEITA | A VELORA não realizará pagamento real durante a versão conceitual de portfólio | Evitar simulação enganosa de transações financeiras e manter o checkout demonstrativo |
-| CODAL-DEC-007 | ACEITA | PT-BR, EN e ES fazem parte da arquitetura desde o início | Evitar internacionalização tardia e garantir paridade estrutural entre idiomas |
-| CODAL-DEC-008 | ACEITA | A identidade visual utilizará Pearl + Champagne como direção principal | Criar uma estética tecnológica, sofisticada e premium sem copiar diretamente outras marcas |
-| CODAL-DEC-009 | ACEITA | UI e Data Provider permanecerão separados por contratos e camadas | Permitir evolução de dados locais para API, Supabase ou PostgreSQL sem acoplamento da apresentação |
-| CODAL-DEC-010 | ACEITA | Operações administrativas relevantes deverão possuir feedback e confirmação apropriados | Reduzir erros operacionais e tornar ações administrativas compreensíveis |
-| CODAL-DEC-011 | ACEITA | A identidade oficial do projeto será VELORA | Consolidar uma marca própria, memorável e adequada ao posicionamento tecnológico premium |
-| CODAL-DEC-012 | ACEITA | O catálogo inicial utilizará produtos, marcas e dados fictícios | Permitir liberdade criativa para portfólio sem sugerir uma operação comercial real |
-| CODAL-DEC-013 | ACEITA | O estado inicial utilizará Seed imutável combinado com overrides locais | Preservar uma baseline confiável e permitir alterações demonstrativas sem destruir os dados originais |
-| CODAL-DEC-014 | ACEITA | IndexedDB será o mecanismo preferencial para dados mutáveis de domínio na implementação local | Suportar persistência estruturada e maior volume de dados sem acoplar o domínio ao navegador |
-| CODAL-DEC-015 | ACEITA | Zustand será utilizado somente para estado global de experiência quando houver necessidade comprovada | Evitar transformar Zustand em substituto das regras de domínio ou dos repositories |
-| CODAL-DEC-016 | ACEITA | Vercel será o primeiro alvo público de deploy | Manter alinhamento direto com Next.js e reduzir complexidade inicial de publicação |
-| CODAL-DEC-017 | ACEITA | A base visual utilizará CSS moderno + CSS Modules + Design Tokens | Manter controle explícito do Design System, performance e identidade sem dependência inicial de Tailwind |
-| CODAL-DEC-018 | ACEITA | Storefront e Admin utilizarão o mesmo Design System | Preservar consistência visual e reduzir duplicação entre experiências públicas e administrativas |
-| CODAL-DEC-019 | ACEITA | Versões de runtime e dependências principais serão fixadas e registradas durante BUILD 01 | Tornar instalação, debugging, CI e evolução do projeto mais previsíveis |
-| CODAL-DEC-020 | ACEITA | URLs localizadas e troca de idioma deverão preservar o contexto equivalente da jornada | Evitar que a mudança de idioma reinicie desnecessariamente a navegação do usuário |
-| CODAL-DEC-021 | ACEITA | Domain não depende de React ou Next.js | Preservar regras centrais fora da UI |
-| CODAL-DEC-022 | ACEITA | Product e ProductVariant são entidades distintas | Variações possuem SKU, preço e estoque próprios |
-| CODAL-DEC-023 | ACEITA | Estoque é controlado por variante | Quantidades precisam representar a unidade vendável real |
-| CODAL-DEC-024 | ACEITA | Inventory e InventoryMovement são conceitos separados | Estado atual e histórico possuem responsabilidades diferentes |
-| CODAL-DEC-025 | ACEITA | OrderItem preserva snapshot comercial | Histórico não pode mudar com alterações futuras do catálogo |
-| CODAL-DEC-026 | ACEITA | Valores monetários usam menor unidade da moeda | Reduzir erros de precisão e tornar cálculos determinísticos |
-| CODAL-DEC-027 | ACEITA | Repository Contracts não conhecem providers | Permitir troca de persistência sem reconstruir Application ou UI |
-| CODAL-DEC-028 | ACEITA | Componentes não acessam persistência de domínio diretamente | Evitar acoplamento entre UI e infraestrutura |
-| CODAL-DEC-029 | ACEITA | Money é representado por minorUnits + CurrencyCode | Evitar ambiguidade e erros de precisão monetária |
-| CODAL-DEC-030 | ACEITA | Formatação monetária não pertence ao Domain | Locale e apresentação não devem contaminar regras centrais |
-| CODAL-DEC-031 | ACEITA | Percentuais aguardam política explícita de arredondamento | Não introduzir arredondamento financeiro silencioso |
-| CODAL-DEC-032 | ACEITA | SKU e Entity ID são conceitos distintos | Identidade técnica e identidade operacional possuem responsabilidades diferentes |
-| CODAL-DEC-033 | ACEITA | Testes unitários de domínio utilizam Vitest | Regras centrais precisam de prova automatizada desde o BUILD 01 |
+| CODAL-DEC-001 | ACEITA | A navegaÃ§Ã£o principal da VELORA seguirÃ¡ estrutura vertical convencional de e-commerce | Preservar previsibilidade, escaneabilidade e familiaridade para usuÃ¡rios de comÃ©rcio eletrÃ´nico |
+| CODAL-DEC-002 | ACEITA | O sistema possuirÃ¡ trÃªs papÃ©is conceituais: GUEST, CUSTOMER e ADMIN | Demonstrar uma experiÃªncia completa baseada em papÃ©is sem misturar responsabilidades |
+| CODAL-DEC-003 | ACEITA | O papel ativo modifica globalmente as aÃ§Ãµes e capacidades disponÃ­veis na experiÃªncia | Permitir que storefront e Ã¡reas operacionais reajam de forma consistente ao contexto do usuÃ¡rio |
+| CODAL-DEC-004 | ACEITA | ADMIN poderÃ¡ utilizar a prÃ³pria Storefront com controles contextuais discretos de ediÃ§Ã£o e operaÃ§Ã£o | Demonstrar administraÃ§Ã£o integrada sem criar uma experiÃªncia visual desconectada do produto pÃºblico |
+| CODAL-DEC-005 | ACEITA | A persistÃªncia local permanecerÃ¡ desacoplada da UI | Permitir substituiÃ§Ã£o futura do provider sem reconstruir componentes React |
+| CODAL-DEC-006 | ACEITA | A VELORA nÃ£o realizarÃ¡ pagamento real durante a versÃ£o conceitual de portfÃ³lio | Evitar simulaÃ§Ã£o enganosa de transaÃ§Ãµes financeiras e manter o checkout demonstrativo |
+| CODAL-DEC-007 | ACEITA | PT-BR, EN e ES fazem parte da arquitetura desde o inÃ­cio | Evitar internacionalizaÃ§Ã£o tardia e garantir paridade estrutural entre idiomas |
+| CODAL-DEC-008 | ACEITA | A identidade visual utilizarÃ¡ Pearl + Champagne como direÃ§Ã£o principal | Criar uma estÃ©tica tecnolÃ³gica, sofisticada e premium sem copiar diretamente outras marcas |
+| CODAL-DEC-009 | ACEITA | UI e Data Provider permanecerÃ£o separados por contratos e camadas | Permitir evoluÃ§Ã£o de dados locais para API, Supabase ou PostgreSQL sem acoplamento da apresentaÃ§Ã£o |
+| CODAL-DEC-010 | ACEITA | OperaÃ§Ãµes administrativas relevantes deverÃ£o possuir feedback e confirmaÃ§Ã£o apropriados | Reduzir erros operacionais e tornar aÃ§Ãµes administrativas compreensÃ­veis |
+| CODAL-DEC-011 | ACEITA | A identidade oficial do projeto serÃ¡ VELORA | Consolidar uma marca prÃ³pria, memorÃ¡vel e adequada ao posicionamento tecnolÃ³gico premium |
+| CODAL-DEC-012 | ACEITA | O catÃ¡logo inicial utilizarÃ¡ produtos, marcas e dados fictÃ­cios | Permitir liberdade criativa para portfÃ³lio sem sugerir uma operaÃ§Ã£o comercial real |
+| CODAL-DEC-013 | ACEITA | O estado inicial utilizarÃ¡ Seed imutÃ¡vel combinado com overrides locais | Preservar uma baseline confiÃ¡vel e permitir alteraÃ§Ãµes demonstrativas sem destruir os dados originais |
+| CODAL-DEC-014 | ACEITA | IndexedDB serÃ¡ o mecanismo preferencial para dados mutÃ¡veis de domÃ­nio na implementaÃ§Ã£o local | Suportar persistÃªncia estruturada e maior volume de dados sem acoplar o domÃ­nio ao navegador |
+| CODAL-DEC-015 | ACEITA | Zustand serÃ¡ utilizado somente para estado global de experiÃªncia quando houver necessidade comprovada | Evitar transformar Zustand em substituto das regras de domÃ­nio ou dos repositories |
+| CODAL-DEC-016 | ACEITA | Vercel serÃ¡ o primeiro alvo pÃºblico de deploy | Manter alinhamento direto com Next.js e reduzir complexidade inicial de publicaÃ§Ã£o |
+| CODAL-DEC-017 | ACEITA | A base visual utilizarÃ¡ CSS moderno + CSS Modules + Design Tokens | Manter controle explÃ­cito do Design System, performance e identidade sem dependÃªncia inicial de Tailwind |
+| CODAL-DEC-018 | ACEITA | Storefront e Admin utilizarÃ£o o mesmo Design System | Preservar consistÃªncia visual e reduzir duplicaÃ§Ã£o entre experiÃªncias pÃºblicas e administrativas |
+| CODAL-DEC-019 | ACEITA | VersÃµes de runtime e dependÃªncias principais serÃ£o fixadas e registradas durante BUILD 01 | Tornar instalaÃ§Ã£o, debugging, CI e evoluÃ§Ã£o do projeto mais previsÃ­veis |
+| CODAL-DEC-020 | ACEITA | URLs localizadas e troca de idioma deverÃ£o preservar o contexto equivalente da jornada | Evitar que a mudanÃ§a de idioma reinicie desnecessariamente a navegaÃ§Ã£o do usuÃ¡rio |
+| CODAL-DEC-021 | ACEITA | Domain nÃ£o depende de React ou Next.js | Preservar regras centrais fora da UI |
+| CODAL-DEC-022 | ACEITA | Product e ProductVariant sÃ£o entidades distintas | VariaÃ§Ãµes possuem SKU, preÃ§o e estoque prÃ³prios |
+| CODAL-DEC-023 | ACEITA | Estoque Ã© controlado por variante | Quantidades precisam representar a unidade vendÃ¡vel real |
+| CODAL-DEC-024 | ACEITA | Inventory e InventoryMovement sÃ£o conceitos separados | Estado atual e histÃ³rico possuem responsabilidades diferentes |
+| CODAL-DEC-025 | ACEITA | OrderItem preserva snapshot comercial | HistÃ³rico nÃ£o pode mudar com alteraÃ§Ãµes futuras do catÃ¡logo |
+| CODAL-DEC-026 | ACEITA | Valores monetÃ¡rios usam menor unidade da moeda | Reduzir erros de precisÃ£o e tornar cÃ¡lculos determinÃ­sticos |
+| CODAL-DEC-027 | ACEITA | Repository Contracts nÃ£o conhecem providers | Permitir troca de persistÃªncia sem reconstruir Application ou UI |
+| CODAL-DEC-028 | ACEITA | Componentes nÃ£o acessam persistÃªncia de domÃ­nio diretamente | Evitar acoplamento entre UI e infraestrutura |
+| CODAL-DEC-029 | ACEITA | Money Ã© representado por minorUnits + CurrencyCode | Evitar ambiguidade e erros de precisÃ£o monetÃ¡ria |
+| CODAL-DEC-030 | ACEITA | FormataÃ§Ã£o monetÃ¡ria nÃ£o pertence ao Domain | Locale e apresentaÃ§Ã£o nÃ£o devem contaminar regras centrais |
+| CODAL-DEC-031 | ACEITA | Percentuais aguardam polÃ­tica explÃ­cita de arredondamento | NÃ£o introduzir arredondamento financeiro silencioso |
+| CODAL-DEC-032 | ACEITA | SKU e Entity ID sÃ£o conceitos distintos | Identidade tÃ©cnica e identidade operacional possuem responsabilidades diferentes |
+| CODAL-DEC-033 | ACEITA | Testes unitÃ¡rios de domÃ­nio utilizam Vitest | Regras centrais precisam de prova automatizada desde o BUILD 01 |
+| CODAL-DEC-034 | ACEITA | Slug serÃ¡ um Value Object reutilizÃ¡vel de Domain, com normalizaÃ§Ã£o e validaÃ§Ã£o centralizadas | Evitar duplicaÃ§Ã£o de regra de URL em entidades |
+| CODAL-DEC-035 | ACEITA | ProductCategory, Product, ProductVariant e ProductMedia sÃ£o conceitos separados do Catalog Domain | Preservar responsabilidade Ãºnica e evoluÃ§Ã£o independente |
+| CODAL-DEC-036 | ACEITA | SKU pertence a ProductVariant, nÃ£o ao Product genÃ©rico | SKU identifica a unidade comercial vendÃ¡vel |
+| CODAL-DEC-037 | ACEITA | ProductVariant rejeita preÃ§o negativo, enquanto Money fundamental pode representar valores negativos | Separar regra matemÃ¡tica fundamental de regra comercial |
+| CODAL-DEC-038 | ACEITA | Catalog Domain permanece independente de Inventory; Product e ProductVariant nÃ£o armazenam quantidade ou stock | Evitar acoplamento entre catÃ¡logo e estado de estoque |
+| CODAL-DEC-039 | ACEITA | ProductMedia pertence obrigatoriamente a Product e pode opcionalmente referenciar ProductVariant | Suportar mÃ­dia geral e mÃ­dia especÃ­fica por variante |
+| CODAL-DEC-040 | ACEITA | ProductVariant utiliza attributes genÃ©ricos e imutÃ¡veis | Suportar categorias distintas sem remodelar a entidade central |
+| CODAL-DEC-041 | ACEITA | ConteÃºdo canÃ´nico pode existir no Domain, mas localizaÃ§Ã£o da experiÃªncia nÃ£o cria dependÃªncia de src/i18n | Preservar independÃªncia entre domÃ­nio e apresentaÃ§Ã£o localizada |
 
-## Decisões por área
+## DecisÃµes por Ã¡rea
 
-### Experiência e Produto
+### ExperiÃªncia e Produto
 
-- CODAL-DEC-001 — navegação vertical convencional;
-- CODAL-DEC-002 — GUEST, CUSTOMER e ADMIN;
-- CODAL-DEC-003 — role modifica a experiência global;
-- CODAL-DEC-004 — Admin possui controles contextuais na Storefront;
-- CODAL-DEC-006 — nenhum pagamento real;
-- CODAL-DEC-010 — feedback e confirmação para operações administrativas;
-- CODAL-DEC-011 — identidade VELORA;
-- CODAL-DEC-012 — catálogo fictício inicial.
+- CODAL-DEC-001 â€” navegaÃ§Ã£o vertical convencional;
+- CODAL-DEC-002 â€” GUEST, CUSTOMER e ADMIN;
+- CODAL-DEC-003 â€” role modifica a experiÃªncia global;
+- CODAL-DEC-004 â€” Admin possui controles contextuais na Storefront;
+- CODAL-DEC-006 â€” nenhum pagamento real;
+- CODAL-DEC-010 â€” feedback e confirmaÃ§Ã£o para operaÃ§Ãµes administrativas;
+- CODAL-DEC-011 â€” identidade VELORA;
+- CODAL-DEC-012 â€” catÃ¡logo fictÃ­cio inicial.
 
-### Internacionalização
+### InternacionalizaÃ§Ã£o
 
-- CODAL-DEC-007 — PT-BR, EN e ES desde o início;
-- CODAL-DEC-020 — locale preserva contexto equivalente da jornada.
+- CODAL-DEC-007 â€” PT-BR, EN e ES desde o inÃ­cio;
+- CODAL-DEC-020 â€” locale preserva contexto equivalente da jornada.
 
 ### Design System
 
-- CODAL-DEC-008 — Pearl + Champagne;
-- CODAL-DEC-017 — CSS + CSS Modules + Design Tokens;
-- CODAL-DEC-018 — Storefront e Admin compartilham Design System.
+- CODAL-DEC-008 â€” Pearl + Champagne;
+- CODAL-DEC-017 â€” CSS + CSS Modules + Design Tokens;
+- CODAL-DEC-018 â€” Storefront e Admin compartilham Design System.
 
-### Arquitetura e Persistência
+### Arquitetura e PersistÃªncia
 
-- CODAL-DEC-005 — persistência desacoplada da UI;
-- CODAL-DEC-009 — UI e Data Provider separados;
-- CODAL-DEC-013 — Seed imutável + overrides locais;
-- CODAL-DEC-014 — IndexedDB para domínio mutável;
-- CODAL-DEC-015 — Zustand apenas para estado global necessário;
-- CODAL-DEC-021 — Domain independente de React e Next.js;
-- CODAL-DEC-027 — Repository Contracts independentes de providers;
-- CODAL-DEC-028 — componentes não acessam persistência diretamente.
+- CODAL-DEC-005 â€” persistÃªncia desacoplada da UI;
+- CODAL-DEC-009 â€” UI e Data Provider separados;
+- CODAL-DEC-013 â€” Seed imutÃ¡vel + overrides locais;
+- CODAL-DEC-014 â€” IndexedDB para domÃ­nio mutÃ¡vel;
+- CODAL-DEC-015 â€” Zustand apenas para estado global necessÃ¡rio;
+- CODAL-DEC-021 â€” Domain independente de React e Next.js;
+- CODAL-DEC-027 â€” Repository Contracts independentes de providers;
+- CODAL-DEC-028 â€” componentes nÃ£o acessam persistÃªncia diretamente.
 
 ### Runtime e Deploy
 
-- CODAL-DEC-016 — Vercel como primeiro alvo público;
-- CODAL-DEC-019 — versões registradas durante BUILD 01.
+- CODAL-DEC-016 â€” Vercel como primeiro alvo pÃºblico;
+- CODAL-DEC-019 â€” versÃµes registradas durante BUILD 01.
 
-### Catálogo e Estoque
+### CatÃ¡logo e Estoque
 
-- CODAL-DEC-022 — Product e ProductVariant separados;
-- CODAL-DEC-023 — estoque por variante;
-- CODAL-DEC-024 — Inventory e InventoryMovement separados;
-- CODAL-DEC-032 — SKU e Entity ID separados.
+- CODAL-DEC-022 â€” Product e ProductVariant separados;
+- CODAL-DEC-023 â€” estoque por variante;
+- CODAL-DEC-024 â€” Inventory e InventoryMovement separados;
+- CODAL-DEC-032 â€” SKU e Entity ID separados.
 
 ### Pedidos
 
-- CODAL-DEC-025 — OrderItem preserva snapshot comercial.
+- CODAL-DEC-025 â€” OrderItem preserva snapshot comercial.
 
 ### Dinheiro e Pricing
 
-- CODAL-DEC-026 — valores monetários usam menor unidade da moeda;
-- CODAL-DEC-029 — Money utiliza minorUnits + CurrencyCode;
-- CODAL-DEC-030 — formatação monetária fora do Domain;
-- CODAL-DEC-031 — percentuais aguardam política explícita de arredondamento.
+- CODAL-DEC-026 â€” valores monetÃ¡rios usam menor unidade da moeda;
+- CODAL-DEC-029 â€” Money utiliza minorUnits + CurrencyCode;
+- CODAL-DEC-030 â€” formataÃ§Ã£o monetÃ¡ria fora do Domain;
+- CODAL-DEC-031 â€” percentuais aguardam polÃ­tica explÃ­cita de arredondamento.
 
 ### Qualidade
 
-- CODAL-DEC-033 — Vitest é o test runner unitário do Domain.
+- CODAL-DEC-033 â€” Vitest Ã© o test runner unitÃ¡rio do Domain.
 
+### Catalog Domain â€” PASSO 14
+
+- CODAL-DEC-034 â€” Slug como Value Object reutilizÃ¡vel;
+- CODAL-DEC-035 â€” entidades do Catalog Domain separadas;
+- CODAL-DEC-036 â€” SKU pertence a ProductVariant;
+- CODAL-DEC-037 â€” ProductVariant.price nÃ£o negativo;
+- CODAL-DEC-038 â€” Catalog separado de Inventory;
+- CODAL-DEC-039 â€” ProductMedia ligada a Product e opcionalmente Variant;
+- CODAL-DEC-040 â€” attributes de Variant genÃ©ricos e imutÃ¡veis;
+- CODAL-DEC-041 â€” Domain independente de src/i18n.
 ## Regras de continuidade
 
 Uma IA ou desenvolvedor que continuar a VELORA deve:
 
-- ler este documento antes de propor mudanças arquiteturais;
-- não substituir decisões ACEITAS silenciosamente;
-- verificar se uma nova implementação contradiz alguma decisão existente;
-- registrar novas decisões com numeração sequencial;
-- utilizar o próximo número disponível após CODAL-DEC-033;
-- preservar decisões históricas mesmo quando forem superadas.
+- ler este documento antes de propor mudanÃ§as arquiteturais;
+- nÃ£o substituir decisÃµes ACEITAS silenciosamente;
+- verificar se uma nova implementaÃ§Ã£o contradiz alguma decisÃ£o existente;
+- registrar novas decisÃµes com numeraÃ§Ã£o sequencial;
+- utilizar o prÃ³ximo nÃºmero disponÃ­vel apÃ³s CODAL-DEC-041;
+- preservar decisÃµes histÃ³ricas mesmo quando forem superadas.
 
-## Próxima decisão disponível
+## PrÃ³xima decisÃ£o disponÃ­vel
 
-CODAL-DEC-034
+CODAL-DEC-042

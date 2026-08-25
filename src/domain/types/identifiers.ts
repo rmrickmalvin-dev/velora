@@ -2,7 +2,7 @@
  * IDs permanecem independentes da tecnologia
  * de persistência.
  *
- * O domínio não sabe se futuramente eles virão de:
+ * O Domain não sabe se futuramente eles virão de:
  *
  * - UUID;
  * - PostgreSQL;
@@ -14,8 +14,10 @@
 export type UserId = string;
 export type CustomerId = string;
 
+export type ProductCategoryId = string;
 export type ProductId = string;
 export type ProductVariantId = string;
+export type ProductMediaId = string;
 
 export type InventoryId = string;
 export type InventoryMovementId = string;

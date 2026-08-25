@@ -1,210 +1,208 @@
-# DOMAIN — VELORA
+# DOMAIN â€” VELORA
+
+Ãšltima atualizaÃ§Ã£o: 2026-08-25
 
 ## Objetivo
 
-Definir as fronteiras do domínio do e-commerce VELORA independentemente de framework, UI ou mecanismo de persistência.
+Definir o domÃ­nio da VELORA independentemente de framework, UI e provider.
 
-## Arquitetura
+## Regra central
 
+```text
+Domain nÃ£o conhece Framework.
+Framework conhece Domain.
+```
+
+## DependÃªncias proibidas no Domain
+
+React, Next.js, Zustand, DOM, CSS, localStorage, IndexedDB, Supabase, fetch e providers externos.
+
+## DireÃ§Ã£o arquitetural
+
+```text
 UI
-↓
+â†“
 Application
-↓
+â†“
 Domain Contracts
-↑
+â†‘
 Infrastructure
+```
 
-## Domain
+## Ãreas
 
-Contém:
+Catalog, Inventory, Cart, Order, Pricing, Promotion, Authentication e Customer.
 
-- Entities
-- Value Objects
-- Domain Services
-- Repository Contracts
+## IDs atuais
 
-O domínio não depende de React, Next.js, Zustand, IndexedDB, Supabase ou APIs externas.
+UserId, CustomerId, ProductCategoryId, ProductId, ProductVariantId, ProductMediaId, InventoryId, InventoryMovementId, CartId, OrderId, PromotionId e AddressId.
 
-## Application
+IDs continuam independentes da tecnologia de persistÃªncia.
 
-Contém:
+## DomainValidationError
 
-- Use Cases
-- DTOs
-- Orquestração
-
-A camada Application executa comportamentos utilizando contratos do domínio.
-
-## Infrastructure
-
-Contém implementações técnicas.
-
-Primeira fase:
-
-- Seed
-- Persistência local
-- IndexedDB quando necessário
-- localStorage apenas para estados pequenos apropriados
-
-Futuro:
-
-- API
-- Supabase
-- PostgreSQL
-- Auth Provider
-- Storage
-- Shipping Provider
-
-## UI
-
-Next.js e React apresentam e coletam interação.
-
-Componentes não acessam providers de persistência diretamente.
-
-## Entidades iniciais
-
-- User
-- CustomerProfile
-- Session
-- Product
-- ProductVariant
-- Inventory
-- InventoryMovement
-- Cart
-- CartItem
-- Order
-- OrderItem
-- Promotion
-- Address
-- StoreSettings
-
-## Value Objects iniciais
-
-- Money
-- SKU
-
-Outros poderão surgir apenas quando houver benefício concreto.
-
-## Product e ProductVariant
-
-Product representa o conceito comercial do item.
-
-ProductVariant representa a unidade efetivamente vendável, podendo possuir SKU, preço, imagens, atributos e disponibilidade próprios.
-
-## Inventory
-
-Representa o estado atual de estoque de uma variante.
-
-## InventoryMovement
-
-Representa o histórico e motivo das alterações de estoque.
-
-Tipos:
-
-- ENTRY
-- EXIT
-- ADJUSTMENT
-
-## Cart
-
-Representa intenção de compra atual.
-
-Não depende de Zustand ou React.
-
-## Order
-
-Representa registro de uma compra demonstrativa concluída.
-
-OrderItem preserva snapshot comercial para impedir alterações históricas quando o catálogo mudar.
-
-## Roles
-
-- GUEST
-- CUSTOMER
-- ADMIN
-
-O controle demonstrativo no frontend não representa autorização segura de produção.
-
-## Money — Diretriz Arquitetural
-
-Valores monetários serão armazenados internamente utilizando a menor unidade da moeda sempre que aplicável.
-
-Exemplo:
-
-R$ 19,90 = 1990 centavos.
-
-A formatação pertence à fronteira de apresentação.
-
-## Repositories
-
-Contratos de repository não conhecem detalhes do provider.
-
-Implementações poderão incluir:
-
-- Demo Repository
-- IndexedDB Repository
-- Remote Repository
-
-## Dependências proibidas no Domain
-
-- React
-- Next.js
-- Zustand
-- DOM
-- localStorage
-- IndexedDB
-- Supabase
-- fetch
-- CSS
-
-## Regra
-
-Tecnologia pode mudar sem redefinir o significado das entidades centrais do sistema.
-
-## Fundamental Types
-
-O domínio possui tipos fechados para:
-
-- UserRole
-- ProductStatus
-- OrderStatus
-- InventoryMovementType
-- PromotionStatus
-
-Strings livres não devem substituir esses contratos.
+Contrato: `code + message`.
 
 ## CurrencyCode
 
-CurrencyCode normaliza e valida códigos monetários estruturais de três letras.
-
-Suporte estrutural a códigos distintos não significa que a Storefront possua conversão ou preços multi-moeda.
+Trim, uppercase e trÃªs letras. BRL Ã© baseline atual. Locale e Currency sÃ£o conceitos separados.
 
 ## Money
 
-Money utiliza:
+Usa `minorUnits + CurrencyCode`.
 
-- minorUnits;
-- CurrencyCode;
-- safe integers;
-- operações imutáveis;
-- verificação de moeda.
+Regras:
 
-Money pode representar valores negativos.
-
-Restrições específicas como preço >= 0 pertencem aos contratos de preço, não ao Value Object fundamental.
-
-Formatação monetária pertence à camada de apresentação.
-
-Operações percentuais serão adicionadas somente quando a política de arredondamento estiver formalmente definida.
+- minorUnits Ã© safe integer;
+- moedas incompatÃ­veis nÃ£o operam juntas;
+- Money fundamental pode ser negativo;
+- formataÃ§Ã£o fica fora do Domain;
+- ProductVariant.price aplica regra prÃ³pria de nÃ£o negatividade;
+- porcentagens aguardam polÃ­tica explÃ­cita de arredondamento.
 
 ## SKU
 
-SKU é um identificador operacional de produto/variante.
+Identificador operacional/comercial distinto de Entity ID.
 
-O valor é:
+SKU pertence a ProductVariant.
 
-- normalizado;
-- uppercase;
-- delimitado por hífen;
-- validado;
-- independente do ID interno da entidade.
+## Slug
+
+Value Object reutilizÃ¡vel.
+
+Normaliza Unicode/diacrÃ­ticos, trim, lowercase e separadores; rejeita resultado vazio; mÃ¡ximo atual 96 caracteres.
+
+## Catalog Domain
+
+```text
+ProductCategory
+       â”‚
+       â–¼
+    Product
+       â”‚
+       â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+       â–¼               â–¼
+ProductVariant     ProductMedia
+```
+
+Catalog nÃ£o Ã© Inventory.
+
+## ProductCategory
+
+`id + slug + name + description?`
+
+Invariantes: id, name e slug vÃ¡lidos; resultado imutÃ¡vel.
+
+## Product
+
+`id + slug + name + brand + model + categoryId + status + featured`
+
+NÃ£o possui stock, quantity, inventory, cart state, order state, provider ou React state.
+
+## ProductVariant
+
+`id + productId + sku + price + status + attributes`
+
+Invariantes:
+
+- id obrigatÃ³rio;
+- productId obrigatÃ³rio;
+- SKU vÃ¡lido;
+- price nÃ£o negativo;
+- status vÃ¡lido;
+- attribute keys/values nÃ£o vazios;
+- attributes imutÃ¡veis.
+
+Attributes sÃ£o genÃ©ricos para categorias diferentes.
+
+## ProductMedia
+
+`id + productId + variantId? + url + alt + position`
+
+Toda mÃ­dia pertence a Product e pode opcionalmente apontar para uma Variant especÃ­fica.
+
+Position Ã© safe integer nÃ£o negativo.
+
+## Product x ProductVariant
+
+NÃ£o fundir.
+
+Product Ã© o conceito comercial principal. ProductVariant Ã© a configuraÃ§Ã£o vendÃ¡vel especÃ­fica com SKU, preÃ§o e atributos.
+
+## Catalog x Inventory
+
+Proibido:
+
+- Product.stock;
+- Product.quantity;
+- ProductVariant.stock;
+- ProductVariant.quantity.
+
+Modelo futuro:
+
+```text
+ProductVariant
+      â”‚
+      â–¼
+Inventory
+      â”‚
+      â–¼
+InventoryMovement
+```
+
+## Inventory
+
+Ainda nÃ£o implementado. RepresentarÃ¡ quantidade atual por ProductVariantId.
+
+## InventoryMovement
+
+Ainda nÃ£o implementado. Tipos jÃ¡ definidos: ENTRY, EXIT e ADJUSTMENT.
+
+## Cart
+
+Ainda nÃ£o implementado. RepresentarÃ¡ intenÃ§Ã£o atual de compra e nÃ£o serÃ¡ Order.
+
+## Order
+
+Ainda nÃ£o implementado. RepresentarÃ¡ snapshot transacional. OrderItem preservarÃ¡ snapshot comercial.
+
+## Persistence Boundary
+
+```text
+Use Case
+â†“
+Repository Contract
+â†“
+Repository Implementation
+â†“
+Data Provider
+```
+
+Primeira fase: Seed imutÃ¡vel + IndexedDB/local overrides.
+
+Futuro: API + PostgreSQL/Supabase.
+
+## Internationalization Boundary
+
+`src/domain` nÃ£o importa `src/i18n`.
+
+PT-BR, EN e ES pertencem Ã  experiÃªncia/apresentaÃ§Ã£o.
+
+## Test Coverage
+
+```text
+CurrencyCode       3
+Money             10
+SKU                5
+Slug               5
+ProductCategory    4
+Product            5
+ProductVariant     7
+ProductMedia       7
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+TOTAL             46
+```
+
+## PrÃ³ximo marco
+
+PASSO 15 â€” Inventory + InventoryMovement, sem adicionar quantidade em Product ou ProductVariant.

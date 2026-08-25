@@ -8,11 +8,9 @@ CODAL OS - Complete Edition active.
 
 BUILD 01 - Foundation
 
-Unit 01B - Domain Foundation
-
 Latest validated step:
 
-PASSO 19 - Seed Foundation
+PASSO 20 - Local Repository Implementations
 
 ## Checkpoints
 
@@ -22,59 +20,54 @@ PASSO 19 - Seed Foundation
 - `0e461a3` - cart domain
 - `bffa30d` - order domain
 - `9ee0376` - repository contracts
+- `f633f35` - VELORA seed
 
-## Seed Foundation
+## Local Infrastructure
 
 Location:
 
-`src/infrastructure/seed`
+`src/infrastructure/repositories/local`
 
-Exports:
+Available:
 
-- createVeloraSeed
-- veloraSeed
-- VeloraSeed
+- LocalProductCategoryRepository
+- LocalProductRepository
+- LocalProductVariantRepository
+- LocalProductMediaRepository
+- LocalInventoryRepository
+- LocalInventoryMovementRepository
+- LocalCartRepository
+- LocalOrderRepository
+- createLocalRepositories
 
-Baseline:
+## Critical rules
 
-```text
-Categories:           4
-Products:             8
-Variants:            15
-Media:               16
-Inventory:           15
-InventoryMovements:  15
-```
+- local repositories initialize from `veloraSeed`
+- never mutate `veloraSeed`
+- each repository bundle is isolated
+- Cart starts empty
+- Order starts empty
+- list methods return frozen snapshots
+- save is infrastructure upsert, not business validation
+- InventoryMovement append preserves history order
+- no provider types leak into Domain
 
-All catalog data is fictional.
+## Persistence note
 
-## Seed rules
+PASSO 20 is in-memory only.
 
-- use Domain factories
-- keep baseline deterministic
-- keep baseline immutable
-- keep ids stable
-- keep slugs stable
-- keep SKUs stable
-- preserve referential coherence
-- one Inventory per ProductVariant
-- one initial ENTRY movement per Inventory
-- do not seed Cart or Order as immutable baseline
+Reload persistence is intentionally not implemented yet.
 
-## Media rule
-
-Seed media paths are logical contracts.
-
-Final image assets may be added later without changing Domain entities.
+IndexedDB will be a later adapter behind the same Repository Contracts.
 
 ## Quality Gate
 
 Latest evidence:
 
 ```text
-PASSO 19 targeted: 12/12
-Full suite:         144/144
-Test files:         18/18
+PASSO 20 targeted: 16/16
+Full suite:         160/160
+Test files:         19/19
 lint:               passed
 typecheck:          passed
 build:              passed
@@ -83,21 +76,19 @@ check:              passed
 
 ## Decisions
 
-After PASSO 19:
+After PASSO 20:
 
-`CODAL-DEC-001 -> CODAL-DEC-081`
+`CODAL-DEC-001 -> CODAL-DEC-089`
 
 Next:
 
-`CODAL-DEC-082`
+`CODAL-DEC-090`
 
 ## Next action
 
-PASSO 20 - Local Repository Implementations.
+PASSO 21 - Application Use Cases.
 
-Local repositories should initialize from the immutable seed but maintain mutable working state separately.
-
-Do not mutate `veloraSeed`.
+Application Use Cases should orchestrate Repository Contracts and Domain services without importing local repository implementations directly.
 
 ## Reading order
 

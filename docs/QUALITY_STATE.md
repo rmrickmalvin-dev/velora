@@ -6,9 +6,7 @@ Last update: 2026-08-25
 
 Status: IN PROGRESS
 
-## Unit 01B - Domain Foundation
-
-### Completed foundations
+## Completed foundations
 
 - [x] Domain primitives
 - [x] Catalog Domain
@@ -16,50 +14,48 @@ Status: IN PROGRESS
 - [x] Cart Domain
 - [x] Order Domain
 - [x] Repository Contracts
+- [x] Seed Foundation
 
-### Seed Foundation - PASSO 19
+## Local Repository Implementations - PASSO 20
 
-- [x] deterministic seed factory
-- [x] frozen seed container
-- [x] frozen seed collections
-- [x] Domain factories used for records
-- [x] 4 categories
-- [x] 8 products
-- [x] 15 variants
-- [x] 16 media records
-- [x] 15 inventory records
-- [x] 15 initial inventory movements
-- [x] unique category ids
-- [x] unique category slugs
-- [x] unique product ids
-- [x] unique product slugs
-- [x] unique variant ids
-- [x] unique SKUs
-- [x] catalog references validated
-- [x] media references validated
-- [x] one Inventory per ProductVariant
-- [x] initial ENTRY movement per Inventory
-- [x] deterministic recreation
-- [x] Cart excluded from immutable baseline
-- [x] Order excluded from immutable baseline
+- [x] ProductCategory local adapter
+- [x] Product local adapter
+- [x] ProductVariant local adapter
+- [x] ProductMedia local adapter
+- [x] Inventory local adapter
+- [x] InventoryMovement local adapter
+- [x] Cart local adapter
+- [x] Order local adapter
+- [x] seed initialization
+- [x] seed isolation
+- [x] isolated repository bundles
+- [x] frozen list snapshots
+- [x] Product lookup by id and slug
+- [x] ProductVariant lookup by SKU
+- [x] ProductMedia relation queries
+- [x] Inventory lookup by ProductVariant
+- [x] InventoryMovement append order
+- [x] Cart save/find/remove
+- [x] Order save/find/customer list
+- [x] guest Order customer-query exclusion
 
-## PASSO 19 Test Evidence
+## PASSO 20 Test Evidence
 
 Targeted:
 
 ```text
 1 test file
-12 tests
-12 passed
+16 tests
+16 passed
 0 failed
 ```
 
 Complete suite:
 
 ```text
-18 test files
-144 tests
-144 passed
+19 test files
+160 tests
+160 passed
 0 failed
 ```
 
@@ -76,12 +72,13 @@ Complete suite:
 - [x] /es SSG
 - [x] Proxy recognized
 
-## Pending - Unit 01B
+## Pending - BUILD 01
 
-- [ ] Local Repository implementations
 - [ ] Application Use Cases
 - [ ] IndexedDB provider
+- [ ] persistent local adapters
+- [ ] final BUILD 01 integration checkpoint
 
 ## Next Quality Gate
 
-PASSO 20 - Local Repository Implementations.
+PASSO 21 - Application Use Cases.

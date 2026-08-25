@@ -6,19 +6,13 @@ Last update: 2026-08-25
 
 VELORA - professional conceptual e-commerce for smartphones, accessories and mobile technology.
 
-Locales:
-
-- PT-BR
-- EN
-- ES
-
 ## Phase
 
 BUILD 01 - Foundation
 
 ## Current unit
 
-01B - Domain Foundation
+01B - Domain and Data Foundation
 
 ## State
 
@@ -31,100 +25,70 @@ IN PROGRESS
 - `c06a5d3` - inventory domain and movements
 - `0e461a3` - cart domain and cart operations
 - `bffa30d` - order domain and lifecycle
-- `9ee0376` - domain repository contracts
+- `9ee0376` - repository contracts
+- `f633f35` - deterministic VELORA seed
 
 ## Latest validated step
 
-PASSO 19 - Seed Foundation
+PASSO 20 - Local Repository Implementations
 
-## Seed Foundation
+## Local repositories
 
-The first deterministic fictional VELORA baseline now exists in Infrastructure.
+Implemented Infrastructure adapters:
 
-Collections:
+- LocalProductCategoryRepository
+- LocalProductRepository
+- LocalProductVariantRepository
+- LocalProductMediaRepository
+- LocalInventoryRepository
+- LocalInventoryMovementRepository
+- LocalCartRepository
+- LocalOrderRepository
+- createLocalRepositories
 
-- 4 ProductCategory records
-- 8 Product records
-- 15 ProductVariant records
-- 16 ProductMedia records
-- 15 Inventory records
-- 15 initial InventoryMovement records
+## Working state
 
-The baseline uses Domain factories rather than raw unvalidated objects.
+`createLocalRepositories` initializes Catalog and Inventory from the immutable VELORA seed.
 
-## Fictional catalog
+Each call creates isolated working state.
 
-Brands:
+Cart and Order repositories start empty.
 
-- Aster
-- Nivalis
-- Halo
-- Flux
-- Veil
+The original `veloraSeed` remains unchanged when repositories mutate their working state.
 
-Product families include:
+## Persistence level
 
-- smartphones
-- audio
-- charging
-- protection
+PASSO 20 repositories are in-memory Infrastructure adapters.
 
-All catalog data is fictional and exists only for the VELORA portfolio case.
+They are intentionally volatile across page reloads.
 
-## Seed immutability
+Their purpose is to:
 
-The seed container is frozen.
+- validate Repository Contracts
+- provide real data access for Application Use Cases
+- preserve seed isolation
+- make BUILD 01 executable before IndexedDB
+- provide a clean reference implementation for future persistent adapters
 
-Every seed collection is frozen.
+IndexedDB remains a later Infrastructure adapter.
 
-Domain entities are created through their existing factories and remain immutable.
+## Repository semantics
 
-`createVeloraSeed` can recreate the same deterministic baseline.
-
-`veloraSeed` exposes the ready baseline instance.
-
-## Referential coherence
-
-Validated:
-
-- unique category ids and slugs
-- unique product ids and slugs
-- valid Product -> ProductCategory relations
-- unique variant ids and SKUs
-- valid ProductVariant -> Product relations
-- every Product has at least one ProductVariant
-- valid ProductMedia relations
-- optional media variant belongs to the same Product
-- exactly one Inventory per ProductVariant
-- exactly one initial ENTRY movement per Inventory
-- initial movement delta equals initial quantityOnHand
-
-## Seed media
-
-Media records use logical local paths such as:
-
-`/images/catalog/...`
-
-PASSO 19 defines the data contract only.
-
-Final visual assets will be produced or connected during Storefront work.
-
-## Mutable state boundary
-
-The immutable baseline does not seed:
-
-- Cart
-- Order
-
-Cart and Order are runtime/demo state and will be created through repositories/use cases later.
+- single lookup returns entity or null
+- list results are frozen snapshots
+- save is upsert by entity id
+- InventoryMovement append preserves insertion order
+- Cart supports remove
+- Order remains without delete
+- repositories add no new business rules
 
 ## Quality Gate
 
 Latest evidence:
 
-- PASSO 19 targeted tests: 12/12
-- complete suite: 144/144
-- 18 test files passed
+- PASSO 20 targeted tests: 16/16
+- complete suite: 160/160
+- 19 test files passed
 - lint passed
 - typecheck passed
 - production build passed
@@ -136,14 +100,14 @@ Latest evidence:
 
 ## Decisions
 
-After PASSO 19:
+After PASSO 20:
 
-`CODAL-DEC-001 -> CODAL-DEC-081`
+`CODAL-DEC-001 -> CODAL-DEC-089`
 
 Next available decision:
 
-`CODAL-DEC-082`
+`CODAL-DEC-090`
 
 ## Next step
 
-PASSO 20 - Local Repository Implementations.
+PASSO 21 - Application Use Cases.

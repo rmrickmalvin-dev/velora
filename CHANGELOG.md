@@ -961,3 +961,101 @@ Next available decision:
 #### Next
 
 PASSO 20 - Local Repository Implementations.
+---
+
+### PASSO 20 - Local Repository Implementations
+
+Status: COMPLETED AND TECHNICALLY VALIDATED
+
+#### Added
+
+Local Infrastructure adapters:
+
+- LocalProductCategoryRepository
+- LocalProductRepository
+- LocalProductVariantRepository
+- LocalProductMediaRepository
+- LocalInventoryRepository
+- LocalInventoryMovementRepository
+- LocalCartRepository
+- LocalOrderRepository
+- createLocalRepositories
+- local repository barrel export
+
+#### Initialization
+
+Catalog and Inventory initialize from `veloraSeed`.
+
+Cart and Order initialize empty.
+
+Each factory call creates isolated working state.
+
+The immutable seed remains unchanged.
+
+#### Repository behavior
+
+Validated:
+
+- Product id lookup
+- Product slug lookup
+- Product upsert
+- ProductVariant SKU lookup
+- ProductVariant Product lookup
+- ProductMedia Product lookup
+- ProductMedia Variant lookup
+- Inventory ProductVariant lookup
+- Inventory local update
+- seed isolation
+- InventoryMovement append order
+- Cart save/find/remove
+- Order save/find/customer list
+- guest Order customer-query exclusion
+- frozen list snapshots
+- null for missing records
+- isolated repository bundles
+
+#### Persistence scope
+
+PASSO 20 repositories are in-memory only.
+
+They intentionally do not survive browser reload.
+
+Persistent local storage remains a later IndexedDB adapter behind the same Domain contracts.
+
+#### Testing
+
+PASSO 20 targeted validation:
+
+- 1 test file passed
+- 16 tests passed
+- 0 tests failed
+
+Complete suite:
+
+- 19 test files passed
+- 160 tests passed
+- 0 tests failed
+
+#### Technical Validation
+
+Passed:
+
+- npm run lint
+- npm run typecheck
+- npm run test
+- npm run build
+- npm run check
+
+#### Decisions
+
+Added:
+
+- CODAL-DEC-082 through CODAL-DEC-089
+
+Next available decision:
+
+- CODAL-DEC-090
+
+#### Next
+
+PASSO 21 - Application Use Cases.

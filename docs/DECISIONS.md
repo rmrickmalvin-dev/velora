@@ -109,6 +109,14 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-079 | ACEITA | Every seeded Inventory begins with one ENTRY InventoryMovement matching initial quantityOnHand | Keep initial stock state and movement history coherent |
 | CODAL-DEC-080 | ACEITA | Seed ProductMedia uses logical local asset paths before final visual assets exist | Allow data architecture and Storefront development to progress independently from final imagery |
 | CODAL-DEC-081 | ACEITA | Immutable baseline seed excludes Cart and Order state | Keep mutable session and transaction state outside resettable catalog baseline |
+| CODAL-DEC-090 | ACEITA | PASSO 20 local repositories are Infrastructure adapters implementing existing Domain Repository Contracts | Make the current architecture executable without coupling Domain to storage |
+| CODAL-DEC-083 | ACEITA | Local repository working state initializes from the immutable VELORA seed but never mutates the seed | Preserve deterministic reset and baseline integrity |
+| CODAL-DEC-084 | ACEITA | PASSO 20 repositories are intentionally in-memory and volatile across reloads | Unblock Application development before IndexedDB without pretending persistence already exists |
+| CODAL-DEC-085 | ACEITA | Local repository list methods return frozen snapshot arrays | Prevent external callers from mutating repository collection state |
+| CODAL-DEC-086 | ACEITA | Local state repositories use upsert-by-id save semantics while InventoryMovement preserves append order | Keep storage behavior predictable and aligned with existing contracts |
+| CODAL-DEC-087 | ACEITA | Cart and Order repositories initialize empty instead of being seeded with transaction state | Preserve the boundary between immutable baseline data and runtime commerce state |
+| CODAL-DEC-088 | ACEITA | Each createLocalRepositories call returns an isolated repository bundle | Make reset and test isolation deterministic |
+| CODAL-DEC-089 | ACEITA | Infrastructure repositories do not introduce new business rules beyond storage contract semantics | Keep business invariants in Domain and orchestration in Application |
 
 ## Decisões por área
 
@@ -202,7 +210,7 @@ Uma IA ou desenvolvedor que continuar a VELORA deve:
 - não substituir decisões ACEITAS silenciosamente;
 - verificar se uma nova implementação contradiz alguma decisão existente;
 - registrar novas decisões com numeração sequencial;
-- utilizar o próximo número disponível após CODAL-DEC-081;
+- utilizar o próximo número disponível após CODAL-DEC-089;
 - preservar decisões históricas mesmo quando forem superadas.
 
 ## Próxima decisão disponível

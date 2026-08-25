@@ -23,138 +23,120 @@ Domain Contracts
 Infrastructure
 ```
 
-## Current layers
+## Repository implementation boundary
 
-Domain:
+Domain defines Repository Contracts.
 
-- Catalog
-- Inventory
-- Cart
-- Order
-- Repository Contracts
+Infrastructure implements those contracts.
 
-Infrastructure:
-
-- Seed Foundation
-
-## Seed Boundary
-
-Seed is Infrastructure, not Domain.
-
-The seed provides a deterministic baseline implementation input while respecting Domain rules.
-
-Seed records are created through Domain factories.
-
-Raw seed objects do not bypass entity invariants.
-
-## Seed API
-
-Infrastructure exports:
-
-- `createVeloraSeed`
-- `veloraSeed`
-- `VeloraSeed`
-
-`createVeloraSeed` recreates a fresh deterministic baseline using Domain factories.
-
-`veloraSeed` exposes the ready immutable baseline instance.
-
-The factory exists so local repositories and demo reset flows can rebuild known baseline state without mutating the exported seed instance.
-
-## VELORA baseline
-
-```text
-4  ProductCategory
-8  Product
-15 ProductVariant
-16 ProductMedia
-15 Inventory
-15 InventoryMovement
-```
-
-All content is fictional.
-
-## Seed rules
-
-The baseline is:
-
-- deterministic
-- immutable
-- internally coherent
-- provider-independent at the Domain boundary
-- safe to reset
-
-Stable ids, slugs and SKUs are explicit.
-
-This makes demo reset behavior predictable and allows later local repositories to rebuild from a known baseline.
-
-## Inventory baseline
-
-Every seeded ProductVariant has exactly one Inventory.
-
-Every seeded Inventory begins with one ENTRY InventoryMovement.
-
-The initial movement delta equals quantityOnHand.
-
-This preserves a coherent initial inventory history.
-
-## Media baseline
-
-ProductMedia records use logical local asset paths.
-
-Example:
-
-```text
-/images/catalog/aster-one-x-pro/front.webp
-```
-
-The data contract exists before final visual assets.
-
-Final images belong to the Storefront asset phase.
-
-## Mutable state exclusion
-
-The immutable baseline intentionally excludes:
-
-- Cart
-- Order
-
-Those concepts represent mutable runtime/demo state.
-
-They will be created by repository implementations and Application Use Cases.
-
-## Repository relationship
-
-Next architecture step:
+PASSO 20 introduces local in-memory adapters.
 
 ```text
 VELORA Seed
     |
     v
-Local Repository
+Local Repository Adapter
     |
     v
-Repository Contract
+Domain Repository Contract
     |
     v
 Application Use Case
 ```
 
-The seed does not implement repositories itself.
+## Local Repository Implementations
 
-## Test state
+Implemented:
 
-PASSO 19 adds:
+- LocalProductCategoryRepository
+- LocalProductRepository
+- LocalProductVariantRepository
+- LocalProductMediaRepository
+- LocalInventoryRepository
+- LocalInventoryMovementRepository
+- LocalCartRepository
+- LocalOrderRepository
 
-- 12 seed-integrity tests
+Factory:
 
-Current complete suite:
+- `createLocalRepositories`
 
-- 18 test files
-- 144 tests
-- 144 passed
+## Seed isolation
+
+Local repositories copy seed references into private working collections.
+
+Because Domain entities are immutable, entity references are safe to reuse as baseline values.
+
+Repository mutations replace or append working-state references.
+
+They never mutate the `veloraSeed` collections.
+
+Calling `createLocalRepositories` again recreates a clean isolated working state.
+
+## Current persistence behavior
+
+The PASSO 20 adapter is in memory.
+
+It does not survive a browser reload.
+
+This is intentional.
+
+The local adapter proves Repository Contracts and unblocks Application Use Cases before persistent Infrastructure is introduced.
+
+Future IndexedDB adapters must implement the same Domain contracts.
+
+## Read semantics
+
+Single lookup:
+
+```text
+Entity | null
+```
+
+List query:
+
+```text
+readonly Entity[]
+```
+
+Local list methods return frozen snapshots.
+
+## Write semantics
+
+State repositories use `save` as upsert by entity id.
+
+InventoryMovement uses `append`.
+
+Cart supports remove.
+
+Order has no delete contract.
+
+## Business-rule boundary
+
+Local repositories do not invent business rules.
+
+Examples of rules that remain outside repository implementation:
+
+- stock cannot become negative
+- Cart quantity must be positive
+- Order lifecycle transition validity
+- commercial snapshot creation
+
+Those rules remain in Domain and Application.
+
+## Quality state
+
+PASSO 20 adds:
+
+- 16 local repository tests
+
+Complete suite:
+
+- 19 test files
+- 160 tests
+- 160 passed
 - 0 failed
 
 ## Next milestone
 
-PASSO 20 - Local Repository Implementations.
+PASSO 21 - Application Use Cases.

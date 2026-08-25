@@ -1,105 +1,143 @@
-# AI HANDOFF â€” VELORA
+# AI HANDOFF - VELORA
 
-Ãšltima atualizaÃ§Ã£o: 2026-08-25
+Last update: 2026-08-25
 
-CODAL OS â€” Complete Edition ativo.
+CODAL OS - Complete Edition active.
 
-## Projeto
+## State
 
-VELORA â€” e-commerce conceitual profissional de smartphones, acessÃ³rios e tecnologia mÃ³vel.
+BUILD 01 - Foundation
 
-## Estado atual
+Unit 01B - Domain Foundation
 
-BUILD 01 â€” Foundation
+Latest validated step:
 
-Unidade 01B â€” Domain Foundation
+PASSO 15 - Inventory + InventoryMovement
 
-Ãšltimo passo tecnicamente validado: PASSO 14 â€” Catalog Domain.
+## Checkpoints
 
-## Ãšltimo checkpoint Git anterior
-
-`90f2d42` â€” `feat: add domain primitives and unit test foundation`
-
-Novo checkpoint serÃ¡ criado apÃ³s sincronizaÃ§Ã£o documental do PASSO 14.
+- `90f2d42` - domain primitives
+- `d682c43` - catalog domain
 
 ## Stack
 
-Node 24.13.0; npm 11.6.2; Next.js 16.3.1; React 19.2.8; React DOM 19.2.8; TypeScript 5.9.3; ESLint 9.39.5; Vitest 4.1.11.
+- Node.js 24.13.0
+- npm 11.6.2
+- Next.js 16.3.1
+- React 19.2.8
+- React DOM 19.2.8
+- TypeScript 5.9.3
+- ESLint 9.39.5
+- Vitest 4.1.11
 
-## Locales
+## Current Domain
 
-PT-BR, EN e ES. `/` â†’ `/pt-BR`. Troca de locale preserva contexto equivalente.
+Value Objects:
 
-## Arquitetura
+- CurrencyCode
+- Money
+- SKU
+- Slug
 
-```text
-UI
-â†“
-Application
-â†“
-Domain Contracts
-â†‘
-Infrastructure
-```
+Catalog:
 
-Domain nÃ£o depende de React, Next, Zustand, DOM, CSS, localStorage, IndexedDB, Supabase ou fetch.
+- ProductCategory
+- Product
+- ProductVariant
+- ProductMedia
 
-## Domain implementado
+Inventory:
 
-Value Objects: CurrencyCode, Money, SKU, Slug.
+- Inventory
+- InventoryMovement
+- applyInventoryMovement
 
-Catalog: ProductCategory, Product, ProductVariant, ProductMedia.
+## Inventory Rules
 
-## Regras centrais
-
-- Product e ProductVariant sÃ£o distintos;
-- SKU pertence a ProductVariant;
-- ProductVariant pertence a Product por productId;
-- ProductVariant.price nÃ£o pode ser negativo;
-- Money fundamental pode ser negativo;
-- Product/ProductVariant nÃ£o armazenam estoque;
-- Inventory serÃ¡ separado e referenciarÃ¡ ProductVariantId;
-- ProductMedia sempre pertence a Product e pode opcionalmente referenciar Variant;
-- `src/domain` nÃ£o importa `src/i18n`.
-
-## Testes
-
-Ãšltima suÃ­te:
+Inventory:
 
 ```text
-8 test files
-46 tests
-46 passed
-0 failed
+id
+productVariantId
+quantityOnHand
 ```
 
-PASSO 14 isolado: 5 arquivos, 28/28.
+quantityOnHand:
+
+- safe integer
+- >= 0
+
+InventoryMovement:
+
+```text
+id
+inventoryId
+type
+delta
+reason
+```
+
+Semantics:
+
+- ENTRY => positive delta
+- EXIT => negative delta
+- ADJUSTMENT => positive or negative non-zero delta
+
+Movement reason is required.
+
+`applyInventoryMovement`:
+
+- validates inventoryId
+- rejects negative stock
+- rejects unsafe result
+- returns a new Inventory
+
+## Critical architecture rule
+
+Do not add stock or quantity to Product/ProductVariant.
+
+Inventory remains separate from Catalog.
 
 ## Quality Gate
 
-`npm run check` = lint â†’ typecheck â†’ test â†’ build.
+Latest evidence:
 
-Ãšltimo gate: lint âœ…, typecheck âœ…, 46/46 âœ…, build âœ…, PT-BR/EN/ES SSG âœ…, Proxy âœ….
+```text
+PASSO 15 targeted: 26/26
+Full suite:         72/72
+lint:               passed
+typecheck:          passed
+build:              passed
+check:              passed
+```
 
-## DecisÃµes
+Routes:
 
-ApÃ³s sincronizaÃ§Ã£o: `CODAL-DEC-001 â†’ CODAL-DEC-041`.
+- /pt-BR SSG
+- /en SSG
+- /es SSG
 
-PrÃ³xima: `CODAL-DEC-042`.
+## Decisions
 
-## NÃ£o fazer
+After PASSO 15:
 
-- nÃ£o colocar Inventory em Product;
-- nÃ£o colocar stock em ProductVariant;
-- nÃ£o acessar IndexedDB/localStorage diretamente na UI;
-- nÃ£o importar React/Next no Domain;
-- nÃ£o fundir Product e ProductVariant;
-- nÃ£o transformar SKU em Entity ID;
-- nÃ£o duplicar normalizaÃ§Ã£o de Slug;
-- nÃ£o acoplar Repository Contract a provider.
+`CODAL-DEC-001 -> CODAL-DEC-049`
 
-## PrÃ³xima aÃ§Ã£o
+Next:
 
-PASSO 15 â€” Inventory + InventoryMovement.
+`CODAL-DEC-050`
 
-Antes de codar, ler PROJECT_STATE, DECISIONS, DOMAIN, QUALITY_STATE, STACK e CHANGELOG.
+## Next action
+
+PASSO 16 - Cart + CartItem.
+
+Do not start Order before Cart is stable.
+
+## Reading order
+
+1. docs/PROJECT_STATE.md
+2. docs/DECISIONS.md
+3. docs/DOMAIN.md
+4. docs/QUALITY_STATE.md
+5. docs/STACK.md
+6. CHANGELOG.md

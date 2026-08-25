@@ -1,187 +1,177 @@
-# PROJECT STATE â€” VELORA
+# PROJECT STATE - VELORA
 
-Ãšltima atualizaÃ§Ã£o: 2026-08-25
+Last update: 2026-08-25
 
-## Projeto
+## Project
 
-VELORA â€” e-commerce conceitual profissional de smartphones, acessÃ³rios e tecnologia mÃ³vel para portfÃ³lio.
+VELORA - professional conceptual e-commerce for smartphones, accessories and mobile technology.
 
-Locales: PT-BR, EN e ES.
+Locales:
 
-## Fase
+- PT-BR
+- EN
+- ES
 
-BUILD 01 â€” Foundation
+## Phase
 
-## Unidade atual
+BUILD 01 - Foundation
 
-01B â€” Domain Foundation
+## Current unit
 
-Status: EM EXECUÃ‡ÃƒO
+01B - Domain Foundation
 
-## Ãšltimo checkpoint Git estÃ¡vel anterior
+## State
 
-`90f2d42` â€” `feat: add domain primitives and unit test foundation`
+IN PROGRESS
 
-## Ãšltimo passo tÃ©cnico validado
+## Git checkpoints
 
-PASSO 14 â€” Catalog Domain
+Previous domain checkpoint:
 
-Implementados:
+`90f2d42` - `feat: add domain primitives and unit test foundation`
 
-- Slug;
-- ProductCategory;
-- Product;
-- ProductVariant;
-- ProductMedia.
+Catalog checkpoint:
 
-## Arquitetura
+`d682c43` - `feat: add catalog domain entities and slug`
+
+## Latest validated step
+
+PASSO 15 - Inventory + InventoryMovement
+
+## Architecture
 
 ```text
 UI
-â†“
+|
+v
 Application
-â†“
+|
+v
 Domain Contracts
-â†‘
+^
+|
 Infrastructure
 ```
 
-Domain nÃ£o depende de React, Next.js, Zustand, DOM, CSS, localStorage, IndexedDB, Supabase, fetch ou providers externos.
+Domain remains independent from React, Next.js, Zustand, DOM, CSS, localStorage, IndexedDB, Supabase, fetch and external providers.
 
-UI nÃ£o acessa persistÃªncia de domÃ­nio diretamente.
+## Implemented Domain
 
-## Value Objects
+Value Objects:
 
-Implementados:
+- CurrencyCode
+- Money
+- SKU
+- Slug
 
-- CurrencyCode;
-- Money;
-- SKU;
-- Slug.
+Catalog:
 
-Money usa `minorUnits + CurrencyCode`. Money fundamental pode representar valor negativo, mas `ProductVariant.price` nÃ£o pode ser negativo.
+- ProductCategory
+- Product
+- ProductVariant
+- ProductMedia
 
-SKU Ã© distinto de Entity ID e pertence a ProductVariant.
+Inventory:
 
-Slug centraliza normalizaÃ§Ã£o e validaÃ§Ã£o URL-safe.
+- Inventory
+- InventoryMovement
+- Inventory Service
 
-## Catalog Domain
+## Inventory
+
+Represents current stock state for a ProductVariant.
+
+Fields:
+
+- id
+- productVariantId
+- quantityOnHand
+
+Invariants:
+
+- id required
+- productVariantId required
+- quantityOnHand must be a safe integer
+- quantityOnHand cannot be negative
+
+## InventoryMovement
+
+Represents historical stock change.
+
+Fields:
+
+- id
+- inventoryId
+- type
+- delta
+- reason
+
+Types:
+
+- ENTRY
+- EXIT
+- ADJUSTMENT
+
+Rules:
+
+- delta is a non-zero safe integer
+- ENTRY requires positive delta
+- EXIT requires negative delta
+- ADJUSTMENT accepts positive or negative delta
+- reason is required
+
+## Inventory Service
+
+`applyInventoryMovement`:
+
+- validates movement ownership
+- calculates the next quantity
+- rejects negative resulting stock
+- rejects unsafe integer results
+- returns a new immutable Inventory
+- does not mutate Catalog
+
+## Catalog vs Inventory
+
+Product and ProductVariant still do not contain stock or quantity.
+
+Relationship:
 
 ```text
-ProductCategory
-       â”‚
-       â–¼
-    Product
-       â”‚
-       â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-       â–¼               â–¼
-ProductVariant     ProductMedia
+ProductVariant
+      |
+      v
+Inventory
+      |
+      v
+InventoryMovement
 ```
-
-### ProductCategory
-
-Campos: id, slug, name, description?.
-
-### Product
-
-Campos: id, slug, name, brand, model, categoryId, status, featured.
-
-Product nÃ£o possui estoque.
-
-### ProductVariant
-
-Campos: id, productId, sku, price, status, attributes.
-
-Regras:
-
-- pertence a Product por `productId`;
-- SKU pertence Ã  variante;
-- preÃ§o nÃ£o negativo;
-- attributes genÃ©ricos e imutÃ¡veis;
-- nÃ£o armazena estoque.
-
-### ProductMedia
-
-Campos: id, productId, variantId?, url, alt, position.
-
-Pode ser mÃ­dia geral do Product ou mÃ­dia especÃ­fica de uma Variant.
-
-## Catalog x Inventory
-
-Catalog Domain nÃ£o Ã© Inventory Domain.
-
-- Product nÃ£o possui stock;
-- ProductVariant nÃ£o possui stock;
-- Inventory deverÃ¡ referenciar ProductVariantId.
-
-## Runtime e stack comprovados
-
-- Node.js 24.13.0;
-- npm 11.6.2;
-- Next.js 16.3.1;
-- React 19.2.8;
-- React DOM 19.2.8;
-- TypeScript 5.9.3;
-- ESLint 9.39.5;
-- Vitest 4.1.11.
 
 ## Quality Gate
 
-`npm run check` executa lint â†’ typecheck â†’ unit tests â†’ production build.
+Latest evidence:
 
-Ãšltima evidÃªncia em 2026-08-25:
+- PASSO 15 targeted tests: 26/26
+- complete suite: 72/72
+- lint passed
+- typecheck passed
+- production build passed
+- `/pt-BR` SSG passed
+- `/en` SSG passed
+- `/es` SSG passed
+- Proxy recognized
+- `npm run check` passed
 
-- typecheck aprovado;
-- lint aprovado;
-- 8 test files passed;
-- 46/46 testes passaram;
-- 0 falhas;
-- production build aprovado;
-- `/pt-BR`, `/en` e `/es` SSG aprovados;
-- Proxy reconhecido.
+## Decisions
 
-DistribuiÃ§Ã£o:
+After PASSO 15:
 
-- CurrencyCode 3;
-- Money 10;
-- SKU 5;
-- Slug 5;
-- ProductCategory 4;
-- Product 5;
-- ProductVariant 7;
-- ProductMedia 7.
+`CODAL-DEC-001 -> CODAL-DEC-049`
 
-PASSO 14 isolado: 5 arquivos, 28/28 testes.
+Next available decision:
 
-## PersistÃªncia planejada
+`CODAL-DEC-050`
 
-```text
-UI
-â†’ Application
-â†’ Repository Contract
-â†’ Infrastructure Provider
-```
+## Next step
 
-Primeira fase: Seed imutÃ¡vel + overrides locais + IndexedDB para estado mutÃ¡vel.
-
-Futuro: API, Supabase, PostgreSQL.
-
-## DecisÃµes
-
-ApÃ³s esta sincronizaÃ§Ã£o: `CODAL-DEC-001 â†’ CODAL-DEC-041`.
-
-PrÃ³xima decisÃ£o disponÃ­vel: `CODAL-DEC-042`.
-
-## PrÃ³xima aÃ§Ã£o
-
-PASSO 15 â€” Inventory + InventoryMovement.
-
-Objetivos:
-
-- estoque por ProductVariantId;
-- quantidade segura;
-- ENTRY, EXIT e ADJUSTMENT;
-- histÃ³rico separado do estado atual;
-- testes unitÃ¡rios;
-- regressÃ£o completa;
-- independÃªncia de Infrastructure.
+PASSO 16 - Cart + CartItem.

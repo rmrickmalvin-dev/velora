@@ -1,12 +1,12 @@
-# CHANGELOG â€” VELORA
+# CHANGELOG — VELORA
 
-Ãšltima atualizaÃ§Ã£o: 2026-08-24
+Última atualização: 2026-08-24
 
-## BUILD 01 â€” Foundation
+## BUILD 01 — Foundation
 
-### Unidade 01A â€” Bootstrap + Locale Foundation
+### Unidade 01A — Bootstrap + Locale Foundation
 
-Status: CONCLUÃDA, VALIDADA E VERSIONADA
+Status: CONCLUÍDA, VALIDADA E VERSIONADA
 
 #### Added
 
@@ -23,7 +23,7 @@ Status: CONCLUÃDA, VALIDADA E VERSIONADA
 - localized `html lang`;
 - locale switcher;
 - pathname-preserving locale navigation;
-- default locale redirect `/` â†’ `/pt-BR`;
+- default locale redirect `/` → `/pt-BR`;
 - Proxy de locale;
 - Pearl + Champagne Design Tokens;
 - semantic color tokens;
@@ -103,9 +103,9 @@ Unidade 01A approved as the first stable technical checkpoint of VELORA.
 
 ---
 
-### Unidade 01B â€” Domain Foundation
+### Unidade 01B — Domain Foundation
 
-Status: EM EXECUÃ‡ÃƒO
+Status: EM EXECUÇÃO
 
 #### Architecture
 
@@ -132,9 +132,9 @@ Added:
 Established dependency direction:
 
 UI
-â†’ Application
-â†’ Domain Contracts
-â† Infrastructure
+→ Application
+→ Domain Contracts
+← Infrastructure
 
 Established Domain restrictions:
 
@@ -291,15 +291,15 @@ Passed:
 Aggregated Quality Gate:
 
 lint
-â†’ typecheck
-â†’ unit tests
-â†’ production build
+→ typecheck
+→ unit tests
+→ production build
 
 Latest validated result:
 
 - ESLint passed;
 - TypeScript passed;
-- Vitest passed â€” 18/18;
+- Vitest passed — 18/18;
 - production build passed;
 - `/pt-BR` SSG passed;
 - `/en` SSG passed;
@@ -349,7 +349,7 @@ Required next validations:
 
 - product identity invariants;
 - slug invariants;
-- ProductVariant â†’ Product relationship;
+- ProductVariant → Product relationship;
 - SKU ownership by variant;
 - non-negative variant price;
 - predictable ProductMedia structure;
@@ -364,9 +364,9 @@ Required next validations:
 - aggregated Quality Gate.
 ---
 
-### PASSO 14 â€” Catalog Domain
+### PASSO 14 — Catalog Domain
 
-Status: CONCLUÃDO E TECNICAMENTE VALIDADO
+Status: CONCLUÍDO E TECNICAMENTE VALIDADO
 
 #### Added
 
@@ -428,4 +428,108 @@ Next decision: CODAL-DEC-042.
 
 #### Next
 
-PASSO 15 â€” Inventory + InventoryMovement.
+PASSO 15 — Inventory + InventoryMovement.
+---
+
+### PASSO 15 - Inventory Domain
+
+Status: COMPLETED AND TECHNICALLY VALIDATED
+
+#### Inventory
+
+Added:
+
+- Inventory
+- ProductVariantId relation
+- quantityOnHand
+- safe-integer validation
+- non-negative quantity invariant
+- immutable inventory state
+
+#### InventoryMovement
+
+Added:
+
+- InventoryMovement
+- InventoryId relation
+- explicit movement type
+- signed delta
+- required reason
+- immutable movement record
+
+Validated:
+
+- ENTRY requires positive delta
+- EXIT requires negative delta
+- ADJUSTMENT accepts positive or negative non-zero delta
+- fractional delta rejected
+- zero delta rejected
+- unsupported movement type rejected
+
+#### Inventory Service
+
+Added:
+
+- applyInventoryMovement
+
+Validated:
+
+- movement must belong to provided Inventory
+- ENTRY increases quantity
+- EXIT decreases quantity
+- ADJUSTMENT applies signed correction
+- negative resulting stock is rejected
+- unsafe integer result is rejected
+- transition returns a new Inventory
+
+#### Architecture
+
+```text
+ProductVariant
+      |
+      v
+Inventory
+      |
+      v
+InventoryMovement
+```
+
+Catalog remains free of stock fields.
+
+#### Testing
+
+PASSO 15 targeted validation:
+
+- 3 test files passed
+- 26 tests passed
+- 0 tests failed
+
+Complete suite:
+
+- 11 test files passed
+- 72 tests passed
+- 0 tests failed
+
+#### Technical Validation
+
+Passed:
+
+- npm run lint
+- npm run typecheck
+- npm run test
+- npm run build
+- npm run check
+
+#### Decisions
+
+Added:
+
+- CODAL-DEC-042 through CODAL-DEC-049
+
+Next available decision:
+
+- CODAL-DEC-050
+
+#### Next
+
+PASSO 16 - Cart + CartItem.

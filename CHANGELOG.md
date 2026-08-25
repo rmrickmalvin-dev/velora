@@ -1059,3 +1059,122 @@ Next available decision:
 #### Next
 
 PASSO 21 - Application Use Cases.
+---
+
+### PASSO 21 - Application Use Cases
+
+Status: COMPLETED AND TECHNICALLY VALIDATED
+
+#### Added
+
+Application layer:
+
+- ApplicationError
+- listStorefrontProducts
+- getStorefrontProductBySlug
+- addProductToCart
+- updateCartQuantity
+- removeProductFromCart
+- getCartSummary
+- adjustInventory
+- changeOrderStatus
+- listCustomerOrders
+- Application barrel export
+
+#### Storefront
+
+Validated:
+
+- ACTIVE Product filtering
+- ACTIVE ProductVariant filtering
+- featured-first ordering
+- deterministic name ordering
+- ProductMedia aggregation
+- Inventory aggregation
+- detail lookup by Slug
+- missing/inactive detail returns null
+
+#### Cart
+
+Validated:
+
+- ProductVariant lookup
+- sale status validation
+- Inventory lookup
+- stock availability
+- new Cart creation
+- current ProductVariant price capture
+- repeated-add quantity merge
+- quantity update
+- CartItem removal
+- Money subtotal
+- no Inventory mutation during Cart operations
+
+#### Inventory
+
+Validated:
+
+- Inventory lookup
+- Domain InventoryMovement creation
+- Domain stock transition
+- Inventory persistence
+- movement history append
+- missing Inventory error
+- negative stock remains rejected by Domain
+
+#### Order
+
+Validated:
+
+- Order lookup
+- Domain status transition
+- Order persistence
+- missing Order error
+- invalid transition protection
+- Customer Order listing
+
+#### Architecture
+
+Application imports Domain contracts and services.
+
+Application does not import concrete local repository implementations.
+
+Local repositories are composition/test adapters only.
+
+#### Testing
+
+PASSO 21 targeted validation:
+
+- 3 test files passed
+- 24 tests passed
+- 0 tests failed
+
+Complete suite:
+
+- 22 test files passed
+- 184 tests passed
+- 0 tests failed
+
+#### Technical Validation
+
+Passed:
+
+- npm run lint
+- npm run typecheck
+- npm run test
+- npm run build
+- npm run check
+
+#### Decisions
+
+Added:
+
+- CODAL-DEC-090 through CODAL-DEC-097
+
+Next available decision:
+
+- CODAL-DEC-098
+
+#### Next
+
+PASSO 22 - IndexedDB Provider and Persistent Local Adapters.

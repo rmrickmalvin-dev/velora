@@ -2,13 +2,7 @@
 
 Last update: 2026-08-25
 
-## Central principle
-
-Domain does not know Framework.
-
-Framework knows Domain.
-
-## Dependency direction
+## Architecture
 
 ```text
 UI
@@ -17,126 +11,165 @@ v
 Application
 |
 v
-Domain Contracts
+Domain
 ^
 |
 Infrastructure
 ```
 
-## Repository implementation boundary
+## Application boundary
 
-Domain defines Repository Contracts.
+Application coordinates use cases.
 
-Infrastructure implements those contracts.
+Application may depend on:
 
-PASSO 20 introduces local in-memory adapters.
+- Domain entities
+- Domain services
+- Domain Repository Contracts
+- Application DTOs/errors
 
-```text
-VELORA Seed
-    |
-    v
-Local Repository Adapter
-    |
-    v
-Domain Repository Contract
-    |
-    v
-Application Use Case
-```
+Application must not depend on:
 
-## Local Repository Implementations
+- Local repository implementations
+- IndexedDB implementation details
+- Supabase
+- PostgreSQL
+- React components
+- Next.js routing internals
 
-Implemented:
+## Storefront use cases
 
-- LocalProductCategoryRepository
-- LocalProductRepository
-- LocalProductVariantRepository
-- LocalProductMediaRepository
-- LocalInventoryRepository
-- LocalInventoryMovementRepository
-- LocalCartRepository
-- LocalOrderRepository
+### listStorefrontProducts
 
-Factory:
+Aggregates:
 
-- `createLocalRepositories`
+- Product
+- active ProductVariant records
+- ProductMedia
+- Inventory
 
-## Seed isolation
+Exposes only ACTIVE Products.
 
-Local repositories copy seed references into private working collections.
+Ordering is deterministic:
 
-Because Domain entities are immutable, entity references are safe to reuse as baseline values.
+1. featured Products
+2. non-featured Products
+3. alphabetical Product name inside each group
 
-Repository mutations replace or append working-state references.
+### getStorefrontProductBySlug
 
-They never mutate the `veloraSeed` collections.
-
-Calling `createLocalRepositories` again recreates a clean isolated working state.
-
-## Current persistence behavior
-
-The PASSO 20 adapter is in memory.
-
-It does not survive a browser reload.
-
-This is intentional.
-
-The local adapter proves Repository Contracts and unblocks Application Use Cases before persistent Infrastructure is introduced.
-
-Future IndexedDB adapters must implement the same Domain contracts.
-
-## Read semantics
-
-Single lookup:
+Returns:
 
 ```text
-Entity | null
+StorefrontProduct | null
 ```
 
-List query:
+Inactive or missing Product returns null.
 
-```text
-readonly Entity[]
-```
+## Cart use cases
 
-Local list methods return frozen snapshots.
+### addProductToCart
 
-## Write semantics
+Coordinates:
 
-State repositories use `save` as upsert by entity id.
+- ProductVariant lookup
+- ACTIVE sale status
+- Inventory lookup
+- stock availability
+- Cart creation
+- CartItem creation
+- repeated ProductVariant merge
+- Cart save
 
-InventoryMovement uses `append`.
+Repeated adds increase the existing line quantity.
 
-Cart supports remove.
+They do not create duplicate ProductVariant lines.
 
-Order has no delete contract.
+### updateCartQuantity
 
-## Business-rule boundary
+Validates current Inventory before applying Domain Cart quantity transition.
 
-Local repositories do not invent business rules.
+### removeProductFromCart
 
-Examples of rules that remain outside repository implementation:
+Coordinates Cart lookup, item existence and Domain removal.
 
-- stock cannot become negative
-- Cart quantity must be positive
-- Order lifecycle transition validity
-- commercial snapshot creation
+### getCartSummary
 
-Those rules remain in Domain and Application.
+Returns Cart plus Money subtotal.
 
-## Quality state
+Empty Cart subtotal remains null through Domain behavior.
 
-PASSO 20 adds:
+## Cart vs Inventory
 
-- 16 local repository tests
+Cart quantity is purchase intent.
+
+Inventory quantityOnHand is stock state.
+
+Cart operations do not decrement Inventory.
+
+Stock mutation belongs to explicit inventory/order orchestration.
+
+## Inventory use case
+
+### adjustInventory
+
+Coordinates:
+
+1. find Inventory
+2. create InventoryMovement
+3. apply Domain movement
+4. save resulting Inventory
+5. append InventoryMovement history
+
+Domain still owns stock invariants.
+
+## Order use cases
+
+### changeOrderStatus
+
+Coordinates Repository lookup, Domain transition and Repository save.
+
+### listCustomerOrders
+
+Uses OrderRepository customer query.
+
+Guest Orders are not returned for a CustomerId.
+
+## Application errors
+
+ApplicationError represents orchestration failures such as:
+
+- missing ProductVariant
+- unavailable ProductVariant
+- missing Inventory
+- insufficient stock
+- missing Cart
+- missing CartItem
+- missing Order
+
+DomainValidationError remains responsible for Domain invariant violations.
+
+## Infrastructure composition
+
+Tests compose Application Use Cases with Local Repository implementations.
+
+Production composition will later select persistent adapters.
+
+Application modules themselves remain implementation-independent.
+
+## Test state
+
+PASSO 21 adds:
+
+- 24 Application tests
 
 Complete suite:
 
-- 19 test files
-- 160 tests
-- 160 passed
+- 22 test files
+- 184 tests
+- 184 passed
 - 0 failed
 
 ## Next milestone
 
-PASSO 21 - Application Use Cases.
+PASSO 22 - IndexedDB Provider and Persistent Local Adapters.

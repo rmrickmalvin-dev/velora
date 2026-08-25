@@ -12,7 +12,7 @@ BUILD 01 - Foundation
 
 ## Current unit
 
-01B - Domain and Data Foundation
+01C - Application Foundation
 
 ## State
 
@@ -22,73 +22,106 @@ IN PROGRESS
 
 - `90f2d42` - domain primitives
 - `d682c43` - catalog domain
-- `c06a5d3` - inventory domain and movements
-- `0e461a3` - cart domain and cart operations
-- `bffa30d` - order domain and lifecycle
+- `c06a5d3` - inventory domain
+- `0e461a3` - cart domain
+- `bffa30d` - order domain
 - `9ee0376` - repository contracts
-- `f633f35` - deterministic VELORA seed
+- `f633f35` - deterministic seed
+- `1706833` - local repository implementations
 
 ## Latest validated step
 
-PASSO 20 - Local Repository Implementations
+PASSO 21 - Application Use Cases
 
-## Local repositories
+## Application Layer
 
-Implemented Infrastructure adapters:
+Implemented:
 
-- LocalProductCategoryRepository
-- LocalProductRepository
-- LocalProductVariantRepository
-- LocalProductMediaRepository
-- LocalInventoryRepository
-- LocalInventoryMovementRepository
-- LocalCartRepository
-- LocalOrderRepository
-- createLocalRepositories
+- ApplicationError
+- listStorefrontProducts
+- getStorefrontProductBySlug
+- addProductToCart
+- updateCartQuantity
+- removeProductFromCart
+- getCartSummary
+- adjustInventory
+- changeOrderStatus
+- listCustomerOrders
 
-## Working state
+## Storefront orchestration
 
-`createLocalRepositories` initializes Catalog and Inventory from the immutable VELORA seed.
+Storefront queries now combine:
 
-Each call creates isolated working state.
+- Product
+- active ProductVariant records
+- ProductMedia
+- Inventory
 
-Cart and Order repositories start empty.
+Only ACTIVE Products are exposed.
 
-The original `veloraSeed` remains unchanged when repositories mutate their working state.
+Featured Products sort before non-featured Products.
 
-## Persistence level
+Within the same featured group, Product name defines deterministic order.
 
-PASSO 20 repositories are in-memory Infrastructure adapters.
+## Cart orchestration
 
-They are intentionally volatile across page reloads.
+Application now coordinates:
 
-Their purpose is to:
+- ProductVariant lookup
+- sale availability
+- Inventory availability
+- Cart creation
+- repeated-add quantity merge
+- Cart quantity update
+- CartItem removal
+- Money subtotal
 
-- validate Repository Contracts
-- provide real data access for Application Use Cases
-- preserve seed isolation
-- make BUILD 01 executable before IndexedDB
-- provide a clean reference implementation for future persistent adapters
+Adding to Cart does not mutate Inventory.
 
-IndexedDB remains a later Infrastructure adapter.
+Inventory remains stock state.
 
-## Repository semantics
+Cart remains purchase intent.
 
-- single lookup returns entity or null
-- list results are frozen snapshots
-- save is upsert by entity id
-- InventoryMovement append preserves insertion order
-- Cart supports remove
-- Order remains without delete
-- repositories add no new business rules
+## Inventory orchestration
+
+`adjustInventory` coordinates:
+
+- Inventory lookup
+- InventoryMovement creation
+- Domain stock transition
+- Inventory save
+- InventoryMovement append
+
+Domain rules still prevent negative stock.
+
+## Order orchestration
+
+Application now coordinates:
+
+- Order lookup
+- Domain status transition
+- Order persistence
+- Customer Order listing
+
+Application does not bypass the Domain lifecycle graph.
+
+## Infrastructure independence
+
+Application imports Domain contracts and Domain services.
+
+Application does not import local repository implementations.
+
+The local repositories are used only by tests/composition.
+
+This preserves future IndexedDB/API adapter compatibility.
 
 ## Quality Gate
 
 Latest evidence:
 
-- PASSO 20 targeted tests: 16/16
-- complete suite: 160/160
-- 19 test files passed
+- PASSO 21 targeted tests: 24/24
+- complete suite: 184/184
+- 22 test files passed
 - lint passed
 - typecheck passed
 - production build passed
@@ -100,14 +133,14 @@ Latest evidence:
 
 ## Decisions
 
-After PASSO 20:
+After PASSO 21:
 
-`CODAL-DEC-001 -> CODAL-DEC-089`
+`CODAL-DEC-001 -> CODAL-DEC-097`
 
 Next available decision:
 
-`CODAL-DEC-090`
+`CODAL-DEC-098`
 
 ## Next step
 
-PASSO 21 - Application Use Cases.
+PASSO 22 - IndexedDB Provider and Persistent Local Adapters.

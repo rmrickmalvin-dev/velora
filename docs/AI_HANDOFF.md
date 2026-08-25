@@ -10,7 +10,7 @@ BUILD 01 - Foundation
 
 Latest validated step:
 
-PASSO 20 - Local Repository Implementations
+PASSO 21 - Application Use Cases
 
 ## Checkpoints
 
@@ -20,54 +20,73 @@ PASSO 20 - Local Repository Implementations
 - `0e461a3` - cart domain
 - `bffa30d` - order domain
 - `9ee0376` - repository contracts
-- `f633f35` - VELORA seed
+- `f633f35` - seed foundation
+- `1706833` - local repositories
 
-## Local Infrastructure
-
-Location:
-
-`src/infrastructure/repositories/local`
+## Application API
 
 Available:
 
-- LocalProductCategoryRepository
-- LocalProductRepository
-- LocalProductVariantRepository
-- LocalProductMediaRepository
-- LocalInventoryRepository
-- LocalInventoryMovementRepository
-- LocalCartRepository
-- LocalOrderRepository
-- createLocalRepositories
+- listStorefrontProducts
+- getStorefrontProductBySlug
+- addProductToCart
+- updateCartQuantity
+- removeProductFromCart
+- getCartSummary
+- adjustInventory
+- changeOrderStatus
+- listCustomerOrders
 
-## Critical rules
+## Storefront rules
 
-- local repositories initialize from `veloraSeed`
-- never mutate `veloraSeed`
-- each repository bundle is isolated
-- Cart starts empty
-- Order starts empty
-- list methods return frozen snapshots
-- save is infrastructure upsert, not business validation
-- InventoryMovement append preserves history order
-- no provider types leak into Domain
+- expose only ACTIVE Products
+- expose only ACTIVE ProductVariants
+- aggregate ProductMedia and Inventory
+- featured Products sort first
+- missing/inactive detail returns null
 
-## Persistence note
+## Cart rules
 
-PASSO 20 is in-memory only.
+- ProductVariant must exist
+- ProductVariant must be ACTIVE
+- Inventory must exist
+- requested quantity cannot exceed stock
+- repeated add merges quantity
+- Cart operations do not mutate Inventory
+- subtotal remains Money-based
 
-Reload persistence is intentionally not implemented yet.
+## Inventory rules
 
-IndexedDB will be a later adapter behind the same Repository Contracts.
+`adjustInventory`:
+
+- finds Inventory
+- creates InventoryMovement
+- uses Domain transition
+- saves Inventory
+- appends movement history
+
+## Order rules
+
+`changeOrderStatus` must use the Domain lifecycle.
+
+Do not mutate Order status directly.
+
+## Dependency rule
+
+Application Use Cases depend on Domain Repository Contracts.
+
+They must not import local repository classes.
+
+Infrastructure selection belongs to composition.
 
 ## Quality Gate
 
 Latest evidence:
 
 ```text
-PASSO 20 targeted: 16/16
-Full suite:         160/160
-Test files:         19/19
+PASSO 21 targeted: 24/24
+Full suite:         184/184
+Test files:         22/22
 lint:               passed
 typecheck:          passed
 build:              passed
@@ -76,19 +95,19 @@ check:              passed
 
 ## Decisions
 
-After PASSO 20:
+After PASSO 21:
 
-`CODAL-DEC-001 -> CODAL-DEC-089`
+`CODAL-DEC-001 -> CODAL-DEC-097`
 
 Next:
 
-`CODAL-DEC-090`
+`CODAL-DEC-098`
 
 ## Next action
 
-PASSO 21 - Application Use Cases.
+PASSO 22 - IndexedDB Provider and Persistent Local Adapters.
 
-Application Use Cases should orchestrate Repository Contracts and Domain services without importing local repository implementations directly.
+Persistent adapters must implement the same Domain Repository Contracts without changing Application Use Cases.
 
 ## Reading order
 

@@ -117,6 +117,14 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-087 | ACEITA | Cart and Order repositories initialize empty instead of being seeded with transaction state | Preserve the boundary between immutable baseline data and runtime commerce state |
 | CODAL-DEC-088 | ACEITA | Each createLocalRepositories call returns an isolated repository bundle | Make reset and test isolation deterministic |
 | CODAL-DEC-089 | ACEITA | Infrastructure repositories do not introduce new business rules beyond storage contract semantics | Keep business invariants in Domain and orchestration in Application |
+| CODAL-DEC-098 | ACEITA | Application Use Cases depend on Domain Repository Contracts and Domain services, never concrete Infrastructure adapters | Preserve dependency inversion and future provider replacement |
+| CODAL-DEC-091 | ACEITA | Storefront queries expose only ACTIVE Products and ACTIVE ProductVariants while aggregating ProductMedia and Inventory | Keep public commerce reads sale-ready without moving presentation concerns into Domain |
+| CODAL-DEC-092 | ACEITA | Storefront Product ordering is featured-first and then alphabetical by Product name | Provide deterministic public ordering before UI-specific merchandising exists |
+| CODAL-DEC-093 | ACEITA | Repeated add-to-cart for the same ProductVariant merges quantity into the existing CartItem | Match expected commerce behavior while preserving one line per ProductVariant |
+| CODAL-DEC-094 | ACEITA | Cart Application Use Cases validate Inventory availability but do not mutate Inventory | Keep purchase intent separate from stock state until an explicit stock-changing workflow |
+| CODAL-DEC-095 | ACEITA | Application orchestration errors use ApplicationError while Domain invariant failures remain DomainValidationError | Separate orchestration failure semantics from Domain validation semantics |
+| CODAL-DEC-096 | ACEITA | Inventory adjustment orchestration persists the validated Inventory state and appends its InventoryMovement history | Keep current stock and movement history synchronized through Domain rules |
+| CODAL-DEC-097 | ACEITA | Order status orchestration must load through OrderRepository, apply the Domain transition graph and save the new Order | Prevent Application from bypassing Order lifecycle invariants |
 
 ## Decisões por área
 
@@ -210,7 +218,7 @@ Uma IA ou desenvolvedor que continuar a VELORA deve:
 - não substituir decisões ACEITAS silenciosamente;
 - verificar se uma nova implementação contradiz alguma decisão existente;
 - registrar novas decisões com numeração sequencial;
-- utilizar o próximo número disponível após CODAL-DEC-089;
+- utilizar o próximo número disponível após CODAL-DEC-097;
 - preservar decisões históricas mesmo quando forem superadas.
 
 ## Próxima decisão disponível

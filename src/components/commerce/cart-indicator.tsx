@@ -18,6 +18,9 @@ import {
 } from "../../features/cart/browser-cart-runtime";
 
 import {
+  SessionIndicator,
+} from "../session/session-indicator";
+import {
   CartDrawer,
 } from "./cart-drawer";
 
@@ -85,9 +88,18 @@ export function CartIndicator({
 
   return (
     <>
-      <button
-        type="button"
-        className={styles.root}
+      <span
+        className={
+          styles.cluster
+        }
+      >
+        <SessionIndicator
+          locale={locale}
+        />
+
+        <button
+          type="button"
+          className={styles.root}
         aria-live="polite"
         aria-haspopup="dialog"
         aria-expanded={
@@ -121,7 +133,8 @@ export function CartIndicator({
         <strong>
           {count}
         </strong>
-      </button>
+        </button>
+      </span>
 
       <CartDrawer
         locale={locale}

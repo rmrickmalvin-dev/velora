@@ -14,60 +14,67 @@ CLOSED AND VALIDATED
 
 CLOSED AND VALIDATED
 
-## PASSO 33 - Demo Order history
+## BUILD 04
 
-- [x] OrderRepository list contract
-- [x] local Order list adapter
-- [x] persistent Order list adapter
-- [x] Application listDemoOrders
-- [x] guest Order filtering
-- [x] persistent runtime recreation
-- [x] Order history Presentation model
-- [x] subtotal from Order snapshots
-- [x] newest-first demo reference presentation
-- [x] localized Orders route
-- [x] noindex local-history route
-- [x] Cart Drawer history link
-- [x] Checkout confirmation history link
+IN PROGRESS
 
-## PASSO 33 - Reset
+## PASSO 34 - Demo session
 
-- [x] two-step reset
-- [x] existing Runtime resetDemo
-- [x] no second persistence mechanism
-- [x] Cart indicator refresh
-- [x] history clears after reset
+- [x] GUEST default role
+- [x] CUSTOMER role
+- [x] ADMIN role
+- [x] localStorage session adapter
+- [x] one role-only storage key
+- [x] same-document session event
+- [x] cross-tab storage event
+- [x] useSyncExternalStore shared UI
+- [x] no Domain persistence dependency
+- [x] no IndexedDB session dependency
 
-## BUILD 03 commerce boundaries
+## PASSO 34 - Role entry
 
-- [x] no real payment
-- [x] no fake transaction id
-- [x] no personal Checkout field persistence
-- [x] no Cart/Checkout direct IndexedDB access
-- [x] no Inventory mutation
-- [x] Order saved before Cart completion
+- [x] localized login route
+- [x] localized account route
+- [x] localized admin route
+- [x] noindex role routes
+- [x] quick Customer entry
+- [x] quick Admin entry
+- [x] Guest continuation
+- [x] no password fields
+- [x] explicit demo-only notice
+- [x] Customer area role gate
+- [x] Admin area role gate
+- [x] global SessionIndicator
 
-## PASSO 33 Test Evidence
+## Security semantics
+
+- [x] no claim of real authentication
+- [x] no security boundary claim
+- [x] no credential storage
+- [x] no auth token
+- [x] no sensitive profile persistence
+
+## PASSO 34 Test Evidence
 
 Targeted:
 
 ```text
 5 test files
-36 tests
-36 passed
+40 tests
+40 passed
 0 failed
 ```
 
 Complete suite:
 
 ```text
-53 test files
-422 tests
-422 passed
+58 test files
+462 tests
+462 passed
 0 failed
 ```
 
-## Final BUILD 03 gate
+## Latest Technical Gate
 
 - [x] npm run lint
 - [x] npm run typecheck
@@ -77,4 +84,4 @@ Complete suite:
 
 ## Next Quality Gate
 
-BUILD 04 / PASSO 34 - Demo Authentication Roles, Session Experience and Customer/Admin Entry.
+PASSO 35 - Admin Storefront Context, Catalog Controls and Inventory Visibility.

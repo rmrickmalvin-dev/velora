@@ -364,3 +364,24 @@ Rules:
 - use the existing semantic danger token for reset confirmation
 
 Checkout and local Order history are browser-state commerce routes and should not be indexed.
+## Demo role session
+
+BUILD 04 begins with an explicit role-selection experience.
+
+Roles:
+
+- Guest
+- Customer
+- Admin
+
+Visual rules:
+
+- role state is subtle and secondary to Storefront content
+- role indicator shares the compact navigation cluster with Cart
+- Admin uses restrained gold emphasis rather than a separate visual brand
+- mobile collapses role copy to a compact status dot
+- login cards explain capabilities without credential/security claims
+
+Language rule:
+
+Always describe role switching as a local demonstration or interface mode, never as real secure authentication.

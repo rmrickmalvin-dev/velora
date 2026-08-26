@@ -1,3 +1,10 @@
+.cluster {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--velora-space-2);
+}
+
 .root {
   min-height: 2.75rem;
   padding:

@@ -1,0 +1,92 @@
+.root {
+  min-height: 2.75rem;
+  max-width: 10.5rem;
+  padding:
+    0.38rem
+    0.72rem;
+  display: inline-flex;
+  align-items: center;
+  gap:
+    var(--velora-space-2);
+  border:
+    1px solid
+    var(--velora-border);
+  border-radius:
+    var(--velora-radius-pill);
+  color:
+    var(--velora-ink-700);
+  background:
+    rgba(255, 255, 255, 0.42);
+  text-decoration: none;
+}
+
+.root:hover,
+.root:focus-visible {
+  border-color:
+    var(--velora-gold-500);
+  background:
+    var(--velora-surface-strong);
+}
+
+.status {
+  width: 0.48rem;
+  height: 0.48rem;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background:
+    var(--velora-ink-400);
+}
+
+.root[data-demo-role="CUSTOMER"]
+.status {
+  background:
+    var(--velora-gold-600);
+}
+
+.root[data-demo-role="ADMIN"]
+.status {
+  box-shadow:
+    0 0 0 0.18rem
+    rgba(173, 132, 70, 0.16);
+  background:
+    var(--velora-gold-700);
+}
+
+.copy {
+  min-width: 0;
+  display: grid;
+  line-height: 1.05;
+}
+
+.copy small {
+  overflow: hidden;
+  color:
+    var(--velora-ink-500);
+  font-size: 0.52rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.copy strong {
+  margin-top: 0.18rem;
+  font-size: 0.68rem;
+}
+
+@media (max-width: 44rem) {
+  .root {
+    max-width: 2.75rem;
+    width: 2.75rem;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .copy {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip:
+      rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+}

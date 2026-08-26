@@ -12,81 +12,96 @@ BUILD 02 - CLOSED
 
 BUILD 03 - CLOSED
 
-Next:
+BUILD 04 - IN PROGRESS
 
-BUILD 04 - Application and Data Experience
+Latest validated step:
 
-## BUILD 03 closure
+PASSO 34 - Demo Authentication Roles, Session Experience and Customer/Admin Entry
 
-Record:
+## Role model
 
-`docs/BUILD_03_CLOSURE.md`
+Roles:
 
-Final evidence:
+- GUEST
+- CUSTOMER
+- ADMIN
+
+Default:
+
+GUEST
+
+These are demo interface modes.
+
+Do not describe them as secure authentication.
+
+## Browser session adapter
+
+Use:
+
+`browser-demo-session`
+
+Storage:
+
+`velora.demo.session.v1`
+
+Persist only the demo role.
+
+Do not store:
+
+- passwords
+- auth tokens
+- personal account records
+
+## Global UI
+
+SessionIndicator is composed into CartIndicator.
+
+This makes current role visible throughout existing Storefront commerce journeys.
+
+## Demo routes
+
+- `/{locale}/login`
+- `/{locale}/account`
+- `/{locale}/admin`
+
+All are noindex.
+
+## Customer/Admin scope
+
+PASSO 34 creates role-aware entry foundations only.
+
+Do not invent full Customer profile or Admin CRUD yet.
+
+## Quality Gate
 
 ```text
-PASSO 33 targeted: 36/36
-Full suite:         422/422
-Test files:         53/53
+PASSO 34 targeted: 40/40
+Full suite:         462/462
+Test files:         58/58
 lint:               passed
 typecheck:          passed
 build:              passed
 check:              passed
 ```
 
-## Commerce contracts
+## Decisions
 
-Cart:
+After PASSO 34:
 
-- persistent IndexedDB through browser runtime
-- no direct persistence in UI
+`CODAL-DEC-001 -> CODAL-DEC-208`
 
-Checkout:
+Next:
 
-- transparent demo
-- noindex
-- ephemeral personal form state
-
-Order:
-
-- guest PENDING demo Order
-- OrderItem commercial snapshots
-- save before Cart remove
-
-History:
-
-`/{locale}/orders`
-
-- local persistent guest demo Orders
-- noindex
-- no payment semantics
-
-Reset:
-
-- two-step UI
-- calls Runtime resetDemo
-- restores initial local demo baseline
-
-## Inventory
-
-BUILD 03 did not mutate Inventory during commerce completion.
-
-Do not add reservation/decrement implicitly.
-
-## Next decision
-
-`CODAL-DEC-199`
+`CODAL-DEC-209`
 
 ## Next action
 
-PASSO 34 - Demo Authentication Roles, Session Experience and Customer/Admin Entry.
+PASSO 35 - Admin Storefront Context, Catalog Controls and Inventory Visibility.
 
-Expected focus:
+Focus:
 
-- Guest / Customer / Admin demo roles
-- quick demo entry
-- session experience state
-- role-aware navigation
-- no fake authentication security claims
-- Customer and Admin entry surfaces
-- preserve public Storefront behavior
+- discreet Admin context on Storefront
+- role-aware Product controls
+- Catalog and Inventory read models
+- no direct repository access from React
+- mutations remain explicit and auditable

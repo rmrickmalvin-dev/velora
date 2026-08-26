@@ -4,11 +4,11 @@ Last update: 2026-08-26
 
 ## Phase
 
-BUILD 03 - Commerce Interaction
+BUILD 04 - Application and Data Experience
 
 ## State
 
-CLOSED AND VALIDATED
+IN PROGRESS
 
 ## BUILD 01
 
@@ -22,85 +22,107 @@ CLOSED AND VALIDATED
 
 CLOSED AND VALIDATED
 
-Closure record:
-
-`docs/BUILD_03_CLOSURE.md`
-
 ## Latest validated step
 
-PASSO 33 - Demo Order History, Reset Flow and BUILD 03 Closure
+PASSO 34 - Demo Authentication Roles, Session Experience and Customer/Admin Entry
 
-## Final commerce journey
+## Demo roles
 
-```text
-Storefront
-|
-v
-Product Variant
-|
-v
-Persistent Cart
-|
-v
-Cart Drawer
-|
-v
-Transparent Demo Checkout
-|
-v
-Persistent Guest Demo Order
-|
-v
-Demo Order History
-```
+Available interface roles:
 
-## Public commerce routes
+- GUEST
+- CUSTOMER
+- ADMIN
 
-Checkout:
+Default:
 
-`/{locale}/checkout`
+`GUEST`
 
-Demo Orders:
+These are portfolio experience modes.
 
-`/{locale}/orders`
+They are not real authentication identities.
 
-Both preserve PT-BR / EN / ES.
+## Demo session
 
-Both browser-state routes are noindex.
+Small shared session state is persisted through:
 
-## Reset
+`src/features/session/browser-demo-session.ts`
 
-Demo Order history includes a two-step local reset.
+Storage key:
 
-Reset uses the existing Runtime reset behavior.
+`velora.demo.session.v1`
+
+Only the role value is persisted.
+
+No password, credential, token or personal profile is stored.
+
+## Role entry
+
+Localized routes:
+
+- `/{locale}/login`
+- `/{locale}/account`
+- `/{locale}/admin`
+
+All three are noindex.
+
+## Quick exploration
+
+Login provides:
+
+- Explore as Customer
+- Explore Admin dashboard
+- Continue as Guest
+
+No credentials are requested.
+
+## Global role awareness
+
+SessionIndicator is integrated into the existing global Cart cluster.
+
+The current role is therefore visible across Storefront journeys that already expose CartIndicator.
+
+Role state uses React useSyncExternalStore with:
+
+- same-document session event
+- browser storage event
+- GUEST server snapshot
+
+## Customer area
+
+PASSO 34 establishes Customer workspace entry only.
+
+Real account/profile data is not used yet.
+
+## Admin area
+
+PASSO 34 establishes Admin workspace entry only.
+
+Catalog, Inventory and operational controls remain for later BUILD 04 units.
 
 ## Quality Gate
 
 Latest evidence:
 
-- PASSO 33 targeted tests: 36/36
-- complete suite: 422/422
-- 53 test files passed
+- PASSO 34 targeted tests: 40/40
+- complete suite: 462/462
+- 58 test files passed
 - lint passed
 - typecheck passed
 - production build passed
-- all public SSG routes passed
+- login/account/admin SSG passed
 - `npm run check` passed
 
 ## Decisions
 
-After PASSO 33:
+After PASSO 34:
 
-`CODAL-DEC-001 -> CODAL-DEC-198`
+`CODAL-DEC-001 -> CODAL-DEC-208`
 
 Next available decision:
 
-`CODAL-DEC-199`
-
-## Next phase
-
-BUILD 04 - Application and Data Experience
+`CODAL-DEC-209`
 
 ## Next step
 
-PASSO 34 - Demo Authentication Roles, Session Experience and Customer/Admin Entry.
+PASSO 35 - Admin Storefront Context, Catalog Controls and Inventory Visibility.

@@ -2271,3 +2271,89 @@ Closure record:
 BUILD 04 - Application and Data Experience
 
 PASSO 34 - Demo Authentication Roles, Session Experience and Customer/Admin Entry.
+---
+
+### PASSO 34 - Demo Authentication Roles, Session Experience and Customer/Admin Entry
+
+Status: COMPLETED AND TECHNICALLY VALIDATED
+
+#### BUILD transition
+
+BUILD 03 remains CLOSED AND VALIDATED.
+
+BUILD 04 - Application and Data Experience is now IN PROGRESS.
+
+#### Added - Demo roles
+
+- GUEST
+- CUSTOMER
+- ADMIN
+- GUEST default
+- pure role model
+- role area access model
+
+#### Added - Browser session
+
+- dedicated localStorage adapter
+- `velora.demo.session.v1`
+- same-document session event
+- cross-tab storage synchronization
+- useSyncExternalStore integration
+
+#### Added - Role routes
+
+- `/{locale}/login`
+- `/{locale}/account`
+- `/{locale}/admin`
+
+All role routes are noindex.
+
+#### Added - Quick exploration
+
+- Explore as Customer
+- Explore Admin dashboard
+- Continue as Guest
+
+No credentials or security claims are introduced.
+
+#### Global experience
+
+SessionIndicator is composed into the existing Cart cluster.
+
+#### Testing
+
+PASSO 34 targeted:
+
+- 5 test files passed
+- 40 tests passed
+- 0 failed
+
+Complete suite:
+
+- 58 test files passed
+- 462 tests passed
+- 0 failed
+
+#### Technical Validation
+
+Passed:
+
+- npm run lint
+- npm run typecheck
+- npm run test
+- npm run build
+- npm run check
+
+#### Decisions
+
+Added:
+
+- CODAL-DEC-199 through CODAL-DEC-208
+
+Next available decision:
+
+- CODAL-DEC-209
+
+#### Next
+
+PASSO 35 - Admin Storefront Context, Catalog Controls and Inventory Visibility.

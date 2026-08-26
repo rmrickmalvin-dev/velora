@@ -2,59 +2,46 @@
 
 Last update: 2026-08-26
 
-## BUILD 03
+## BUILD 04 status
 
-CLOSED AND VALIDATED
+IN PROGRESS
 
-## OrderRepository evolution
+## Demo session boundary
 
-OrderRepository now supports:
+Guest / Customer / Admin are experience roles in the Feature/UI layer.
 
-- findById
-- list
-- listByCustomerId
-- save
+They are not Domain authentication identities.
 
-`list` is required for guest demo history because guest Orders intentionally have no CustomerId.
+## Session persistence
 
-## Guest demo history
+Demo role state is small UI/session state.
 
-Application operation:
+It is persisted through a dedicated browser adapter using localStorage.
 
-`listDemoOrders`
+It is intentionally separate from:
 
-filters Orders where:
+- IndexedDB Domain persistence
+- Cart
+- Orders
+- Catalog
+- Inventory
 
-`customerId === undefined`
+## Role access
 
-Presentation then derives:
+`canAccessDemoRoleArea`
 
-- total quantity
-- line count
-- subtotal
-- status
-- Order reference
+controls which demo workspace content is rendered.
 
-Subtotal comes from OrderItem snapshots through Domain `calculateOrderSubtotal`.
+It must not be described as real authorization.
 
-## Reset boundary
+## Server rendering
 
-Browser demo reset delegates to:
+The server snapshot is always:
 
-`VeloraRuntime.resetDemo`
+`GUEST`
 
-No Domain entity owns reset behavior.
+Client role state hydrates from browser storage through useSyncExternalStore.
 
-Reset is Infrastructure/demo-environment lifecycle behavior.
+## Next milestone
 
-## Inventory boundary
-
-BUILD 03 commerce completion still does not mutate Inventory.
-
-## Next phase
-
-BUILD 04 - Application and Data Experience
-
-Next milestone:
-
-PASSO 34 - Demo Authentication Roles, Session Experience and Customer/Admin Entry.
+PASSO 35 - Admin Storefront Context, Catalog Controls and Inventory Visibility.

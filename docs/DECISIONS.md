@@ -226,6 +226,16 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-196 | ACEITA | Checkout and demo Order history routes are noindex because their meaningful content depends on browser-local commerce state | Keep search metadata aligned with public discoverable content |
 | CODAL-DEC-197 | ACEITA | BUILD 03 closure preserves the rule that Cart, Checkout and demo Order completion never mutate Inventory | Keep stock reservation/decrement as an explicit future policy |
 | CODAL-DEC-198 | ACEITA | BUILD 03 Commerce Interaction is officially closed after persistent Cart, transparent Checkout, demo Order completion, Order history, reset flow, 422 passing tests and production build validation | Create an explicit quality boundary before role/session and application-data experiences begin |
+| CODAL-DEC-199 | ACEITA | GUEST, CUSTOMER and ADMIN are demo interface experience roles rather than real authentication identities | Preserve portfolio realism without false security semantics |
+| CODAL-DEC-200 | ACEITA | GUEST is the default server and browser fallback role | Keep public Storefront behavior stable before any role is selected |
+| CODAL-DEC-201 | ACEITA | Small demo session role state is persisted through a dedicated Feature-layer localStorage adapter under `velora.demo.session.v1` | Keep UI/session state separate from IndexedDB Domain persistence |
+| CODAL-DEC-202 | ACEITA | Demo login offers credential-free quick entry for Customer and Admin plus Guest continuation | Optimize portfolio exploration while explicitly avoiding fake credential flows |
+| CODAL-DEC-203 | ACEITA | Login, Account and Admin demo routes are localized and noindex | Keep browser-role workspaces available without treating them as public search content |
+| CODAL-DEC-204 | ACEITA | Role-aware shared UI uses useSyncExternalStore over a same-document custom event plus browser storage events | Synchronize role state without adding a second global state dependency |
+| CODAL-DEC-205 | ACEITA | SessionIndicator is composed into the existing CartIndicator cluster so role context follows current Storefront journeys | Make selected experience mode globally visible with minimal navigation disruption |
+| CODAL-DEC-206 | ACEITA | Customer and Admin workspace checks are experience gates only and must not be presented as authorization or security boundaries | Prevent misleading security claims in a local conceptual portfolio |
+| CODAL-DEC-207 | ACEITA | PASSO 34 establishes Customer/Admin entry foundations but defers Customer data and Admin Catalog/Inventory controls to later BUILD 04 units | Keep role/session activation small and verifiable |
+| CODAL-DEC-208 | ACEITA | BUILD 04 Application and Data Experience opens only after role/session routes, global role awareness, 462 passing tests and production build validation | Preserve quality-first phase transition |
 
 ## Decisões por área
 
@@ -258,7 +268,7 @@ Quando uma decisão precisar mudar:
 - CODAL-DEC-013 — Seed imutável + overrides locais;
 - CODAL-DEC-014 — IndexedDB para domínio mutável;
 - CODAL-DEC-015 — Zustand apenas para estado global necessário;
-- CODAL-DEC-021 — Domain independente de React e Next.js;
+- CODAL-DEC-209 — Domain independente de React e Next.js;
 - CODAL-DEC-027 — Repository Contracts independentes de providers;
 - CODAL-DEC-028 — componentes não acessam persistência diretamente.
 

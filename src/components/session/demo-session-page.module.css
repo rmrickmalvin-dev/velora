@@ -1,0 +1,295 @@
+@import "../../styles/design-tokens.css";
+
+.page {
+  min-height: 100vh;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  min-height: 4.75rem;
+  padding:
+    0
+    max(
+      1rem,
+      calc(
+        (100vw - var(--velora-content)) /
+        2
+      )
+    );
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap:
+    var(--velora-space-4);
+  border-bottom:
+    1px solid
+    var(--velora-border);
+  background:
+    rgba(251, 250, 246, 0.9);
+  backdrop-filter:
+    blur(20px);
+}
+
+.brand {
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-decoration: none;
+}
+
+.hero,
+.roleGrid {
+  width:
+    min(
+      calc(100% - 2rem),
+      var(--velora-content)
+    );
+  margin: 0 auto;
+}
+
+.hero {
+  padding:
+    clamp(4.5rem, 9vw, 8rem)
+    0
+    var(--velora-space-8);
+}
+
+.eyebrow {
+  margin: 0 0
+    var(--velora-space-4);
+  color:
+    var(--velora-gold-700);
+  font-family:
+    var(--velora-font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  max-width: 11ch;
+  margin: 0;
+  font-size:
+    clamp(
+      3.3rem,
+      7vw,
+      6.2rem
+    );
+  letter-spacing:
+    -0.055em;
+  line-height: 0.98;
+}
+
+.body {
+  max-width: 44rem;
+  margin:
+    var(--velora-space-5)
+    0
+    0;
+  color:
+    var(--velora-ink-600);
+  font-size: 1.02rem;
+  line-height: 1.7;
+}
+
+.notice {
+  max-width: 48rem;
+  margin-top:
+    var(--velora-space-6);
+  padding:
+    var(--velora-space-4);
+  border:
+    1px solid
+    var(--velora-gold-200);
+  border-radius:
+    var(--velora-radius-md);
+  color:
+    var(--velora-ink-700);
+  background:
+    var(--velora-gold-100);
+  font-size: 0.78rem;
+  line-height: 1.6;
+}
+
+.roleGrid {
+  padding-bottom:
+    var(--velora-space-12);
+  display: grid;
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(0, 1fr)
+    );
+  gap:
+    var(--velora-space-4);
+}
+
+.roleCard {
+  min-height: 18rem;
+  padding:
+    var(--velora-space-6);
+  display: grid;
+  align-content: space-between;
+  gap:
+    var(--velora-space-5);
+  border:
+    1px solid
+    var(--velora-border);
+  border-radius:
+    var(--velora-radius-lg);
+  cursor: pointer;
+  text-align: left;
+  color:
+    var(--velora-ink-900);
+  background:
+    var(--velora-surface-strong);
+  box-shadow:
+    var(--velora-shadow-sm);
+  transition:
+    transform
+    var(--velora-transition-fast),
+    border-color
+    var(--velora-transition-fast);
+}
+
+.roleCard:hover,
+.roleCard:focus-visible {
+  transform:
+    translateY(-3px);
+  border-color:
+    var(--velora-gold-500);
+}
+
+.roleCard > span,
+.workspace > span {
+  color:
+    var(--velora-gold-700);
+  font-family:
+    var(--velora-font-mono);
+  font-size: 0.68rem;
+}
+
+.roleCard strong {
+  max-width: 15ch;
+  font-size: 1.8rem;
+  letter-spacing: -0.04em;
+}
+
+.roleCard p {
+  margin: 0;
+  color:
+    var(--velora-ink-600);
+  line-height: 1.6;
+}
+
+.guest {
+  min-height: 3rem;
+  grid-column: 1 / -1;
+  border:
+    1px solid
+    var(--velora-border-strong);
+  border-radius:
+    var(--velora-radius-pill);
+  cursor: pointer;
+  background: transparent;
+  font-weight: 700;
+}
+
+.feedback {
+  min-height: 1.25rem;
+  grid-column: 1 / -1;
+  color:
+    var(--velora-danger);
+  font-size: 0.75rem;
+}
+
+.workspace,
+.access {
+  max-width: 48rem;
+  margin-top:
+    var(--velora-space-8);
+  padding:
+    var(--velora-space-6);
+  border:
+    1px solid
+    var(--velora-border);
+  border-radius:
+    var(--velora-radius-lg);
+  background:
+    var(--velora-surface-strong);
+  box-shadow:
+    var(--velora-shadow-sm);
+}
+
+.workspace p,
+.access p {
+  color:
+    var(--velora-ink-600);
+  line-height: 1.6;
+}
+
+.actions {
+  margin-top:
+    var(--velora-space-5);
+  display: flex;
+  flex-wrap: wrap;
+  gap:
+    var(--velora-space-3);
+}
+
+.actions a,
+.access a {
+  min-height: 2.75rem;
+  padding:
+    0
+    var(--velora-space-4);
+  display: inline-flex;
+  align-items: center;
+  border:
+    1px solid
+    var(--velora-border-strong);
+  border-radius:
+    var(--velora-radius-pill);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+@media (max-width: 44rem) {
+  .header {
+    padding:
+      0
+      0.625rem;
+  }
+
+  .hero,
+  .roleGrid {
+    width:
+      min(
+        calc(100% - 1.25rem),
+        var(--velora-content)
+      );
+  }
+
+  .roleGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .guest,
+  .feedback {
+    grid-column: auto;
+  }
+
+  .roleCard {
+    min-height: 15rem;
+    padding:
+      var(--velora-space-5);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .roleCard {
+    transition: none;
+  }
+}

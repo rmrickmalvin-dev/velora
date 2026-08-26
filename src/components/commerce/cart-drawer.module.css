@@ -195,9 +195,7 @@
     var(--velora-space-5);
   padding-top:
     var(--velora-space-4);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
   gap:
     var(--velora-space-4);
   border-top:
@@ -310,4 +308,37 @@
   .drawer {
     animation: none;
   }
+}
+
+.subtotal {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--velora-space-4);
+}
+
+.checkout {
+  min-height: 3rem;
+  padding:
+    0
+    var(--velora-space-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--velora-space-3);
+  border-radius:
+    var(--velora-radius-pill);
+  color:
+    var(--velora-pearl-0);
+  background:
+    var(--velora-ink-900);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.checkout:hover,
+.checkout:focus-visible {
+  background:
+    var(--velora-ink-800);
 }

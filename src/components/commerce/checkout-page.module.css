@@ -1,0 +1,529 @@
+@import "../../styles/design-tokens.css";
+
+.page {
+  min-height: 100vh;
+  padding-left: 15.5rem;
+}
+
+.header {
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: 20;
+  width: 15.5rem;
+  height: 100vh;
+  border-right:
+    1px solid
+    var(--velora-border);
+  background:
+    rgba(251, 250, 246, 0.9);
+  backdrop-filter:
+    blur(20px);
+}
+
+.headerInner {
+  width: 100%;
+  min-height: 100%;
+  padding:
+    var(--velora-space-8)
+    var(--velora-space-6);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap:
+    var(--velora-space-8);
+}
+
+.brand {
+  width: max-content;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-decoration: none;
+}
+
+.back {
+  display: flex;
+  align-items: center;
+  gap:
+    var(--velora-space-2);
+  color:
+    var(--velora-ink-600);
+  font-size: 0.82rem;
+  text-decoration: none;
+}
+
+.headerInner > :last-child {
+  margin-top: auto;
+  align-self: flex-start;
+}
+
+.hero,
+.checkout,
+.state {
+  width:
+    min(
+      calc(100% - 2rem),
+      var(--velora-content)
+    );
+  margin:
+    0 auto;
+}
+
+.hero {
+  padding:
+    clamp(5rem, 9vw, 8rem)
+    0
+    var(--velora-space-10);
+}
+
+.eyebrow {
+  margin:
+    0
+    0
+    var(--velora-space-4);
+  color:
+    var(--velora-gold-700);
+  font-family:
+    var(--velora-font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  max-width: 10ch;
+  margin: 0;
+  font-size:
+    clamp(
+      3.4rem,
+      7vw,
+      6.5rem
+    );
+  font-weight: 650;
+  letter-spacing:
+    -0.055em;
+  line-height: 0.98;
+}
+
+.body {
+  max-width: 42rem;
+  margin:
+    var(--velora-space-5)
+    0
+    0;
+  color:
+    var(--velora-ink-600);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.notice {
+  max-width: 48rem;
+  margin-top:
+    var(--velora-space-6);
+  padding:
+    var(--velora-space-4);
+  border:
+    1px solid
+    var(--velora-gold-200);
+  border-radius:
+    var(--velora-radius-md);
+  color:
+    var(--velora-ink-700);
+  background:
+    var(--velora-gold-100);
+  font-size: 0.78rem;
+  line-height: 1.6;
+}
+
+.checkout {
+  padding-bottom:
+    clamp(
+      5rem,
+      10vw,
+      9rem
+    );
+  display: grid;
+  grid-template-columns:
+    minmax(0, 0.9fr)
+    minmax(0, 1.1fr);
+  gap:
+    clamp(
+      2rem,
+      6vw,
+      5rem
+    );
+  align-items: start;
+}
+
+.summary,
+.form {
+  min-width: 0;
+}
+
+.summary {
+  position: sticky;
+  top:
+    var(--velora-space-8);
+  padding:
+    var(--velora-space-6);
+  border:
+    1px solid
+    var(--velora-border);
+  border-radius:
+    var(--velora-radius-lg);
+  background:
+    var(--velora-surface-strong);
+  box-shadow:
+    var(--velora-shadow-sm);
+}
+
+.summary h2 {
+  margin: 0;
+  font-size: 2rem;
+  letter-spacing: -0.04em;
+}
+
+.lines {
+  margin-top:
+    var(--velora-space-6);
+  display: grid;
+}
+
+.line {
+  padding:
+    var(--velora-space-4)
+    0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap:
+    var(--velora-space-4);
+  border-bottom:
+    1px solid
+    var(--velora-border);
+}
+
+.line > div {
+  min-width: 0;
+}
+
+.line span {
+  color:
+    var(--velora-ink-500);
+  font-family:
+    var(--velora-font-mono);
+  font-size: 0.62rem;
+}
+
+.line h3 {
+  margin:
+    var(--velora-space-2)
+    0
+    0;
+  font-size: 0.95rem;
+  overflow-wrap: anywhere;
+}
+
+.line p {
+  margin:
+    var(--velora-space-2)
+    0
+    0;
+  color:
+    var(--velora-ink-600);
+  font-size: 0.75rem;
+}
+
+.line strong {
+  flex: 0 0 auto;
+  font-size: 0.85rem;
+}
+
+.subtotal {
+  padding-top:
+    var(--velora-space-5);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap:
+    var(--velora-space-4);
+}
+
+.subtotal span {
+  color:
+    var(--velora-ink-600);
+}
+
+.subtotal strong {
+  font-size: 1.4rem;
+}
+
+.form {
+  padding:
+    var(--velora-space-6);
+  border:
+    1px solid
+    var(--velora-border);
+  border-radius:
+    var(--velora-radius-lg);
+  background:
+    rgba(255, 255, 255, 0.44);
+}
+
+.form fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.form fieldset +
+fieldset {
+  margin-top:
+    var(--velora-space-8);
+}
+
+.form legend {
+  margin-bottom:
+    var(--velora-space-5);
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.form label {
+  display: grid;
+  gap:
+    var(--velora-space-2);
+}
+
+.form label +
+label {
+  margin-top:
+    var(--velora-space-4);
+}
+
+.form label > span {
+  color:
+    var(--velora-ink-700);
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.form input {
+  min-height: 3rem;
+  width: 100%;
+  padding:
+    0
+    var(--velora-space-4);
+  border:
+    1px solid
+    var(--velora-border);
+  border-radius:
+    var(--velora-radius-md);
+  color:
+    var(--velora-ink-900);
+  background:
+    var(--velora-pearl-0);
+}
+
+.form input[aria-invalid="true"] {
+  border-color:
+    var(--velora-danger);
+}
+
+.form small {
+  min-height: 1rem;
+  color:
+    var(--velora-danger);
+  font-size: 0.66rem;
+}
+
+.fieldRow {
+  margin-top:
+    var(--velora-space-4);
+  display: grid;
+  grid-template-columns:
+    1fr 1fr;
+  gap:
+    var(--velora-space-4);
+}
+
+.fieldRow label +
+label {
+  margin-top: 0;
+}
+
+.submit {
+  min-height: 3.25rem;
+  width: 100%;
+  margin-top:
+    var(--velora-space-8);
+  padding:
+    0
+    var(--velora-space-5);
+  border:
+    1px solid
+    var(--velora-ink-900);
+  border-radius:
+    var(--velora-radius-pill);
+  cursor: pointer;
+  color:
+    var(--velora-pearl-0);
+  background:
+    var(--velora-ink-900);
+  font-weight: 700;
+}
+
+.feedback {
+  min-height: 5rem;
+  margin-top:
+    var(--velora-space-5);
+  padding:
+    var(--velora-space-4);
+  border-radius:
+    var(--velora-radius-md);
+  background:
+    rgba(255, 255, 255, 0.5);
+}
+
+.feedback strong {
+  display: block;
+}
+
+.feedback p {
+  margin:
+    var(--velora-space-2)
+    0
+    0;
+  color:
+    var(--velora-ink-600);
+  font-size: 0.78rem;
+  line-height: 1.6;
+}
+
+.state {
+  min-height: 24rem;
+  padding-bottom:
+    var(--velora-space-12);
+  display: grid;
+  place-items: center;
+  align-content: center;
+  text-align: center;
+}
+
+.state > span {
+  color:
+    var(--velora-gold-700);
+  font-family:
+    var(--velora-font-mono);
+}
+
+.state h2 {
+  margin:
+    var(--velora-space-4)
+    0
+    var(--velora-space-2);
+}
+
+.state p {
+  max-width: 34rem;
+  margin: 0;
+  color:
+    var(--velora-ink-600);
+  line-height: 1.6;
+}
+
+.state a {
+  margin-top:
+    var(--velora-space-5);
+}
+
+@media (max-width: 64rem) {
+  .page {
+    padding-left: 0;
+  }
+
+  .header {
+    position: sticky;
+    inset: auto;
+    width: auto;
+    height: auto;
+    border-right: 0;
+    border-bottom:
+      1px solid
+      var(--velora-border);
+  }
+
+  .headerInner {
+    width:
+      min(
+        calc(100% - 2rem),
+        var(--velora-content)
+      );
+    min-height: 4.75rem;
+    margin: 0 auto;
+    padding: 0;
+    display: grid;
+    grid-template-columns:
+      1fr auto 1fr;
+    align-items: center;
+  }
+
+  .headerInner > :last-child {
+    margin-top: 0;
+    justify-self: end;
+  }
+
+  .checkout {
+    grid-template-columns: 1fr;
+  }
+
+  .summary {
+    position: static;
+  }
+}
+
+@media (max-width: 44rem) {
+  .headerInner,
+  .hero,
+  .checkout,
+  .state {
+    width:
+      min(
+        calc(100% - 1.25rem),
+        var(--velora-content)
+      );
+  }
+
+  .headerInner {
+    grid-template-columns:
+      1fr auto;
+  }
+
+  .back {
+    display: none;
+  }
+
+  .hero {
+    padding-top:
+      var(--velora-space-10);
+  }
+
+  .fieldRow {
+    grid-template-columns: 1fr;
+  }
+
+  .fieldRow label +
+  label {
+    margin-top:
+      var(--velora-space-4);
+  }
+
+  .summary,
+  .form {
+    padding:
+      var(--velora-space-4);
+  }
+}

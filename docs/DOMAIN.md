@@ -6,54 +6,57 @@ Last update: 2026-08-26
 
 IN PROGRESS
 
-## Cart review boundary
+## Checkout boundary
 
-Cart Drawer is a UI surface.
+PASSO 31 checkout remains a UI/Feature validation journey.
 
-It does not own Cart business rules.
+It does not create an Order.
 
-Mutations flow through:
+## Cart validation
 
-`CartExperience`
+`validateCheckoutCart`
 
-then:
+verifies that the current Cart is coherent enough to enter checkout.
 
-`VeloraApplication`
+It does not replace Domain Cart invariants.
 
-then existing Domain services.
+Checks include:
 
-## Cart line enrichment
+- non-empty Cart
+- positive safe quantities
+- available subtotal/currency
+- line currency consistency
 
-Cart Domain entities preserve purchase intent.
+## Form validation
 
-Presentation display metadata such as Product name and SKU is joined from Application Storefront data.
+`validateCheckoutForm`
 
-This avoids moving Product display snapshots into the mutable Cart Domain.
+is a pure Feature model.
 
-OrderItem remains the layer that owns commercial snapshots for placed orders.
+It normalizes and validates:
 
-## Quantity update
+- fullName
+- email
+- addressLine
+- city
+- postalCode
 
-UI sends:
+These values do not become Domain entities in PASSO 31.
 
-- cartItemId
-- productVariantId
-- quantity
+## Privacy boundary
 
-Feature adapter forwards the operation to the existing Application update use case.
+Checkout form values are ephemeral UI state.
 
-Domain/Application remain authoritative for valid Cart transitions.
+No persistence or network submission is performed.
 
-## Removal
+## Order boundary
 
-Removal uses the same Feature/Application path.
+Order creation remains separate.
 
-UI does not edit persisted records directly.
+When activated, OrderItem must continue preserving commercial snapshots.
 
-## Inventory
-
-Cart quantity operations do not mutate Inventory.
+Do not reuse mutable Cart as an Order record.
 
 ## Next milestone
 
-PASSO 31 - Demo Checkout Foundation, Cart Validation and Conversion Journey.
+PASSO 32 - Demo Order Creation, Confirmation and Cart Completion.

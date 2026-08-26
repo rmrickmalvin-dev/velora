@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 import {
   useCallback,
   useEffect,
@@ -13,6 +15,9 @@ import type {
 import {
   getStorefrontCartCopy,
 } from "../../i18n/storefront-cart-copy";
+import {
+  getStorefrontCheckoutCopy,
+} from "../../i18n/storefront-checkout-copy";
 import {
   emitBrowserCartChanged,
   getBrowserCartExperience,
@@ -55,6 +60,11 @@ export function CartDrawer({
 }: CartDrawerProps) {
   const copy =
     getStorefrontCartCopy(
+      locale,
+    );
+
+  const checkoutCopy =
+    getStorefrontCheckoutCopy(
       locale,
     );
 
@@ -511,15 +521,46 @@ export function CartDrawer({
             styles.footer
           }
         >
-          <span>
-            {
-              copy.subtotal
+          <div
+            className={
+              styles.subtotal
             }
-          </span>
+          >
+            <span>
+              {
+                copy.subtotal
+              }
+            </span>
 
-          <strong>
-            {subtotal}
-          </strong>
+            <strong>
+              {subtotal}
+            </strong>
+          </div>
+
+          {snapshot.lines.length >
+          0 ? (
+            <Link
+              className={
+                styles.checkout
+              }
+              href={
+                `/${locale}/checkout`
+              }
+              onClick={
+                onClose
+              }
+            >
+              {
+                checkoutCopy
+                  .checkoutCta
+              }
+              <span
+                aria-hidden="true"
+              >
+                &rarr;
+              </span>
+            </Link>
+          ) : null}
         </footer>
       </aside>
     </div>

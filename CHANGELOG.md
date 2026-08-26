@@ -2034,3 +2034,82 @@ Next available decision:
 #### Next
 
 PASSO 31 - Demo Checkout Foundation, Cart Validation and Conversion Journey.
+---
+
+### PASSO 31 - Demo Checkout Foundation, Cart Validation and Conversion Journey
+
+Status: COMPLETED AND TECHNICALLY VALIDATED
+
+#### Added - Checkout journey
+
+- locale-safe `/checkout`
+- Cart Drawer checkout CTA
+- persistent Cart summary
+- contact form
+- delivery form
+- local-only completion feedback
+
+#### Validation
+
+Added:
+
+- Checkout Cart validator
+- Checkout form validator
+- normalized form values
+- localized validation errors
+
+#### Privacy
+
+Checkout personal fields are not:
+
+- persisted
+- placed in localStorage
+- placed in sessionStorage
+- transmitted by network request
+
+#### Commerce transparency
+
+PASSO 31 explicitly does not:
+
+- create Order
+- charge payment
+- clear Cart
+- mutate Inventory
+
+#### Testing
+
+PASSO 31 targeted:
+
+- 4 test files passed
+- 33 tests passed
+- 0 failed
+
+Complete suite:
+
+- 46 test files passed
+- 368 tests passed
+- 0 failed
+
+#### Technical Validation
+
+Passed:
+
+- npm run lint
+- npm run typecheck
+- npm run test
+- npm run build
+- npm run check
+
+#### Decisions
+
+Added:
+
+- CODAL-DEC-171 through CODAL-DEC-179
+
+Next available decision:
+
+- CODAL-DEC-180
+
+#### Next
+
+PASSO 32 - Demo Order Creation, Confirmation and Cart Completion.

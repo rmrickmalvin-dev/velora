@@ -20,121 +20,111 @@ CLOSED AND VALIDATED
 
 ## Latest validated step
 
-PASSO 30 - Cart Drawer, Quantity Controls and Persistent Cart Review
+PASSO 31 - Demo Checkout Foundation, Cart Validation and Conversion Journey
 
-## Cart review surface
+## Checkout route
 
-The persistent Cart is now reviewable from all existing Cart indicators.
+Canonical:
 
-Cart indicator opens an accessible side drawer.
+`/{locale}/checkout`
 
-## Cart Drawer
+The route is statically generated for:
 
-Available:
+- PT-BR
+- EN
+- ES
 
-- persisted Cart reload
-- Product name
-- SKU
-- line quantity
-- line total
-- subtotal
-- increase quantity
-- decrease quantity
-- remove line
-- empty state
-- loading state
-- Escape close
-- backdrop close
-- focus on close control
-- body scroll lock while open
+## Checkout journey
 
-## Cart Feature model
+Cart Drawer now exposes a locale-safe checkout CTA when Cart has lines.
 
-CartExperienceSnapshot now includes:
+Checkout:
 
-- totalItems
-- lineCount
-- subtotalMinorUnits
-- currency
-- lines
+- reloads persistent Cart through Browser Cart Experience
+- validates Cart commercial consistency
+- displays Product lines
+- displays subtotal
+- validates contact fields
+- validates delivery fields
+- completes a local-only demo confirmation
 
-Each line includes:
+## Transparency
 
-- cartItemId
-- productVariantId
-- productName
-- SKU
-- quantity
-- unit price
-- currency
+Checkout explicitly states:
 
-Product/SKU display metadata is enriched through Application Storefront data.
+- no real order is created
+- no payment is made
+- no charge occurs
+- the experience is conceptual portfolio work
 
-## Quantity mutation
+## Personal data boundary
 
-Quantity changes continue through:
+Checkout form values:
 
-```text
-Cart Drawer
-|
-v
-Browser Cart Experience
-|
-v
-VeloraApplication
-|
-v
-Domain Cart rules
-|
-v
-Persistent Repository
-```
+- remain only in React state
+- are not written to IndexedDB
+- are not written to localStorage
+- are not written to sessionStorage
+- are not sent through fetch/network requests
 
-The Drawer does not call Application use cases directly.
+## Cart validation
 
-## Persistence
+Checkout blocks progression when:
 
-Cart quantity and removal changes persist through the same browser IndexedDB composition established in PASSO 29.
+- Cart is empty
+- quantity is invalid
+- subtotal/currency is missing
+- line currency disagrees with Cart currency
 
-Runtime recreation with the same provider preserves:
+## Form validation
 
-- added lines
-- updated quantities
+Fields:
 
-## Inventory
+- full name
+- email
+- address
+- city
+- postal code
 
-Cart quantity changes do not mutate Inventory.
+Validation is a pure Feature model with normalized values and error codes.
 
-No stock reservation occurs.
+No additional form dependency was introduced.
 
-## Checkout boundary
+## Submission behavior
 
-PASSO 30 is Cart review only.
+A valid form only marks the demonstration as locally validated.
 
-Checkout and payment remain deferred.
+It does not:
+
+- create Order
+- clear Cart
+- mutate Inventory
+- send personal data
+- initiate payment
 
 ## Quality Gate
 
 Latest evidence:
 
-- PASSO 30 targeted tests: 30/30
-- complete suite: 335/335
-- 42 test files passed
+- PASSO 31 targeted tests: 33/33
+- complete suite: 368/368
+- 46 test files passed
 - lint passed
 - typecheck passed
 - production build passed
+- checkout SSG passed
 - `npm run check` passed
 
 ## Decisions
 
-After PASSO 30:
+After PASSO 31:
 
-`CODAL-DEC-001 -> CODAL-DEC-170`
+`CODAL-DEC-001 -> CODAL-DEC-179`
 
 Next available decision:
 
-`CODAL-DEC-171`
+`CODAL-DEC-180`
 
 ## Next step
 
-PASSO 31 - Demo Checkout Foundation, Cart Validation and Conversion Journey.
+PASSO 32 - Demo Order Creation, Confirmation and Cart Completion.

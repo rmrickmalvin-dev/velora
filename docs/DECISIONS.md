@@ -198,6 +198,15 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-168 | ACEITA | Cart Drawer uses modal dialog semantics, Escape close, backdrop close, focus entry and temporary body scroll lock | Make persistent Cart review usable with keyboard and compact viewports |
 | CODAL-DEC-169 | ACEITA | Cart quantity and removal mutations continue to leave Inventory unchanged | Preserve the no-reservation rule until checkout/order semantics explicitly require stock mutation |
 | CODAL-DEC-170 | ACEITA | PASSO 30 completes persistent Cart review but defers checkout and payment behavior to the next verifiable BUILD 03 unit | Keep Commerce Interaction incremental and auditable |
+| CODAL-DEC-180 | ACEITA | Cart Drawer exposes checkout only when the persistent Cart contains at least one line and routes to `/{locale}/checkout` | Prevent empty checkout entry while preserving locale context |
+| CODAL-DEC-172 | ACEITA | Checkout is a statically generated locale route whose Cart data hydrates only in the browser through Browser Cart Experience | Preserve SSG while respecting IndexedDB browser-only boundaries |
+| CODAL-DEC-173 | ACEITA | Checkout Cart readiness is validated by a pure Feature validator before form progression | Separate checkout orchestration checks from React rendering and Domain invariants |
+| CODAL-DEC-174 | ACEITA | Checkout contact and delivery validation is implemented as a pure Feature model without adding a new form dependency | Keep the first checkout unit small, testable and dependency-neutral |
+| CODAL-DEC-175 | ACEITA | Checkout form values remain ephemeral React state and are not persisted or transmitted in PASSO 31 | Avoid storing conceptual personal data without a real business destination |
+| CODAL-DEC-176 | ACEITA | PASSO 31 explicitly states that no payment, charge or real order occurs | Keep the portfolio experience persuasive without false commercial claims |
+| CODAL-DEC-177 | ACEITA | A valid PASSO 31 submission produces only local confirmation and does not clear Cart | Avoid implying successful commerce before Order persistence exists |
+| CODAL-DEC-178 | ACEITA | PASSO 31 checkout does not mutate Inventory | Preserve stock mutation boundaries until an explicit Order/checkout rule is added |
+| CODAL-DEC-179 | ACEITA | Order creation is deferred to PASSO 32 so OrderItem snapshots and Cart completion can be implemented as one auditable unit | Keep checkout validation separate from persisted Order semantics |
 
 ## Decisões por área
 
@@ -291,7 +300,7 @@ Uma IA ou desenvolvedor que continuar a VELORA deve:
 - não substituir decisões ACEITAS silenciosamente;
 - verificar se uma nova implementação contradiz alguma decisão existente;
 - registrar novas decisões com numeração sequencial;
-- utilizar o próximo número disponível após CODAL-DEC-170;
+- utilizar o próximo número disponível após CODAL-DEC-179;
 - preservar decisões históricas mesmo quando forem superadas.
 
 ## Próxima decisão disponível

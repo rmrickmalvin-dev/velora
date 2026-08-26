@@ -14,57 +14,55 @@ CLOSED AND VALIDATED
 
 IN PROGRESS
 
-## PASSO 30 - Cart Drawer
+## PASSO 31 - Checkout
 
-- [x] accessible dialog semantics
-- [x] aria-modal
-- [x] Cart trigger exposes dialog intent
-- [x] Escape closes
-- [x] backdrop closes
-- [x] close control receives focus
-- [x] body scroll locked only while open
-- [x] reduced-motion drawer behavior
-- [x] empty state
-- [x] loading state
+- [x] locale-safe checkout route
+- [x] checkout SSG
+- [x] Cart Drawer checkout CTA
+- [x] persistent Cart reload
+- [x] Cart summary
+- [x] Cart validation gate
+- [x] contact form
+- [x] delivery form
+- [x] pure form validation
+- [x] normalized form values
+- [x] localized error feedback
+- [x] local-only success confirmation
+- [x] explicit no-payment notice
+- [x] explicit no-real-order notice
 
-## PASSO 30 - Cart review
+## Privacy boundary
 
-- [x] Product name
-- [x] SKU
-- [x] line quantity
-- [x] line total
-- [x] subtotal
-- [x] total item count
-- [x] increase quantity
-- [x] decrease quantity
-- [x] remove line
-- [x] Application-enriched line metadata
+- [x] no checkout form IndexedDB persistence
+- [x] no localStorage form persistence
+- [x] no sessionStorage form persistence
+- [x] no checkout form network request
+- [x] Cart remains persistent separately
 
-## PASSO 30 - Persistence boundaries
+## Commerce boundaries
 
-- [x] update through Browser Cart Experience
-- [x] remove through Browser Cart Experience
-- [x] no direct IndexedDB UI access
-- [x] persisted quantity recreation test
-- [x] Inventory unchanged by quantity update
+- [x] no Order creation
+- [x] no payment
+- [x] no Cart clearing
+- [x] no Inventory mutation
 
-## PASSO 30 Test Evidence
+## PASSO 31 Test Evidence
 
 Targeted:
 
 ```text
-3 test files
-30 tests
-30 passed
+4 test files
+33 tests
+33 passed
 0 failed
 ```
 
 Complete suite:
 
 ```text
-42 test files
-335 tests
-335 passed
+46 test files
+368 tests
+368 passed
 0 failed
 ```
 
@@ -78,4 +76,4 @@ Complete suite:
 
 ## Next Quality Gate
 
-PASSO 31 - Demo Checkout Foundation, Cart Validation and Conversion Journey.
+PASSO 32 - Demo Order Creation, Confirmation and Cart Completion.

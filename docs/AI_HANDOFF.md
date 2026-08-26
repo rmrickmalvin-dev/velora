@@ -14,61 +14,56 @@ BUILD 03 - IN PROGRESS
 
 Latest validated step:
 
-PASSO 30 - Cart Drawer, Quantity Controls and Persistent Cart Review
+PASSO 31 - Demo Checkout Foundation, Cart Validation and Conversion Journey
 
-## Cart Drawer
+## Checkout route
 
-Trigger:
+`/{locale}/checkout`
 
-`CartIndicator`
+## Checkout rule
 
-Surface:
+PASSO 31 validates a conceptual conversion journey only.
 
-`CartDrawer`
+It does not create Order or payment.
 
-Feature adapter:
+## Privacy
 
-`CartExperience`
+Checkout form values are ephemeral React state.
 
-## CartExperience operations
+Do not persist or transmit them without a later explicit decision.
 
-Available:
+## Cart validation
 
-- load
-- add
-- update
-- remove
+Use:
 
-Do not call Application Cart methods directly from Cart UI components.
+`validateCheckoutCart`
 
-## Cart line display
+before allowing checkout submission.
 
-Cart line Product name and SKU are enriched from Application Storefront queries.
+## Form validation
 
-Do not move Product display snapshots into Cart Domain.
+Use:
 
-OrderItem remains the commercial snapshot entity.
+`validateCheckoutForm`
 
-## Persistence
+Do not duplicate its rules inside React markup.
 
-Browser Cart persistence remains IndexedDB through createBrowserVeloraRuntime.
+## Honest demo language
 
-Do not add localStorage Cart persistence.
+Keep explicit wording that:
 
-## Inventory
+- no payment occurs
+- no charge occurs
+- no real order is submitted
 
-Add, update and remove Cart operations do not mutate Inventory.
-
-## Checkout boundary
-
-No real checkout or payment exists yet.
+Do not add fake security badges or fake payment-provider claims.
 
 ## Quality Gate
 
 ```text
-PASSO 30 targeted: 30/30
-Full suite:         335/335
-Test files:         42/42
+PASSO 31 targeted: 33/33
+Full suite:         368/368
+Test files:         46/46
 lint:               passed
 typecheck:          passed
 build:              passed
@@ -77,24 +72,24 @@ check:              passed
 
 ## Decisions
 
-After PASSO 30:
+After PASSO 31:
 
-`CODAL-DEC-001 -> CODAL-DEC-170`
+`CODAL-DEC-001 -> CODAL-DEC-179`
 
 Next:
 
-`CODAL-DEC-171`
+`CODAL-DEC-180`
 
 ## Next action
 
-PASSO 31 - Demo Checkout Foundation, Cart Validation and Conversion Journey.
+PASSO 32 - Demo Order Creation, Confirmation and Cart Completion.
 
 Focus:
 
-- demo checkout route/surface
-- Cart review handoff
-- contact/delivery form
-- Zod validation if already available
-- no real payment
-- clear demo wording
-- Order preparation without false security claims
+- explicit demo Order creation
+- OrderItem commercial snapshots
+- confirmation identity
+- Cart clear only after successful demo Order persistence
+- no payment provider
+- no fake transaction id
+- no Inventory mutation unless explicitly designed

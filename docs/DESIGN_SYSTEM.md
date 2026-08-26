@@ -322,3 +322,19 @@ Accessibility rules:
 - visible focus
 - reduced-motion fallback
 - body scroll lock only while the drawer is open
+## Demo Checkout
+
+PASSO 31 creates a transparent conceptual checkout journey.
+
+Visual rules:
+
+- preserve desktop vertical VELORA navigation
+- use two-column summary/form composition on desktop
+- collapse to one column on tablet/mobile
+- keep the no-payment notice visually visible but restrained
+- use semantic danger styling only for validation errors
+- keep success confirmation calm and non-transactional
+
+Language rule:
+
+The interface must never imply that payment, charging or a real order occurred during PASSO 31.

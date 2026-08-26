@@ -12,72 +12,59 @@ BUILD 02 - IN PROGRESS
 
 Latest validated step:
 
-PASSO 26 - Storefront Navigation, Category Journeys and Visual Product Media Foundation
+PASSO 27 - Storefront Accessibility, SEO and BUILD 02 Visual Quality Expansion
 
-## Category routes
+## Accessibility
 
-Canonical:
+Use:
+
+`getStorefrontAccessibilityCopy`
+
+for localized accessibility-only labels.
+
+Preserve:
+
+- skip links
+- visible focus
+- reduced motion
+- increased contrast
+- polite search results
+- pressed-state filters
+
+## SEO
+
+Use:
+
+`buildStorefrontSeoModel`
+
+for localized Storefront metadata.
+
+Do not hand-build inconsistent canonical or language alternate paths in route files.
+
+## Canonical journeys
+
+Home:
+
+`/{locale}`
+
+Category:
 
 `/{locale}/categories/{category}`
 
-Allowed category route keys:
+Product:
 
-- smartphone
-- audio
-- power
-- protection
+`/{locale}/products/{slug}`
 
-Do not expose Domain category ids directly in public URLs unless a later decision changes the route contract.
+## Structured data rule
 
-## Category architecture
-
-Category filtering stays Presentation-only at current catalog scale.
-
-Do not add Repository category-query contracts for the current 8 Product catalog without evidence of need.
-
-## Product media
-
-Presentation model:
-
-`StorefrontProductVisual`
-
-Carries:
-
-- canonicalMediaUrl
-- canonicalAlt
-- fallbackAsset
-
-Current rendering uses local fallback SVG.
-
-Canonical seeded ProductMedia remains preserved for later final media integration.
-
-## ProductVisual
-
-Shared by:
-
-- Storefront category cards
-- Product discovery cards
-- Product detail
-
-Do not duplicate visual rendering logic again.
-
-## Assets
-
-Current local fallback assets:
-
-- /images/velora/smartphone.svg
-- /images/velora/audio.svg
-- /images/velora/power.svg
-- /images/velora/protection.svg
-
-No remote image dependency.
+Do not add Product Offer structured data while VELORA is a fictional portfolio store without real payment.
 
 ## Quality Gate
 
 ```text
-PASSO 26 targeted: 14/14
-Full suite:         261/261
-Test files:         33/33
+PASSO 27 targeted: 22/22
+Full suite:         283/283
+Test files:         36/36
 lint:               passed
 typecheck:          passed
 build:              passed
@@ -86,35 +73,23 @@ check:              passed
 
 ## Decisions
 
-After PASSO 26:
+After PASSO 27:
 
-`CODAL-DEC-001 -> CODAL-DEC-139`
+`CODAL-DEC-001 -> CODAL-DEC-146`
 
 Next:
 
-`CODAL-DEC-140`
+`CODAL-DEC-147`
 
 ## Next action
 
-PASSO 27 - Storefront Accessibility, SEO and BUILD 02 Visual Quality Expansion.
+PASSO 28 - BUILD 02 Final Visual Review, Responsive Hardening and Closure.
 
-Focus next on:
+Focus:
 
-- canonical metadata
-- alternate locale metadata
-- semantic discovery controls
-- keyboard/focus review
-- responsive visual review
-- structured Storefront SEO foundation
-- BUILD 02 readiness progression
-
-## Reading order
-
-1. docs/PROJECT_STATE.md
-2. docs/DECISIONS.md
-3. docs/DOMAIN.md
-4. docs/QUALITY_STATE.md
-5. docs/STACK.md
-6. docs/BUILD_01_CLOSURE.md
-7. docs/DESIGN_SYSTEM.md
-8. CHANGELOG.md
+- responsive hardening
+- visual consistency audit
+- navigation quality
+- overflow protection
+- BUILD 02 closure evidence
+- prepare BUILD 03 Commerce Interaction

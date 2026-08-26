@@ -6,72 +6,59 @@ Last update: 2026-08-26
 
 IN PROGRESS
 
-## Category route boundary
+## Accessibility boundary
 
-Category route keys are Presentation/public-navigation concepts.
+PASSO 27 accessibility behavior remains in UI, i18n and Design System.
 
-Canonical public values:
+No Domain invariant changed.
 
-- smartphone
-- audio
-- power
-- protection
+Localized accessibility labels are separate from Domain data.
 
-They map to the existing Domain category ids for presentation.
+## SEO boundary
 
-No Domain category identifier was changed.
+SEO is represented by:
 
-## Category pages
+`StorefrontSeoModel`
 
-Category pages use:
+This Presentation model receives:
 
-```text
-StaticVeloraRuntime
-|
-v
-VeloraApplication
-|
-v
-Storefront query
-|
-v
-Presentation category filter
-```
+- locale
+- title
+- description
+- route suffix
 
-No new Repository Contract was required.
+It produces:
 
-## Product media boundary
+- canonical path
+- language alternates
+- robots intent
 
-ProductMedia remains the canonical Domain/Application media metadata source.
+Next.js route modules adapt this model into Next Metadata.
 
-PASSO 26 adds a Presentation media descriptor:
+## Canonical identity
 
-```text
-StorefrontProductVisual
-```
+Product:
 
-Fields:
+`/{locale}/products/{slug}`
 
-- canonicalMediaUrl
-- canonicalAlt
-- fallbackAsset
+Category:
 
-The fallback is a Presentation concern.
+`/{locale}/categories/{category}`
 
-## Seed immutability
+Home:
 
-Seeded ProductMedia paths remain untouched.
+`/{locale}`
 
-Local fallback art does not replace canonical seeded media data.
+Domain entity ids are not exposed as public canonical route identity.
 
-## ProductVisual
+## Structured data policy
 
-The shared visual component renders current local fallback assets.
+No Product Offer schema is emitted while:
 
-It is safe to replace this rendering strategy later when final local ProductMedia assets exist.
-
-That change should remain in Presentation/Infrastructure asset delivery and not alter Domain entities.
+- products are fictional
+- checkout is not real
+- payment is not real
 
 ## Next milestone
 
-PASSO 27 - Storefront Accessibility, SEO and BUILD 02 Visual Quality Expansion.
+PASSO 28 - BUILD 02 Final Visual Review, Responsive Hardening and Closure.

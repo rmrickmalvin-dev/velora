@@ -111,3 +111,42 @@ textarea {
     transition-duration: 0.001ms !important;
   }
 }
+/* PASSO 27: global accessibility quality layer. */
+:focus-visible {
+  outline: 3px solid var(--velora-gold-500);
+  outline-offset: 4px;
+}
+
+section[tabindex="-1"] {
+  scroll-margin-top: 6rem;
+}
+
+.velora-skip-link {
+  position: fixed;
+  top: var(--velora-space-3);
+  left: var(--velora-space-3);
+  z-index: 999;
+  padding:
+    var(--velora-space-3)
+    var(--velora-space-4);
+  transform: translateY(-180%);
+  border-radius: var(--velora-radius-pill);
+  color: var(--velora-pearl-0);
+  background: var(--velora-ink-900);
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: var(--velora-shadow-md);
+  transition:
+    transform var(--velora-transition-fast);
+}
+
+.velora-skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --velora-border: rgba(23, 23, 20, 0.34);
+    --velora-border-strong: rgba(23, 23, 20, 0.58);
+  }
+}

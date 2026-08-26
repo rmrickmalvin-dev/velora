@@ -18,6 +18,9 @@ import {
 import {
   buildStorefrontHomeModel,
 } from "../../presentation/storefront/storefront-home-model";
+import {
+  buildStorefrontSeoModel,
+} from "../../presentation/storefront/storefront-seo-model";
 
 type LocalePageProps =
   Readonly<{
@@ -47,12 +50,25 @@ export async function generateMetadata({
       locale,
     );
 
-  return {
-    title:
+  const seo =
+    buildStorefrontSeoModel(
+      locale,
       copy.metadata.title,
-    description:
       copy.metadata
         .description,
+    );
+
+  return {
+    title: seo.title,
+    description:
+      seo.description,
+    alternates: {
+      canonical:
+        seo.canonicalPath,
+      languages:
+        seo.languageAlternates,
+    },
+    robots: seo.robots,
   };
 }
 

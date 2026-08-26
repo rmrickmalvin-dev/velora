@@ -8,6 +8,10 @@ import {
   ProductDiscovery,
 } from "./product-discovery";
 
+import {
+  getStorefrontAccessibilityCopy,
+} from "../../i18n/storefront-accessibility-copy";
+
 import styles from "./category-page.module.css";
 
 type CategoryPageProps =
@@ -19,10 +23,24 @@ type CategoryPageProps =
 export function CategoryPage({
   model,
 }: CategoryPageProps) {
+  const accessibility =
+    getStorefrontAccessibilityCopy(
+      model.locale,
+    );
+
   return (
     <main
       className={styles.page}
     >
+      <a
+        className="velora-skip-link"
+        href="#category-main-content"
+      >
+        {
+          accessibility
+            .skipToContent
+        }
+      </a>
       <header
         className={styles.header}
       >
@@ -60,7 +78,11 @@ export function CategoryPage({
             className={
               styles.localeSwitch
             }
-            aria-label="Language"
+            role="navigation"
+            aria-label={
+              accessibility
+                .languageNavigation
+            }
           >
             {model.localeLinks.map(
               (item) => (
@@ -101,6 +123,8 @@ export function CategoryPage({
       </header>
 
       <section
+        id="category-main-content"
+        tabIndex={-1}
         className={styles.hero}
       >
         <p

@@ -167,6 +167,13 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-137 | ACEITA | PASSO 26 local Product visual fallbacks are versioned SVG assets under `/public/images/velora` with no remote dependency | Guarantee reliable local rendering and fast iteration |
 | CODAL-DEC-138 | ACEITA | Seeded ProductMedia paths remain immutable and are not rewritten to match temporary fallback assets | Preserve deterministic seed history and future media migration |
 | CODAL-DEC-139 | ACEITA | ProductVisual is the shared Presentation primitive for category, Product card, and Product detail visuals | Centralize future media replacement and prevent duplicated rendering logic |
+| CODAL-DEC-147 | ACEITA | Major Storefront routes expose keyboard skip links to their primary content sections | Reduce repeated keyboard traversal through sticky navigation |
+| CODAL-DEC-141 | ACEITA | Pearl Technology defines a global visible focus-visible treatment | Make keyboard focus consistent with the Design System |
+| CODAL-DEC-142 | ACEITA | Accessibility-only navigation labels are localized through a dedicated Storefront accessibility copy module | Preserve equivalent semantics across PT-BR, EN and ES without mixing Domain data |
+| CODAL-DEC-143 | ACEITA | StorefrontSeoModel owns canonical path and language alternate generation for home, category and Product journeys | Prevent route-specific SEO metadata drift |
+| CODAL-DEC-144 | ACEITA | SEO language alternates include PT-BR, EN, ES and x-default while preserving the current route suffix | Represent the existing internationalized journey explicitly |
+| CODAL-DEC-145 | ACEITA | Product Offer structured data is not emitted while VELORA remains a fictional portfolio store without real payment | Avoid misleading commercial search claims |
+| CODAL-DEC-146 | ACEITA | Pearl Technology supports prefers-contrast: more by strengthening border tokens without redesigning layout | Improve accessibility while preserving the visual identity |
 
 ## Decisões por área
 
@@ -260,7 +267,7 @@ Uma IA ou desenvolvedor que continuar a VELORA deve:
 - não substituir decisões ACEITAS silenciosamente;
 - verificar se uma nova implementação contradiz alguma decisão existente;
 - registrar novas decisões com numeração sequencial;
-- utilizar o próximo número disponível após CODAL-DEC-139;
+- utilizar o próximo número disponível após CODAL-DEC-146;
 - preservar decisões históricas mesmo quando forem superadas.
 
 ## Próxima decisão disponível

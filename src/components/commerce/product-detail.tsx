@@ -8,6 +8,10 @@ import {
   ProductVisual,
 } from "./product-visual";
 
+import {
+  getStorefrontAccessibilityCopy,
+} from "../../i18n/storefront-accessibility-copy";
+
 import styles from "./product-detail.module.css";
 
 type ProductDetailProps =
@@ -19,10 +23,24 @@ type ProductDetailProps =
 export function ProductDetail({
   model,
 }: ProductDetailProps) {
+  const accessibility =
+    getStorefrontAccessibilityCopy(
+      model.locale,
+    );
+
   return (
     <main
       className={styles.page}
     >
+      <a
+        className="velora-skip-link"
+        href="#product-main-content"
+      >
+        {
+          accessibility
+            .skipToContent
+        }
+      </a>
       <header
         className={styles.header}
       >
@@ -63,7 +81,11 @@ export function ProductDetail({
             className={
               styles.localeSwitch
             }
-            aria-label="Language"
+            role="navigation"
+            aria-label={
+              accessibility
+                .languageNavigation
+            }
           >
             {model.localeLinks.map(
               (item) => (
@@ -104,6 +126,8 @@ export function ProductDetail({
       </header>
 
       <section
+        id="product-main-content"
+        tabIndex={-1}
         className={styles.hero}
       >
         <div

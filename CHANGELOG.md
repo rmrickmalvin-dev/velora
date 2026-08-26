@@ -1718,3 +1718,85 @@ Next available decision:
 #### Next
 
 PASSO 27 - Storefront Accessibility, SEO and BUILD 02 Visual Quality Expansion.
+---
+
+### PASSO 27 - Storefront Accessibility, SEO and BUILD 02 Visual Quality Expansion
+
+Status: COMPLETED AND TECHNICALLY VALIDATED
+
+#### Accessibility
+
+Added:
+
+- localized accessibility copy
+- home skip link
+- category skip link
+- Product skip link
+- global focus-visible treatment
+- increased-contrast token support
+
+Preserved:
+
+- reduced motion
+- polite discovery announcements
+- pressed-state category filters
+
+#### SEO
+
+Added:
+
+- StorefrontSeoModel
+- canonical locale paths
+- PT-BR alternate
+- EN alternate
+- ES alternate
+- x-default
+- explicit index/follow metadata
+
+Integrated into:
+
+- Storefront home
+- category routes
+- Product routes
+
+#### Structured data
+
+Product Offer structured data remains intentionally absent because VELORA is a fictional portfolio store without real payment.
+
+#### Testing
+
+PASSO 27 targeted:
+
+- 3 test files passed
+- 22 tests passed
+- 0 failed
+
+Complete suite:
+
+- 36 test files passed
+- 283 tests passed
+- 0 failed
+
+#### Technical Validation
+
+Passed:
+
+- npm run lint
+- npm run typecheck
+- npm run test
+- npm run build
+- npm run check
+
+#### Decisions
+
+Added:
+
+- CODAL-DEC-140 through CODAL-DEC-146
+
+Next available decision:
+
+- CODAL-DEC-147
+
+#### Next
+
+PASSO 28 - BUILD 02 Final Visual Review, Responsive Hardening and Closure.

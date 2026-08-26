@@ -19,6 +19,9 @@ import {
   isStorefrontCategoryRouteKey,
   storefrontCategoryRouteKeys,
 } from "../../../../presentation/storefront/storefront-category-model";
+import {
+  buildStorefrontSeoModel,
+} from "../../../../presentation/storefront/storefront-seo-model";
 
 type CategoryRouteProps =
   Readonly<{
@@ -68,11 +71,25 @@ export async function generateMetadata({
       products,
     );
 
-  return {
-    title:
+  const seo =
+    buildStorefrontSeoModel(
+      locale,
       `${model.title} | VELORA`,
-    description:
       model.body,
+      `/categories/${category}`,
+    );
+
+  return {
+    title: seo.title,
+    description:
+      seo.description,
+    alternates: {
+      canonical:
+        seo.canonicalPath,
+      languages:
+        seo.languageAlternates,
+    },
+    robots: seo.robots,
   };
 }
 

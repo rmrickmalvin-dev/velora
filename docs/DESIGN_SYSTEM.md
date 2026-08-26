@@ -233,3 +233,19 @@ Rules:
 - do not depend on remote Product image URLs
 - keep Product name as the primary accessible identification near decorative art
 - replace fallback rendering in one shared component when final Product media is ready
+## Accessibility quality layer
+
+PASSO 27 adds:
+
+- global focus-visible treatment
+- keyboard skip links
+- sticky-header scroll offset
+- increased-contrast border tokens
+- localized accessibility labels
+
+Rules:
+
+- never remove focus without an equivalent visible replacement
+- preserve reduced motion
+- skip links must remain keyboard reachable
+- higher contrast may strengthen tokens without changing layout

@@ -20,6 +20,9 @@ import {
 import {
   createSlug,
 } from "../../../../domain/value-objects/slug";
+import {
+  buildStorefrontSeoModel,
+} from "../../../../presentation/storefront/storefront-seo-model";
 
 type ProductPageProps =
   Readonly<{
@@ -71,11 +74,25 @@ export async function generateMetadata({
     return {};
   }
 
-  return {
-    title:
+  const seo =
+    buildStorefrontSeoModel(
+      locale,
       `${product.product.name} | VELORA`,
-    description:
       `${product.product.brand} ${product.product.name} - VELORA`,
+      `/products/${slug}`,
+    );
+
+  return {
+    title: seo.title,
+    description:
+      seo.description,
+    alternates: {
+      canonical:
+        seo.canonicalPath,
+      languages:
+        seo.languageAlternates,
+    },
+    robots: seo.robots,
   };
 }
 

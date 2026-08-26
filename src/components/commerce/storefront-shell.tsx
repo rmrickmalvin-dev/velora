@@ -12,6 +12,10 @@ import {
   ProductDiscovery,
 } from "./product-discovery";
 
+import {
+  getStorefrontAccessibilityCopy,
+} from "../../i18n/storefront-accessibility-copy";
+
 import styles from "./storefront-shell.module.css";
 
 type StorefrontShellProps =
@@ -30,10 +34,24 @@ export function StorefrontShell({
     products,
   } = model;
 
+  const accessibility =
+    getStorefrontAccessibilityCopy(
+      locale,
+    );
+
   return (
     <main
       className={styles.page}
     >
+      <a
+        className="velora-skip-link"
+        href="#storefront-main-content"
+      >
+        {
+          accessibility
+            .skipToContent
+        }
+      </a>
       <header
         className={styles.header}
       >
@@ -44,7 +62,7 @@ export function StorefrontShell({
         >
           <a
             className={styles.brand}
-            href="#top"
+            href="#storefront-main-content"
             aria-label="VELORA"
           >
             VELORA
@@ -52,7 +70,10 @@ export function StorefrontShell({
 
           <nav
             className={styles.nav}
-            aria-label="Primary"
+            aria-label={
+              accessibility
+                .primaryNavigation
+            }
           >
             <a href="#featured">
               {
@@ -78,7 +99,11 @@ export function StorefrontShell({
             className={
               styles.localeSwitch
             }
-            aria-label="Language"
+            role="navigation"
+            aria-label={
+              accessibility
+                .languageNavigation
+            }
           >
             {localeLinks.map(
               (item) => (
@@ -119,7 +144,8 @@ export function StorefrontShell({
       </header>
 
       <section
-        id="top"
+        id="storefront-main-content"
+        tabIndex={-1}
         className={styles.hero}
       >
         <div

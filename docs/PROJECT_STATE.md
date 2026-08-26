@@ -16,114 +16,106 @@ CLOSED AND VALIDATED
 
 ## Latest validated step
 
-PASSO 26 - Storefront Navigation, Category Journeys and Visual Product Media Foundation
+PASSO 27 - Storefront Accessibility, SEO and BUILD 02 Visual Quality Expansion
 
-## Category journeys
+## Accessibility expansion
 
-Storefront category cards now navigate to canonical locale-safe routes:
+Storefront home, category and Product detail now provide:
 
-```text
-/{locale}/categories/{category}
-```
+- keyboard skip links
+- explicit focus-visible treatment
+- localized primary navigation labels
+- localized language navigation labels
+- reduced-motion preservation
+- increased-contrast token support
 
-Categories:
+Product discovery continues to provide:
 
-- smartphone
-- audio
-- power
-- protection
+- polite result announcements
+- pressed-state category filters
+- hidden search label
 
-Category pages are statically generated and use Application Storefront data.
+## Skip-link targets
 
-## Category route behavior
+Home:
 
-Each category page provides:
+`#storefront-main-content`
 
-- localized title
-- localized journey copy
-- search inside the selected category
-- Product cards
-- locale switch preserving category
-- locale-safe back navigation
+Category:
 
-## Product media foundation
+`#category-main-content`
 
-Presentation now carries two separate visual concepts:
+Product:
 
-1. canonical ProductMedia reference from Application data
-2. local fallback visual asset for current portfolio rendering
+`#product-main-content`
 
-Canonical seeded ProductMedia paths are preserved.
+## SEO foundation
 
-They are not rewritten or mutated.
+Presentation now provides:
 
-## Local visual fallbacks
+`StorefrontSeoModel`
 
-Local SVG fallback assets now exist for:
+For home, category and Product routes it produces:
 
-- smartphone
-- audio
-- power
-- protection
+- title
+- description
+- canonical locale path
+- PT-BR alternate
+- EN alternate
+- ES alternate
+- x-default alternate
+- explicit index/follow intent
 
-Path family:
+## SEO route identity
 
-`/images/velora/*.svg`
+Home:
 
-These assets replace the previous CSS-only Product object shapes in Product discovery and Product detail.
+`/{locale}`
 
-## Shared ProductVisual
+Category:
 
-`ProductVisual` is the shared rendering primitive for:
+`/{locale}/categories/{category}`
 
-- category cards
-- Product cards
-- Product detail
+Product:
 
-The Product visual can evolve later from fallback SVG to final ProductMedia without changing Domain or Application.
+`/{locale}/products/{slug}`
 
-## Media architecture
+Language alternates preserve the current route suffix.
 
-```text
-ProductMedia from Application
-        |
-        v
-StorefrontProductVisual
-        |
-        +-- canonicalMediaUrl
-        +-- canonicalAlt
-        `-- fallbackAsset
-                 |
-                 v
-            ProductVisual
-```
+## Structured data policy
+
+PASSO 27 does not emit Product Offer structured data.
+
+VELORA products are fictional portfolio content and payment is not real.
+
+SEO quality must not create false commercial claims.
 
 ## Quality Gate
 
 Latest evidence:
 
-- PASSO 26 targeted tests: 14/14
-- complete suite: 261/261
-- 33 test files passed
+- PASSO 27 targeted tests: 22/22
+- complete suite: 283/283
+- 36 test files passed
 - lint passed
 - typecheck passed
 - production build passed
-- home Storefront SSG passed
-- Product detail SSG passed
-- category journey SSG passed
+- home SSG passed
+- category SSG passed
+- Product SSG passed
 - PT-BR / EN / ES preserved
 - `npm run check` passed
 
 ## Decisions
 
-After PASSO 26:
+After PASSO 27:
 
-`CODAL-DEC-001 -> CODAL-DEC-139`
+`CODAL-DEC-001 -> CODAL-DEC-146`
 
 Next available decision:
 
-`CODAL-DEC-140`
+`CODAL-DEC-147`
 
 ## Next step
 
-PASSO 27 - Storefront Accessibility, SEO and BUILD 02 Visual Quality Expansion.
+PASSO 28 - BUILD 02 Final Visual Review, Responsive Hardening and Closure.

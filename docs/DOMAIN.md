@@ -2,7 +2,7 @@
 
 Last update: 2026-08-25
 
-## Architecture
+## Dependency direction
 
 ```text
 UI
@@ -17,159 +17,149 @@ Domain
 Infrastructure
 ```
 
-## Application boundary
+## Persistence boundary
 
-Application coordinates use cases.
+Domain defines Repository Contracts.
 
-Application may depend on:
+Application consumes Repository Contracts.
 
-- Domain entities
-- Domain services
-- Domain Repository Contracts
-- Application DTOs/errors
+Infrastructure implements Repository Contracts.
 
-Application must not depend on:
+PASSO 22 adds persistent Infrastructure without changing Domain or Application contracts.
 
-- Local repository implementations
-- IndexedDB implementation details
-- Supabase
-- PostgreSQL
-- React components
-- Next.js routing internals
+## PersistenceProvider
 
-## Storefront use cases
+Infrastructure-level storage operations:
 
-### listStorefrontProducts
+- get
+- getAll
+- put
+- add
+- delete
+- clear
 
-Aggregates:
+This abstraction is intentionally not a Domain contract.
 
-- Product
-- active ProductVariant records
-- ProductMedia
-- Inventory
+It exists below repository implementations.
 
-Exposes only ACTIVE Products.
+## IndexedDbProvider
 
-Ordering is deterministic:
+Browser implementation using native IndexedDB.
 
-1. featured Products
-2. non-featured Products
-3. alphabetical Product name inside each group
+Object stores:
 
-### getStorefrontProductBySlug
+- productCategories
+- products
+- productVariants
+- productMedia
+- inventory
+- inventoryMovements
+- carts
+- orders
 
-Returns:
+Default database:
+
+`velora-demo`
+
+Version:
+
+`1`
+
+No external IndexedDB package was introduced.
+
+## Runtime boundary
+
+IndexedDB is browser-only.
+
+If IndexedDB is unavailable, the provider fails explicitly with PersistenceError.
+
+No SSR fallback silently changes persistence semantics.
+
+## Persistent Repository strategy
+
+Catalog and Inventory use immutable baseline plus overrides.
 
 ```text
-StorefrontProduct | null
+veloraSeed
+   +
+persistent overrides
+   =
+current read model
 ```
 
-Inactive or missing Product returns null.
+Saving a seeded entity writes an override with the same id.
 
-## Cart use cases
+The original seed remains untouched.
 
-### addProductToCart
+## Mutable commerce state
 
-Coordinates:
+Cart:
 
-- ProductVariant lookup
-- ACTIVE sale status
-- Inventory lookup
-- stock availability
-- Cart creation
-- CartItem creation
-- repeated ProductVariant merge
-- Cart save
+- persistent record only
+- no seed baseline
+- may be deleted
 
-Repeated adds increase the existing line quantity.
+Order:
 
-They do not create duplicate ProductVariant lines.
+- persistent record only
+- no seed baseline
+- no repository delete contract
 
-### updateCartQuantity
+InventoryMovement:
 
-Validates current Inventory before applying Domain Cart quantity transition.
+- seed history remains baseline
+- new persistent movements append after baseline history
+- duplicate movement ids are rejected
 
-### removeProductFromCart
+## Domain rehydration
 
-Coordinates Cart lookup, item existence and Domain removal.
+Structured persistence removes JavaScript freeze state.
 
-### getCartSummary
+Therefore persistent reads are rehydrated through Domain factories.
 
-Returns Cart plus Money subtotal.
+This restores:
 
-Empty Cart subtotal remains null through Domain behavior.
+- entity validation
+- immutable objects
+- SKU normalization
+- Slug rules
+- Money construction
+- nested CartItem and OrderItem invariants
 
-## Cart vs Inventory
+## Composition
 
-Cart quantity is purchase intent.
+`createPersistentRepositories(provider)` supports any Infrastructure provider implementing PersistenceProvider.
 
-Inventory quantityOnHand is stock state.
+`createBrowserRepositories()` selects IndexedDbProvider for browser composition.
 
-Cart operations do not decrement Inventory.
+Application Use Cases continue to depend only on Domain Repository Contracts.
 
-Stock mutation belongs to explicit inventory/order orchestration.
+## Reset semantics
 
-## Inventory use case
+`resetPersistentOverrides(provider)` clears all persistent stores.
 
-### adjustInventory
+After reset:
 
-Coordinates:
-
-1. find Inventory
-2. create InventoryMovement
-3. apply Domain movement
-4. save resulting Inventory
-5. append InventoryMovement history
-
-Domain still owns stock invariants.
-
-## Order use cases
-
-### changeOrderStatus
-
-Coordinates Repository lookup, Domain transition and Repository save.
-
-### listCustomerOrders
-
-Uses OrderRepository customer query.
-
-Guest Orders are not returned for a CustomerId.
-
-## Application errors
-
-ApplicationError represents orchestration failures such as:
-
-- missing ProductVariant
-- unavailable ProductVariant
-- missing Inventory
-- insufficient stock
-- missing Cart
-- missing CartItem
-- missing Order
-
-DomainValidationError remains responsible for Domain invariant violations.
-
-## Infrastructure composition
-
-Tests compose Application Use Cases with Local Repository implementations.
-
-Production composition will later select persistent adapters.
-
-Application modules themselves remain implementation-independent.
+- seed Catalog returns
+- seed Inventory returns
+- seed InventoryMovement history returns
+- Cart is empty
+- Order is empty
 
 ## Test state
 
-PASSO 21 adds:
+PASSO 22 adds:
 
-- 24 Application tests
+- 6 provider behavior tests
+- 14 persistent repository tests
 
 Complete suite:
 
-- 22 test files
-- 184 tests
-- 184 passed
+- 24 test files
+- 204 tests
+- 204 passed
 - 0 failed
 
 ## Next milestone
 
-PASSO 22 - IndexedDB Provider and Persistent Local Adapters.
+PASSO 23 - BUILD 01 Final Integration and Closure.

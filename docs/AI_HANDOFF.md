@@ -10,104 +10,103 @@ BUILD 01 - Foundation
 
 Latest validated step:
 
-PASSO 21 - Application Use Cases
+PASSO 22 - IndexedDB Provider and Persistent Local Adapters
 
-## Checkpoints
-
-- `90f2d42` - domain primitives
-- `d682c43` - catalog domain
-- `c06a5d3` - inventory domain
-- `0e461a3` - cart domain
-- `bffa30d` - order domain
-- `9ee0376` - repository contracts
-- `f633f35` - seed foundation
-- `1706833` - local repositories
-
-## Application API
+## Persistent Infrastructure
 
 Available:
 
-- listStorefrontProducts
-- getStorefrontProductBySlug
-- addProductToCart
-- updateCartQuantity
-- removeProductFromCart
-- getCartSummary
-- adjustInventory
-- changeOrderStatus
-- listCustomerOrders
+- PersistenceProvider
+- PersistenceError
+- MemoryPersistenceProvider
+- IndexedDbProvider
+- PersistentProductCategoryRepository
+- PersistentProductRepository
+- PersistentProductVariantRepository
+- PersistentProductMediaRepository
+- PersistentInventoryRepository
+- PersistentInventoryMovementRepository
+- PersistentCartRepository
+- PersistentOrderRepository
+- createPersistentRepositories
+- createBrowserRepositories
+- resetPersistentOverrides
 
-## Storefront rules
+## Browser persistence
 
-- expose only ACTIVE Products
-- expose only ACTIVE ProductVariants
-- aggregate ProductMedia and Inventory
-- featured Products sort first
-- missing/inactive detail returns null
+`createBrowserRepositories()` selects native IndexedDB.
 
-## Cart rules
+Default database:
 
-- ProductVariant must exist
-- ProductVariant must be ACTIVE
-- Inventory must exist
-- requested quantity cannot exceed stock
-- repeated add merges quantity
-- Cart operations do not mutate Inventory
-- subtotal remains Money-based
+`velora-demo`
 
-## Inventory rules
+IndexedDB is browser-only.
 
-`adjustInventory`:
+Do not call browser composition during SSR.
 
-- finds Inventory
-- creates InventoryMovement
-- uses Domain transition
-- saves Inventory
-- appends movement history
+## Baseline rule
 
-## Order rules
+Catalog and Inventory:
 
-`changeOrderStatus` must use the Domain lifecycle.
+```text
+veloraSeed + persisted overrides
+```
 
-Do not mutate Order status directly.
+Cart and Order:
+
+```text
+persisted runtime state only
+```
+
+InventoryMovement:
+
+```text
+seed baseline history + persisted appended history
+```
+
+## Rehydration rule
+
+Never trust raw persisted objects as final Domain objects.
+
+Persistent repositories must rehydrate through Domain factories.
 
 ## Dependency rule
 
-Application Use Cases depend on Domain Repository Contracts.
+Application must not import IndexedDbProvider or concrete persistent repositories.
 
-They must not import local repository classes.
-
-Infrastructure selection belongs to composition.
+UI/composition chooses the Infrastructure adapter.
 
 ## Quality Gate
 
 Latest evidence:
 
 ```text
-PASSO 21 targeted: 24/24
-Full suite:         184/184
-Test files:         22/22
+PASSO 22 targeted: 20/20
+Full suite:         204/204
+Test files:         24/24
 lint:               passed
 typecheck:          passed
 build:              passed
 check:              passed
 ```
 
+PASSO 21 unused-import lint warning was removed.
+
 ## Decisions
 
-After PASSO 21:
+After PASSO 22:
 
-`CODAL-DEC-001 -> CODAL-DEC-097`
+`CODAL-DEC-001 -> CODAL-DEC-107`
 
 Next:
 
-`CODAL-DEC-098`
+`CODAL-DEC-108`
 
 ## Next action
 
-PASSO 22 - IndexedDB Provider and Persistent Local Adapters.
+PASSO 23 - BUILD 01 Final Integration and Closure.
 
-Persistent adapters must implement the same Domain Repository Contracts without changing Application Use Cases.
+The next step should verify composition, reproducibility and official BUILD 01 readiness before entering BUILD 02 Storefront and Design System.
 
 ## Reading order
 

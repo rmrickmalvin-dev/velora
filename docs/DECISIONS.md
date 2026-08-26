@@ -125,6 +125,16 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-095 | ACEITA | Application orchestration errors use ApplicationError while Domain invariant failures remain DomainValidationError | Separate orchestration failure semantics from Domain validation semantics |
 | CODAL-DEC-096 | ACEITA | Inventory adjustment orchestration persists the validated Inventory state and appends its InventoryMovement history | Keep current stock and movement history synchronized through Domain rules |
 | CODAL-DEC-097 | ACEITA | Order status orchestration must load through OrderRepository, apply the Domain transition graph and save the new Order | Prevent Application from bypassing Order lifecycle invariants |
+| CODAL-DEC-108 | ACEITA | Infrastructure defines PersistenceProvider below Repository implementations for storage-level operations | Keep storage mechanics separate from Domain Repository Contracts |
+| CODAL-DEC-099 | ACEITA | Browser persistence uses native IndexedDB through IndexedDbProvider without adding an external IndexedDB dependency | Keep the BUILD 01 dependency surface small while providing real browser persistence |
+| CODAL-DEC-100 | ACEITA | Persisted records are rehydrated through Domain factories before being returned as Domain entities | Restore validation, normalization and immutability after structured persistence |
+| CODAL-DEC-101 | ACEITA | Persistent Catalog and Inventory repositories use immutable veloraSeed as fallback plus persisted override records | Preserve deterministic baseline and allow admin/demo mutation without rewriting seed |
+| CODAL-DEC-102 | ACEITA | Persistent Cart and Order repositories have no seed fallback | Keep runtime commerce state separate from immutable portfolio baseline |
+| CODAL-DEC-103 | ACEITA | Persistent InventoryMovement history combines seed baseline movements with append-only persisted movements | Preserve initial stock history while allowing durable subsequent movement history |
+| CODAL-DEC-104 | ACEITA | Repository bundles recreated with the same PersistenceProvider observe the same persisted override state | Make provider lifetime the persistence boundary rather than repository object lifetime |
+| CODAL-DEC-105 | ACEITA | resetPersistentOverrides clears persistent stores and restores seed-backed repositories to baseline while clearing Cart and Order | Provide deterministic demo reset semantics |
+| CODAL-DEC-106 | ACEITA | createBrowserRepositories selects IndexedDbProvider only at Infrastructure composition while Application remains unchanged | Preserve dependency inversion across in-memory and persistent modes |
+| CODAL-DEC-107 | ACEITA | IndexedDB is treated as browser-only and unavailable runtimes fail explicitly instead of silently changing storage behavior | Keep SSR and browser persistence semantics truthful |
 
 ## Decisões por área
 
@@ -218,7 +228,7 @@ Uma IA ou desenvolvedor que continuar a VELORA deve:
 - não substituir decisões ACEITAS silenciosamente;
 - verificar se uma nova implementação contradiz alguma decisão existente;
 - registrar novas decisões com numeração sequencial;
-- utilizar o próximo número disponível após CODAL-DEC-097;
+- utilizar o próximo número disponível após CODAL-DEC-107;
 - preservar decisões históricas mesmo quando forem superadas.
 
 ## Próxima decisão disponível

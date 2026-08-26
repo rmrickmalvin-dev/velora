@@ -1178,3 +1178,112 @@ Next available decision:
 #### Next
 
 PASSO 22 - IndexedDB Provider and Persistent Local Adapters.
+---
+
+### PASSO 22 - IndexedDB Provider and Persistent Local Adapters
+
+Status: COMPLETED AND TECHNICALLY VALIDATED
+
+#### Added - Persistence
+
+- PersistenceProvider
+- PersistenceError
+- MemoryPersistenceProvider
+- IndexedDbProvider
+- persistence store registry
+
+IndexedDbProvider uses native browser IndexedDB.
+
+No new external persistence dependency was added.
+
+#### Added - Persistent Repositories
+
+- PersistentProductCategoryRepository
+- PersistentProductRepository
+- PersistentProductVariantRepository
+- PersistentProductMediaRepository
+- PersistentInventoryRepository
+- PersistentInventoryMovementRepository
+- PersistentCartRepository
+- PersistentOrderRepository
+- createPersistentRepositories
+- createBrowserRepositories
+- resetPersistentOverrides
+
+#### Persistent strategy
+
+Catalog and Inventory:
+
+- immutable seed fallback
+- persisted overrides by id
+
+Cart and Order:
+
+- persisted runtime state only
+
+InventoryMovement:
+
+- seed baseline history
+- persisted append-only history
+
+#### Rehydration
+
+Persistent reads recreate Domain entities through Domain factories.
+
+This restores validation and immutability after storage round trips.
+
+#### Browser composition
+
+`createBrowserRepositories` selects IndexedDbProvider.
+
+Application Use Cases remain provider-independent.
+
+#### Reset
+
+`resetPersistentOverrides` clears all persistence stores.
+
+Seed-backed repositories return to baseline after reset.
+
+Cart and Order return empty.
+
+#### Quality cleanup
+
+Removed the unused `createInventory` import warning from the PASSO 21 Cart Application test.
+
+#### Testing
+
+PASSO 22 targeted validation:
+
+- 2 test files passed
+- 20 tests passed
+- 0 tests failed
+
+Complete suite:
+
+- 24 test files passed
+- 204 tests passed
+- 0 tests failed
+
+#### Technical Validation
+
+Passed:
+
+- npm run lint
+- npm run typecheck
+- npm run test
+- npm run build
+- npm run check
+
+#### Decisions
+
+Added:
+
+- CODAL-DEC-098 through CODAL-DEC-107
+
+Next available decision:
+
+- CODAL-DEC-108
+
+#### Next
+
+PASSO 23 - BUILD 01 Final Integration and Closure.

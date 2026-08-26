@@ -12,117 +12,137 @@ BUILD 01 - Foundation
 
 ## Current unit
 
-01C - Application Foundation
+01D - Persistent Infrastructure
 
 ## State
 
 IN PROGRESS
 
-## Git checkpoints
-
-- `90f2d42` - domain primitives
-- `d682c43` - catalog domain
-- `c06a5d3` - inventory domain
-- `0e461a3` - cart domain
-- `bffa30d` - order domain
-- `9ee0376` - repository contracts
-- `f633f35` - deterministic seed
-- `1706833` - local repository implementations
-
 ## Latest validated step
 
-PASSO 21 - Application Use Cases
+PASSO 22 - IndexedDB Provider and Persistent Local Adapters
 
-## Application Layer
+## Current architecture
+
+```text
+UI
+|
+v
+Application
+|
+v
+Domain Repository Contracts
+^
+|
++-- In-memory Local Repositories
+|
+`-- Persistent Repositories
+        |
+        v
+PersistenceProvider
+        |
+        +-- IndexedDbProvider
+        `-- MemoryPersistenceProvider (tests)
+```
+
+## Persistence Provider
+
+Infrastructure now defines a provider abstraction for record stores.
+
+Operations:
+
+- get
+- getAll
+- put
+- add
+- delete
+- clear
+
+The provider abstraction does not leak into Domain or Application.
+
+## IndexedDB
+
+`IndexedDbProvider` is the browser persistence implementation.
+
+Characteristics:
+
+- native browser IndexedDB
+- no new external dependency
+- database name defaults to `velora-demo`
+- schema version starts at 1
+- one object store per repository data family
+- explicit unavailable/open/transaction failure behavior
+
+IndexedDB is browser-only.
+
+SSR and Node execution do not pretend IndexedDB exists.
+
+## Persistent repositories
 
 Implemented:
 
-- ApplicationError
-- listStorefrontProducts
-- getStorefrontProductBySlug
-- addProductToCart
-- updateCartQuantity
-- removeProductFromCart
-- getCartSummary
-- adjustInventory
-- changeOrderStatus
-- listCustomerOrders
+- PersistentProductCategoryRepository
+- PersistentProductRepository
+- PersistentProductVariantRepository
+- PersistentProductMediaRepository
+- PersistentInventoryRepository
+- PersistentInventoryMovementRepository
+- PersistentCartRepository
+- PersistentOrderRepository
 
-## Storefront orchestration
+## Baseline plus overrides
 
-Storefront queries now combine:
+Catalog and Inventory use:
 
-- Product
-- active ProductVariant records
-- ProductMedia
-- Inventory
+```text
+immutable veloraSeed baseline
++
+persistent override records
+=
+current repository view
+```
 
-Only ACTIVE Products are exposed.
+The baseline is never mutated.
 
-Featured Products sort before non-featured Products.
+Cart and Order do not have seed fallback.
 
-Within the same featured group, Product name defines deterministic order.
+## Rehydration
 
-## Cart orchestration
+Records read from persistence are recreated through Domain factories.
 
-Application now coordinates:
+This restores:
 
-- ProductVariant lookup
-- sale availability
-- Inventory availability
-- Cart creation
-- repeated-add quantity merge
-- Cart quantity update
-- CartItem removal
-- Money subtotal
+- validation
+- normalization
+- immutable Domain objects
+- Money and branded Value Objects
 
-Adding to Cart does not mutate Inventory.
+## Browser composition
 
-Inventory remains stock state.
+`createBrowserRepositories` creates persistent repositories backed by IndexedDB.
 
-Cart remains purchase intent.
+Application Use Cases remain unchanged because they depend on Domain Repository Contracts.
 
-## Inventory orchestration
+## Reset
 
-`adjustInventory` coordinates:
+`resetPersistentOverrides` clears persistent stores.
 
-- Inventory lookup
-- InventoryMovement creation
-- Domain stock transition
-- Inventory save
-- InventoryMovement append
+After reset:
 
-Domain rules still prevent negative stock.
-
-## Order orchestration
-
-Application now coordinates:
-
-- Order lookup
-- Domain status transition
-- Order persistence
-- Customer Order listing
-
-Application does not bypass the Domain lifecycle graph.
-
-## Infrastructure independence
-
-Application imports Domain contracts and Domain services.
-
-Application does not import local repository implementations.
-
-The local repositories are used only by tests/composition.
-
-This preserves future IndexedDB/API adapter compatibility.
+- Catalog and Inventory fall back to the immutable seed
+- Cart becomes empty
+- Order becomes empty
+- appended persistent movements are removed
+- seed movement history remains
 
 ## Quality Gate
 
 Latest evidence:
 
-- PASSO 21 targeted tests: 24/24
-- complete suite: 184/184
-- 22 test files passed
-- lint passed
+- PASSO 22 targeted tests: 20/20
+- complete suite: 204/204
+- 24 test files passed
+- lint passed with PASSO 21 warning removed
 - typecheck passed
 - production build passed
 - `/pt-BR` SSG passed
@@ -133,14 +153,14 @@ Latest evidence:
 
 ## Decisions
 
-After PASSO 21:
+After PASSO 22:
 
-`CODAL-DEC-001 -> CODAL-DEC-097`
+`CODAL-DEC-001 -> CODAL-DEC-107`
 
 Next available decision:
 
-`CODAL-DEC-098`
+`CODAL-DEC-108`
 
 ## Next step
 
-PASSO 22 - IndexedDB Provider and Persistent Local Adapters.
+PASSO 23 - BUILD 01 Final Integration and Closure.

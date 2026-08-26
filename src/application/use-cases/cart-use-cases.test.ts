@@ -4,9 +4,7 @@ import {
   it,
 } from "vitest";
 
-import {
-  createInventory,
-} from "../../domain/entities/inventory";
+
 import {
   createProductVariant,
 } from "../../domain/entities/product-variant";

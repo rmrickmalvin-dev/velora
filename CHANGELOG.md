@@ -1514,3 +1514,30 @@ Next available decision:
 #### Next
 
 PASSO 25 - Storefront Product Discovery and Product Card Interaction.
+---
+
+### PASSO 24 CSS Warning Cleanup
+
+Status: COMPLETED AND VALIDATED
+
+The PASSO 24 Storefront build was functionally successful, but Turbopack reported CSS parser warnings for `:global(...)` selectors inside the normal global stylesheet.
+
+Fixed:
+
+- global selector syntax in `src/styles/design-tokens.css`
+- preserved all Pearl Technology tokens
+- preserved reduced-motion behavior
+
+Post-fix evidence:
+
+- lint passed
+- typecheck passed
+- 231 tests passed
+- production build passed
+- CSS parser warning audit passed
+
+No new CODAL decision was required.
+
+Next decision remains:
+
+- CODAL-DEC-124

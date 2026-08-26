@@ -1,4 +1,4 @@
-:global(:root) {
+:root {
   --velora-pearl-0: #fffefa;
   --velora-pearl-50: #fbfaf6;
   --velora-pearl-100: #f4f1e9;
@@ -55,16 +55,16 @@
   --velora-transition-base: 260ms ease;
 }
 
-:global(*) {
+* {
   box-sizing: border-box;
 }
 
-:global(html) {
+html {
   scroll-behavior: smooth;
   background: var(--velora-pearl-50);
 }
 
-:global(body) {
+body {
   margin: 0;
   background:
     radial-gradient(
@@ -84,28 +84,28 @@
   -webkit-font-smoothing: antialiased;
 }
 
-:global(a) {
+a {
   color: inherit;
 }
 
-:global(button),
-:global(input),
-:global(select),
-:global(textarea) {
+button,
+input,
+select,
+textarea {
   font: inherit;
 }
 
-:global(::selection) {
+::selection {
   background: var(--velora-gold-200);
   color: var(--velora-ink-900);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  :global(html) {
+  html {
     scroll-behavior: auto;
   }
 
-  :global(*) {
+  * {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;

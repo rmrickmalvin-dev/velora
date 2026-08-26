@@ -170,3 +170,18 @@ PASSO 25 may add:
 - empty/filter states
 
 Reuse existing tokens before adding new tokens.
+## Global CSS rule
+
+`src/styles/design-tokens.css` is a normal global CSS file.
+
+Use native global selectors there:
+
+- `:root`
+- `html`
+- `body`
+- `*`
+- `::selection`
+
+Do not use CSS Modules-only `:global(...)` syntax in this file.
+
+Component-scoped selectors remain in `.module.css` files.

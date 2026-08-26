@@ -84,3 +84,28 @@ Complete suite:
 ## Next Quality Gate
 
 PASSO 25 - Storefront Product Discovery and Product Card Interaction.
+## PASSO 24 CSS Warning Cleanup
+
+Status: VALIDATED
+
+The first PASSO 24 production build completed successfully but Turbopack reported CSS parser warnings because `src/styles/design-tokens.css` used CSS Modules-only `:global(...)` syntax inside a normal global `.css` file.
+
+Correction:
+
+- replaced `:global(:root)` with `:root`
+- replaced remaining `:global(...)` selectors with valid global CSS selectors
+- preserved the Pearl Technology tokens and reduced-motion rules
+- no visual architecture decision changed
+
+Validation after correction:
+
+- lint passed
+- typecheck passed
+- 231/231 tests passed
+- production build passed
+- CSS warning audit passed
+- no `:global(...)` remains in `design-tokens.css`
+
+Next decision remains:
+
+`CODAL-DEC-124`

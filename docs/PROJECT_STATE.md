@@ -8,114 +8,96 @@ BUILD 02 - Storefront and Design System
 
 ## State
 
-IN PROGRESS
+CLOSED AND VALIDATED
+
+## Latest validated step
+
+PASSO 28 - BUILD 02 Final Visual Review, Responsive Hardening and Closure
 
 ## BUILD 01
 
 CLOSED AND VALIDATED
 
-## Latest validated step
+## BUILD 02
 
-PASSO 27 - Storefront Accessibility, SEO and BUILD 02 Visual Quality Expansion
+CLOSED AND VALIDATED
 
-## Accessibility expansion
+Closure record:
 
-Storefront home, category and Product detail now provide:
+`docs/BUILD_02_CLOSURE.md`
 
-- keyboard skip links
-- explicit focus-visible treatment
-- localized primary navigation labels
-- localized language navigation labels
-- reduced-motion preservation
-- increased-contrast token support
+## Final Storefront shape
 
-Product discovery continues to provide:
+Public journeys:
 
-- polite result announcements
-- pressed-state category filters
-- hidden search label
+```text
+/{locale}
 
-## Skip-link targets
+/{locale}/categories/{category}
 
-Home:
+/{locale}/products/{slug}
+```
 
-`#storefront-main-content`
+Locales:
 
-Category:
+- PT-BR
+- EN
+- ES
 
-`#category-main-content`
+## Navigation
 
-Product:
+Desktop:
 
-`#product-main-content`
+- fixed conventional vertical navigation rail
 
-## SEO foundation
+Tablet/mobile:
 
-Presentation now provides:
+- sticky top navigation
 
-`StorefrontSeoModel`
+The final BUILD 02 navigation now matches the approved VELORA vertical-navigation requirement.
 
-For home, category and Product routes it produces:
+## Responsive hardening
 
-- title
-- description
-- canonical locale path
-- PT-BR alternate
-- EN alternate
-- ES alternate
-- x-default alternate
-- explicit index/follow intent
+Validated:
 
-## SEO route identity
-
-Home:
-
-`/{locale}`
-
-Category:
-
-`/{locale}/categories/{category}`
-
-Product:
-
-`/{locale}/products/{slug}`
-
-Language alternates preserve the current route suffix.
-
-## Structured data policy
-
-PASSO 27 does not emit Product Offer structured data.
-
-VELORA products are fictional portfolio content and payment is not real.
-
-SEO quality must not create false commercial claims.
+- no page-level horizontal overflow dependency
+- mobile/tablet rail reset
+- local filter horizontal scroll only
+- minimum-width protections
+- long-content wrapping
+- larger compact-layout locale targets
+- 4 / 2 / 1 grid progression
 
 ## Quality Gate
 
 Latest evidence:
 
-- PASSO 27 targeted tests: 22/22
-- complete suite: 283/283
-- 36 test files passed
+- PASSO 28 targeted tests: 14/14
+- complete suite: 297/297
+- 38 test files passed
 - lint passed
 - typecheck passed
 - production build passed
 - home SSG passed
 - category SSG passed
 - Product SSG passed
-- PT-BR / EN / ES preserved
+- PT-BR / EN / ES passed
 - `npm run check` passed
 
 ## Decisions
 
-After PASSO 27:
+After PASSO 28:
 
-`CODAL-DEC-001 -> CODAL-DEC-146`
+`CODAL-DEC-001 -> CODAL-DEC-154`
 
 Next available decision:
 
-`CODAL-DEC-147`
+`CODAL-DEC-155`
+
+## Next phase
+
+BUILD 03 - Commerce Interaction
 
 ## Next step
 
-PASSO 28 - BUILD 02 Final Visual Review, Responsive Hardening and Closure.
+PASSO 29 - Browser Runtime, Cart Experience State and Add-to-Cart Integration.

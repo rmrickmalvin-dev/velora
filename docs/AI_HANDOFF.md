@@ -8,40 +8,43 @@ CODAL OS - Complete Edition active.
 
 BUILD 01 - CLOSED
 
-BUILD 02 - IN PROGRESS
+BUILD 02 - CLOSED
 
-Latest validated step:
+Next:
 
-PASSO 27 - Storefront Accessibility, SEO and BUILD 02 Visual Quality Expansion
+BUILD 03 - Commerce Interaction
 
-## Accessibility
+## BUILD 02 closure
 
-Use:
+Record:
 
-`getStorefrontAccessibilityCopy`
+`docs/BUILD_02_CLOSURE.md`
 
-for localized accessibility-only labels.
+Final evidence:
 
-Preserve:
+```text
+PASSO 28 targeted: 14/14
+Full suite:         297/297
+Test files:         38/38
+lint:               passed
+typecheck:          passed
+build:              passed
+check:              passed
+```
 
-- skip links
-- visible focus
-- reduced motion
-- increased contrast
-- polite search results
-- pressed-state filters
+## Navigation contract
 
-## SEO
+Desktop:
 
-Use:
+- fixed vertical rail
 
-`buildStorefrontSeoModel`
+Tablet/mobile:
 
-for localized Storefront metadata.
+- sticky top header
 
-Do not hand-build inconsistent canonical or language alternate paths in route files.
+Do not replace the desktop vertical navigation with a horizontal desktop header unless a new official decision explicitly changes the requirement.
 
-## Canonical journeys
+## Public route contract
 
 Home:
 
@@ -55,41 +58,37 @@ Product:
 
 `/{locale}/products/{slug}`
 
-## Structured data rule
+## BUILD 03 start rule
 
-Do not add Product Offer structured data while VELORA is a fictional portfolio store without real payment.
+Browser commerce interaction must use the existing Infrastructure composition root.
 
-## Quality Gate
+Use:
 
-```text
-PASSO 27 targeted: 22/22
-Full suite:         283/283
-Test files:         36/36
-lint:               passed
-typecheck:          passed
-build:              passed
-check:              passed
-```
+`createBrowserVeloraRuntime`
 
-## Decisions
+from client-safe code.
 
-After PASSO 27:
+Do not:
 
-`CODAL-DEC-001 -> CODAL-DEC-146`
+- access IndexedDB from components
+- access localStorage for Domain persistence
+- duplicate Cart rules in UI
+- mutate Inventory from add-to-cart
 
-Next:
+## Next decision
 
-`CODAL-DEC-147`
+`CODAL-DEC-155`
 
 ## Next action
 
-PASSO 28 - BUILD 02 Final Visual Review, Responsive Hardening and Closure.
+PASSO 29 - Browser Runtime, Cart Experience State and Add-to-Cart Integration.
 
-Focus:
+Expected focus:
 
-- responsive hardening
-- visual consistency audit
-- navigation quality
-- overflow protection
-- BUILD 02 closure evidence
-- prepare BUILD 03 Commerce Interaction
+- client-safe runtime provider
+- Cart experience state
+- add-to-cart from Product detail
+- cart count
+- persistence across reloads
+- accessible feedback
+- no payment flow yet

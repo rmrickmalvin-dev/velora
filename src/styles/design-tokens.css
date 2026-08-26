@@ -150,3 +150,33 @@ section[tabindex="-1"] {
     --velora-border-strong: rgba(23, 23, 20, 0.58);
   }
 }
+
+/* PASSO 28: BUILD 02 responsive hardening. */
+html,
+body {
+  max-width: 100%;
+}
+
+body {
+  overflow-x: clip;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+main,
+section,
+article,
+header,
+footer,
+nav {
+  min-width: 0;
+}
+
+@supports not (overflow: clip) {
+  body {
+    overflow-x: hidden;
+  }
+}

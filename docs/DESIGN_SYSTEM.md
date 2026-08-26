@@ -249,3 +249,31 @@ Rules:
 - preserve reduced motion
 - skip links must remain keyboard reachable
 - higher contrast may strengthen tokens without changing layout
+## Desktop vertical navigation
+
+BUILD 02 closes with the approved conventional vertical navigation pattern.
+
+Desktop:
+
+- 15.5rem fixed rail
+- content offset by the same rail width
+- VELORA brand at the top
+- primary journey navigation below
+- locale controls anchored toward the lower rail area
+
+Tablet/mobile:
+
+- rail is removed
+- content offset returns to zero
+- sticky top navigation becomes active
+- locale targets increase to at least 2.75rem
+
+## Responsive overflow rule
+
+The page must never require horizontal viewport scrolling.
+
+Allowed exception:
+
+- the category-filter strip may scroll horizontally inside its own local container on narrow mobile screens
+
+Use local overflow instead of page overflow.

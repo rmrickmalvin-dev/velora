@@ -1800,3 +1800,77 @@ Next available decision:
 #### Next
 
 PASSO 28 - BUILD 02 Final Visual Review, Responsive Hardening and Closure.
+---
+
+### PASSO 28 - BUILD 02 Final Visual Review, Responsive Hardening and Closure
+
+Status: COMPLETED AND TECHNICALLY VALIDATED
+
+#### Navigation correction
+
+The final visual review identified that the approved VELORA desktop navigation requirement was vertical.
+
+BUILD 02 now closes with:
+
+- fixed desktop vertical rail
+- tablet/mobile sticky top header
+- matching layout on Storefront, category and Product pages
+
+#### Responsive hardening
+
+Added:
+
+- page-level overflow protection
+- overflow clip fallback
+- local-only mobile filter scrolling
+- minimum-width protection
+- long-content wrapping
+- compact locale touch-target increase
+
+#### Testing
+
+PASSO 28 targeted:
+
+- 2 test files passed
+- 14 tests passed
+- 0 failed
+
+Complete suite:
+
+- 38 test files passed
+- 297 tests passed
+- 0 failed
+
+#### Technical Validation
+
+Passed:
+
+- npm run lint
+- npm run typecheck
+- npm run test
+- npm run build
+- npm run check
+
+#### BUILD 02
+
+CLOSED AND VALIDATED
+
+Closure record:
+
+- docs/BUILD_02_CLOSURE.md
+
+#### Decisions
+
+Added:
+
+- CODAL-DEC-147 through CODAL-DEC-154
+
+Next available decision:
+
+- CODAL-DEC-155
+
+#### Next
+
+BUILD 03 - Commerce Interaction
+
+PASSO 29 - Browser Runtime, Cart Experience State and Add-to-Cart Integration.

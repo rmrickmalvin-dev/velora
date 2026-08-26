@@ -174,6 +174,14 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-144 | ACEITA | SEO language alternates include PT-BR, EN, ES and x-default while preserving the current route suffix | Represent the existing internationalized journey explicitly |
 | CODAL-DEC-145 | ACEITA | Product Offer structured data is not emitted while VELORA remains a fictional portfolio store without real payment | Avoid misleading commercial search claims |
 | CODAL-DEC-146 | ACEITA | Pearl Technology supports prefers-contrast: more by strengthening border tokens without redesigning layout | Improve accessibility while preserving the visual identity |
+| CODAL-DEC-155 | ACEITA | VELORA desktop Storefront navigation uses a fixed conventional vertical rail; tablet/mobile use a sticky top header | Restore the approved navigation requirement before BUILD 02 closure |
+| CODAL-DEC-148 | ACEITA | Desktop rail width is 15.5rem and primary page content is offset by the same amount | Keep navigation persistent without overlapping Storefront content |
+| CODAL-DEC-149 | ACEITA | Page-level horizontal viewport overflow is blocked; horizontal scrolling is allowed only inside intentional local controls such as mobile category filters | Prevent accidental mobile overflow while preserving useful compact interactions |
+| CODAL-DEC-150 | ACEITA | Compact locale controls use a minimum 2.75rem interaction target | Improve touch usability without visually enlarging desktop navigation |
+| CODAL-DEC-151 | ACEITA | Storefront, category and Product layouts use min-width and text-wrapping hardening around grid and long-content boundaries | Protect responsive layouts from future catalog content variation |
+| CODAL-DEC-152 | ACEITA | BUILD 02 closure requires dedicated responsive-contract and readiness tests in addition to the existing full quality gate | Make visual architecture requirements continuously verifiable |
+| CODAL-DEC-153 | ACEITA | BUILD 03 commerce interaction must preserve the established Home, Category and Product public route identities | Allow commerce behavior to evolve without destabilizing Storefront navigation and SEO |
+| CODAL-DEC-154 | ACEITA | BUILD 02 Storefront and Design System is officially closed only after vertical-navigation restoration, responsive hardening, 297 passing tests and production build validation | Create an explicit quality-first boundary before Commerce Interaction begins |
 
 ## Decisões por área
 
@@ -267,7 +275,7 @@ Uma IA ou desenvolvedor que continuar a VELORA deve:
 - não substituir decisões ACEITAS silenciosamente;
 - verificar se uma nova implementação contradiz alguma decisão existente;
 - registrar novas decisões com numeração sequencial;
-- utilizar o próximo número disponível após CODAL-DEC-146;
+- utilizar o próximo número disponível após CODAL-DEC-154;
 - preservar decisões históricas mesmo quando forem superadas.
 
 ## Próxima decisão disponível

@@ -2,63 +2,62 @@
 
 Last update: 2026-08-26
 
-## BUILD 02 status
+## BUILD 01
 
-IN PROGRESS
+CLOSED AND VALIDATED
 
-## Accessibility boundary
+## BUILD 02
 
-PASSO 27 accessibility behavior remains in UI, i18n and Design System.
+CLOSED AND VALIDATED
 
-No Domain invariant changed.
+## Storefront boundary
 
-Localized accessibility labels are separate from Domain data.
+BUILD 02 proves the public UI can consume validated Application data without bypassing architecture.
 
-## SEO boundary
+Flow:
 
-SEO is represented by:
+```text
+Storefront UI
+|
+v
+Presentation Models
+|
+v
+VeloraApplication
+|
+v
+Domain Repository Contracts
+|
+v
+Infrastructure
+```
 
-`StorefrontSeoModel`
+## Navigation boundary
 
-This Presentation model receives:
+Responsive navigation is a UI concern.
 
-- locale
-- title
-- description
-- route suffix
+Desktop uses a vertical rail.
 
-It produces:
+Tablet/mobile uses a sticky top header.
 
-- canonical path
-- language alternates
-- robots intent
+No Domain or Application behavior depends on viewport size.
 
-Next.js route modules adapt this model into Next Metadata.
+## Responsive boundary
 
-## Canonical identity
+Overflow, text wrapping, touch targets and layout breakpoints remain Presentation/Design System concerns.
 
-Product:
+## BUILD 03 boundary
 
-`/{locale}/products/{slug}`
+BUILD 03 may activate browser-persistent commerce interaction through the existing composition root.
 
-Category:
+The UI still must not access IndexedDB directly.
 
-`/{locale}/categories/{category}`
+Use:
 
-Home:
+`createBrowserVeloraRuntime`
 
-`/{locale}`
-
-Domain entity ids are not exposed as public canonical route identity.
-
-## Structured data policy
-
-No Product Offer schema is emitted while:
-
-- products are fictional
-- checkout is not real
-- payment is not real
+from a client-safe composition boundary.
 
 ## Next milestone
 
-PASSO 28 - BUILD 02 Final Visual Review, Responsive Hardening and Closure.
+PASSO 29 - Browser Runtime, Cart Experience State and Add-to-Cart Integration.

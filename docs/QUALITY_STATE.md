@@ -4,61 +4,46 @@ Last update: 2026-08-26
 
 ## BUILD 01
 
-Status: CLOSED AND VALIDATED
+CLOSED AND VALIDATED
 
 ## BUILD 02
 
-Status: IN PROGRESS
+CLOSED AND VALIDATED
 
-## PASSO 27 - Accessibility
+## PASSO 28 - Responsive hardening
 
-- [x] localized accessibility copy
-- [x] home skip link
-- [x] category skip link
-- [x] Product skip link
-- [x] global focus-visible indicator
-- [x] localized primary navigation label
-- [x] localized language navigation label
-- [x] aria-live discovery result count preserved
-- [x] aria-pressed category filters preserved
-- [x] reduced-motion support preserved
-- [x] increased-contrast token support
+- [x] desktop vertical Storefront navigation
+- [x] desktop vertical category navigation
+- [x] desktop vertical Product navigation
+- [x] tablet/mobile sticky header
+- [x] compact locale touch targets
+- [x] page horizontal overflow blocked
+- [x] local filter-strip overflow preserved
+- [x] min-width hardening
+- [x] long text wrapping hardening
+- [x] browser fallback for overflow clip
 
-## PASSO 27 - SEO
-
-- [x] StorefrontSeoModel
-- [x] localized canonical paths
-- [x] PT-BR alternate
-- [x] EN alternate
-- [x] ES alternate
-- [x] x-default alternate
-- [x] explicit index/follow intent
-- [x] home metadata integration
-- [x] category metadata integration
-- [x] Product metadata integration
-- [x] no misleading Product Offer structured data
-
-## PASSO 27 Test Evidence
+## PASSO 28 Test Evidence
 
 Targeted:
 
 ```text
-3 test files
-22 tests
-22 passed
+2 test files
+14 tests
+14 passed
 0 failed
 ```
 
 Complete suite:
 
 ```text
-36 test files
-283 tests
-283 passed
+38 test files
+297 tests
+297 passed
 0 failed
 ```
 
-## Latest Technical Gate
+## Final BUILD 02 gate
 
 - [x] npm run lint
 - [x] npm run typecheck
@@ -71,7 +56,9 @@ Complete suite:
 - [x] PT-BR
 - [x] EN
 - [x] ES
+- [x] responsive contract tests
+- [x] BUILD 02 readiness tests
 
 ## Next Quality Gate
 
-PASSO 28 - BUILD 02 Final Visual Review, Responsive Hardening and Closure.
+BUILD 03 / PASSO 29 - Browser Runtime, Cart Experience State and Add-to-Cart Integration.

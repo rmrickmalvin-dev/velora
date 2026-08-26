@@ -410,3 +410,27 @@
     min-height: 18rem;
   }
 }
+
+/* PASSO 28: discovery overflow and text hardening. */
+.root,
+.controls,
+.filters,
+.grid,
+.card,
+.info {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.info h3,
+.details,
+.commercial {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 44rem) {
+  .filters {
+    overscroll-behavior-inline: contain;
+    scrollbar-width: thin;
+  }
+}

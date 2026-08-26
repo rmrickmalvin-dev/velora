@@ -2185,3 +2185,89 @@ Next available decision:
 #### Next
 
 PASSO 33 - Demo Order History, Reset Flow and BUILD 03 Closure.
+---
+
+### PASSO 33 - Demo Order History, Reset Flow and BUILD 03 Closure
+
+Status: COMPLETED AND TECHNICALLY VALIDATED
+
+#### Added - Guest demo Order history
+
+- OrderRepository list
+- Application listDemoOrders
+- persistent guest history
+- Order snapshot subtotal
+- localized `/orders` route
+- Cart Drawer history entry
+- Checkout confirmation history entry
+
+#### Added - Demo reset
+
+- explicit two-step reset
+- existing Runtime resetDemo integration
+- Cart indicator refresh
+- deterministic baseline restoration
+
+#### SEO
+
+Checkout and Orders browser-state routes are noindex.
+
+#### Commerce boundaries
+
+Preserved:
+
+- no payment provider
+- no fake transaction id
+- no persistent Checkout personal data
+- no direct IndexedDB UI access
+- no Inventory mutation
+
+#### Testing
+
+PASSO 33 targeted:
+
+- 5 test files passed
+- 36 tests passed
+- 0 failed
+
+Complete suite:
+
+- 53 test files passed
+- 422 tests passed
+- 0 failed
+
+#### Technical Validation
+
+Passed:
+
+- npm run lint
+- npm run typecheck
+- npm run test
+- npm run build
+- npm run check
+
+#### Registry repair
+
+A historical CODAL decision-code discontinuity was detected by the PASSO 33 closure audit.
+
+The repair preserved every official decision row text and chronological row order while normalizing official numeric prefixes to:
+
+- CODAL-DEC-001 through CODAL-DEC-198
+
+Next available decision:
+
+- CODAL-DEC-199
+
+#### BUILD 03
+
+CLOSED AND VALIDATED
+
+Closure record:
+
+- docs/BUILD_03_CLOSURE.md
+
+#### Next
+
+BUILD 04 - Application and Data Experience
+
+PASSO 34 - Demo Authentication Roles, Session Experience and Customer/Admin Entry.

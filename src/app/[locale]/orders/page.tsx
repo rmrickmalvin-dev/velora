@@ -6,11 +6,11 @@ import {
 } from "next/navigation";
 
 import {
-  CheckoutPage,
-} from "../../../components/commerce/checkout-page";
+  DemoOrdersPage,
+} from "../../../components/commerce/demo-orders-page";
 import {
-  getStorefrontCheckoutCopy,
-} from "../../../i18n/storefront-checkout-copy";
+  getStorefrontOrdersCopy,
+} from "../../../i18n/storefront-orders-copy";
 import {
   isStorefrontLocale,
   storefrontLocales,
@@ -19,7 +19,7 @@ import {
   buildStorefrontSeoModel,
 } from "../../../presentation/storefront/storefront-seo-model";
 
-type CheckoutRouteProps =
+type DemoOrdersRouteProps =
   Readonly<{
     params:
       Promise<{
@@ -37,7 +37,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({
   params,
-}: CheckoutRouteProps): Promise<Metadata> {
+}: DemoOrdersRouteProps): Promise<Metadata> {
   const {
     locale,
   } = await params;
@@ -51,7 +51,7 @@ export async function generateMetadata({
   }
 
   const copy =
-    getStorefrontCheckoutCopy(
+    getStorefrontOrdersCopy(
       locale,
     );
 
@@ -59,8 +59,8 @@ export async function generateMetadata({
     buildStorefrontSeoModel(
       locale,
       `${copy.eyebrow} | VELORA`,
-      copy.demoNotice,
-      "/checkout",
+      copy.noPaymentNotice,
+      "/orders",
     );
 
   return {
@@ -80,9 +80,9 @@ export async function generateMetadata({
   };
 }
 
-export default async function CheckoutRoute({
+export default async function DemoOrdersRoute({
   params,
-}: CheckoutRouteProps) {
+}: DemoOrdersRouteProps) {
   const {
     locale,
   } = await params;
@@ -96,7 +96,7 @@ export default async function CheckoutRoute({
   }
 
   return (
-    <CheckoutPage
+    <DemoOrdersPage
       locale={locale}
     />
   );

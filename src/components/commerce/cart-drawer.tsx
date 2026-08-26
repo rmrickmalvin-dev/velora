@@ -19,6 +19,9 @@ import {
   getStorefrontCheckoutCopy,
 } from "../../i18n/storefront-checkout-copy";
 import {
+  getStorefrontOrdersCopy,
+} from "../../i18n/storefront-orders-copy";
+import {
   emitBrowserCartChanged,
   getBrowserCartExperience,
   subscribeBrowserCartChanged,
@@ -65,6 +68,11 @@ export function CartDrawer({
 
   const checkoutCopy =
     getStorefrontCheckoutCopy(
+      locale,
+    );
+
+  const ordersCopy =
+    getStorefrontOrdersCopy(
       locale,
     );
 
@@ -561,6 +569,23 @@ export function CartDrawer({
               </span>
             </Link>
           ) : null}
+
+          <Link
+            className={
+              styles.history
+            }
+            href={
+              `/${locale}/orders`
+            }
+            onClick={
+              onClose
+            }
+          >
+            {
+              ordersCopy
+                .historyCta
+            }
+          </Link>
         </footer>
       </aside>
     </div>

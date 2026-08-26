@@ -42,6 +42,9 @@ import {
   type CreateDemoOrderFromCartInput,
 } from "./use-cases/create-demo-order";
 import {
+  listDemoOrders,
+} from "./use-cases/list-demo-orders";
+import {
   changeOrderStatus,
   listCustomerOrders,
 } from "./use-cases/order-use-cases";
@@ -150,6 +153,11 @@ export type VeloraApplication =
         typeof createDemoOrderFromCart
       >;
 
+    listDemoOrders:
+      () => ReturnType<
+        typeof listDemoOrders
+      >;
+
     changeOrderStatus:
       (
         input:
@@ -225,6 +233,12 @@ export function createVeloraApplication(
         createDemoOrderFromCart(
           dependencies,
           input,
+        ),
+
+    listDemoOrders:
+      () =>
+        listDemoOrders(
+          dependencies.orders,
         ),
 
     changeOrderStatus:

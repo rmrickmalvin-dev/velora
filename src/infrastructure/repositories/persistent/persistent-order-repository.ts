@@ -39,6 +39,23 @@ export class PersistentOrderRepository
       : null;
   }
 
+  async list(): Promise<
+    readonly Order[]
+  > {
+    const records =
+      await this.provider.getAll<
+        Order
+      >(
+        "orders",
+      );
+
+    return Object.freeze(
+      records.map(
+        hydrateOrder,
+      ),
+    );
+  }
+
   async listByCustomerId(
     customerId: CustomerId,
   ): Promise<

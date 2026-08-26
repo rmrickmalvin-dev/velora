@@ -40,6 +40,16 @@ export class LocalOrderRepository
     );
   }
 
+  async list(): Promise<
+    readonly Order[]
+  > {
+    return Object.freeze(
+      Array.from(
+        this.items.values(),
+      ),
+    );
+  }
+
   async listByCustomerId(
     customerId: CustomerId,
   ): Promise<

@@ -1,4 +1,4 @@
-# DECISIONS — VELORA
+CODAL-DEC-199 VELORA
 
 Última atualização: 2026-08-24
 
@@ -77,7 +77,7 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-047 | ACEITA | InventoryMovement requires a reason | Preserve minimum audit context for stock changes |
 | CODAL-DEC-048 | ACEITA | Inventory movements are applied through an immutable transition that validates the target Inventory | Avoid silent mutation and movement application to the wrong inventory |
 | CODAL-DEC-049 | ACEITA | No movement may produce negative or unsafe stock quantity | Preserve inventory invariants after every transition |
-| CODAL-DEC-058 | ACEITA | Cart is the aggregate for current purchase intent and remains separate from Order | Keep temporary shopping state distinct from transaction history |
+| CODAL-DEC-050 | ACEITA | Cart is the aggregate for current purchase intent and remains separate from Order | Keep temporary shopping state distinct from transaction history |
 | CODAL-DEC-051 | ACEITA | CartItem references ProductVariantId and does not duplicate Inventory responsibility | Keep the cart attached to the sellable unit without owning stock |
 | CODAL-DEC-052 | ACEITA | CartItem quantity must be a positive safe integer | Prevent zero, negative, fractional or unsafe purchase quantities |
 | CODAL-DEC-053 | ACEITA | CartItem unitPrice uses Money and cannot be negative | Keep cart calculations deterministic and compatible with monetary rules |
@@ -85,7 +85,7 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-055 | ACEITA | A Cart may contain at most one line per ProductVariant and unique CartItem ids | Avoid duplicated commercial lines and ambiguous quantity state |
 | CODAL-DEC-056 | ACEITA | Cart add, remove and quantity updates are immutable Domain Service transitions | Preserve aggregate invariants across cart operations |
 | CODAL-DEC-057 | ACEITA | Cart subtotal is calculated from unitPrice times quantity using Money; empty Cart returns null | Preserve currency safety while acknowledging that an empty cart has no currency context |
-| CODAL-DEC-066 | ACEITA | Order and OrderItem remain separate from Cart and CartItem | Preserve the boundary between current purchase intent and transaction history |
+| CODAL-DEC-058 | ACEITA | Order and OrderItem remain separate from Cart and CartItem | Preserve the boundary between current purchase intent and transaction history |
 | CODAL-DEC-059 | ACEITA | OrderItem preserves explicit commercial snapshots for product name, SKU and unit price | Historical orders must not change when Catalog data changes |
 | CODAL-DEC-060 | ACEITA | Order requires at least one OrderItem while customerId remains optional for guest orders | Prevent empty transactions while preserving guest checkout capability |
 | CODAL-DEC-061 | ACEITA | OrderItem quantity must be a positive safe integer and unitPriceSnapshot cannot be negative | Preserve deterministic commercial history |
@@ -93,7 +93,7 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-063 | ACEITA | OrderStatus is runtime-validated and changes only through an explicit transition graph | Prevent invalid lifecycle jumps |
 | CODAL-DEC-064 | ACEITA | DELIVERED and CANCELLED are terminal Order states | Preserve lifecycle finality |
 | CODAL-DEC-065 | ACEITA | Order subtotal is derived from OrderItem snapshots using Money and rejects currency mismatch | Keep historical totals deterministic and currency-safe |
-| CODAL-DEC-074 | ACEITA | Repository Contracts live in Domain and expose only Domain concepts | Preserve persistence independence and dependency direction |
+| CODAL-DEC-066 | ACEITA | Repository Contracts live in Domain and expose only Domain concepts | Preserve persistence independence and dependency direction |
 | CODAL-DEC-067 | ACEITA | Repository operations are asynchronous Promise-based contracts from the start | Support local and remote providers without changing Application signatures |
 | CODAL-DEC-068 | ACEITA | Single-entity repository lookups return Entity or null when data is absent | Treat absence as a normal data outcome and let Application decide error semantics |
 | CODAL-DEC-069 | ACEITA | Repository collection queries return readonly arrays | Prevent callers from mutating repository-owned collections |
@@ -101,7 +101,7 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-071 | ACEITA | CartRepository may remove Cart state because Cart is temporary purchase intent | Allow disposal of abandoned or completed temporary cart state |
 | CODAL-DEC-072 | ACEITA | OrderRepository does not expose delete | Preserve transaction history as durable domain data |
 | CODAL-DEC-073 | ACEITA | Repository Contracts never expose provider-specific query or storage types | Prevent Infrastructure details from leaking into Domain or Application |
-| CODAL-DEC-082 | ACEITA | Seed Foundation belongs to Infrastructure and creates records through Domain factories | Preserve Domain invariants while keeping baseline data outside Domain |
+| CODAL-DEC-074 | ACEITA | Seed Foundation belongs to Infrastructure and creates records through Domain factories | Preserve Domain invariants while keeping baseline data outside Domain |
 | CODAL-DEC-075 | ACEITA | The VELORA seed baseline is deterministic and immutable | Enable predictable demo reset and reproducible repository initialization |
 | CODAL-DEC-076 | ACEITA | Initial catalog brands, products and commercial data are entirely fictional | Preserve portfolio freedom without implying a real commercial operation |
 | CODAL-DEC-077 | ACEITA | Seed ids, slugs and SKUs are explicit and stable rather than generated at runtime | Keep references deterministic across resets, tests and future migrations |
@@ -109,7 +109,7 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-079 | ACEITA | Every seeded Inventory begins with one ENTRY InventoryMovement matching initial quantityOnHand | Keep initial stock state and movement history coherent |
 | CODAL-DEC-080 | ACEITA | Seed ProductMedia uses logical local asset paths before final visual assets exist | Allow data architecture and Storefront development to progress independently from final imagery |
 | CODAL-DEC-081 | ACEITA | Immutable baseline seed excludes Cart and Order state | Keep mutable session and transaction state outside resettable catalog baseline |
-| CODAL-DEC-090 | ACEITA | PASSO 20 local repositories are Infrastructure adapters implementing existing Domain Repository Contracts | Make the current architecture executable without coupling Domain to storage |
+| CODAL-DEC-082 | ACEITA | PASSO 20 local repositories are Infrastructure adapters implementing existing Domain Repository Contracts | Make the current architecture executable without coupling Domain to storage |
 | CODAL-DEC-083 | ACEITA | Local repository working state initializes from the immutable VELORA seed but never mutates the seed | Preserve deterministic reset and baseline integrity |
 | CODAL-DEC-084 | ACEITA | PASSO 20 repositories are intentionally in-memory and volatile across reloads | Unblock Application development before IndexedDB without pretending persistence already exists |
 | CODAL-DEC-085 | ACEITA | Local repository list methods return frozen snapshot arrays | Prevent external callers from mutating repository collection state |
@@ -117,7 +117,7 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-087 | ACEITA | Cart and Order repositories initialize empty instead of being seeded with transaction state | Preserve the boundary between immutable baseline data and runtime commerce state |
 | CODAL-DEC-088 | ACEITA | Each createLocalRepositories call returns an isolated repository bundle | Make reset and test isolation deterministic |
 | CODAL-DEC-089 | ACEITA | Infrastructure repositories do not introduce new business rules beyond storage contract semantics | Keep business invariants in Domain and orchestration in Application |
-| CODAL-DEC-098 | ACEITA | Application Use Cases depend on Domain Repository Contracts and Domain services, never concrete Infrastructure adapters | Preserve dependency inversion and future provider replacement |
+| CODAL-DEC-090 | ACEITA | Application Use Cases depend on Domain Repository Contracts and Domain services, never concrete Infrastructure adapters | Preserve dependency inversion and future provider replacement |
 | CODAL-DEC-091 | ACEITA | Storefront queries expose only ACTIVE Products and ACTIVE ProductVariants while aggregating ProductMedia and Inventory | Keep public commerce reads sale-ready without moving presentation concerns into Domain |
 | CODAL-DEC-092 | ACEITA | Storefront Product ordering is featured-first and then alphabetical by Product name | Provide deterministic public ordering before UI-specific merchandising exists |
 | CODAL-DEC-093 | ACEITA | Repeated add-to-cart for the same ProductVariant merges quantity into the existing CartItem | Match expected commerce behavior while preserving one line per ProductVariant |
@@ -125,7 +125,7 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-095 | ACEITA | Application orchestration errors use ApplicationError while Domain invariant failures remain DomainValidationError | Separate orchestration failure semantics from Domain validation semantics |
 | CODAL-DEC-096 | ACEITA | Inventory adjustment orchestration persists the validated Inventory state and appends its InventoryMovement history | Keep current stock and movement history synchronized through Domain rules |
 | CODAL-DEC-097 | ACEITA | Order status orchestration must load through OrderRepository, apply the Domain transition graph and save the new Order | Prevent Application from bypassing Order lifecycle invariants |
-| CODAL-DEC-108 | ACEITA | Infrastructure defines PersistenceProvider below Repository implementations for storage-level operations | Keep storage mechanics separate from Domain Repository Contracts |
+| CODAL-DEC-098 | ACEITA | Infrastructure defines PersistenceProvider below Repository implementations for storage-level operations | Keep storage mechanics separate from Domain Repository Contracts |
 | CODAL-DEC-099 | ACEITA | Browser persistence uses native IndexedDB through IndexedDbProvider without adding an external IndexedDB dependency | Keep the BUILD 01 dependency surface small while providing real browser persistence |
 | CODAL-DEC-100 | ACEITA | Persisted records are rehydrated through Domain factories before being returned as Domain entities | Restore validation, normalization and immutability after structured persistence |
 | CODAL-DEC-101 | ACEITA | Persistent Catalog and Inventory repositories use immutable veloraSeed as fallback plus persisted override records | Preserve deterministic baseline and allow admin/demo mutation without rewriting seed |
@@ -135,7 +135,7 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-105 | ACEITA | resetPersistentOverrides clears persistent stores and restores seed-backed repositories to baseline while clearing Cart and Order | Provide deterministic demo reset semantics |
 | CODAL-DEC-106 | ACEITA | createBrowserRepositories selects IndexedDbProvider only at Infrastructure composition while Application remains unchanged | Preserve dependency inversion across in-memory and persistent modes |
 | CODAL-DEC-107 | ACEITA | IndexedDB is treated as browser-only and unavailable runtimes fail explicitly instead of silently changing storage behavior | Keep SSR and browser persistence semantics truthful |
-| CODAL-DEC-116 | ACEITA | createVeloraApplication binds Repository Contracts into one stable Application facade for UI consumption | Reduce repeated dependency wiring while preserving Application independence from Infrastructure |
+| CODAL-DEC-108 | ACEITA | createVeloraApplication binds Repository Contracts into one stable Application facade for UI consumption | Reduce repeated dependency wiring while preserving Application independence from Infrastructure |
 | CODAL-DEC-109 | ACEITA | Concrete provider and repository selection belongs to an Infrastructure composition root | Keep browser persistence decisions outside Domain, Application and UI components |
 | CODAL-DEC-110 | ACEITA | Vitest project scripts execute tests only from src | Prevent backups and generated local artifacts from being discovered as project test suites |
 | CODAL-DEC-111 | ACEITA | BUILD 01 closure requires a successful npm ci before the final complete quality gate | Prove package manifest and lockfile reproducibility from a clean dependency install |
@@ -143,7 +143,7 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-113 | ACEITA | Automated architecture tests protect Domain and Application dependency direction | Turn core CODAL architecture rules into executable regression evidence |
 | CODAL-DEC-114 | ACEITA | BUILD 02 UI should consume the Application facade and must not access persistence providers directly | Preserve the validated BUILD 01 architecture when visual development begins |
 | CODAL-DEC-115 | ACEITA | BUILD 01 Foundation is officially closed after clean install, architecture integration, full tests and production build pass | Authorize transition to BUILD 02 Storefront and Design System |
-| CODAL-DEC-124 | ACEITA | BUILD 02 visual foundation is named Pearl Technology and is implemented through reusable CSS Design Tokens | Give the Storefront a stable visual language before multiplying pages and components |
+| CODAL-DEC-116 | ACEITA | BUILD 02 visual foundation is named Pearl Technology and is implemented through reusable CSS Design Tokens | Give the Storefront a stable visual language before multiplying pages and components |
 | CODAL-DEC-117 | ACEITA | SSG Storefront rendering uses createStaticVeloraRuntime while browser persistence remains a separate composition | Prevent IndexedDB from leaking into static/server rendering while preserving one Application facade |
 | CODAL-DEC-118 | ACEITA | First Storefront Product cards must consume commercial data from Application output instead of hardcoded Product records | Make the visible portfolio experience prove the BUILD 01 architecture |
 | CODAL-DEC-119 | ACEITA | Storefront copy is centralized for PT-BR, EN and ES from the first visual shell | Preserve i18n parity while UI complexity grows |
@@ -151,7 +151,7 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-121 | ACEITA | Price and stock display labels are Presentation responsibilities derived from Domain/Application data | Keep formatting and merchandising language outside Domain |
 | CODAL-DEC-122 | ACEITA | Decorative Storefront motion must honor prefers-reduced-motion and use transform-based animation | Protect accessibility and performance as visual identity grows |
 | CODAL-DEC-123 | ACEITA | Champagne/gold is a restrained accent rather than the dominant Storefront surface | Preserve premium contrast without turning the interface into decorative excess |
-| CODAL-DEC-132 | ACEITA | Product discovery operates on Presentation models already delivered by SSG and does not access repositories from the client component | Keep browser interaction decoupled from Infrastructure |
+| CODAL-DEC-124 | ACEITA | Product discovery operates on Presentation models already delivered by SSG and does not access repositories from the client component | Keep browser interaction decoupled from Infrastructure |
 | CODAL-DEC-125 | ACEITA | Search and category filtering remain Presentation-only for the current small catalog | Avoid expanding Domain and Repository Contracts without a scale-driven requirement |
 | CODAL-DEC-126 | ACEITA | Product discovery search is case-insensitive and accent-normalized across Product name, brand and localized category label | Improve user discovery without redefining canonical Domain data |
 | CODAL-DEC-127 | ACEITA | Product cards navigate through canonical locale-safe routes `/{locale}/products/{slug}` | Preserve i18n context and stable public Product identity |
@@ -159,7 +159,7 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-129 | ACEITA | Product detail locale switching preserves the current Product slug | Maintain equivalent user journey across PT-BR, EN and ES |
 | CODAL-DEC-130 | ACEITA | Product detail displays variant price and Inventory state but does not mutate or reserve stock | Keep BUILD 02 informational and preserve stock mutation boundaries |
 | CODAL-DEC-131 | ACEITA | Add-to-cart UI interaction remains deferred to BUILD 03 Commerce Interaction | Preserve the approved phase plan while BUILD 02 focuses on Storefront discovery and presentation |
-| CODAL-DEC-140 | ACEITA | Storefront category cards navigate to canonical `/{locale}/categories/{category}` routes | Turn visual categories into explicit, shareable discovery journeys |
+| CODAL-DEC-132 | ACEITA | Storefront category cards navigate to canonical `/{locale}/categories/{category}` routes | Turn visual categories into explicit, shareable discovery journeys |
 | CODAL-DEC-133 | ACEITA | Public category route keys are Presentation identifiers `smartphone`, `audio`, `power`, and `protection` rather than raw Domain category ids | Keep public URLs readable without changing Domain identity |
 | CODAL-DEC-134 | ACEITA | Category pages are statically generated from VeloraApplication Storefront data and filtered in Presentation | Preserve SSG performance and avoid unnecessary Repository Contract growth |
 | CODAL-DEC-135 | ACEITA | Category pages preserve the current category across locale switching | Maintain equivalent i18n journeys beyond the home page |
@@ -167,14 +167,14 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-137 | ACEITA | PASSO 26 local Product visual fallbacks are versioned SVG assets under `/public/images/velora` with no remote dependency | Guarantee reliable local rendering and fast iteration |
 | CODAL-DEC-138 | ACEITA | Seeded ProductMedia paths remain immutable and are not rewritten to match temporary fallback assets | Preserve deterministic seed history and future media migration |
 | CODAL-DEC-139 | ACEITA | ProductVisual is the shared Presentation primitive for category, Product card, and Product detail visuals | Centralize future media replacement and prevent duplicated rendering logic |
-| CODAL-DEC-147 | ACEITA | Major Storefront routes expose keyboard skip links to their primary content sections | Reduce repeated keyboard traversal through sticky navigation |
+| CODAL-DEC-140 | ACEITA | Major Storefront routes expose keyboard skip links to their primary content sections | Reduce repeated keyboard traversal through sticky navigation |
 | CODAL-DEC-141 | ACEITA | Pearl Technology defines a global visible focus-visible treatment | Make keyboard focus consistent with the Design System |
 | CODAL-DEC-142 | ACEITA | Accessibility-only navigation labels are localized through a dedicated Storefront accessibility copy module | Preserve equivalent semantics across PT-BR, EN and ES without mixing Domain data |
 | CODAL-DEC-143 | ACEITA | StorefrontSeoModel owns canonical path and language alternate generation for home, category and Product journeys | Prevent route-specific SEO metadata drift |
 | CODAL-DEC-144 | ACEITA | SEO language alternates include PT-BR, EN, ES and x-default while preserving the current route suffix | Represent the existing internationalized journey explicitly |
 | CODAL-DEC-145 | ACEITA | Product Offer structured data is not emitted while VELORA remains a fictional portfolio store without real payment | Avoid misleading commercial search claims |
 | CODAL-DEC-146 | ACEITA | Pearl Technology supports prefers-contrast: more by strengthening border tokens without redesigning layout | Improve accessibility while preserving the visual identity |
-| CODAL-DEC-155 | ACEITA | VELORA desktop Storefront navigation uses a fixed conventional vertical rail; tablet/mobile use a sticky top header | Restore the approved navigation requirement before BUILD 02 closure |
+| CODAL-DEC-147 | ACEITA | VELORA desktop Storefront navigation uses a fixed conventional vertical rail; tablet/mobile use a sticky top header | Restore the approved navigation requirement before BUILD 02 closure |
 | CODAL-DEC-148 | ACEITA | Desktop rail width is 15.5rem and primary page content is offset by the same amount | Keep navigation persistent without overlapping Storefront content |
 | CODAL-DEC-149 | ACEITA | Page-level horizontal viewport overflow is blocked; horizontal scrolling is allowed only inside intentional local controls such as mobile category filters | Prevent accidental mobile overflow while preserving useful compact interactions |
 | CODAL-DEC-150 | ACEITA | Compact locale controls use a minimum 2.75rem interaction target | Improve touch usability without visually enlarging desktop navigation |
@@ -182,7 +182,7 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-152 | ACEITA | BUILD 02 closure requires dedicated responsive-contract and readiness tests in addition to the existing full quality gate | Make visual architecture requirements continuously verifiable |
 | CODAL-DEC-153 | ACEITA | BUILD 03 commerce interaction must preserve the established Home, Category and Product public route identities | Allow commerce behavior to evolve without destabilizing Storefront navigation and SEO |
 | CODAL-DEC-154 | ACEITA | BUILD 02 Storefront and Design System is officially closed only after vertical-navigation restoration, responsive hardening, 297 passing tests and production build validation | Create an explicit quality-first boundary before Commerce Interaction begins |
-| CODAL-DEC-163 | ACEITA | Browser commerce composition is selected lazily through createBrowserVeloraRuntime from a client-safe Feature adapter | Keep IndexedDB and concrete providers outside React components and server rendering |
+| CODAL-DEC-155 | ACEITA | Browser commerce composition is selected lazily through createBrowserVeloraRuntime from a client-safe Feature adapter | Keep IndexedDB and concrete providers outside React components and server rendering |
 | CODAL-DEC-156 | ACEITA | The persistent demo Cart uses the stable id `velora-demo-cart` | Allow reload and route navigation to address one deterministic browser Cart |
 | CODAL-DEC-157 | ACEITA | Add-to-cart generates deterministic Cart item ids as `cart-item-{productVariantId}` | Align repeated Variant additions with the existing Cart merge behavior |
 | CODAL-DEC-158 | ACEITA | Cart indicator count is the sum of Cart item quantities rather than the number of distinct lines | Represent the quantity users perceive as items in the Cart |
@@ -190,7 +190,7 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-160 | ACEITA | Product detail is the first BUILD 03 surface allowed to mutate Cart state | Introduce commerce interaction at the point of explicit Variant choice |
 | CODAL-DEC-161 | ACEITA | Add-to-cart may validate Inventory availability but never decrement, reserve or append Inventory movements | Preserve Inventory mutation boundaries until order/checkout semantics require them |
 | CODAL-DEC-162 | ACEITA | PASSO 29 exposes Cart indicators across Home, Category and Product journeys but defers full Cart review and quantity management to PASSO 30 | Activate persistent commerce state without overloading the first BUILD 03 unit |
-| CODAL-DEC-171 | ACEITA | CartIndicator is the global trigger for one accessible Cart Drawer surface across Storefront journeys | Keep Cart review consistent without introducing route-specific Cart implementations |
+| CODAL-DEC-163 | ACEITA | CartIndicator is the global trigger for one accessible Cart Drawer surface across Storefront journeys | Keep Cart review consistent without introducing route-specific Cart implementations |
 | CODAL-DEC-164 | ACEITA | CartExperienceSnapshot exposes review lines enriched with Product name and SKU from Application Storefront data | Keep display metadata outside mutable Cart Domain while avoiding UI repository access |
 | CODAL-DEC-165 | ACEITA | Cart quantity update and removal are exposed only through CartExperience before reaching VeloraApplication | Prevent React components from duplicating Application orchestration |
 | CODAL-DEC-166 | ACEITA | Quantity decrement stops at one and explicit removal remains a separate destructive action | Make Cart intent clear and avoid accidental deletion through the decrement control |
@@ -198,7 +198,7 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-168 | ACEITA | Cart Drawer uses modal dialog semantics, Escape close, backdrop close, focus entry and temporary body scroll lock | Make persistent Cart review usable with keyboard and compact viewports |
 | CODAL-DEC-169 | ACEITA | Cart quantity and removal mutations continue to leave Inventory unchanged | Preserve the no-reservation rule until checkout/order semantics explicitly require stock mutation |
 | CODAL-DEC-170 | ACEITA | PASSO 30 completes persistent Cart review but defers checkout and payment behavior to the next verifiable BUILD 03 unit | Keep Commerce Interaction incremental and auditable |
-| CODAL-DEC-180 | ACEITA | Cart Drawer exposes checkout only when the persistent Cart contains at least one line and routes to `/{locale}/checkout` | Prevent empty checkout entry while preserving locale context |
+| CODAL-DEC-171 | ACEITA | Cart Drawer exposes checkout only when the persistent Cart contains at least one line and routes to `/{locale}/checkout` | Prevent empty checkout entry while preserving locale context |
 | CODAL-DEC-172 | ACEITA | Checkout is a statically generated locale route whose Cart data hydrates only in the browser through Browser Cart Experience | Preserve SSG while respecting IndexedDB browser-only boundaries |
 | CODAL-DEC-173 | ACEITA | Checkout Cart readiness is validated by a pure Feature validator before form progression | Separate checkout orchestration checks from React rendering and Domain invariants |
 | CODAL-DEC-174 | ACEITA | Checkout contact and delivery validation is implemented as a pure Feature model without adding a new form dependency | Keep the first checkout unit small, testable and dependency-neutral |
@@ -207,7 +207,7 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-177 | ACEITA | A valid PASSO 31 submission produces only local confirmation and does not clear Cart | Avoid implying successful commerce before Order persistence exists |
 | CODAL-DEC-178 | ACEITA | PASSO 31 checkout does not mutate Inventory | Preserve stock mutation boundaries until an explicit Order/checkout rule is added |
 | CODAL-DEC-179 | ACEITA | Order creation is deferred to PASSO 32 so OrderItem snapshots and Cart completion can be implemented as one auditable unit | Keep checkout validation separate from persisted Order semantics |
-| CODAL-DEC-189 | ACEITA | Demo Order creation is an Application use case exposed through VeloraApplication rather than implemented in Checkout React code | Preserve Application orchestration and keep UI independent from repositories |
+| CODAL-DEC-180 | ACEITA | Demo Order creation is an Application use case exposed through VeloraApplication rather than implemented in Checkout React code | Preserve Application orchestration and keep UI independent from repositories |
 | CODAL-DEC-181 | ACEITA | createDemoOrderFromCart creates guest Orders with initial status PENDING | Represent an honest order lifecycle without inventing payment/customer authentication state |
 | CODAL-DEC-182 | ACEITA | OrderItem snapshots Product name, SKU, Cart unit price and quantity at demo Order creation | Preserve historical commercial meaning independently from later catalog changes |
 | CODAL-DEC-183 | ACEITA | Order is persisted before the completed Cart is removed | Avoid losing purchase intent before a historical Order exists |
@@ -216,6 +216,16 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-186 | ACEITA | Checkout personal form values remain ephemeral and are not copied into guest Order in PASSO 32 | Avoid silently persisting conceptual personal data |
 | CODAL-DEC-187 | ACEITA | Demo Order confirmation exposes an Order reference and PENDING status but never a fake transaction or payment id | Maintain transparent portfolio semantics |
 | CODAL-DEC-188 | ACEITA | Demo Order creation and Cart completion do not mutate or reserve Inventory | Keep stock changes separate until an explicit inventory/order policy is introduced |
+| CODAL-DEC-189 | ACEITA | OrderRepository exposes list in addition to customer-scoped listing so guest demo Orders can be reviewed without inventing Customer identity | Support guest history through the existing repository source of truth |
+| CODAL-DEC-190 | ACEITA | VeloraApplication exposes listDemoOrders and filters records without CustomerId | Keep guest-history orchestration in Application rather than React or Infrastructure |
+| CODAL-DEC-191 | ACEITA | Demo Order history derives subtotal from immutable OrderItem snapshots through Domain calculateOrderSubtotal | Preserve historical commercial meaning instead of re-reading current Product prices |
+| CODAL-DEC-192 | ACEITA | Demo Order history is exposed at `/{locale}/orders` and its browser-local records are marked noindex | Provide a review journey without indexing client-specific demo state |
+| CODAL-DEC-193 | ACEITA | Cart Drawer and successful Checkout confirmation both link to demo Order history | Keep persisted Orders discoverable after Cart completion and later navigation |
+| CODAL-DEC-194 | ACEITA | Demo reset is a two-step destructive UI action that delegates to the existing VeloraRuntime.resetDemo operation | Avoid accidental reset and avoid creating a second persistence/reset mechanism |
+| CODAL-DEC-195 | ACEITA | Demo reset restores all local persistent overrides, not only Cart and Orders | Return the complete conceptual environment to its deterministic seed baseline |
+| CODAL-DEC-196 | ACEITA | Checkout and demo Order history routes are noindex because their meaningful content depends on browser-local commerce state | Keep search metadata aligned with public discoverable content |
+| CODAL-DEC-197 | ACEITA | BUILD 03 closure preserves the rule that Cart, Checkout and demo Order completion never mutate Inventory | Keep stock reservation/decrement as an explicit future policy |
+| CODAL-DEC-198 | ACEITA | BUILD 03 Commerce Interaction is officially closed after persistent Cart, transparent Checkout, demo Order completion, Order history, reset flow, 422 passing tests and production build validation | Create an explicit quality boundary before role/session and application-data experiences begin |
 
 ## Decisões por área
 
@@ -309,7 +319,7 @@ Uma IA ou desenvolvedor que continuar a VELORA deve:
 - não substituir decisões ACEITAS silenciosamente;
 - verificar se uma nova implementação contradiz alguma decisão existente;
 - registrar novas decisões com numeração sequencial;
-- utilizar o próximo número disponível após CODAL-DEC-188;
+- utilizar o próximo número disponível após CODAL-DEC-198;
 - preservar decisões históricas mesmo quando forem superadas.
 
 ## Próxima decisão disponível

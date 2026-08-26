@@ -12,57 +12,62 @@ CLOSED AND VALIDATED
 
 ## BUILD 03
 
-IN PROGRESS
+CLOSED AND VALIDATED
 
-## PASSO 32 - Order creation
+## PASSO 33 - Demo Order history
 
-- [x] Application createDemoOrderFromCart
-- [x] guest Order
-- [x] PENDING initial status
-- [x] Order persistence
-- [x] Product snapshot
-- [x] SKU snapshot
-- [x] unit price snapshot
-- [x] quantity snapshot
-- [x] duplicate Order id protection
-- [x] empty Cart protection
+- [x] OrderRepository list contract
+- [x] local Order list adapter
+- [x] persistent Order list adapter
+- [x] Application listDemoOrders
+- [x] guest Order filtering
+- [x] persistent runtime recreation
+- [x] Order history Presentation model
+- [x] subtotal from Order snapshots
+- [x] newest-first demo reference presentation
+- [x] localized Orders route
+- [x] noindex local-history route
+- [x] Cart Drawer history link
+- [x] Checkout confirmation history link
 
-## PASSO 32 - Cart completion
+## PASSO 33 - Reset
 
-- [x] Cart clear after Order save
-- [x] Cart retained when Order identity conflicts
-- [x] Cart indicators refreshed after completion
-- [x] no Inventory mutation
+- [x] two-step reset
+- [x] existing Runtime resetDemo
+- [x] no second persistence mechanism
+- [x] Cart indicator refresh
+- [x] history clears after reset
 
-## PASSO 32 - Confirmation
+## BUILD 03 commerce boundaries
 
-- [x] local demo Order reference
-- [x] Order status
-- [x] no-charge confirmation language
+- [x] no real payment
 - [x] no fake transaction id
-- [x] continue exploring action
+- [x] no personal Checkout field persistence
+- [x] no Cart/Checkout direct IndexedDB access
+- [x] no Inventory mutation
+- [x] Order saved before Cart completion
 
-## PASSO 32 Test Evidence
+## PASSO 33 Test Evidence
 
 Targeted:
 
 ```text
-4 test files
-34 tests
-34 passed
+5 test files
+36 tests
+36 passed
 0 failed
 ```
 
 Complete suite:
 
 ```text
-48 test files
-386 tests
-386 passed
+53 test files
+422 tests
+422 passed
 0 failed
 ```
 
-## Latest Technical Gate
+## Final BUILD 03 gate
 
 - [x] npm run lint
 - [x] npm run typecheck
@@ -72,4 +77,4 @@ Complete suite:
 
 ## Next Quality Gate
 
-PASSO 33 - Demo Order History, Reset Flow and BUILD 03 Closure.
+BUILD 04 / PASSO 34 - Demo Authentication Roles, Session Experience and Customer/Admin Entry.

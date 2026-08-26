@@ -350,3 +350,17 @@ Confirmation rules:
 - explicitly repeat that no charge occurred
 - never render fake payment authorization or transaction identifiers
 - clear visible Cart state only after Order persistence succeeds
+## Demo Order history
+
+BUILD 03 closes with a browser-local Order history surface.
+
+Rules:
+
+- keep conceptual Order references technical and readable
+- show status, quantity and subtotal without payment language
+- mark the route noindex
+- keep reset visually separated from normal browsing actions
+- require a second explicit confirmation before reset
+- use the existing semantic danger token for reset confirmation
+
+Checkout and local Order history are browser-state commerce routes and should not be indexed.

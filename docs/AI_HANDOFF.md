@@ -10,89 +10,83 @@ BUILD 01 - CLOSED
 
 BUILD 02 - CLOSED
 
-BUILD 03 - IN PROGRESS
+BUILD 03 - CLOSED
 
-Latest validated step:
+Next:
 
-PASSO 32 - Demo Order Creation, Confirmation and Cart Completion
+BUILD 04 - Application and Data Experience
 
-## Application
+## BUILD 03 closure
 
-New facade operation:
+Record:
 
-`createDemoOrderFromCart`
+`docs/BUILD_03_CLOSURE.md`
 
-Do not create Order directly in React.
-
-## Order creation
-
-Creates:
-
-- guest Order
-- PENDING status
-- immutable OrderItem commercial snapshots
-
-Then clears Cart only after Order persistence succeeds.
-
-## Browser adapter
-
-Use:
-
-`completeBrowserDemoOrder`
-
-Checkout UI should not instantiate persistence providers.
-
-## Confirmation identity
-
-The visible reference is a demo Order id.
-
-Do not label it as:
-
-- transaction id
-- payment id
-- authorization code
-
-## Privacy
-
-Contact/delivery form fields are still ephemeral.
-
-Do not silently persist them into Order.
-
-## Inventory
-
-Demo Order creation does not mutate Inventory.
-
-## Quality Gate
+Final evidence:
 
 ```text
-PASSO 32 targeted: 34/34
-Full suite:         386/386
-Test files:         48/48
+PASSO 33 targeted: 36/36
+Full suite:         422/422
+Test files:         53/53
 lint:               passed
 typecheck:          passed
 build:              passed
 check:              passed
 ```
 
-## Decisions
+## Commerce contracts
 
-After PASSO 32:
+Cart:
 
-`CODAL-DEC-001 -> CODAL-DEC-188`
+- persistent IndexedDB through browser runtime
+- no direct persistence in UI
 
-Next:
+Checkout:
 
-`CODAL-DEC-189`
+- transparent demo
+- noindex
+- ephemeral personal form state
+
+Order:
+
+- guest PENDING demo Order
+- OrderItem commercial snapshots
+- save before Cart remove
+
+History:
+
+`/{locale}/orders`
+
+- local persistent guest demo Orders
+- noindex
+- no payment semantics
+
+Reset:
+
+- two-step UI
+- calls Runtime resetDemo
+- restores initial local demo baseline
+
+## Inventory
+
+BUILD 03 did not mutate Inventory during commerce completion.
+
+Do not add reservation/decrement implicitly.
+
+## Next decision
+
+`CODAL-DEC-199`
 
 ## Next action
 
-PASSO 33 - Demo Order History, Reset Flow and BUILD 03 Closure.
+PASSO 34 - Demo Authentication Roles, Session Experience and Customer/Admin Entry.
 
-Focus:
+Expected focus:
 
-- guest demo Order history/review strategy
-- reset demo behavior
-- post-order persistence verification
-- BUILD 03 commerce readiness
-- closure evidence
-- prepare next project phase
+- Guest / Customer / Admin demo roles
+- quick demo entry
+- session experience state
+- role-aware navigation
+- no fake authentication security claims
+- Customer and Admin entry surfaces
+- preserve public Storefront behavior

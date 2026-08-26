@@ -13,6 +13,9 @@ import {
   getStorefrontCheckoutCopy,
 } from "../../i18n/storefront-checkout-copy";
 import {
+  getStorefrontOrdersCopy,
+} from "../../i18n/storefront-orders-copy";
+import {
   emitBrowserCartChanged,
   getBrowserCartExperience,
 } from "../../features/cart/browser-cart-runtime";
@@ -75,6 +78,11 @@ export function CheckoutPage({
 }: CheckoutPageProps) {
   const copy =
     getStorefrontCheckoutCopy(
+      locale,
+    );
+
+  const ordersCopy =
+    getStorefrontOrdersCopy(
       locale,
     );
 
@@ -456,23 +464,43 @@ export function CheckoutPage({
             </div>
           </dl>
 
-          <Link
+          <div
             className={
-              styles.continue
-            }
-            href={
-              `/${locale}`
+              styles.confirmationActions
             }
           >
-            {
-              copy.continueShopping
-            }
-            <span
-              aria-hidden="true"
+            <Link
+              className={
+                styles.historyLink
+              }
+              href={
+                `/${locale}/orders`
+              }
             >
-              &rarr;
-            </span>
-          </Link>
+              {
+                ordersCopy
+                  .historyCta
+              }
+            </Link>
+
+            <Link
+              className={
+                styles.continue
+              }
+              href={
+                `/${locale}`
+              }
+            >
+              {
+                copy.continueShopping
+              }
+              <span
+                aria-hidden="true"
+              >
+                &rarr;
+              </span>
+            </Link>
+          </div>
         </section>
       ) : loading ? (
         <section

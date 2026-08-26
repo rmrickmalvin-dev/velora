@@ -658,3 +658,37 @@ label {
     text-align: left;
   }
 }
+
+
+.confirmationActions {
+  margin-top:
+    var(--velora-space-8);
+  display: flex;
+  flex-wrap: wrap;
+  gap:
+    var(--velora-space-3);
+}
+
+.confirmationActions .continue {
+  margin-top: 0;
+}
+
+.historyLink {
+  min-height: 3rem;
+  padding:
+    0
+    var(--velora-space-5);
+  display: inline-flex;
+  align-items: center;
+  border:
+    1px solid
+    var(--velora-border-strong);
+  border-radius:
+    var(--velora-radius-pill);
+  color:
+    var(--velora-ink-800);
+  background:
+    var(--velora-surface-strong);
+  font-weight: 700;
+  text-decoration: none;
+}

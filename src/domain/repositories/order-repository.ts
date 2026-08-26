@@ -11,6 +11,11 @@ export interface OrderRepository {
     id: OrderId,
   ): Promise<Order | null>;
 
+  list():
+    Promise<
+      readonly Order[]
+    >;
+
   listByCustomerId(
     customerId: CustomerId,
   ): Promise<

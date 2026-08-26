@@ -342,3 +342,26 @@
   background:
     var(--velora-ink-800);
 }
+
+
+.history {
+  min-height: 2.75rem;
+  display: grid;
+  place-items: center;
+  border:
+    1px solid
+    var(--velora-border);
+  border-radius:
+    var(--velora-radius-pill);
+  color:
+    var(--velora-ink-700);
+  text-decoration: none;
+}
+
+.history:hover,
+.history:focus-visible {
+  border-color:
+    var(--velora-gold-500);
+  color:
+    var(--velora-ink-900);
+}

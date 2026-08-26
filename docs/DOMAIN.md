@@ -2,69 +2,59 @@
 
 Last update: 2026-08-26
 
-## BUILD 03 status
+## BUILD 03
 
-IN PROGRESS
+CLOSED AND VALIDATED
 
-## Demo Order use case
+## OrderRepository evolution
 
-Application use case:
+OrderRepository now supports:
 
-`createDemoOrderFromCart`
+- findById
+- list
+- listByCustomerId
+- save
 
-Dependencies:
+`list` is required for guest demo history because guest Orders intentionally have no CustomerId.
 
-- CartRepository
-- OrderRepository
-- ProductRepository
-- ProductVariantRepository
+## Guest demo history
 
-## Order snapshot rule
+Application operation:
 
-OrderItem is created from the current Cart plus canonical Product/Variant identity.
+`listDemoOrders`
 
-Snapshot fields:
+filters Orders where:
 
-- Product name
-- SKU
-- Cart unit price
-- quantity
+`customerId === undefined`
 
-This preserves the existing distinction between:
+Presentation then derives:
 
-- mutable purchase intent in Cart
-- historical commercial record in Order
+- total quantity
+- line count
+- subtotal
+- status
+- Order reference
 
-## Completion ordering
+Subtotal comes from OrderItem snapshots through Domain `calculateOrderSubtotal`.
 
-Current persistence sequence:
+## Reset boundary
 
-1. fully validate and build Order
-2. save Order
-3. remove Cart
+Browser demo reset delegates to:
 
-This prefers preserving the historical Order over clearing Cart early.
+`VeloraRuntime.resetDemo`
 
-## Identity conflict
+No Domain entity owns reset behavior.
 
-An existing Order id causes:
+Reset is Infrastructure/demo-environment lifecycle behavior.
 
-`APPLICATION_ORDER_ID_CONFLICT`
+## Inventory boundary
 
-The active Cart is not cleared in that failure path.
+BUILD 03 commerce completion still does not mutate Inventory.
 
-## Customer data
+## Next phase
 
-PASSO 32 creates a guest Order.
+BUILD 04 - Application and Data Experience
 
-Checkout personal fields are not persisted into Order.
+Next milestone:
 
-## Inventory
-
-Order creation does not mutate Inventory.
-
-Stock reservation/decrement remains an explicit future decision.
-
-## Next milestone
-
-PASSO 33 - Demo Order History, Reset Flow and BUILD 03 Closure.
+PASSO 34 - Demo Authentication Roles, Session Experience and Customer/Admin Entry.

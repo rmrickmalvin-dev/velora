@@ -277,3 +277,24 @@ Allowed exception:
 - the category-filter strip may scroll horizontally inside its own local container on narrow mobile screens
 
 Use local overflow instead of page overflow.
+## Cart interaction
+
+BUILD 03 begins with restrained Pearl Technology commerce feedback.
+
+Cart indicator:
+
+- compact pill
+- localized label
+- Ink quantity badge
+- aria-live count
+
+Add-to-cart:
+
+- full-width Variant action
+- Ink background
+- pill radius
+- visible focus
+- disabled unavailable state
+- localized live feedback
+
+Commerce feedback should be clear without introducing aggressive sales styling.

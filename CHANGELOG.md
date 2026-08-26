@@ -1874,3 +1874,83 @@ Next available decision:
 BUILD 03 - Commerce Interaction
 
 PASSO 29 - Browser Runtime, Cart Experience State and Add-to-Cart Integration.
+---
+
+### PASSO 29 - Browser Runtime, Cart Experience State and Add-to-Cart Integration
+
+Status: COMPLETED AND TECHNICALLY VALIDATED
+
+#### BUILD transition
+
+BUILD 02 remains CLOSED AND VALIDATED.
+
+BUILD 03 - Commerce Interaction is now IN PROGRESS.
+
+#### Added - Cart Feature
+
+- CartExperience
+- stable demo Cart id
+- Cart experience snapshot
+- lazy browser Cart runtime
+- same-document Cart change event
+
+#### Added - Cart UI
+
+- localized Cart copy
+- CartIndicator
+- AddToCartControl
+- Product Variant add action
+- loading state
+- success state
+- error state
+- unavailable state
+
+#### Architecture
+
+Browser persistence is selected only through createBrowserVeloraRuntime.
+
+React components do not import IndexedDB.
+
+Cart persistence remains in existing persistent repositories.
+
+#### Inventory
+
+Add-to-cart validates but does not mutate Inventory.
+
+#### Testing
+
+PASSO 29 targeted:
+
+- 3 test files passed
+- 22 tests passed
+- 0 failed
+
+Complete suite:
+
+- 41 test files passed
+- 319 tests passed
+- 0 failed
+
+#### Technical Validation
+
+Passed:
+
+- npm run lint
+- npm run typecheck
+- npm run test
+- npm run build
+- npm run check
+
+#### Decisions
+
+Added:
+
+- CODAL-DEC-155 through CODAL-DEC-162
+
+Next available decision:
+
+- CODAL-DEC-163
+
+#### Next
+
+PASSO 30 - Cart Drawer, Quantity Controls and Persistent Cart Review.

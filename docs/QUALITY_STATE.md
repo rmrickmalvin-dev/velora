@@ -10,55 +10,67 @@ CLOSED AND VALIDATED
 
 CLOSED AND VALIDATED
 
-## PASSO 28 - Responsive hardening
+## BUILD 03
 
-- [x] desktop vertical Storefront navigation
-- [x] desktop vertical category navigation
-- [x] desktop vertical Product navigation
-- [x] tablet/mobile sticky header
-- [x] compact locale touch targets
-- [x] page horizontal overflow blocked
-- [x] local filter-strip overflow preserved
-- [x] min-width hardening
-- [x] long text wrapping hardening
-- [x] browser fallback for overflow clip
+IN PROGRESS
 
-## PASSO 28 Test Evidence
+## PASSO 29 - Browser Cart
+
+- [x] lazy browser runtime
+- [x] client-safe browser guard
+- [x] Infrastructure composition root selection
+- [x] no direct IndexedDB import from Cart components
+- [x] no localStorage Domain persistence
+- [x] stable demo Cart id
+- [x] deterministic Cart item id per Variant
+- [x] Cart snapshot model
+- [x] total quantity count
+- [x] persistent runtime recreation test
+- [x] Inventory unchanged by add-to-cart
+- [x] same-document Cart change event
+
+## PASSO 29 - UI
+
+- [x] localized Cart copy
+- [x] Home Cart indicator
+- [x] Category Cart indicator
+- [x] Product Cart indicator
+- [x] Product Variant add-to-cart
+- [x] adding state
+- [x] success feedback
+- [x] error feedback
+- [x] unavailable state
+- [x] aria-live Cart indicator
+- [x] role=status mutation feedback
+
+## PASSO 29 Test Evidence
 
 Targeted:
 
 ```text
-2 test files
-14 tests
-14 passed
+3 test files
+22 tests
+22 passed
 0 failed
 ```
 
 Complete suite:
 
 ```text
-38 test files
-297 tests
-297 passed
+41 test files
+319 tests
+319 passed
 0 failed
 ```
 
-## Final BUILD 02 gate
+## Latest Technical Gate
 
 - [x] npm run lint
 - [x] npm run typecheck
 - [x] npm run test
 - [x] npm run build
 - [x] npm run check
-- [x] home SSG
-- [x] category SSG
-- [x] Product SSG
-- [x] PT-BR
-- [x] EN
-- [x] ES
-- [x] responsive contract tests
-- [x] BUILD 02 readiness tests
 
 ## Next Quality Gate
 
-BUILD 03 / PASSO 29 - Browser Runtime, Cart Experience State and Add-to-Cart Integration.
+PASSO 30 - Cart Drawer, Quantity Controls and Persistent Cart Review.

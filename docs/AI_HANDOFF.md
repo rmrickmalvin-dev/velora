@@ -10,85 +10,95 @@ BUILD 01 - CLOSED
 
 BUILD 02 - CLOSED
 
-Next:
+BUILD 03 - IN PROGRESS
 
-BUILD 03 - Commerce Interaction
+Latest validated step:
 
-## BUILD 02 closure
+PASSO 29 - Browser Runtime, Cart Experience State and Add-to-Cart Integration
 
-Record:
+## Browser commerce composition
 
-`docs/BUILD_02_CLOSURE.md`
+Client components may use:
 
-Final evidence:
+`getBrowserCartExperience`
+
+They must not import:
+
+- IndexedDbProvider
+- PersistenceProvider
+- concrete persistent repositories
+
+## Cart id
+
+Stable:
+
+`velora-demo-cart`
+
+## Add-to-cart
+
+Product detail now activates the existing Application addProductToCart use case.
+
+Do not duplicate merge or Inventory validation rules in React.
+
+## Cart indicator
+
+Visible on:
+
+- Storefront home
+- category page
+- Product detail
+
+It reloads persisted Cart state on mount.
+
+Same-page mutations emit:
+
+`velora:cart-changed`
+
+## Persistence
+
+IndexedDB remains selected by:
+
+`createBrowserVeloraRuntime`
+
+Do not move persistence into UI components.
+
+## Inventory
+
+Adding to Cart must not mutate Inventory.
+
+## Quality Gate
 
 ```text
-PASSO 28 targeted: 14/14
-Full suite:         297/297
-Test files:         38/38
+PASSO 29 targeted: 22/22
+Full suite:         319/319
+Test files:         41/41
 lint:               passed
 typecheck:          passed
 build:              passed
 check:              passed
 ```
 
-## Navigation contract
+## Decisions
 
-Desktop:
+After PASSO 29:
 
-- fixed vertical rail
+`CODAL-DEC-001 -> CODAL-DEC-162`
 
-Tablet/mobile:
+Next:
 
-- sticky top header
-
-Do not replace the desktop vertical navigation with a horizontal desktop header unless a new official decision explicitly changes the requirement.
-
-## Public route contract
-
-Home:
-
-`/{locale}`
-
-Category:
-
-`/{locale}/categories/{category}`
-
-Product:
-
-`/{locale}/products/{slug}`
-
-## BUILD 03 start rule
-
-Browser commerce interaction must use the existing Infrastructure composition root.
-
-Use:
-
-`createBrowserVeloraRuntime`
-
-from client-safe code.
-
-Do not:
-
-- access IndexedDB from components
-- access localStorage for Domain persistence
-- duplicate Cart rules in UI
-- mutate Inventory from add-to-cart
-
-## Next decision
-
-`CODAL-DEC-155`
+`CODAL-DEC-163`
 
 ## Next action
 
-PASSO 29 - Browser Runtime, Cart Experience State and Add-to-Cart Integration.
+PASSO 30 - Cart Drawer, Quantity Controls and Persistent Cart Review.
 
-Expected focus:
+Focus:
 
-- client-safe runtime provider
-- Cart experience state
-- add-to-cart from Product detail
-- cart count
-- persistence across reloads
-- accessible feedback
-- no payment flow yet
+- accessible Cart surface
+- line-item review
+- quantity update
+- remove item
+- subtotal
+- empty state
+- persistent reload
+- no checkout/payment yet

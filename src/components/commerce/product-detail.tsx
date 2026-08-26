@@ -12,6 +12,13 @@ import {
   getStorefrontAccessibilityCopy,
 } from "../../i18n/storefront-accessibility-copy";
 
+import {
+  AddToCartControl,
+} from "./add-to-cart-control";
+import {
+  CartIndicator,
+} from "./cart-indicator";
+
 import styles from "./product-detail.module.css";
 
 type ProductDetailProps =
@@ -76,6 +83,10 @@ export function ProductDetail({
                 .backToStore
             }
           </Link>
+
+          <CartIndicator
+            locale={model.locale}
+          />
 
           <div
             className={
@@ -338,6 +349,18 @@ export function ProductDetail({
                       .units
                   }
                 </span>
+
+                <AddToCartControl
+                  locale={
+                    model.locale
+                  }
+                  productVariantId={
+                    variant.id
+                  }
+                  available={
+                    variant.available
+                  }
+                />
               </article>
             ),
           )}

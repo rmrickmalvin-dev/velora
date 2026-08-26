@@ -2,62 +2,67 @@
 
 Last update: 2026-08-26
 
-## BUILD 01
+## BUILD 03 status
 
-CLOSED AND VALIDATED
+IN PROGRESS
 
-## BUILD 02
+## Browser Cart boundary
 
-CLOSED AND VALIDATED
+UI components do not select persistence providers.
 
-## Storefront boundary
+They call:
 
-BUILD 02 proves the public UI can consume validated Application data without bypassing architecture.
+`browser-cart-runtime`
 
-Flow:
-
-```text
-Storefront UI
-|
-v
-Presentation Models
-|
-v
-VeloraApplication
-|
-v
-Domain Repository Contracts
-|
-v
-Infrastructure
-```
-
-## Navigation boundary
-
-Responsive navigation is a UI concern.
-
-Desktop uses a vertical rail.
-
-Tablet/mobile uses a sticky top header.
-
-No Domain or Application behavior depends on viewport size.
-
-## Responsive boundary
-
-Overflow, text wrapping, touch targets and layout breakpoints remain Presentation/Design System concerns.
-
-## BUILD 03 boundary
-
-BUILD 03 may activate browser-persistent commerce interaction through the existing composition root.
-
-The UI still must not access IndexedDB directly.
-
-Use:
+which lazily selects:
 
 `createBrowserVeloraRuntime`
 
-from a client-safe composition boundary.
+The Infrastructure composition root remains the only browser persistence selection point.
+
+## Cart Experience
+
+Feature layer:
+
+`createCartExperience`
+
+Responsibilities:
+
+- load Cart summary through Application
+- add one Product Variant through Application
+- transform Application summary into UI experience snapshot
+
+It does not duplicate Cart merge rules.
+
+## Stable Cart identity
+
+Demo Cart:
+
+`velora-demo-cart`
+
+Deterministic Cart item id:
+
+`cart-item-{productVariantId}`
+
+The existing Application/Domain Cart behavior remains authoritative.
+
+## Inventory boundary
+
+Add-to-cart:
+
+- validates Inventory availability
+- does not decrement Inventory
+- does not append InventoryMovement
+- does not reserve stock
+
+## Browser event
+
+`velora:cart-changed`
+
+is a same-document Presentation synchronization signal.
+
+It is not persistence and does not replace repository state.
 
 ## Next milestone
 
-PASSO 29 - Browser Runtime, Cart Experience State and Add-to-Cart Integration.
+PASSO 30 - Cart Drawer, Quantity Controls and Persistent Cart Review.

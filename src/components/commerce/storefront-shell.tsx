@@ -16,6 +16,10 @@ import {
   getStorefrontAccessibilityCopy,
 } from "../../i18n/storefront-accessibility-copy";
 
+import {
+  CartIndicator,
+} from "./cart-indicator";
+
 import styles from "./storefront-shell.module.css";
 
 type StorefrontShellProps =
@@ -94,6 +98,10 @@ export function StorefrontShell({
               }
             </a>
           </nav>
+
+          <CartIndicator
+            locale={locale}
+          />
 
           <div
             className={

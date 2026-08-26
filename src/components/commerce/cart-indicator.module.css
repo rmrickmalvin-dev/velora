@@ -1,0 +1,46 @@
+.root {
+  min-height: 2.75rem;
+  padding:
+    0.35rem
+    0.45rem
+    0.35rem
+    0.8rem;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--velora-space-2);
+  border: 1px solid var(--velora-border);
+  border-radius: var(--velora-radius-pill);
+  color: var(--velora-ink-700);
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.label {
+  font-size: 0.72rem;
+}
+
+.root strong {
+  min-width: 1.8rem;
+  min-height: 1.8rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--velora-pearl-0);
+  background: var(--velora-ink-900);
+  font-family: var(--velora-font-mono);
+  font-size: 0.68rem;
+}
+
+@media (max-width: 44rem) {
+  .label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+
+  .root {
+    padding: 0.35rem;
+  }
+}

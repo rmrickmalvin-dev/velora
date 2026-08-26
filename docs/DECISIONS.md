@@ -182,6 +182,14 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-152 | ACEITA | BUILD 02 closure requires dedicated responsive-contract and readiness tests in addition to the existing full quality gate | Make visual architecture requirements continuously verifiable |
 | CODAL-DEC-153 | ACEITA | BUILD 03 commerce interaction must preserve the established Home, Category and Product public route identities | Allow commerce behavior to evolve without destabilizing Storefront navigation and SEO |
 | CODAL-DEC-154 | ACEITA | BUILD 02 Storefront and Design System is officially closed only after vertical-navigation restoration, responsive hardening, 297 passing tests and production build validation | Create an explicit quality-first boundary before Commerce Interaction begins |
+| CODAL-DEC-163 | ACEITA | Browser commerce composition is selected lazily through createBrowserVeloraRuntime from a client-safe Feature adapter | Keep IndexedDB and concrete providers outside React components and server rendering |
+| CODAL-DEC-156 | ACEITA | The persistent demo Cart uses the stable id `velora-demo-cart` | Allow reload and route navigation to address one deterministic browser Cart |
+| CODAL-DEC-157 | ACEITA | Add-to-cart generates deterministic Cart item ids as `cart-item-{productVariantId}` | Align repeated Variant additions with the existing Cart merge behavior |
+| CODAL-DEC-158 | ACEITA | Cart indicator count is the sum of Cart item quantities rather than the number of distinct lines | Represent the quantity users perceive as items in the Cart |
+| CODAL-DEC-159 | ACEITA | Same-document Cart UI synchronization uses the `velora:cart-changed` browser event while IndexedDB remains the persistence source of truth | Refresh independent client islands without creating a second persistence system |
+| CODAL-DEC-160 | ACEITA | Product detail is the first BUILD 03 surface allowed to mutate Cart state | Introduce commerce interaction at the point of explicit Variant choice |
+| CODAL-DEC-161 | ACEITA | Add-to-cart may validate Inventory availability but never decrement, reserve or append Inventory movements | Preserve Inventory mutation boundaries until order/checkout semantics require them |
+| CODAL-DEC-162 | ACEITA | PASSO 29 exposes Cart indicators across Home, Category and Product journeys but defers full Cart review and quantity management to PASSO 30 | Activate persistent commerce state without overloading the first BUILD 03 unit |
 
 ## Decisões por área
 
@@ -275,7 +283,7 @@ Uma IA ou desenvolvedor que continuar a VELORA deve:
 - não substituir decisões ACEITAS silenciosamente;
 - verificar se uma nova implementação contradiz alguma decisão existente;
 - registrar novas decisões com numeração sequencial;
-- utilizar o próximo número disponível após CODAL-DEC-154;
+- utilizar o próximo número disponível após CODAL-DEC-162;
 - preservar decisões históricas mesmo quando forem superadas.
 
 ## Próxima decisão disponível

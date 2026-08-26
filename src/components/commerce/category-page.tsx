@@ -12,6 +12,10 @@ import {
   getStorefrontAccessibilityCopy,
 } from "../../i18n/storefront-accessibility-copy";
 
+import {
+  CartIndicator,
+} from "./cart-indicator";
+
 import styles from "./category-page.module.css";
 
 type CategoryPageProps =
@@ -73,6 +77,10 @@ export function CategoryPage({
               model.backLabel
             }
           </Link>
+
+          <CartIndicator
+            locale={model.locale}
+          />
 
           <div
             className={

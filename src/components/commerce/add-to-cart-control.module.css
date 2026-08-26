@@ -1,0 +1,42 @@
+.root {
+  margin-top: var(--velora-space-5);
+  display: grid;
+  gap: var(--velora-space-2);
+}
+
+.button {
+  min-height: 3rem;
+  width: 100%;
+  padding:
+    0
+    var(--velora-space-4);
+  border: 1px solid var(--velora-ink-900);
+  border-radius: var(--velora-radius-pill);
+  cursor: pointer;
+  color: var(--velora-pearl-0);
+  background: var(--velora-ink-900);
+  font-weight: 700;
+  transition:
+    transform
+    var(--velora-transition-fast),
+    opacity
+    var(--velora-transition-fast);
+}
+
+.button:hover:not(:disabled),
+.button:focus-visible:not(:disabled) {
+  transform:
+    translateY(-2px);
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.46;
+}
+
+.feedback {
+  min-height: 1.1rem;
+  color: var(--velora-ink-600);
+  font-size: 0.7rem;
+  line-height: 1.4;
+}

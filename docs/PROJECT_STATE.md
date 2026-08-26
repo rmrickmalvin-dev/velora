@@ -4,15 +4,11 @@ Last update: 2026-08-26
 
 ## Phase
 
-BUILD 02 - Storefront and Design System
+BUILD 03 - Commerce Interaction
 
 ## State
 
-CLOSED AND VALIDATED
-
-## Latest validated step
-
-PASSO 28 - BUILD 02 Final Visual Review, Responsive Hardening and Closure
+IN PROGRESS
 
 ## BUILD 01
 
@@ -22,82 +18,123 @@ CLOSED AND VALIDATED
 
 CLOSED AND VALIDATED
 
-Closure record:
+## Latest validated step
 
-`docs/BUILD_02_CLOSURE.md`
+PASSO 29 - Browser Runtime, Cart Experience State and Add-to-Cart Integration
 
-## Final Storefront shape
+## Commerce activation
 
-Public journeys:
+The first browser-persistent commerce mutation is now active.
+
+Product detail can add an available Product Variant to the demo Cart.
+
+## Browser composition
+
+Browser Cart flow:
 
 ```text
-/{locale}
-
-/{locale}/categories/{category}
-
-/{locale}/products/{slug}
+Client Component
+|
+v
+browser-cart-runtime
+|
+v
+createBrowserVeloraRuntime
+|
+v
+VeloraApplication
+|
+v
+Persistent Repositories
+|
+v
+IndexedDB
 ```
 
-Locales:
+Components do not import IndexedDB or concrete persistence providers.
 
-- PT-BR
-- EN
-- ES
+## Cart identity
 
-## Navigation
+Stable demo Cart id:
 
-Desktop:
+`velora-demo-cart`
 
-- fixed conventional vertical navigation rail
+Cart item ids are deterministic per Product Variant:
 
-Tablet/mobile:
+`cart-item-{productVariantId}`
 
-- sticky top navigation
+Repeated add on the same Variant therefore follows the existing Application merge behavior.
 
-The final BUILD 02 navigation now matches the approved VELORA vertical-navigation requirement.
+## Cart experience snapshot
 
-## Responsive hardening
+UI reads a Presentation/Feature snapshot:
 
-Validated:
+- totalItems
+- lineCount
+- subtotalMinorUnits
+- currency
 
-- no page-level horizontal overflow dependency
-- mobile/tablet rail reset
-- local filter horizontal scroll only
-- minimum-width protections
-- long-content wrapping
-- larger compact-layout locale targets
-- 4 / 2 / 1 grid progression
+Cart indicator count is the sum of Cart item quantities, not only line count.
+
+## Storefront integration
+
+Cart indicator is visible in:
+
+- Home
+- Category
+- Product detail
+
+Product detail additionally provides:
+
+- add-to-cart button per active Variant
+- loading state
+- unavailable state
+- localized success feedback
+- localized error feedback
+
+## Persistence
+
+The browser runtime uses the already-validated IndexedDB Infrastructure composition.
+
+Cart state is loaded again when route components mount after navigation/reload.
+
+A same-document `velora:cart-changed` browser event refreshes visible Cart indicators after mutation.
+
+The event is UI synchronization only.
+
+Persistence remains IndexedDB.
+
+## Inventory rule
+
+Add-to-cart validates available Inventory through Application but does not mutate Inventory.
+
+Reservation/decrement remains outside this step.
 
 ## Quality Gate
 
 Latest evidence:
 
-- PASSO 28 targeted tests: 14/14
-- complete suite: 297/297
-- 38 test files passed
+- PASSO 29 targeted tests: 22/22
+- complete suite: 319/319
+- 41 test files passed
 - lint passed
 - typecheck passed
 - production build passed
-- home SSG passed
-- category SSG passed
+- Storefront SSG passed
+- Category SSG passed
 - Product SSG passed
-- PT-BR / EN / ES passed
 - `npm run check` passed
 
 ## Decisions
 
-After PASSO 28:
+After PASSO 29:
 
-`CODAL-DEC-001 -> CODAL-DEC-154`
+`CODAL-DEC-001 -> CODAL-DEC-162`
 
 Next available decision:
 
-`CODAL-DEC-155`
-
-## Next phase
-
-BUILD 03 - Commerce Interaction
+`CODAL-DEC-163`
 
 ## Next step
 
-PASSO 29 - Browser Runtime, Cart Experience State and Add-to-Cart Integration.
+PASSO 30 - Cart Drawer, Quantity Controls and Persistent Cart Review.

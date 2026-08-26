@@ -8,6 +8,12 @@ import {
   getStorefrontCopy,
 } from "../../i18n/storefront-copy";
 
+export type StorefrontCategoryKey =
+  | "smartphone"
+  | "audio"
+  | "power"
+  | "protection";
+
 export type StorefrontProductCard =
   Readonly<{
     id: string;
@@ -15,10 +21,7 @@ export type StorefrontProductCard =
     brand: string;
     name: string;
     categoryKey:
-      "smartphone" |
-      "audio" |
-      "power" |
-      "protection";
+      StorefrontCategoryKey;
     categoryLabel: string;
     priceLabel: string;
     stockLabel: string;
@@ -40,6 +43,8 @@ export type StorefrontHomeModel =
         label: string;
         shortLabel: string;
       }>[];
+    products:
+      readonly StorefrontProductCard[];
     featuredProducts:
       readonly StorefrontProductCard[];
   }>;
@@ -54,11 +59,9 @@ const localeNumberFormats:
     es: "es-ES",
   };
 
-function categoryKey(
+export function storefrontCategoryKey(
   categoryId: string,
-): StorefrontProductCard[
-  "categoryKey"
-] {
+): StorefrontCategoryKey {
   if (
     categoryId ===
     "category-audio"
@@ -83,12 +86,10 @@ function categoryKey(
   return "smartphone";
 }
 
-function categoryLabel(
+export function storefrontCategoryLabel(
   locale: StorefrontLocale,
   key:
-    StorefrontProductCard[
-      "categoryKey"
-    ],
+    StorefrontCategoryKey,
 ): string {
   const copy =
     getStorefrontCopy(
@@ -137,6 +138,78 @@ export function formatStorefrontMoney(
   );
 }
 
+function buildProductCard(
+  locale:
+    StorefrontLocale,
+  product:
+    StorefrontProduct,
+): StorefrontProductCard {
+  const key =
+    storefrontCategoryKey(
+      product.product
+        .categoryId,
+    );
+
+  const price =
+    lowestPrice(
+      product,
+    );
+
+  const copy =
+    getStorefrontCopy(
+      locale,
+    );
+
+  const totalStock =
+    product.variants.reduce(
+      (
+        total,
+        variant,
+      ) =>
+        total +
+        (
+          variant.inventory
+            ?.quantityOnHand ??
+          0
+        ),
+      0,
+    );
+
+  return Object.freeze({
+    id:
+      product.product.id,
+    slug:
+      product.product.slug,
+    brand:
+      product.product.brand,
+    name:
+      product.product.name,
+    categoryKey: key,
+    categoryLabel:
+      storefrontCategoryLabel(
+        locale,
+        key,
+      ),
+    priceLabel:
+      price
+        ? formatStorefrontMoney(
+            locale,
+            price.minorUnits,
+            price.currency,
+          )
+        : "-",
+    stockLabel:
+      totalStock <= 5
+        ? copy.featured
+            .stockLow
+        : copy.featured
+            .stockAvailable,
+    featured:
+      product.product
+        .featured,
+  });
+}
+
 export function buildStorefrontHomeModel(
   locale:
     StorefrontLocale,
@@ -148,75 +221,14 @@ export function buildStorefrontHomeModel(
       locale,
     );
 
-  const featuredProducts =
-    products
-      .slice(0, 4)
-      .map(
-        (
+  const productCards =
+    products.map(
+      (product) =>
+        buildProductCard(
+          locale,
           product,
-        ): StorefrontProductCard => {
-          const key =
-            categoryKey(
-              product.product
-                .categoryId,
-            );
-
-          const price =
-            lowestPrice(
-              product,
-            );
-
-          const totalStock =
-            product.variants.reduce(
-              (
-                total,
-                variant,
-              ) =>
-                total +
-                (
-                  variant
-                    .inventory
-                    ?.quantityOnHand ??
-                  0
-                ),
-              0,
-            );
-
-          return Object.freeze({
-            id:
-              product.product.id,
-            slug:
-              product.product.slug,
-            brand:
-              product.product.brand,
-            name:
-              product.product.name,
-            categoryKey: key,
-            categoryLabel:
-              categoryLabel(
-                locale,
-                key,
-              ),
-            priceLabel:
-              price
-                ? formatStorefrontMoney(
-                    locale,
-                    price.minorUnits,
-                    price.currency,
-                  )
-                : "-",
-            stockLabel:
-              totalStock <= 5
-                ? copy.featured
-                    .stockLow
-                : copy.featured
-                    .stockAvailable,
-            featured:
-              product.product
-                .featured,
-          });
-        },
-      );
+        ),
+    );
 
   return Object.freeze({
     locale,
@@ -243,9 +255,16 @@ export function buildStorefrontHomeModel(
           shortLabel: "ES",
         }),
       ]),
+    products:
+      Object.freeze(
+        productCards,
+      ),
     featuredProducts:
       Object.freeze(
-        featuredProducts,
+        productCards.slice(
+          0,
+          4,
+        ),
       ),
   });
 }

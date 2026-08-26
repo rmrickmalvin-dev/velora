@@ -1541,3 +1541,95 @@ No new CODAL decision was required.
 Next decision remains:
 
 - CODAL-DEC-124
+---
+
+### PASSO 25 - Storefront Product Discovery and Product Card Interaction
+
+Status: COMPLETED AND TECHNICALLY VALIDATED
+
+#### Added - Discovery
+
+- ProductDiscovery client component
+- Product name search
+- brand search
+- category filter
+- result count
+- empty state
+- normalized Presentation search model
+
+#### Added - Product card interaction
+
+- locale-safe Product detail links
+- card visual interaction
+- details CTA
+- full active catalog discovery
+
+#### Added - Product detail
+
+Route:
+
+- `/{locale}/products/{slug}`
+
+Presentation:
+
+- Product identity
+- localized category
+- active variants
+- SKU
+- variant attributes
+- locale-aware price
+- Inventory quantity
+- availability
+- locale-preserving language switch
+
+#### Architecture
+
+Product detail resolves data through VeloraApplication.
+
+Client discovery does not access repositories.
+
+Search remains Presentation-only.
+
+#### Commerce boundary
+
+Product detail is read-only in BUILD 02.
+
+Add-to-cart UI remains scheduled for BUILD 03.
+
+#### Testing
+
+PASSO 25 targeted:
+
+- 2 test files passed
+- 16 tests passed
+- 0 failed
+
+Complete suite:
+
+- 31 test files passed
+- 247 tests passed
+- 0 failed
+
+#### Technical Validation
+
+Passed:
+
+- npm run lint
+- npm run typecheck
+- npm run test
+- npm run build
+- npm run check
+
+#### Decisions
+
+Added:
+
+- CODAL-DEC-124 through CODAL-DEC-131
+
+Next available decision:
+
+- CODAL-DEC-132
+
+#### Next
+
+PASSO 26 - Storefront Navigation, Category Journeys and Visual Product Media Foundation.

@@ -18,141 +18,123 @@ IN PROGRESS
 
 CLOSED AND VALIDATED
 
-Official closure checkpoint:
-
-`e001be8` - close BUILD 01 foundation
-
 ## Latest validated step
 
-PASSO 24 - Design System Foundation and Storefront Shell
+PASSO 25 - Storefront Product Discovery and Product Card Interaction
 
-## Visible experience
+## Storefront discovery
 
-The first production-oriented VELORA Storefront shell is implemented.
+The home Storefront now exposes the full active catalog through a client-side discovery surface.
 
-Sections:
+Available:
 
-- sticky premium navigation
-- PT-BR / EN / ES locale switch
-- hero
-- category collection
-- featured Product cards
-- Pearl Technology experience section
-- portfolio footer
+- Product/brand search
+- category filters
+- result count
+- empty state
+- locale-safe Product links
+- interactive Product cards
 
-## Design System Foundation
+Discovery works on Presentation models already delivered by SSG.
 
-Pearl Technology tokens now define:
+It does not access repositories or persistence providers in the browser.
 
-- pearl surfaces
-- ink hierarchy
-- champagne/gold accents
-- semantic success/danger
-- borders
-- typography stacks
-- spacing scale
-- radius scale
-- shadow scale
-- transitions
-- content width
+## Product cards
 
-Primary UI font stack begins with Manrope.
-
-Technical labels use IBM Plex Mono first in the mono stack.
-
-No font file or network dependency was introduced in PASSO 24.
-
-## Storefront data source
-
-Visible featured Product cards are not hardcoded commerce records.
-
-Data path:
+Cards now link to canonical Product detail routes:
 
 ```text
-SSG Page
-|
-v
+/{locale}/products/{slug}
+```
+
+Examples:
+
+```text
+/pt-BR/products/aster-one-x-pro
+/en/products/aster-one-x-pro
+/es/products/aster-one-x-pro
+```
+
+## Product detail route
+
+Product detail pages are statically generated from Application data.
+
+The route loads Product data through:
+
+```text
 StaticVeloraRuntime
 |
 v
 VeloraApplication
 |
 v
-Storefront Use Case
-|
-v
-Local Repository Contracts
-|
-v
-VELORA Seed
+getStorefrontProductBySlug
 ```
 
-The page receives Product name, brand, price and Inventory state from the validated BUILD 01 architecture.
+The page does not read the seed directly.
 
-## SSG composition
+## Detail presentation
 
-Server/static rendering uses `createStaticVeloraRuntime`.
+Each Product detail exposes:
 
-It avoids IndexedDB during SSG.
+- Product brand
+- Product name
+- localized category
+- active variants
+- SKU
+- variant attributes
+- locale-aware price
+- Inventory quantity
+- availability state
+- locale switch preserving Product slug
 
-Browser-persistent composition remains available for interactive client flows in later BUILD 02/03 steps.
+## Commerce boundary
 
-## Visual assets
+Product detail remains read-only in BUILD 02.
 
-PASSO 24 uses CSS-generated abstract product art.
+Add-to-cart UI interaction is intentionally deferred to BUILD 03 - Commerce Interaction.
 
-No fake external Product image URL is rendered.
+The existing Application Cart Use Cases remain ready for that phase.
 
-Final visual Product assets remain a later Storefront task.
+## Search semantics
 
-## Accessibility and motion
+Search is Presentation-only at current catalog scale.
 
-Implemented:
+It is:
 
-- semantic main/header/nav/section/footer
-- locale links with language labels
-- visible focus-compatible links
-- accessible heading hierarchy
-- decorative visuals hidden from assistive technology
-- prefers-reduced-motion behavior
-- responsive layouts
+- case-insensitive
+- accent-normalized
+- brand-aware
+- Product-name-aware
+- category-aware
 
-## Locale experience
-
-All first-shell content exists in:
-
-- PT-BR
-- EN
-- ES
-
-Locale switch points to equivalent Storefront home route.
+No repository contract was changed.
 
 ## Quality Gate
 
 Latest evidence:
 
-- PASSO 24 targeted tests: 16/16
-- complete suite: 231/231
-- 29 test files passed
+- PASSO 25 targeted tests: 16/16
+- complete suite: 247/247
+- 31 test files passed
 - lint passed
 - typecheck passed
 - production build passed
-- `/pt-BR` SSG passed
-- `/en` SSG passed
-- `/es` SSG passed
-- Proxy recognized
+- Storefront home SSG passed
+- Product detail SSG passed
+- PT-BR / EN / ES preserved
 - `npm run check` passed
 
 ## Decisions
 
-After PASSO 24:
+After PASSO 25:
 
-`CODAL-DEC-001 -> CODAL-DEC-123`
+`CODAL-DEC-001 -> CODAL-DEC-131`
 
 Next available decision:
 
-`CODAL-DEC-124`
+`CODAL-DEC-132`
 
 ## Next step
 
-PASSO 25 - Storefront Product Discovery and Product Card Interaction.
+PASSO 26 - Storefront Navigation, Category Journeys and Visual Product Media Foundation.

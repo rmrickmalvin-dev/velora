@@ -12,75 +12,61 @@ BUILD 02 - IN PROGRESS
 
 Latest validated step:
 
-PASSO 24 - Design System Foundation and Storefront Shell
+PASSO 25 - Storefront Product Discovery and Product Card Interaction
 
-## Visual identity
+## Discovery
 
-Pearl Technology is now implemented as CSS tokens.
+Client component:
 
-Core direction:
+`ProductDiscovery`
 
-- pearl white base
-- dark ink text
-- champagne/gold accent
-- negative space
-- translucent surfaces
-- restrained shadows
-- premium but human
-- Product remains protagonist
+Pure filter logic:
 
-## Storefront page
+`filterStorefrontProducts`
 
-`src/app/[locale]/page.tsx`
+Discovery receives already-built Presentation Product cards.
 
-uses:
+It must not import repositories or persistence providers.
+
+## Product routes
+
+Canonical:
+
+`/{locale}/products/{slug}`
+
+Product detail page uses:
 
 - createStaticVeloraRuntime
-- buildStorefrontHomeModel
-- StorefrontShell
+- VeloraApplication.getStorefrontProductBySlug
+- buildStorefrontProductDetailModel
+- ProductDetail
 
-## Critical composition rule
+## Locale rule
 
-SSG/server rendering:
+Product card navigation includes locale.
 
-`createStaticVeloraRuntime`
+Product detail locale switch preserves the same Product slug.
 
-Browser persistent workflows later:
+## Commerce rule
 
-`createBrowserVeloraRuntime`
+Do not add browser Cart persistence in BUILD 02.
 
-Do not call IndexedDB during SSG.
+Product detail is read-only.
 
-## UI data rule
+Interactive add-to-cart begins in BUILD 03 unless a later official decision changes the phase plan.
 
-Do not hardcode Product/Variant/Inventory commercial records into components.
+## Search rule
 
-Visible Product cards must come through Application data.
+Current search/filter is Presentation-only.
 
-## i18n
-
-Storefront shell copy exists in:
-
-- pt-BR
-- en
-- es
-
-Locale switch uses explicit text labels and locale codes.
-
-## Assets
-
-Current Product art is CSS-generated conceptual art.
-
-This is intentional for PASSO 24.
-
-Final Product images can be added later without changing Domain entities.
+Do not expand Domain or repository APIs for the current 8-Product catalog without evidence that scale or requirements changed.
 
 ## Quality Gate
 
 ```text
-PASSO 24 targeted: 16/16
-Full suite:         231/231
-Test files:         29/29
+PASSO 25 targeted: 16/16
+Full suite:         247/247
+Test files:         31/31
 lint:               passed
 typecheck:          passed
 build:              passed
@@ -89,27 +75,25 @@ check:              passed
 
 ## Decisions
 
-After PASSO 24:
+After PASSO 25:
 
-`CODAL-DEC-001 -> CODAL-DEC-123`
+`CODAL-DEC-001 -> CODAL-DEC-131`
 
 Next:
 
-`CODAL-DEC-124`
+`CODAL-DEC-132`
 
 ## Next action
 
-PASSO 25 - Storefront Product Discovery and Product Card Interaction.
+PASSO 26 - Storefront Navigation, Category Journeys and Visual Product Media Foundation.
 
-Focus next on:
+Focus:
 
-- richer Product discovery
-- category filtering
-- search-ready presentation boundary
-- Product card interaction
-- Product detail route foundation
-
-Preserve the current Pearl Technology shell.
+- make category cards navigable
+- preserve category intent
+- improve Product navigation
+- prepare local visual Product media strategy
+- keep CSS art as safe fallback
 
 ## Reading order
 

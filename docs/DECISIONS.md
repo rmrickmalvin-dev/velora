@@ -151,6 +151,14 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-121 | ACEITA | Price and stock display labels are Presentation responsibilities derived from Domain/Application data | Keep formatting and merchandising language outside Domain |
 | CODAL-DEC-122 | ACEITA | Decorative Storefront motion must honor prefers-reduced-motion and use transform-based animation | Protect accessibility and performance as visual identity grows |
 | CODAL-DEC-123 | ACEITA | Champagne/gold is a restrained accent rather than the dominant Storefront surface | Preserve premium contrast without turning the interface into decorative excess |
+| CODAL-DEC-132 | ACEITA | Product discovery operates on Presentation models already delivered by SSG and does not access repositories from the client component | Keep browser interaction decoupled from Infrastructure |
+| CODAL-DEC-125 | ACEITA | Search and category filtering remain Presentation-only for the current small catalog | Avoid expanding Domain and Repository Contracts without a scale-driven requirement |
+| CODAL-DEC-126 | ACEITA | Product discovery search is case-insensitive and accent-normalized across Product name, brand and localized category label | Improve user discovery without redefining canonical Domain data |
+| CODAL-DEC-127 | ACEITA | Product cards navigate through canonical locale-safe routes `/{locale}/products/{slug}` | Preserve i18n context and stable public Product identity |
+| CODAL-DEC-128 | ACEITA | Product detail pages are statically generated and load Product data through VeloraApplication.getStorefrontProductBySlug | Make detail pages prove Application integration without direct seed access |
+| CODAL-DEC-129 | ACEITA | Product detail locale switching preserves the current Product slug | Maintain equivalent user journey across PT-BR, EN and ES |
+| CODAL-DEC-130 | ACEITA | Product detail displays variant price and Inventory state but does not mutate or reserve stock | Keep BUILD 02 informational and preserve stock mutation boundaries |
+| CODAL-DEC-131 | ACEITA | Add-to-cart UI interaction remains deferred to BUILD 03 Commerce Interaction | Preserve the approved phase plan while BUILD 02 focuses on Storefront discovery and presentation |
 
 ## Decisões por área
 
@@ -244,7 +252,7 @@ Uma IA ou desenvolvedor que continuar a VELORA deve:
 - não substituir decisões ACEITAS silenciosamente;
 - verificar se uma nova implementação contradiz alguma decisão existente;
 - registrar novas decisões com numeração sequencial;
-- utilizar o próximo número disponível após CODAL-DEC-123;
+- utilizar o próximo número disponível após CODAL-DEC-131;
 - preservar decisões históricas mesmo quando forem superadas.
 
 ## Próxima decisão disponível

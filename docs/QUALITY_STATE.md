@@ -10,51 +10,48 @@ Status: CLOSED AND VALIDATED
 
 Status: IN PROGRESS
 
-## PASSO 24 - Design System Foundation and Storefront Shell
+## PASSO 25 - Product Discovery
 
-### Design System
+- [x] full active catalog available to discovery UI
+- [x] Product name search
+- [x] brand search
+- [x] category filter
+- [x] combined search/filter
+- [x] result count
+- [x] empty state
+- [x] case-insensitive normalization
+- [x] accent-normalized search
+- [x] frozen discovery result model
 
-- [x] Pearl Technology color tokens
-- [x] typography stacks
-- [x] spacing scale
-- [x] radius scale
-- [x] shadow scale
-- [x] borders
-- [x] transition tokens
-- [x] responsive content width
-- [x] reduced motion baseline
+## PASSO 25 - Product card interaction
 
-### Storefront shell
+- [x] locale-safe Product links
+- [x] Product card visual interaction
+- [x] detail CTA
+- [x] no repository access in client component
+- [x] no persistence access in client component
 
-- [x] sticky navigation
-- [x] VELORA brand
-- [x] locale switch
-- [x] hero
-- [x] category cards
-- [x] featured Product cards
-- [x] experience section
-- [x] footer
-- [x] responsive 1024/tablet behavior
-- [x] responsive mobile behavior
-- [x] no horizontal layout dependency
+## PASSO 25 - Product detail
 
-### Architecture integration
+- [x] Product detail SSG route
+- [x] Application-based Product lookup
+- [x] localized category
+- [x] active Variant list
+- [x] SKU
+- [x] variant attributes
+- [x] locale-aware price
+- [x] Inventory quantity
+- [x] availability display
+- [x] locale switch preserves Product slug
+- [x] locale-safe back link
+- [x] read-only commerce boundary
 
-- [x] StaticVeloraRuntime
-- [x] StorefrontHomeModel
-- [x] Product cards sourced from Application
-- [x] price formatting outside Domain
-- [x] Inventory label derived in Presentation
-- [x] SSG avoids IndexedDB
-- [x] locale copy centralized
-- [x] no commerce records hardcoded in UI
-
-## PASSO 24 Test Evidence
+## PASSO 25 Test Evidence
 
 Targeted:
 
 ```text
-3 test files
+2 test files
 16 tests
 16 passed
 0 failed
@@ -63,9 +60,9 @@ Targeted:
 Complete suite:
 
 ```text
-29 test files
-231 tests
-231 passed
+31 test files
+247 tests
+247 passed
 0 failed
 ```
 
@@ -76,36 +73,12 @@ Complete suite:
 - [x] npm run test
 - [x] npm run build
 - [x] npm run check
-- [x] /pt-BR SSG
-- [x] /en SSG
-- [x] /es SSG
-- [x] Proxy recognized
+- [x] Storefront SSG
+- [x] Product detail SSG
+- [x] PT-BR
+- [x] EN
+- [x] ES
 
 ## Next Quality Gate
 
-PASSO 25 - Storefront Product Discovery and Product Card Interaction.
-## PASSO 24 CSS Warning Cleanup
-
-Status: VALIDATED
-
-The first PASSO 24 production build completed successfully but Turbopack reported CSS parser warnings because `src/styles/design-tokens.css` used CSS Modules-only `:global(...)` syntax inside a normal global `.css` file.
-
-Correction:
-
-- replaced `:global(:root)` with `:root`
-- replaced remaining `:global(...)` selectors with valid global CSS selectors
-- preserved the Pearl Technology tokens and reduced-motion rules
-- no visual architecture decision changed
-
-Validation after correction:
-
-- lint passed
-- typecheck passed
-- 231/231 tests passed
-- production build passed
-- CSS warning audit passed
-- no `:global(...)` remains in `design-tokens.css`
-
-Next decision remains:
-
-`CODAL-DEC-124`
+PASSO 26 - Storefront Navigation, Category Journeys and Visual Product Media Foundation.

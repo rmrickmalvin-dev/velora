@@ -185,3 +185,33 @@ Use native global selectors there:
 Do not use CSS Modules-only `:global(...)` syntax in this file.
 
 Component-scoped selectors remain in `.module.css` files.
+## Product discovery controls
+
+PASSO 25 adds:
+
+- pill category filters
+- pill search surface
+- result count
+- empty state
+- Product detail action
+
+Rules:
+
+- active filter uses Ink 900
+- inactive filters remain low-contrast
+- search remains visually quiet
+- Product card motion uses transform only
+- card interaction must not hide commercial information
+
+## Product detail foundation
+
+Product detail keeps the Pearl Technology language:
+
+- pearl Product stage
+- large Product title
+- restrained gold accents
+- technical SKU labels
+- variant cards
+- low-contrast stock metadata
+
+Product detail remains read-only during BUILD 02.

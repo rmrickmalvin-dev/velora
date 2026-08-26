@@ -4,6 +4,10 @@ import type {
   StorefrontHomeModel,
 } from "../../presentation/storefront/storefront-home-model";
 
+import {
+  ProductDiscovery,
+} from "./product-discovery";
+
 import styles from "./storefront-shell.module.css";
 
 type StorefrontShellProps =
@@ -19,7 +23,7 @@ export function StorefrontShell({
     copy,
     locale,
     localeLinks,
-    featuredProducts,
+    products,
   } = model;
 
   return (
@@ -387,124 +391,10 @@ export function StorefrontShell({
           </p>
         </div>
 
-        <div
-          className={
-            styles.productGrid
-          }
-        >
-          {featuredProducts.map(
-            (product) => (
-              <article
-                key={
-                  product.id
-                }
-                className={
-                  styles.productCard
-                }
-              >
-                <div
-                  className={
-                    styles.productMetaTop
-                  }
-                >
-                  <span
-                    className={
-                      styles.productCategory
-                    }
-                  >
-                    {
-                      product.categoryLabel
-                    }
-                  </span>
-
-                  {product.featured ? (
-                    <span
-                      className={
-                        styles.featuredBadge
-                      }
-                    >
-                      {
-                        copy.featured
-                          .badge
-                      }
-                    </span>
-                  ) : null}
-                </div>
-
-                <div
-                  className={
-                    styles.productVisual
-                  }
-                  data-category={
-                    product.categoryKey
-                  }
-                  aria-hidden="true"
-                >
-                  <div
-                    className={
-                      styles.productObject
-                    }
-                  />
-                </div>
-
-                <div
-                  className={
-                    styles.productInfo
-                  }
-                >
-                  <span
-                    className={
-                      styles.productBrand
-                    }
-                  >
-                    {
-                      product.brand
-                    }
-                  </span>
-                  <h3>
-                    {
-                      product.name
-                    }
-                  </h3>
-
-                  <div
-                    className={
-                      styles.productFooter
-                    }
-                  >
-                    <div>
-                      <span
-                        className={
-                          styles.pricePrefix
-                        }
-                      >
-                        {
-                          copy.featured
-                            .from
-                        }
-                      </span>
-                      <strong>
-                        {
-                          product.priceLabel
-                        }
-                      </strong>
-                    </div>
-
-                    <span
-                      className={
-                        styles.stock
-                      }
-                    >
-                      {
-                        product.stockLabel
-                      }
-                    </span>
-                  </div>
-                </div>
-              </article>
-            ),
-          )}
-        </div>
+        <ProductDiscovery
+          locale={locale}
+          products={products}
+        />
       </section>
 
       <section

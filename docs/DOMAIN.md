@@ -2,103 +2,92 @@
 
 Last update: 2026-08-26
 
-## BUILD 01
+## BUILD 02 status
 
-CLOSED AND VALIDATED
+IN PROGRESS
 
-Domain and Application foundation remains stable.
-
-## BUILD 02 integration rule
-
-UI consumes Application-facing data.
-
-UI does not:
-
-- access IndexedDB directly
-- access localStorage directly
-- import concrete persistent repositories
-- create raw Product records
-- duplicate Domain validation
-
-## Static Storefront composition
-
-PASSO 24 introduces:
-
-`createStaticVeloraRuntime`
-
-Purpose:
-
-- SSG Storefront composition
-- server-safe data access
-- no browser API dependency
-- same VeloraApplication facade
-
-Architecture:
+## Stable architecture
 
 ```text
-Next.js SSG Page
+UI
 |
 v
-StaticVeloraRuntime
+Presentation
 |
 v
-VeloraApplication
+Application
 |
 v
-Domain Repository Contracts
+Domain
+^
 |
-v
-Local Repository Infrastructure
-|
-v
-VELORA Seed
+Infrastructure
 ```
 
-This composition is read-oriented for static Storefront output.
+## Product discovery boundary
 
-Persistent browser interaction remains separate.
+PASSO 25 Product discovery is a Presentation concern.
 
-## Presentation model
+Current catalog scale allows the browser to filter the already-rendered active catalog model.
 
-`StorefrontHomeModel` converts Application results into UI-ready display data.
+Discovery does not:
 
-Presentation responsibilities include:
+- change Repository Contracts
+- query IndexedDB directly
+- access seed directly
+- add Domain search rules
 
-- locale-aware Money formatting
-- localized category labels
-- stock display labels
-- locale switch links
-- first featured Product selection
+## Search normalization
 
-Money formatting remains outside Domain.
+Presentation normalizes search text for:
 
-## Product card data
+- case
+- accents
+- surrounding whitespace
 
-Each visible card receives:
+Searchable fields:
 
-- Product id
-- Slug
+- Product name
 - brand
-- name
-- category
-- minimum active Variant price
-- aggregated Inventory availability
-- featured state
+- localized category label
 
-These values originate from Application output.
+## Product detail route
 
-## Design System boundary
+Canonical route:
 
-CSS Design Tokens are Presentation concerns.
+`/{locale}/products/{slug}`
 
-They do not enter Domain or Application.
+The route resolves Product through:
 
-## Motion
+`VeloraApplication.getStorefrontProductBySlug`
 
-Decorative hero movement is CSS-only.
+Slug remains the canonical public Product identifier.
 
-`prefers-reduced-motion` disables nonessential animation.
+## Detail model
+
+Presentation converts StorefrontProduct into:
+
+- localized category
+- variant display label
+- locale-aware Money
+- stock label
+- quantity display
+- locale links
+
+No business invariant moved into Presentation.
+
+## Stock rule
+
+Product detail displays Inventory state.
+
+It does not reserve, decrement or mutate stock.
+
+## Commerce phase boundary
+
+BUILD 02 Product pages remain read-only.
+
+BUILD 03 may connect existing Application Cart Use Cases to interactive client composition.
 
 ## Next milestone
 
-PASSO 25 - Storefront Product Discovery and Product Card Interaction.
+PASSO 26 - Storefront Navigation, Category Journeys and Visual Product Media Foundation.

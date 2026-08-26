@@ -8,127 +8,132 @@ VELORA - professional conceptual e-commerce for smartphones, accessories and mob
 
 ## Phase
 
-BUILD 01 - Foundation
+BUILD 02 - Storefront and Design System
 
 ## State
 
+IN PROGRESS
+
+## BUILD 01
+
 CLOSED AND VALIDATED
 
-## Official BUILD 01 closure
+Official closure checkpoint:
 
-PASSO 23 - Final Integration and Closure
+`e001be8` - close BUILD 01 foundation
 
-## Foundation delivered
+## Latest validated step
 
-Runtime and platform:
+PASSO 24 - Design System Foundation and Storefront Shell
 
-- Next.js 16.3.1
-- React 19.2.8
-- TypeScript 5.9.3
-- Node 24.13.0
-- npm 11.6.2
-- locale routing for PT-BR, EN and ES
-- production SSG routes
-- Proxy recognized
+## Visible experience
 
-Domain:
+The first production-oriented VELORA Storefront shell is implemented.
 
-- Money
-- CurrencyCode
-- SKU
-- Slug
-- Catalog
-- Inventory
-- Cart
-- Order
-- Domain services
-- Repository Contracts
+Sections:
 
-Infrastructure:
+- sticky premium navigation
+- PT-BR / EN / ES locale switch
+- hero
+- category collection
+- featured Product cards
+- Pearl Technology experience section
+- portfolio footer
 
-- deterministic VELORA seed
-- in-memory repositories
-- PersistenceProvider
-- native IndexedDbProvider
-- MemoryPersistenceProvider
-- persistent repository adapters
-- seed plus override strategy
-- Domain rehydration
-- demo reset
+## Design System Foundation
 
-Application:
+Pearl Technology tokens now define:
 
-- Storefront queries
-- Cart orchestration
-- Inventory orchestration
-- Order orchestration
-- createVeloraApplication facade
+- pearl surfaces
+- ink hierarchy
+- champagne/gold accents
+- semantic success/danger
+- borders
+- typography stacks
+- spacing scale
+- radius scale
+- shadow scale
+- transitions
+- content width
 
-Composition:
+Primary UI font stack begins with Manrope.
 
-- createVeloraRuntime
-- createBrowserVeloraRuntime
-- resetDemo binding
+Technical labels use IBM Plex Mono first in the mono stack.
 
-## BUILD 01 final architecture
+No font file or network dependency was introduced in PASSO 24.
+
+## Storefront data source
+
+Visible featured Product cards are not hardcoded commerce records.
+
+Data path:
 
 ```text
-Next.js UI
-    |
-    v
+SSG Page
+|
+v
+StaticVeloraRuntime
+|
+v
 VeloraApplication
-    |
-    v
-Application Use Cases
-    |
-    v
-Domain Repository Contracts
-    ^
-    |
-Persistent Repository Adapters
-    |
-    v
-PersistenceProvider
-    |
-    +-- IndexedDbProvider
-    `-- MemoryPersistenceProvider
+|
+v
+Storefront Use Case
+|
+v
+Local Repository Contracts
+|
+v
+VELORA Seed
 ```
 
-The same Application facade can also run with the in-memory Local Repositories.
+The page receives Product name, brand, price and Inventory state from the validated BUILD 01 architecture.
 
-## Dependency boundaries
+## SSG composition
 
-Validated by automated architecture tests:
+Server/static rendering uses `createStaticVeloraRuntime`.
 
-- Domain does not import Application
-- Domain does not import Infrastructure
-- Domain does not import React
-- Domain does not import Next.js
-- Application does not import Infrastructure
-- Application does not import React
-- Application does not import Next.js
+It avoids IndexedDB during SSG.
 
-## Test discovery
+Browser-persistent composition remains available for interactive client flows in later BUILD 02/03 steps.
 
-Vitest project scripts are constrained to `src`.
+## Visual assets
 
-This prevents `.codal-backups` or other local artifacts from being interpreted as production test suites.
+PASSO 24 uses CSS-generated abstract product art.
 
-## Clean install proof
+No fake external Product image URL is rendered.
 
-BUILD 01 closure executed:
+Final visual Product assets remain a later Storefront task.
 
-`npm ci --no-audit --no-fund`
+## Accessibility and motion
 
-before the final complete quality gate.
+Implemented:
 
-This proves package.json and package-lock.json can recreate the project dependencies from a clean install.
+- semantic main/header/nav/section/footer
+- locale links with language labels
+- visible focus-compatible links
+- accessible heading hierarchy
+- decorative visuals hidden from assistive technology
+- prefers-reduced-motion behavior
+- responsive layouts
 
-## Final quality evidence
+## Locale experience
 
-- PASSO 23 targeted tests: 11/11
-- complete suite: 215/215
-- 26 test files passed
+All first-shell content exists in:
+
+- PT-BR
+- EN
+- ES
+
+Locale switch points to equivalent Storefront home route.
+
+## Quality Gate
+
+Latest evidence:
+
+- PASSO 24 targeted tests: 16/16
+- complete suite: 231/231
+- 29 test files passed
 - lint passed
 - typecheck passed
 - production build passed
@@ -136,23 +141,18 @@ This proves package.json and package-lock.json can recreate the project dependen
 - `/en` SSG passed
 - `/es` SSG passed
 - Proxy recognized
-- clean install passed
 - `npm run check` passed
 
 ## Decisions
 
-After BUILD 01 closure:
+After PASSO 24:
 
-`CODAL-DEC-001 -> CODAL-DEC-115`
+`CODAL-DEC-001 -> CODAL-DEC-123`
 
 Next available decision:
 
-`CODAL-DEC-116`
+`CODAL-DEC-124`
 
-## Next phase
+## Next step
 
-BUILD 02 - Storefront and Design System
-
-First action:
-
-PASSO 24 - BUILD 02 Design System Foundation and Storefront Shell.
+PASSO 25 - Storefront Product Discovery and Product Card Interaction.

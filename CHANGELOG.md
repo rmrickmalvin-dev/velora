@@ -1394,3 +1394,123 @@ CLOSED AND VALIDATED
 BUILD 02 - Storefront and Design System
 
 PASSO 24 - Design System Foundation and Storefront Shell.
+---
+
+### PASSO 24 - BUILD 02 Design System Foundation and Storefront Shell
+
+Status: COMPLETED AND TECHNICALLY VALIDATED
+
+#### BUILD transition
+
+BUILD 01 remains CLOSED AND VALIDATED.
+
+BUILD 02 is now IN PROGRESS.
+
+#### Added - Pearl Technology
+
+Design Tokens:
+
+- pearl palette
+- ink hierarchy
+- champagne/gold accents
+- semantic colors
+- typography stacks
+- spacing
+- radius
+- shadows
+- borders
+- transitions
+- responsive content width
+
+#### Added - Storefront presentation
+
+- Storefront localized copy
+- StaticVeloraRuntime
+- StorefrontHomeModel
+- locale-aware Money formatting
+- localized category labels
+- stock presentation label
+- StorefrontShell
+- responsive CSS Module
+- localized metadata
+
+#### Visible Storefront
+
+Implemented:
+
+- sticky premium header
+- VELORA brand
+- PT-BR / EN / ES switch
+- hero
+- category grid
+- featured Product grid
+- Pearl Technology experience section
+- footer
+
+#### Architecture integration
+
+Visible Product cards use data from:
+
+- VeloraApplication
+- Storefront Use Case
+- Domain Repository Contracts
+- VELORA Seed
+
+No Product commercial records are hardcoded in the UI.
+
+SSG uses StaticVeloraRuntime and does not call IndexedDB.
+
+#### Visual assets
+
+PASSO 24 uses CSS-generated conceptual Product art.
+
+Final Product media remains a later Storefront step.
+
+#### Accessibility
+
+Implemented:
+
+- semantic landmarks
+- heading hierarchy
+- language labels
+- decorative aria-hidden visuals
+- reduced-motion support
+- responsive layouts
+
+#### Testing
+
+PASSO 24 targeted validation:
+
+- 3 test files passed
+- 16 tests passed
+- 0 tests failed
+
+Complete suite:
+
+- 29 test files passed
+- 231 tests passed
+- 0 tests failed
+
+#### Technical Validation
+
+Passed:
+
+- npm run lint
+- npm run typecheck
+- npm run test
+- npm run build
+- npm run check
+
+#### Decisions
+
+Added:
+
+- CODAL-DEC-116 through CODAL-DEC-123
+
+Next available decision:
+
+- CODAL-DEC-124
+
+#### Next
+
+PASSO 25 - Storefront Product Discovery and Product Card Interaction.

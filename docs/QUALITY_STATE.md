@@ -6,61 +6,71 @@ Last update: 2026-08-26
 
 Status: CLOSED AND VALIDATED
 
-## Foundation checklist
+## BUILD 02
 
-- [x] runtime contract
-- [x] dependency versions recorded
-- [x] locale routing
-- [x] PT-BR
-- [x] EN
-- [x] ES
-- [x] Domain primitives
-- [x] Catalog Domain
-- [x] Inventory Domain
-- [x] Cart Domain
-- [x] Order Domain
-- [x] Repository Contracts
-- [x] deterministic seed
-- [x] in-memory repositories
-- [x] Application Use Cases
-- [x] Application facade
-- [x] PersistenceProvider
-- [x] IndexedDB provider
-- [x] persistent repositories
-- [x] Domain rehydration
-- [x] demo reset
-- [x] composition root
-- [x] architecture dependency tests
-- [x] source-only Vitest discovery
-- [x] clean install proof
-- [x] production build
+Status: IN PROGRESS
 
-## PASSO 23 evidence
+## PASSO 24 - Design System Foundation and Storefront Shell
+
+### Design System
+
+- [x] Pearl Technology color tokens
+- [x] typography stacks
+- [x] spacing scale
+- [x] radius scale
+- [x] shadow scale
+- [x] borders
+- [x] transition tokens
+- [x] responsive content width
+- [x] reduced motion baseline
+
+### Storefront shell
+
+- [x] sticky navigation
+- [x] VELORA brand
+- [x] locale switch
+- [x] hero
+- [x] category cards
+- [x] featured Product cards
+- [x] experience section
+- [x] footer
+- [x] responsive 1024/tablet behavior
+- [x] responsive mobile behavior
+- [x] no horizontal layout dependency
+
+### Architecture integration
+
+- [x] StaticVeloraRuntime
+- [x] StorefrontHomeModel
+- [x] Product cards sourced from Application
+- [x] price formatting outside Domain
+- [x] Inventory label derived in Presentation
+- [x] SSG avoids IndexedDB
+- [x] locale copy centralized
+- [x] no commerce records hardcoded in UI
+
+## PASSO 24 Test Evidence
 
 Targeted:
 
 ```text
-2 test files
-11 tests
-11 passed
+3 test files
+16 tests
+16 passed
 0 failed
 ```
 
 Complete suite:
 
 ```text
-26 test files
-215 tests
-215 passed
+29 test files
+231 tests
+231 passed
 0 failed
 ```
 
-## Final BUILD 01 gate
+## Latest Technical Gate
 
-- [x] Node v24.13.0
-- [x] npm 11.6.2
-- [x] .nvmrc 24.13.0
-- [x] npm ci --no-audit --no-fund
 - [x] npm run lint
 - [x] npm run typecheck
 - [x] npm run test
@@ -70,13 +80,7 @@ Complete suite:
 - [x] /en SSG
 - [x] /es SSG
 - [x] Proxy recognized
-- [x] git diff --check
-- [x] BUILD 01 closure record
-
-## BUILD 02 entry condition
-
-READY
 
 ## Next Quality Gate
 
-PASSO 24 - BUILD 02 Design System Foundation and Storefront Shell.
+PASSO 25 - Storefront Product Discovery and Product Card Interaction.

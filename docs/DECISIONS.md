@@ -143,6 +143,14 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-113 | ACEITA | Automated architecture tests protect Domain and Application dependency direction | Turn core CODAL architecture rules into executable regression evidence |
 | CODAL-DEC-114 | ACEITA | BUILD 02 UI should consume the Application facade and must not access persistence providers directly | Preserve the validated BUILD 01 architecture when visual development begins |
 | CODAL-DEC-115 | ACEITA | BUILD 01 Foundation is officially closed after clean install, architecture integration, full tests and production build pass | Authorize transition to BUILD 02 Storefront and Design System |
+| CODAL-DEC-124 | ACEITA | BUILD 02 visual foundation is named Pearl Technology and is implemented through reusable CSS Design Tokens | Give the Storefront a stable visual language before multiplying pages and components |
+| CODAL-DEC-117 | ACEITA | SSG Storefront rendering uses createStaticVeloraRuntime while browser persistence remains a separate composition | Prevent IndexedDB from leaking into static/server rendering while preserving one Application facade |
+| CODAL-DEC-118 | ACEITA | First Storefront Product cards must consume commercial data from Application output instead of hardcoded Product records | Make the visible portfolio experience prove the BUILD 01 architecture |
+| CODAL-DEC-119 | ACEITA | Storefront copy is centralized for PT-BR, EN and ES from the first visual shell | Preserve i18n parity while UI complexity grows |
+| CODAL-DEC-120 | ACEITA | PASSO 24 uses CSS-generated conceptual Product art until final local visual assets are intentionally produced | Avoid broken remote assets and keep visual progress independent from final imagery |
+| CODAL-DEC-121 | ACEITA | Price and stock display labels are Presentation responsibilities derived from Domain/Application data | Keep formatting and merchandising language outside Domain |
+| CODAL-DEC-122 | ACEITA | Decorative Storefront motion must honor prefers-reduced-motion and use transform-based animation | Protect accessibility and performance as visual identity grows |
+| CODAL-DEC-123 | ACEITA | Champagne/gold is a restrained accent rather than the dominant Storefront surface | Preserve premium contrast without turning the interface into decorative excess |
 
 ## Decisões por área
 
@@ -236,7 +244,7 @@ Uma IA ou desenvolvedor que continuar a VELORA deve:
 - não substituir decisões ACEITAS silenciosamente;
 - verificar se uma nova implementação contradiz alguma decisão existente;
 - registrar novas decisões com numeração sequencial;
-- utilizar o próximo número disponível após CODAL-DEC-115;
+- utilizar o próximo número disponível após CODAL-DEC-123;
 - preservar decisões históricas mesmo quando forem superadas.
 
 ## Próxima decisão disponível

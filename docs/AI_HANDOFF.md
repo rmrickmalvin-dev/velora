@@ -6,71 +6,81 @@ CODAL OS - Complete Edition active.
 
 ## State
 
-BUILD 01 - CLOSED AND VALIDATED
+BUILD 01 - CLOSED
 
-Next:
+BUILD 02 - IN PROGRESS
 
-BUILD 02 - Storefront and Design System
+Latest validated step:
 
-## Latest validated step
+PASSO 24 - Design System Foundation and Storefront Shell
 
-PASSO 23 - BUILD 01 Final Integration and Closure
+## Visual identity
 
-## Application entry point
+Pearl Technology is now implemented as CSS tokens.
 
-Use:
+Core direction:
 
-`createVeloraApplication`
+- pearl white base
+- dark ink text
+- champagne/gold accent
+- negative space
+- translucent surfaces
+- restrained shadows
+- premium but human
+- Product remains protagonist
 
-for provider-independent Application composition.
+## Storefront page
 
-## Infrastructure entry point
+`src/app/[locale]/page.tsx`
 
-Browser composition:
+uses:
+
+- createStaticVeloraRuntime
+- buildStorefrontHomeModel
+- StorefrontShell
+
+## Critical composition rule
+
+SSG/server rendering:
+
+`createStaticVeloraRuntime`
+
+Browser persistent workflows later:
 
 `createBrowserVeloraRuntime`
 
-Provider-controlled composition:
+Do not call IndexedDB during SSG.
 
-`createVeloraRuntime`
+## UI data rule
 
-## UI dependency rule
+Do not hardcode Product/Variant/Inventory commercial records into components.
 
-BUILD 02 UI should consume `runtime.application`.
+Visible Product cards must come through Application data.
 
-Do not make UI components depend directly on:
+## i18n
 
-- IndexedDbProvider
-- PersistenceProvider
-- persistent repository classes
-- local repository classes
-- localStorage
+Storefront shell copy exists in:
 
-## Runtime structure
+- pt-BR
+- en
+- es
 
-```text
-runtime.application
-runtime.repositories
-runtime.resetDemo
-```
+Locale switch uses explicit text labels and locale codes.
 
-Normal Storefront UI behavior should use `runtime.application`.
+## Assets
 
-`runtime.repositories` exists for Infrastructure composition and future privileged workflows, not routine component data access.
+Current Product art is CSS-generated conceptual art.
 
-## Test discovery
+This is intentional for PASSO 24.
 
-The package scripts now scope Vitest to `src`.
+Final Product images can be added later without changing Domain entities.
 
-Do not place executable project tests inside `.codal-backups`.
-
-## Final BUILD 01 quality evidence
+## Quality Gate
 
 ```text
-PASSO 23 targeted: 11/11
-Full suite:         215/215
-Test files:         26/26
-clean install:      passed
+PASSO 24 targeted: 16/16
+Full suite:         231/231
+Test files:         29/29
 lint:               passed
 typecheck:          passed
 build:              passed
@@ -79,37 +89,27 @@ check:              passed
 
 ## Decisions
 
-After BUILD 01:
+After PASSO 24:
 
-`CODAL-DEC-001 -> CODAL-DEC-115`
+`CODAL-DEC-001 -> CODAL-DEC-123`
 
 Next:
 
-`CODAL-DEC-116`
+`CODAL-DEC-124`
 
 ## Next action
 
-PASSO 24 - BUILD 02 Design System Foundation and Storefront Shell.
+PASSO 25 - Storefront Product Discovery and Product Card Interaction.
 
-BUILD 02 should begin visual work now.
+Focus next on:
 
-Start with:
+- richer Product discovery
+- category filtering
+- search-ready presentation boundary
+- Product card interaction
+- Product detail route foundation
 
-- Pearl Technology visual tokens
-- typography
-- spacing
-- radius
-- shadows
-- borders
-- button primitives
-- input primitives
-- badges
-- cards
-- Storefront navigation shell
-- responsive page shell
-- locale-safe navigation
-
-Do not reopen BUILD 01 architecture without evidence of a defect.
+Preserve the current Pearl Technology shell.
 
 ## Reading order
 
@@ -119,4 +119,5 @@ Do not reopen BUILD 01 architecture without evidence of a defect.
 4. docs/QUALITY_STATE.md
 5. docs/STACK.md
 6. docs/BUILD_01_CLOSURE.md
-7. CHANGELOG.md
+7. docs/DESIGN_SYSTEM.md
+8. CHANGELOG.md

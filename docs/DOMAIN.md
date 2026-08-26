@@ -2,137 +2,103 @@
 
 Last update: 2026-08-26
 
-## BUILD 01 status
+## BUILD 01
 
 CLOSED AND VALIDATED
 
-## Dependency direction
+Domain and Application foundation remains stable.
 
-```text
-UI
-|
-v
-Application
-|
-v
-Domain
-^
-|
-Infrastructure
-```
+## BUILD 02 integration rule
 
-## Stable Domain foundation
+UI consumes Application-facing data.
 
-Implemented and validated:
-
-- CurrencyCode
-- Money
-- SKU
-- Slug
-- ProductCategory
-- Product
-- ProductVariant
-- ProductMedia
-- Inventory
-- InventoryMovement
-- Cart
-- CartItem
-- Order
-- OrderItem
-- Cart Service
-- Inventory Service
-- Order Service
-- Repository Contracts
-
-## Application facade
-
-`createVeloraApplication` binds Repository Contracts once and exposes a UI-ready orchestration surface.
-
-The UI does not need to repeatedly inject repositories into every use-case call.
-
-Available behavior includes:
-
-- Storefront Product listing
-- Storefront Product detail
-- Add to Cart
-- Cart quantity update
-- Cart removal
-- Cart summary
-- Inventory adjustment
-- Order status transition
-- Customer Order listing
-
-## Composition root
-
-Infrastructure owns concrete provider selection.
-
-`createVeloraRuntime(provider)` composes:
-
-- persistent repositories
-- Application facade
-- demo reset
-
-`createBrowserVeloraRuntime()` selects IndexedDbProvider for browser usage.
-
-## Persistence model
-
-```text
-Catalog / Inventory
-=
-immutable seed
-+
-persistent overrides
-
-Cart / Order
-=
-persistent runtime state
-
-InventoryMovement
-=
-seed baseline history
-+
-persistent appended history
-```
-
-## Rehydration
-
-Persistent records are recreated through Domain factories before leaving repository adapters.
-
-This restores validation and immutable Domain objects.
-
-## Dependency regression tests
-
-Automated BUILD 01 architecture tests protect:
-
-Domain:
-
-- no Application import
-- no Infrastructure import
-- no React import
-- no Next.js import
-
-Application:
-
-- no Infrastructure import
-- no React import
-- no Next.js import
-
-## UI rule for BUILD 02
-
-Storefront components should call the Application facade.
-
-They should not:
+UI does not:
 
 - access IndexedDB directly
 - access localStorage directly
-- instantiate repository adapters inside components
-- duplicate Domain rules
-- bypass Application orchestration
+- import concrete persistent repositories
+- create raw Product records
+- duplicate Domain validation
 
-## BUILD 02 readiness
+## Static Storefront composition
 
-The data and behavior foundation is ready for visual Storefront integration.
+PASSO 24 introduces:
 
-Next milestone:
+`createStaticVeloraRuntime`
 
-PASSO 24 - BUILD 02 Design System Foundation and Storefront Shell.
+Purpose:
+
+- SSG Storefront composition
+- server-safe data access
+- no browser API dependency
+- same VeloraApplication facade
+
+Architecture:
+
+```text
+Next.js SSG Page
+|
+v
+StaticVeloraRuntime
+|
+v
+VeloraApplication
+|
+v
+Domain Repository Contracts
+|
+v
+Local Repository Infrastructure
+|
+v
+VELORA Seed
+```
+
+This composition is read-oriented for static Storefront output.
+
+Persistent browser interaction remains separate.
+
+## Presentation model
+
+`StorefrontHomeModel` converts Application results into UI-ready display data.
+
+Presentation responsibilities include:
+
+- locale-aware Money formatting
+- localized category labels
+- stock display labels
+- locale switch links
+- first featured Product selection
+
+Money formatting remains outside Domain.
+
+## Product card data
+
+Each visible card receives:
+
+- Product id
+- Slug
+- brand
+- name
+- category
+- minimum active Variant price
+- aggregated Inventory availability
+- featured state
+
+These values originate from Application output.
+
+## Design System boundary
+
+CSS Design Tokens are Presentation concerns.
+
+They do not enter Domain or Application.
+
+## Motion
+
+Decorative hero movement is CSS-only.
+
+`prefers-reduced-motion` disables nonessential animation.
+
+## Next milestone
+
+PASSO 25 - Storefront Product Discovery and Product Card Interaction.

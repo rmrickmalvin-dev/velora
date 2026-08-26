@@ -7,6 +7,10 @@ import type {
 import {
   getStorefrontCopy,
 } from "../../i18n/storefront-copy";
+import {
+  buildStorefrontProductVisual,
+  type StorefrontProductVisual,
+} from "./storefront-product-media";
 
 export type StorefrontCategoryKey =
   | "smartphone"
@@ -26,6 +30,8 @@ export type StorefrontProductCard =
     priceLabel: string;
     stockLabel: string;
     featured: boolean;
+    visual:
+      StorefrontProductVisual;
   }>;
 
 export type StorefrontHomeModel =
@@ -207,6 +213,11 @@ function buildProductCard(
     featured:
       product.product
         .featured,
+    visual:
+      buildStorefrontProductVisual(
+        product,
+        key,
+      ),
   });
 }
 

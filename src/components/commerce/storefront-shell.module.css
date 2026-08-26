@@ -986,3 +986,9 @@
     }
   }
 }
+
+/* PASSO 26: category cards are now navigation links. */
+.categoryCard {
+  color: inherit;
+  text-decoration: none;
+}

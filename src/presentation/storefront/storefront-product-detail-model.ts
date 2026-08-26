@@ -13,6 +13,10 @@ import {
   storefrontCategoryLabel,
   type StorefrontCategoryKey,
 } from "./storefront-home-model";
+import {
+  buildStorefrontProductVisual,
+  type StorefrontProductVisual,
+} from "./storefront-product-media";
 
 export type StorefrontProductVariantModel =
   Readonly<{
@@ -51,6 +55,8 @@ export type StorefrontProductDetailModel =
       }>[];
     variants:
       readonly StorefrontProductVariantModel[];
+    visual:
+      StorefrontProductVisual;
   }>;
 
 function variantLabel(
@@ -181,6 +187,11 @@ export function buildStorefrontProductDetailModel(
     variants:
       Object.freeze(
         variants,
+      ),
+    visual:
+      buildStorefrontProductVisual(
+        product,
+        categoryKey,
       ),
   });
 }

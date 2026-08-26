@@ -159,6 +159,14 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-129 | ACEITA | Product detail locale switching preserves the current Product slug | Maintain equivalent user journey across PT-BR, EN and ES |
 | CODAL-DEC-130 | ACEITA | Product detail displays variant price and Inventory state but does not mutate or reserve stock | Keep BUILD 02 informational and preserve stock mutation boundaries |
 | CODAL-DEC-131 | ACEITA | Add-to-cart UI interaction remains deferred to BUILD 03 Commerce Interaction | Preserve the approved phase plan while BUILD 02 focuses on Storefront discovery and presentation |
+| CODAL-DEC-140 | ACEITA | Storefront category cards navigate to canonical `/{locale}/categories/{category}` routes | Turn visual categories into explicit, shareable discovery journeys |
+| CODAL-DEC-133 | ACEITA | Public category route keys are Presentation identifiers `smartphone`, `audio`, `power`, and `protection` rather than raw Domain category ids | Keep public URLs readable without changing Domain identity |
+| CODAL-DEC-134 | ACEITA | Category pages are statically generated from VeloraApplication Storefront data and filtered in Presentation | Preserve SSG performance and avoid unnecessary Repository Contract growth |
+| CODAL-DEC-135 | ACEITA | Category pages preserve the current category across locale switching | Maintain equivalent i18n journeys beyond the home page |
+| CODAL-DEC-136 | ACEITA | StorefrontProductVisual preserves canonical ProductMedia metadata while exposing a separate local fallback asset | Separate canonical media data from temporary portfolio rendering strategy |
+| CODAL-DEC-137 | ACEITA | PASSO 26 local Product visual fallbacks are versioned SVG assets under `/public/images/velora` with no remote dependency | Guarantee reliable local rendering and fast iteration |
+| CODAL-DEC-138 | ACEITA | Seeded ProductMedia paths remain immutable and are not rewritten to match temporary fallback assets | Preserve deterministic seed history and future media migration |
+| CODAL-DEC-139 | ACEITA | ProductVisual is the shared Presentation primitive for category, Product card, and Product detail visuals | Centralize future media replacement and prevent duplicated rendering logic |
 
 ## Decisões por área
 
@@ -252,7 +260,7 @@ Uma IA ou desenvolvedor que continuar a VELORA deve:
 - não substituir decisões ACEITAS silenciosamente;
 - verificar se uma nova implementação contradiz alguma decisão existente;
 - registrar novas decisões com numeração sequencial;
-- utilizar o próximo número disponível após CODAL-DEC-131;
+- utilizar o próximo número disponível após CODAL-DEC-139;
 - preservar decisões históricas mesmo quando forem superadas.
 
 ## Próxima decisão disponível

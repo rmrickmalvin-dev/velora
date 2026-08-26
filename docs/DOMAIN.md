@@ -6,88 +6,72 @@ Last update: 2026-08-26
 
 IN PROGRESS
 
-## Stable architecture
+## Category route boundary
+
+Category route keys are Presentation/public-navigation concepts.
+
+Canonical public values:
+
+- smartphone
+- audio
+- power
+- protection
+
+They map to the existing Domain category ids for presentation.
+
+No Domain category identifier was changed.
+
+## Category pages
+
+Category pages use:
 
 ```text
-UI
+StaticVeloraRuntime
 |
 v
-Presentation
+VeloraApplication
 |
 v
-Application
+Storefront query
 |
 v
-Domain
-^
-|
-Infrastructure
+Presentation category filter
 ```
 
-## Product discovery boundary
+No new Repository Contract was required.
 
-PASSO 25 Product discovery is a Presentation concern.
+## Product media boundary
 
-Current catalog scale allows the browser to filter the already-rendered active catalog model.
+ProductMedia remains the canonical Domain/Application media metadata source.
 
-Discovery does not:
+PASSO 26 adds a Presentation media descriptor:
 
-- change Repository Contracts
-- query IndexedDB directly
-- access seed directly
-- add Domain search rules
+```text
+StorefrontProductVisual
+```
 
-## Search normalization
+Fields:
 
-Presentation normalizes search text for:
+- canonicalMediaUrl
+- canonicalAlt
+- fallbackAsset
 
-- case
-- accents
-- surrounding whitespace
+The fallback is a Presentation concern.
 
-Searchable fields:
+## Seed immutability
 
-- Product name
-- brand
-- localized category label
+Seeded ProductMedia paths remain untouched.
 
-## Product detail route
+Local fallback art does not replace canonical seeded media data.
 
-Canonical route:
+## ProductVisual
 
-`/{locale}/products/{slug}`
+The shared visual component renders current local fallback assets.
 
-The route resolves Product through:
+It is safe to replace this rendering strategy later when final local ProductMedia assets exist.
 
-`VeloraApplication.getStorefrontProductBySlug`
-
-Slug remains the canonical public Product identifier.
-
-## Detail model
-
-Presentation converts StorefrontProduct into:
-
-- localized category
-- variant display label
-- locale-aware Money
-- stock label
-- quantity display
-- locale links
-
-No business invariant moved into Presentation.
-
-## Stock rule
-
-Product detail displays Inventory state.
-
-It does not reserve, decrement or mutate stock.
-
-## Commerce phase boundary
-
-BUILD 02 Product pages remain read-only.
-
-BUILD 03 may connect existing Application Cart Use Cases to interactive client composition.
+That change should remain in Presentation/Infrastructure asset delivery and not alter Domain entities.
 
 ## Next milestone
 
-PASSO 26 - Storefront Navigation, Category Journeys and Visual Product Media Foundation.
+PASSO 27 - Storefront Accessibility, SEO and BUILD 02 Visual Quality Expansion.

@@ -1633,3 +1633,88 @@ Next available decision:
 #### Next
 
 PASSO 26 - Storefront Navigation, Category Journeys and Visual Product Media Foundation.
+---
+
+### PASSO 26 - Storefront Navigation, Category Journeys and Visual Product Media Foundation
+
+Status: COMPLETED AND TECHNICALLY VALIDATED
+
+#### Added - Category journeys
+
+Canonical route:
+
+- `/{locale}/categories/{category}`
+
+Categories:
+
+- smartphone
+- audio
+- power
+- protection
+
+Category cards now navigate.
+
+Category pages are SSG and preserve locale/category context.
+
+#### Added - Product media foundation
+
+- StorefrontProductVisual
+- canonical ProductMedia reference
+- canonical media alt metadata
+- category-specific local fallback asset
+- ProductVisual shared component
+
+#### Added - Local visual assets
+
+- smartphone.svg
+- audio.svg
+- power.svg
+- protection.svg
+
+All assets are local and versioned.
+
+#### Architecture
+
+Seeded ProductMedia paths remain unchanged.
+
+The fallback rendering strategy is Presentation-only.
+
+No Repository Contract changed.
+
+#### Testing
+
+PASSO 26 targeted:
+
+- 2 test files passed
+- 14 tests passed
+- 0 failed
+
+Complete suite:
+
+- 33 test files passed
+- 261 tests passed
+- 0 failed
+
+#### Technical Validation
+
+Passed:
+
+- npm run lint
+- npm run typecheck
+- npm run test
+- npm run build
+- npm run check
+
+#### Decisions
+
+Added:
+
+- CODAL-DEC-132 through CODAL-DEC-139
+
+Next available decision:
+
+- CODAL-DEC-140
+
+#### Next
+
+PASSO 27 - Storefront Accessibility, SEO and BUILD 02 Visual Quality Expansion.

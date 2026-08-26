@@ -10,59 +10,50 @@ Status: CLOSED AND VALIDATED
 
 Status: IN PROGRESS
 
-## PASSO 25 - Product Discovery
+## PASSO 26 - Category journeys
 
-- [x] full active catalog available to discovery UI
-- [x] Product name search
-- [x] brand search
-- [x] category filter
-- [x] combined search/filter
-- [x] result count
-- [x] empty state
-- [x] case-insensitive normalization
-- [x] accent-normalized search
-- [x] frozen discovery result model
+- [x] category cards are navigable
+- [x] canonical category route keys
+- [x] category SSG pages
+- [x] locale-safe category routes
+- [x] locale switch preserves category
+- [x] category search
+- [x] category Product cards
+- [x] category back navigation
 
-## PASSO 25 - Product card interaction
+## PASSO 26 - Product media foundation
 
-- [x] locale-safe Product links
-- [x] Product card visual interaction
-- [x] detail CTA
-- [x] no repository access in client component
-- [x] no persistence access in client component
+- [x] canonical ProductMedia reference preserved
+- [x] canonical ProductMedia alt preserved
+- [x] local fallback asset mapping
+- [x] smartphone SVG fallback
+- [x] audio SVG fallback
+- [x] power SVG fallback
+- [x] protection SVG fallback
+- [x] shared ProductVisual primitive
+- [x] Product discovery uses ProductVisual
+- [x] Product detail uses ProductVisual
+- [x] category cards use ProductVisual
+- [x] no remote visual dependency
+- [x] seeded ProductMedia unchanged
 
-## PASSO 25 - Product detail
-
-- [x] Product detail SSG route
-- [x] Application-based Product lookup
-- [x] localized category
-- [x] active Variant list
-- [x] SKU
-- [x] variant attributes
-- [x] locale-aware price
-- [x] Inventory quantity
-- [x] availability display
-- [x] locale switch preserves Product slug
-- [x] locale-safe back link
-- [x] read-only commerce boundary
-
-## PASSO 25 Test Evidence
+## PASSO 26 Test Evidence
 
 Targeted:
 
 ```text
 2 test files
-16 tests
-16 passed
+14 tests
+14 passed
 0 failed
 ```
 
 Complete suite:
 
 ```text
-31 test files
-247 tests
-247 passed
+33 test files
+261 tests
+261 passed
 0 failed
 ```
 
@@ -73,12 +64,13 @@ Complete suite:
 - [x] npm run test
 - [x] npm run build
 - [x] npm run check
-- [x] Storefront SSG
+- [x] Storefront home SSG
 - [x] Product detail SSG
+- [x] Category journey SSG
 - [x] PT-BR
 - [x] EN
 - [x] ES
 
 ## Next Quality Gate
 
-PASSO 26 - Storefront Navigation, Category Journeys and Visual Product Media Foundation.
+PASSO 27 - Storefront Accessibility, SEO and BUILD 02 Visual Quality Expansion.

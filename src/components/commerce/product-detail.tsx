@@ -4,6 +4,10 @@ import type {
   StorefrontProductDetailModel,
 } from "../../presentation/storefront/storefront-product-detail-model";
 
+import {
+  ProductVisual,
+} from "./product-visual";
+
 import styles from "./product-detail.module.css";
 
 type ProductDetailProps =
@@ -106,20 +110,17 @@ export function ProductDetail({
           className={
             styles.visual
           }
-          data-category={
-            model.categoryKey
-          }
-          aria-hidden="true"
         >
           <div
             className={
               styles.visualGlow
             }
           />
-          <div
-            className={
-              styles.productObject
+          <ProductVisual
+            visual={
+              model.visual
             }
+            mode="detail"
           />
           <span
             className={

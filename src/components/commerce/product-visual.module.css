@@ -1,0 +1,73 @@
+.category,
+.card,
+.detail {
+  position: relative;
+  z-index: 1;
+  display: block;
+  flex: 0 0 auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  filter:
+    drop-shadow(
+      0 1.5rem 1.8rem
+      rgba(42, 37, 25, 0.16)
+    );
+}
+
+.category {
+  position: absolute;
+  width: 9rem;
+  height: 12rem;
+  top: 3.3rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.card {
+  width: 10rem;
+  height: 14rem;
+  transition:
+    transform
+    var(--velora-transition-base);
+}
+
+.card:hover {
+  transform:
+    translateY(-0.25rem);
+}
+
+.detail {
+  width: min(72%, 22rem);
+  height: 29rem;
+}
+
+@media (max-width: 44rem) {
+  .detail {
+    width: min(72%, 17rem);
+    height: 23rem;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .detail {
+    animation:
+      veloraProductVisualFloat
+      6s
+      ease-in-out
+      infinite;
+  }
+
+  @keyframes veloraProductVisualFloat {
+    0%,
+    100% {
+      transform:
+        translateY(0);
+    }
+
+    50% {
+      transform:
+        translateY(-0.55rem);
+    }
+  }
+}

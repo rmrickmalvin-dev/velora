@@ -2,10 +2,6 @@
 
 Last update: 2026-08-26
 
-## Project
-
-VELORA - professional conceptual e-commerce for smartphones, accessories and mobile technology.
-
 ## Phase
 
 BUILD 02 - Storefront and Design System
@@ -20,121 +16,114 @@ CLOSED AND VALIDATED
 
 ## Latest validated step
 
-PASSO 25 - Storefront Product Discovery and Product Card Interaction
+PASSO 26 - Storefront Navigation, Category Journeys and Visual Product Media Foundation
 
-## Storefront discovery
+## Category journeys
 
-The home Storefront now exposes the full active catalog through a client-side discovery surface.
-
-Available:
-
-- Product/brand search
-- category filters
-- result count
-- empty state
-- locale-safe Product links
-- interactive Product cards
-
-Discovery works on Presentation models already delivered by SSG.
-
-It does not access repositories or persistence providers in the browser.
-
-## Product cards
-
-Cards now link to canonical Product detail routes:
+Storefront category cards now navigate to canonical locale-safe routes:
 
 ```text
-/{locale}/products/{slug}
+/{locale}/categories/{category}
 ```
 
-Examples:
+Categories:
+
+- smartphone
+- audio
+- power
+- protection
+
+Category pages are statically generated and use Application Storefront data.
+
+## Category route behavior
+
+Each category page provides:
+
+- localized title
+- localized journey copy
+- search inside the selected category
+- Product cards
+- locale switch preserving category
+- locale-safe back navigation
+
+## Product media foundation
+
+Presentation now carries two separate visual concepts:
+
+1. canonical ProductMedia reference from Application data
+2. local fallback visual asset for current portfolio rendering
+
+Canonical seeded ProductMedia paths are preserved.
+
+They are not rewritten or mutated.
+
+## Local visual fallbacks
+
+Local SVG fallback assets now exist for:
+
+- smartphone
+- audio
+- power
+- protection
+
+Path family:
+
+`/images/velora/*.svg`
+
+These assets replace the previous CSS-only Product object shapes in Product discovery and Product detail.
+
+## Shared ProductVisual
+
+`ProductVisual` is the shared rendering primitive for:
+
+- category cards
+- Product cards
+- Product detail
+
+The Product visual can evolve later from fallback SVG to final ProductMedia without changing Domain or Application.
+
+## Media architecture
 
 ```text
-/pt-BR/products/aster-one-x-pro
-/en/products/aster-one-x-pro
-/es/products/aster-one-x-pro
+ProductMedia from Application
+        |
+        v
+StorefrontProductVisual
+        |
+        +-- canonicalMediaUrl
+        +-- canonicalAlt
+        `-- fallbackAsset
+                 |
+                 v
+            ProductVisual
 ```
-
-## Product detail route
-
-Product detail pages are statically generated from Application data.
-
-The route loads Product data through:
-
-```text
-StaticVeloraRuntime
-|
-v
-VeloraApplication
-|
-v
-getStorefrontProductBySlug
-```
-
-The page does not read the seed directly.
-
-## Detail presentation
-
-Each Product detail exposes:
-
-- Product brand
-- Product name
-- localized category
-- active variants
-- SKU
-- variant attributes
-- locale-aware price
-- Inventory quantity
-- availability state
-- locale switch preserving Product slug
-
-## Commerce boundary
-
-Product detail remains read-only in BUILD 02.
-
-Add-to-cart UI interaction is intentionally deferred to BUILD 03 - Commerce Interaction.
-
-The existing Application Cart Use Cases remain ready for that phase.
-
-## Search semantics
-
-Search is Presentation-only at current catalog scale.
-
-It is:
-
-- case-insensitive
-- accent-normalized
-- brand-aware
-- Product-name-aware
-- category-aware
-
-No repository contract was changed.
 
 ## Quality Gate
 
 Latest evidence:
 
-- PASSO 25 targeted tests: 16/16
-- complete suite: 247/247
-- 31 test files passed
+- PASSO 26 targeted tests: 14/14
+- complete suite: 261/261
+- 33 test files passed
 - lint passed
 - typecheck passed
 - production build passed
-- Storefront home SSG passed
+- home Storefront SSG passed
 - Product detail SSG passed
+- category journey SSG passed
 - PT-BR / EN / ES preserved
 - `npm run check` passed
 
 ## Decisions
 
-After PASSO 25:
+After PASSO 26:
 
-`CODAL-DEC-001 -> CODAL-DEC-131`
+`CODAL-DEC-001 -> CODAL-DEC-139`
 
 Next available decision:
 
-`CODAL-DEC-132`
+`CODAL-DEC-140`
 
 ## Next step
 
-PASSO 26 - Storefront Navigation, Category Journeys and Visual Product Media Foundation.
+PASSO 27 - Storefront Accessibility, SEO and BUILD 02 Visual Quality Expansion.

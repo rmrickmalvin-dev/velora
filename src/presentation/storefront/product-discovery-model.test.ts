@@ -29,6 +29,15 @@ const products:
         stockLabel:
           "Em estoque",
         featured: true,
+        visual:
+          Object.freeze({
+            canonicalMediaUrl:
+              null,
+            canonicalAlt:
+              null,
+            fallbackAsset:
+              "/images/velora/smartphone.svg",
+          }),
       }),
       Object.freeze({
         id: "2",
@@ -44,6 +53,15 @@ const products:
         stockLabel:
           "Em estoque",
         featured: true,
+        visual:
+          Object.freeze({
+            canonicalMediaUrl:
+              null,
+            canonicalAlt:
+              null,
+            fallbackAsset:
+              "/images/velora/audio.svg",
+          }),
       }),
       Object.freeze({
         id: "3",
@@ -59,6 +77,15 @@ const products:
         stockLabel:
           "Em estoque",
         featured: false,
+        visual:
+          Object.freeze({
+            canonicalMediaUrl:
+              null,
+            canonicalAlt:
+              null,
+            fallbackAsset:
+              "/images/velora/power.svg",
+          }),
       }),
     ]);
 

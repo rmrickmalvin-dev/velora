@@ -1,5 +1,9 @@
 import Link from "next/link";
 
+import {
+  ProductVisual,
+} from "./product-visual";
+
 import type {
   StorefrontHomeModel,
 } from "../../presentation/storefront/storefront-home-model";
@@ -325,13 +329,16 @@ export function StorefrontShell({
               label,
               visual,
             ]) => (
-              <article
+              <Link
                 key={number}
                 className={
                   styles.categoryCard
                 }
                 data-visual={
                   visual
+                }
+                href={
+                  `/${locale}/categories/${visual}`
                 }
               >
                 <span
@@ -341,16 +348,19 @@ export function StorefrontShell({
                 >
                   {number}
                 </span>
-                <div
-                  className={
-                    styles.categoryArt
-                  }
-                  aria-hidden="true"
+                <ProductVisual
+                  visual={{
+                    canonicalMediaUrl: null,
+                    canonicalAlt: null,
+                    fallbackAsset:
+                      `/images/velora/${visual}.svg`,
+                  }}
+                  mode="category"
                 />
                 <h3>
                   {label}
                 </h3>
-              </article>
+              </Link>
             ),
           )}
         </div>

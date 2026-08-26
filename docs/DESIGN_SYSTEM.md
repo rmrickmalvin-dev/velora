@@ -215,3 +215,21 @@ Product detail keeps the Pearl Technology language:
 - low-contrast stock metadata
 
 Product detail remains read-only during BUILD 02.
+## Product visual media
+
+PASSO 26 introduces one shared ProductVisual primitive.
+
+Current visual source:
+
+- local SVG fallback by Product category
+
+Canonical ProductMedia metadata remains available in the Presentation descriptor.
+
+Rules:
+
+- preserve canonical media reference
+- never mutate the immutable seed to satisfy a temporary visual need
+- use local assets for reliable portfolio rendering
+- do not depend on remote Product image URLs
+- keep Product name as the primary accessible identification near decorative art
+- replace fallback rendering in one shared component when final Product media is ready

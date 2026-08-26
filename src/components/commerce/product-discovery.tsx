@@ -21,6 +21,10 @@ import type {
   StorefrontProductCard,
 } from "../../presentation/storefront/storefront-home-model";
 
+import {
+  ProductVisual,
+} from "./product-visual";
+
 import styles from "./product-discovery.module.css";
 
 type ProductDiscoveryProps =
@@ -29,11 +33,13 @@ type ProductDiscoveryProps =
       StorefrontLocale;
     products:
       readonly StorefrontProductCard[];
+    showCategoryFilters?: boolean;
   }>;
 
 export function ProductDiscovery({
   locale,
   products,
+  showCategoryFilters = true,
 }: ProductDiscoveryProps) {
   const storefrontCopy =
     getStorefrontCopy(
@@ -161,46 +167,48 @@ export function ProductDiscovery({
           />
         </label>
 
-        <div
-          className={
-            styles.filters
-          }
-          aria-label={
-            storefrontCopy
-              .nav.categories
-          }
-        >
-          {categories.map(
-            (item) => (
-              <button
-                key={
-                  item.key
-                }
-                type="button"
-                className={
-                  category ===
-                  item.key
-                    ? styles.filterActive
-                    : styles.filter
-                }
-                aria-pressed={
-                  category ===
-                  item.key
-                }
-                onClick={
-                  () =>
-                    setCategory(
-                      item.key,
-                    )
-                }
-              >
-                {
-                  item.label
-                }
-              </button>
-            ),
-          )}
-        </div>
+        {showCategoryFilters ? (
+          <div
+            className={
+              styles.filters
+            }
+            aria-label={
+              storefrontCopy
+                .nav.categories
+            }
+          >
+            {categories.map(
+              (item) => (
+                <button
+                  key={
+                    item.key
+                  }
+                  type="button"
+                  className={
+                    category ===
+                    item.key
+                      ? styles.filterActive
+                      : styles.filter
+                  }
+                  aria-pressed={
+                    category ===
+                    item.key
+                  }
+                  onClick={
+                    () =>
+                      setCategory(
+                        item.key,
+                      )
+                  }
+                >
+                  {
+                    item.label
+                  }
+                </button>
+              ),
+            )}
+          </div>
+        ) : null}
 
         <p
           className={
@@ -302,15 +310,12 @@ export function ProductDiscovery({
                     className={
                       styles.visual
                     }
-                    data-category={
-                      product.categoryKey
-                    }
-                    aria-hidden="true"
                   >
-                    <div
-                      className={
-                        styles.productObject
+                    <ProductVisual
+                      visual={
+                        product.visual
                       }
+                      mode="card"
                     />
                   </div>
                 </Link>

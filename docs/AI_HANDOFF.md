@@ -14,56 +14,60 @@ BUILD 03 - IN PROGRESS
 
 Latest validated step:
 
-PASSO 31 - Demo Checkout Foundation, Cart Validation and Conversion Journey
+PASSO 32 - Demo Order Creation, Confirmation and Cart Completion
 
-## Checkout route
+## Application
 
-`/{locale}/checkout`
+New facade operation:
 
-## Checkout rule
+`createDemoOrderFromCart`
 
-PASSO 31 validates a conceptual conversion journey only.
+Do not create Order directly in React.
 
-It does not create Order or payment.
+## Order creation
+
+Creates:
+
+- guest Order
+- PENDING status
+- immutable OrderItem commercial snapshots
+
+Then clears Cart only after Order persistence succeeds.
+
+## Browser adapter
+
+Use:
+
+`completeBrowserDemoOrder`
+
+Checkout UI should not instantiate persistence providers.
+
+## Confirmation identity
+
+The visible reference is a demo Order id.
+
+Do not label it as:
+
+- transaction id
+- payment id
+- authorization code
 
 ## Privacy
 
-Checkout form values are ephemeral React state.
+Contact/delivery form fields are still ephemeral.
 
-Do not persist or transmit them without a later explicit decision.
+Do not silently persist them into Order.
 
-## Cart validation
+## Inventory
 
-Use:
-
-`validateCheckoutCart`
-
-before allowing checkout submission.
-
-## Form validation
-
-Use:
-
-`validateCheckoutForm`
-
-Do not duplicate its rules inside React markup.
-
-## Honest demo language
-
-Keep explicit wording that:
-
-- no payment occurs
-- no charge occurs
-- no real order is submitted
-
-Do not add fake security badges or fake payment-provider claims.
+Demo Order creation does not mutate Inventory.
 
 ## Quality Gate
 
 ```text
-PASSO 31 targeted: 33/33
-Full suite:         368/368
-Test files:         46/46
+PASSO 32 targeted: 34/34
+Full suite:         386/386
+Test files:         48/48
 lint:               passed
 typecheck:          passed
 build:              passed
@@ -72,24 +76,23 @@ check:              passed
 
 ## Decisions
 
-After PASSO 31:
+After PASSO 32:
 
-`CODAL-DEC-001 -> CODAL-DEC-179`
+`CODAL-DEC-001 -> CODAL-DEC-188`
 
 Next:
 
-`CODAL-DEC-180`
+`CODAL-DEC-189`
 
 ## Next action
 
-PASSO 32 - Demo Order Creation, Confirmation and Cart Completion.
+PASSO 33 - Demo Order History, Reset Flow and BUILD 03 Closure.
 
 Focus:
 
-- explicit demo Order creation
-- OrderItem commercial snapshots
-- confirmation identity
-- Cart clear only after successful demo Order persistence
-- no payment provider
-- no fake transaction id
-- no Inventory mutation unless explicitly designed
+- guest demo Order history/review strategy
+- reset demo behavior
+- post-order persistence verification
+- BUILD 03 commerce readiness
+- closure evidence
+- prepare next project phase

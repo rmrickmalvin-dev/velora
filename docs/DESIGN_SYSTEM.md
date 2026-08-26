@@ -338,3 +338,15 @@ Visual rules:
 Language rule:
 
 The interface must never imply that payment, charging or a real order occurred during PASSO 31.
+## Demo Order confirmation
+
+PASSO 32 turns a validated conceptual checkout into a persistent demo Order.
+
+Confirmation rules:
+
+- use calm Pearl Technology presentation
+- label the identifier as an Order reference
+- expose PENDING as Order status
+- explicitly repeat that no charge occurred
+- never render fake payment authorization or transaction identifiers
+- clear visible Cart state only after Order persistence succeeds

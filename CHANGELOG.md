@@ -2113,3 +2113,75 @@ Next available decision:
 #### Next
 
 PASSO 32 - Demo Order Creation, Confirmation and Cart Completion.
+---
+
+### PASSO 32 - Demo Order Creation, Confirmation and Cart Completion
+
+Status: COMPLETED AND TECHNICALLY VALIDATED
+
+#### Added - Application Order creation
+
+- createDemoOrderFromCart
+- guest PENDING Order
+- Product snapshot
+- SKU snapshot
+- unit price snapshot
+- quantity snapshot
+- duplicate Order id protection
+
+#### Added - Browser completion
+
+- completeBrowserDemoOrder
+- local demo Order reference
+- persistent Order confirmation
+- Cart refresh event after success
+
+#### Cart completion
+
+Cart is removed only after Order save succeeds.
+
+#### Privacy
+
+Checkout contact/delivery values remain ephemeral and are not copied into Order.
+
+#### Inventory
+
+Demo Order creation does not mutate Inventory.
+
+#### Testing
+
+PASSO 32 targeted:
+
+- 4 test files passed
+- 34 tests passed
+- 0 failed
+
+Complete suite:
+
+- 48 test files passed
+- 386 tests passed
+- 0 failed
+
+#### Technical Validation
+
+Passed:
+
+- npm run lint
+- npm run typecheck
+- npm run test
+- npm run build
+- npm run check
+
+#### Decisions
+
+Added:
+
+- CODAL-DEC-180 through CODAL-DEC-188
+
+Next available decision:
+
+- CODAL-DEC-189
+
+#### Next
+
+PASSO 33 - Demo Order History, Reset Flow and BUILD 03 Closure.

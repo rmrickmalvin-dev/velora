@@ -14,55 +14,51 @@ CLOSED AND VALIDATED
 
 IN PROGRESS
 
-## PASSO 31 - Checkout
+## PASSO 32 - Order creation
 
-- [x] locale-safe checkout route
-- [x] checkout SSG
-- [x] Cart Drawer checkout CTA
-- [x] persistent Cart reload
-- [x] Cart summary
-- [x] Cart validation gate
-- [x] contact form
-- [x] delivery form
-- [x] pure form validation
-- [x] normalized form values
-- [x] localized error feedback
-- [x] local-only success confirmation
-- [x] explicit no-payment notice
-- [x] explicit no-real-order notice
+- [x] Application createDemoOrderFromCart
+- [x] guest Order
+- [x] PENDING initial status
+- [x] Order persistence
+- [x] Product snapshot
+- [x] SKU snapshot
+- [x] unit price snapshot
+- [x] quantity snapshot
+- [x] duplicate Order id protection
+- [x] empty Cart protection
 
-## Privacy boundary
+## PASSO 32 - Cart completion
 
-- [x] no checkout form IndexedDB persistence
-- [x] no localStorage form persistence
-- [x] no sessionStorage form persistence
-- [x] no checkout form network request
-- [x] Cart remains persistent separately
-
-## Commerce boundaries
-
-- [x] no Order creation
-- [x] no payment
-- [x] no Cart clearing
+- [x] Cart clear after Order save
+- [x] Cart retained when Order identity conflicts
+- [x] Cart indicators refreshed after completion
 - [x] no Inventory mutation
 
-## PASSO 31 Test Evidence
+## PASSO 32 - Confirmation
+
+- [x] local demo Order reference
+- [x] Order status
+- [x] no-charge confirmation language
+- [x] no fake transaction id
+- [x] continue exploring action
+
+## PASSO 32 Test Evidence
 
 Targeted:
 
 ```text
 4 test files
-33 tests
-33 passed
+34 tests
+34 passed
 0 failed
 ```
 
 Complete suite:
 
 ```text
-46 test files
-368 tests
-368 passed
+48 test files
+386 tests
+386 passed
 0 failed
 ```
 
@@ -76,4 +72,4 @@ Complete suite:
 
 ## Next Quality Gate
 
-PASSO 32 - Demo Order Creation, Confirmation and Cart Completion.
+PASSO 33 - Demo Order History, Reset Flow and BUILD 03 Closure.

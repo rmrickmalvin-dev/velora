@@ -13,11 +13,16 @@ import {
   getStorefrontCheckoutCopy,
 } from "../../i18n/storefront-checkout-copy";
 import {
+  emitBrowserCartChanged,
   getBrowserCartExperience,
 } from "../../features/cart/browser-cart-runtime";
 import type {
   CartExperienceSnapshot,
 } from "../../features/cart/cart-experience";
+import {
+  completeBrowserDemoOrder,
+  type DemoOrderConfirmation,
+} from "../../features/checkout/browser-checkout-runtime";
 import {
   validateCheckoutCart,
 } from "../../features/checkout/checkout-cart-validation";
@@ -114,9 +119,23 @@ export function CheckoutPage({
     >({});
 
   const [
-    submitted,
-    setSubmitted,
+    submitting,
+    setSubmitting,
   ] = useState(false);
+
+  const [
+    confirmation,
+    setConfirmation,
+  ] =
+    useState<
+      DemoOrderConfirmation |
+      null
+    >(null);
+
+  const [
+    completionError,
+    setCompletionError,
+  ] = useState("");
 
   useEffect(
     () => {
@@ -187,7 +206,7 @@ export function CheckoutPage({
       CheckoutFormField,
     value: string,
   ) {
-    setSubmitted(false);
+    setCompletionError("");
 
     setForm(
       (
@@ -221,18 +240,46 @@ export function CheckoutPage({
       validation.errors,
     );
 
+    setCompletionError("");
+
     if (
       !validation.valid ||
-      !cartValidation.ready
+      !cartValidation.ready ||
+      submitting
     ) {
-      setSubmitted(
-        false,
-      );
-
       return;
     }
 
-    setSubmitted(true);
+    setSubmitting(true);
+
+    void completeBrowserDemoOrder()
+      .then(
+        (result) => {
+          setConfirmation(
+            result,
+          );
+
+          setCart(
+            emptyCart,
+          );
+
+          emitBrowserCartChanged();
+        },
+      )
+      .catch(
+        () => {
+          setCompletionError(
+            copy.completionError,
+          );
+        },
+      )
+      .finally(
+        () => {
+          setSubmitting(
+            false,
+          );
+        },
+      );
   }
 
   const subtotal =
@@ -346,7 +393,88 @@ export function CheckoutPage({
         </div>
       </section>
 
-      {loading ? (
+      {confirmation ? (
+        <section
+          className={
+            styles.confirmation
+          }
+          aria-labelledby="demo-order-confirmation-title"
+        >
+          <p
+            className={
+              styles.eyebrow
+            }
+          >
+            {
+              copy.confirmationEyebrow
+            }
+          </p>
+
+          <h2
+            id="demo-order-confirmation-title"
+          >
+            {
+              copy.confirmationTitle
+            }
+          </h2>
+
+          <p>
+            {
+              copy.confirmationBody
+            }
+          </p>
+
+          <dl
+            className={
+              styles.confirmationData
+            }
+          >
+            <div>
+              <dt>
+                {
+                  copy.reference
+                }
+              </dt>
+              <dd>
+                {
+                  confirmation.orderId
+                }
+              </dd>
+            </div>
+
+            <div>
+              <dt>
+                {
+                  copy.orderStatus
+                }
+              </dt>
+              <dd>
+                {
+                  confirmation.status
+                }
+              </dd>
+            </div>
+          </dl>
+
+          <Link
+            className={
+              styles.continue
+            }
+            href={
+              `/${locale}`
+            }
+          >
+            {
+              copy.continueShopping
+            }
+            <span
+              aria-hidden="true"
+            >
+              &rarr;
+            </span>
+          </Link>
+        </section>
+      ) : loading ? (
         <section
           className={
             styles.state
@@ -739,9 +867,14 @@ export function CheckoutPage({
               className={
                 styles.submit
               }
+              disabled={
+                submitting
+              }
             >
               {
-                copy.submit
+                submitting
+                  ? copy.completingOrder
+                  : copy.submit
               }
             </button>
 
@@ -752,21 +885,9 @@ export function CheckoutPage({
               role="status"
               aria-live="polite"
             >
-              {submitted ? (
-                <>
-                  <strong>
-                    {
-                      copy.submittedTitle
-                    }
-                  </strong>
-
-                  <p>
-                    {
-                      copy.submittedBody
-                    }
-                  </p>
-                </>
-              ) : null}
+              {
+                completionError
+              }
             </div>
           </form>
         </div>

@@ -6,57 +6,65 @@ Last update: 2026-08-26
 
 IN PROGRESS
 
-## Checkout boundary
+## Demo Order use case
 
-PASSO 31 checkout remains a UI/Feature validation journey.
+Application use case:
 
-It does not create an Order.
+`createDemoOrderFromCart`
 
-## Cart validation
+Dependencies:
 
-`validateCheckoutCart`
+- CartRepository
+- OrderRepository
+- ProductRepository
+- ProductVariantRepository
 
-verifies that the current Cart is coherent enough to enter checkout.
+## Order snapshot rule
 
-It does not replace Domain Cart invariants.
+OrderItem is created from the current Cart plus canonical Product/Variant identity.
 
-Checks include:
+Snapshot fields:
 
-- non-empty Cart
-- positive safe quantities
-- available subtotal/currency
-- line currency consistency
+- Product name
+- SKU
+- Cart unit price
+- quantity
 
-## Form validation
+This preserves the existing distinction between:
 
-`validateCheckoutForm`
+- mutable purchase intent in Cart
+- historical commercial record in Order
 
-is a pure Feature model.
+## Completion ordering
 
-It normalizes and validates:
+Current persistence sequence:
 
-- fullName
-- email
-- addressLine
-- city
-- postalCode
+1. fully validate and build Order
+2. save Order
+3. remove Cart
 
-These values do not become Domain entities in PASSO 31.
+This prefers preserving the historical Order over clearing Cart early.
 
-## Privacy boundary
+## Identity conflict
 
-Checkout form values are ephemeral UI state.
+An existing Order id causes:
 
-No persistence or network submission is performed.
+`APPLICATION_ORDER_ID_CONFLICT`
 
-## Order boundary
+The active Cart is not cleared in that failure path.
 
-Order creation remains separate.
+## Customer data
 
-When activated, OrderItem must continue preserving commercial snapshots.
+PASSO 32 creates a guest Order.
 
-Do not reuse mutable Cart as an Order record.
+Checkout personal fields are not persisted into Order.
+
+## Inventory
+
+Order creation does not mutate Inventory.
+
+Stock reservation/decrement remains an explicit future decision.
 
 ## Next milestone
 
-PASSO 32 - Demo Order Creation, Confirmation and Cart Completion.
+PASSO 33 - Demo Order History, Reset Flow and BUILD 03 Closure.

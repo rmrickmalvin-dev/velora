@@ -86,5 +86,25 @@ describe(
         "obrigatorio",
       );
     });
+
+    it("provides a localized demo Order completion state", () => {
+      expect(
+        getStorefrontCheckoutCopy(
+          "en",
+        ).confirmationTitle,
+      ).toContain(
+        "completed",
+      );
+    });
+
+    it("keeps completion language explicit about no charge", () => {
+      expect(
+        getStorefrontCheckoutCopy(
+          "en",
+        ).confirmationBody,
+      ).toContain(
+        "No charge",
+      );
+    });
   },
 );

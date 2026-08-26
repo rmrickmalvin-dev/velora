@@ -30,6 +30,14 @@ export type StorefrontCheckoutCopy =
     errorEmail: string;
     errorShort: string;
     errorPostal: string;
+    completingOrder: string;
+    completionError: string;
+    confirmationEyebrow: string;
+    confirmationTitle: string;
+    confirmationBody: string;
+    reference: string;
+    orderStatus: string;
+    continueShopping: string;
   }>;
 
 const checkoutCopy:
@@ -90,6 +98,22 @@ const checkoutCopy:
         "Informe um valor mais completo.",
       errorPostal:
         "Informe um codigo postal valido.",
+      completingOrder:
+        "Criando pedido demonstrativo...",
+      completionError:
+        "Nao foi possivel concluir o pedido demonstrativo.",
+      confirmationEyebrow:
+        "Pedido demonstrativo",
+      confirmationTitle:
+        "Jornada concluida.",
+      confirmationBody:
+        "O pedido demonstrativo foi salvo localmente. Nenhuma cobranca foi realizada.",
+      reference:
+        "Referencia do pedido",
+      orderStatus:
+        "Status",
+      continueShopping:
+        "Continuar explorando",
     },
     en: {
       checkoutCta:
@@ -144,6 +168,22 @@ const checkoutCopy:
         "Enter a more complete value.",
       errorPostal:
         "Enter a valid postal code.",
+      completingOrder:
+        "Creating demo order...",
+      completionError:
+        "Could not complete the demo order.",
+      confirmationEyebrow:
+        "Demo order",
+      confirmationTitle:
+        "Journey completed.",
+      confirmationBody:
+        "The demo order was saved locally. No charge was made.",
+      reference:
+        "Order reference",
+      orderStatus:
+        "Status",
+      continueShopping:
+        "Continue exploring",
     },
     es: {
       checkoutCta:
@@ -198,6 +238,22 @@ const checkoutCopy:
         "Ingresa un valor mas completo.",
       errorPostal:
         "Ingresa un codigo postal valido.",
+      completingOrder:
+        "Creando pedido demostrativo...",
+      completionError:
+        "No fue posible completar el pedido demostrativo.",
+      confirmationEyebrow:
+        "Pedido demostrativo",
+      confirmationTitle:
+        "Recorrido completado.",
+      confirmationBody:
+        "El pedido demostrativo se guardo localmente. No se realizo ningun cobro.",
+      reference:
+        "Referencia del pedido",
+      orderStatus:
+        "Estado",
+      continueShopping:
+        "Seguir explorando",
     },
   };
 

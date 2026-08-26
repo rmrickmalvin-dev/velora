@@ -207,6 +207,15 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-177 | ACEITA | A valid PASSO 31 submission produces only local confirmation and does not clear Cart | Avoid implying successful commerce before Order persistence exists |
 | CODAL-DEC-178 | ACEITA | PASSO 31 checkout does not mutate Inventory | Preserve stock mutation boundaries until an explicit Order/checkout rule is added |
 | CODAL-DEC-179 | ACEITA | Order creation is deferred to PASSO 32 so OrderItem snapshots and Cart completion can be implemented as one auditable unit | Keep checkout validation separate from persisted Order semantics |
+| CODAL-DEC-189 | ACEITA | Demo Order creation is an Application use case exposed through VeloraApplication rather than implemented in Checkout React code | Preserve Application orchestration and keep UI independent from repositories |
+| CODAL-DEC-181 | ACEITA | createDemoOrderFromCart creates guest Orders with initial status PENDING | Represent an honest order lifecycle without inventing payment/customer authentication state |
+| CODAL-DEC-182 | ACEITA | OrderItem snapshots Product name, SKU, Cart unit price and quantity at demo Order creation | Preserve historical commercial meaning independently from later catalog changes |
+| CODAL-DEC-183 | ACEITA | Order is persisted before the completed Cart is removed | Avoid losing purchase intent before a historical Order exists |
+| CODAL-DEC-184 | ACEITA | Existing demo Order identity raises APPLICATION_ORDER_ID_CONFLICT and does not clear the active Cart | Prevent accidental overwrite and destructive retry behavior |
+| CODAL-DEC-185 | ACEITA | Browser checkout uses completeBrowserDemoOrder and never imports persistence providers directly | Keep client commerce composition behind the established Infrastructure root |
+| CODAL-DEC-186 | ACEITA | Checkout personal form values remain ephemeral and are not copied into guest Order in PASSO 32 | Avoid silently persisting conceptual personal data |
+| CODAL-DEC-187 | ACEITA | Demo Order confirmation exposes an Order reference and PENDING status but never a fake transaction or payment id | Maintain transparent portfolio semantics |
+| CODAL-DEC-188 | ACEITA | Demo Order creation and Cart completion do not mutate or reserve Inventory | Keep stock changes separate until an explicit inventory/order policy is introduced |
 
 ## Decisões por área
 
@@ -300,7 +309,7 @@ Uma IA ou desenvolvedor que continuar a VELORA deve:
 - não substituir decisões ACEITAS silenciosamente;
 - verificar se uma nova implementação contradiz alguma decisão existente;
 - registrar novas decisões com numeração sequencial;
-- utilizar o próximo número disponível após CODAL-DEC-179;
+- utilizar o próximo número disponível após CODAL-DEC-188;
 - preservar decisões históricas mesmo quando forem superadas.
 
 ## Próxima decisão disponível

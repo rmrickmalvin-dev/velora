@@ -527,3 +527,134 @@ label {
       var(--velora-space-4);
   }
 }
+
+.confirmation {
+  width:
+    min(
+      calc(100% - 2rem),
+      var(--velora-content)
+    );
+  min-height: 28rem;
+  margin: 0 auto;
+  padding:
+    var(--velora-space-10)
+    0
+    var(--velora-space-12);
+  display: grid;
+  align-content: start;
+  justify-items: start;
+}
+
+.confirmation h2 {
+  max-width: 12ch;
+  margin: 0;
+  font-size:
+    clamp(
+      2.8rem,
+      6vw,
+      5rem
+    );
+  letter-spacing:
+    -0.05em;
+  line-height: 1;
+}
+
+.confirmation > p:not(.eyebrow) {
+  max-width: 38rem;
+  margin:
+    var(--velora-space-5)
+    0
+    0;
+  color:
+    var(--velora-ink-600);
+  line-height: 1.7;
+}
+
+.confirmationData {
+  width:
+    min(
+      100%,
+      38rem
+    );
+  margin:
+    var(--velora-space-8)
+    0
+    0;
+  display: grid;
+  border-top:
+    1px solid
+    var(--velora-border);
+}
+
+.confirmationData div {
+  padding:
+    var(--velora-space-4)
+    0;
+  display: grid;
+  grid-template-columns:
+    1fr auto;
+  gap:
+    var(--velora-space-4);
+  border-bottom:
+    1px solid
+    var(--velora-border);
+}
+
+.confirmationData dt {
+  color:
+    var(--velora-ink-500);
+  font-size: 0.75rem;
+}
+
+.confirmationData dd {
+  margin: 0;
+  font-family:
+    var(--velora-font-mono);
+  font-size: 0.72rem;
+  overflow-wrap: anywhere;
+  text-align: right;
+}
+
+.continue {
+  min-height: 3rem;
+  margin-top:
+    var(--velora-space-8);
+  padding:
+    0
+    var(--velora-space-5);
+  display: inline-flex;
+  align-items: center;
+  gap:
+    var(--velora-space-3);
+  border-radius:
+    var(--velora-radius-pill);
+  color:
+    var(--velora-pearl-0);
+  background:
+    var(--velora-ink-900);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.submit:disabled {
+  cursor: progress;
+  opacity: 0.64;
+}
+
+@media (max-width: 44rem) {
+  .confirmation {
+    width:
+      min(
+        calc(100% - 1.25rem),
+        var(--velora-content)
+      );
+  }
+
+  .confirmationData div {
+    grid-template-columns: 1fr;
+  }
+
+  .confirmationData dd {
+    text-align: left;
+  }
+}

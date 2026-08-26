@@ -130,5 +130,35 @@ describe(
         "payment",
       );
     });
+
+    it("completes demo Order through the browser Checkout adapter", async () => {
+      const content =
+        await source(
+          "src/components/commerce/checkout-page.tsx",
+        );
+
+      expect(content).toContain(
+        "completeBrowserDemoOrder",
+      );
+
+      expect(content).not.toContain(
+        "createOrder(",
+      );
+    });
+
+    it("clears visible Cart state only after demo Order confirmation", async () => {
+      const content =
+        await source(
+          "src/components/commerce/checkout-page.tsx",
+        );
+
+      expect(content).toContain(
+        "setConfirmation",
+      );
+
+      expect(content).toContain(
+        "emitBrowserCartChanged",
+      );
+    });
   },
 );

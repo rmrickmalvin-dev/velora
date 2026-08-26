@@ -20,95 +20,95 @@ CLOSED AND VALIDATED
 
 ## Latest validated step
 
-PASSO 31 - Demo Checkout Foundation, Cart Validation and Conversion Journey
+PASSO 32 - Demo Order Creation, Confirmation and Cart Completion
 
-## Checkout route
+## Demo Order creation
 
-Canonical:
+A valid checkout can now create a persistent guest demo Order.
 
-`/{locale}/checkout`
+The operation runs through:
 
-The route is statically generated for:
+```text
+Checkout UI
+|
+v
+browser-checkout-runtime
+|
+v
+VeloraApplication
+|
+v
+createDemoOrderFromCart
+|
++--> OrderRepository
+|
+`--> CartRepository
+```
 
-- PT-BR
-- EN
-- ES
+## Commercial snapshot
 
-## Checkout journey
+Each OrderItem preserves:
 
-Cart Drawer now exposes a locale-safe checkout CTA when Cart has lines.
+- Product id
+- Product Variant id
+- Product name snapshot
+- SKU snapshot
+- Cart unit price snapshot
+- quantity
 
-Checkout:
+Cart is not reused as Order storage.
 
-- reloads persistent Cart through Browser Cart Experience
-- validates Cart commercial consistency
-- displays Product lines
-- displays subtotal
-- validates contact fields
-- validates delivery fields
-- completes a local-only demo confirmation
+## Order status
 
-## Transparency
+New demo Orders start as:
 
-Checkout explicitly states:
+`PENDING`
 
-- no real order is created
-- no payment is made
-- no charge occurs
-- the experience is conceptual portfolio work
+No fake payment or transaction status is introduced.
 
-## Personal data boundary
+## Cart completion
 
-Checkout form values:
+Sequence:
 
-- remain only in React state
-- are not written to IndexedDB
-- are not written to localStorage
-- are not written to sessionStorage
-- are not sent through fetch/network requests
+1. validate Checkout form
+2. validate persistent Cart
+3. build OrderItems
+4. persist Order
+5. clear Cart
+6. return confirmation
+7. refresh visible Cart indicators
 
-## Cart validation
+Cart is cleared only after Order save succeeds.
 
-Checkout blocks progression when:
+## Confirmation
 
-- Cart is empty
-- quantity is invalid
-- subtotal/currency is missing
-- line currency disagrees with Cart currency
+Checkout displays:
 
-## Form validation
+- explicit demo Order wording
+- local Order reference
+- PENDING status
+- no-charge statement
+- continue exploring action
 
-Fields:
+The Order reference is not represented as a payment transaction id.
 
-- full name
-- email
-- address
-- city
-- postal code
+## Privacy
 
-Validation is a pure Feature model with normalized values and error codes.
+Contact and delivery values remain ephemeral UI state.
 
-No additional form dependency was introduced.
+They are not stored in the Order during PASSO 32.
 
-## Submission behavior
+## Inventory
 
-A valid form only marks the demonstration as locally validated.
-
-It does not:
-
-- create Order
-- clear Cart
-- mutate Inventory
-- send personal data
-- initiate payment
+Demo Order creation still does not mutate or reserve Inventory.
 
 ## Quality Gate
 
 Latest evidence:
 
-- PASSO 31 targeted tests: 33/33
-- complete suite: 368/368
-- 46 test files passed
+- PASSO 32 targeted tests: 34/34
+- complete suite: 386/386
+- 48 test files passed
 - lint passed
 - typecheck passed
 - production build passed
@@ -117,14 +117,14 @@ Latest evidence:
 
 ## Decisions
 
-After PASSO 31:
+After PASSO 32:
 
-`CODAL-DEC-001 -> CODAL-DEC-179`
+`CODAL-DEC-001 -> CODAL-DEC-188`
 
 Next available decision:
 
-`CODAL-DEC-180`
+`CODAL-DEC-189`
 
 ## Next step
 
-PASSO 32 - Demo Order Creation, Confirmation and Cart Completion.
+PASSO 33 - Demo Order History, Reset Flow and BUILD 03 Closure.

@@ -38,6 +38,10 @@ import {
   type AddProductToCartInput,
 } from "./use-cases/cart-use-cases";
 import {
+  createDemoOrderFromCart,
+  type CreateDemoOrderFromCartInput,
+} from "./use-cases/create-demo-order";
+import {
   changeOrderStatus,
   listCustomerOrders,
 } from "./use-cases/order-use-cases";
@@ -138,6 +142,14 @@ export type VeloraApplication =
         typeof adjustInventory
       >;
 
+    createDemoOrderFromCart:
+      (
+        input:
+          CreateDemoOrderFromCartInput,
+      ) => ReturnType<
+        typeof createDemoOrderFromCart
+      >;
+
     changeOrderStatus:
       (
         input:
@@ -204,6 +216,13 @@ export function createVeloraApplication(
     adjustInventory:
       (input) =>
         adjustInventory(
+          dependencies,
+          input,
+        ),
+
+    createDemoOrderFromCart:
+      (input) =>
+        createDemoOrderFromCart(
           dependencies,
           input,
         ),

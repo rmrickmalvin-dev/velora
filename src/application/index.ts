@@ -12,6 +12,12 @@ export {
 } from "./errors/application-error";
 
 export {
+  createDemoOrderFromCart,
+  type CreateDemoOrderDependencies,
+  type CreateDemoOrderFromCartInput,
+} from "./use-cases/create-demo-order";
+
+export {
   getStorefrontProductBySlug,
   listStorefrontProducts,
   type StorefrontProduct,

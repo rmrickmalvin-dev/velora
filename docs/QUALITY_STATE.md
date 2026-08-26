@@ -1,71 +1,66 @@
 # QUALITY STATE - VELORA
 
-Last update: 2026-08-25
+Last update: 2026-08-26
 
 ## BUILD 01
 
-Status: IN PROGRESS - FINAL INTEGRATION NEXT
+Status: CLOSED AND VALIDATED
 
-## Completed
+## Foundation checklist
 
-- [x] Runtime contract
-- [x] Locale routing
+- [x] runtime contract
+- [x] dependency versions recorded
+- [x] locale routing
+- [x] PT-BR
+- [x] EN
+- [x] ES
 - [x] Domain primitives
 - [x] Catalog Domain
 - [x] Inventory Domain
 - [x] Cart Domain
 - [x] Order Domain
 - [x] Repository Contracts
-- [x] Seed Foundation
-- [x] In-memory Local Repositories
+- [x] deterministic seed
+- [x] in-memory repositories
 - [x] Application Use Cases
-
-## Persistent Infrastructure - PASSO 22
-
+- [x] Application facade
 - [x] PersistenceProvider
-- [x] PersistenceError
-- [x] MemoryPersistenceProvider
-- [x] IndexedDbProvider
-- [x] browser availability detection
-- [x] native IndexedDB schema
-- [x] ProductCategory persistent adapter
-- [x] Product persistent adapter
-- [x] ProductVariant persistent adapter
-- [x] ProductMedia persistent adapter
-- [x] Inventory persistent adapter
-- [x] InventoryMovement persistent adapter
-- [x] Cart persistent adapter
-- [x] Order persistent adapter
+- [x] IndexedDB provider
+- [x] persistent repositories
 - [x] Domain rehydration
-- [x] immutable seed fallback
-- [x] persistent overrides
-- [x] browser repository composition
-- [x] resetPersistentOverrides
-- [x] PASSO 21 unused import warning removed
+- [x] demo reset
+- [x] composition root
+- [x] architecture dependency tests
+- [x] source-only Vitest discovery
+- [x] clean install proof
+- [x] production build
 
-## PASSO 22 Test Evidence
+## PASSO 23 evidence
 
 Targeted:
 
 ```text
 2 test files
-20 tests
-20 passed
+11 tests
+11 passed
 0 failed
 ```
 
 Complete suite:
 
 ```text
-24 test files
-204 tests
-204 passed
+26 test files
+215 tests
+215 passed
 0 failed
 ```
 
-## Latest Technical Gate
+## Final BUILD 01 gate
 
-- [x] targeted Vitest
+- [x] Node v24.13.0
+- [x] npm 11.6.2
+- [x] .nvmrc 24.13.0
+- [x] npm ci --no-audit --no-fund
 - [x] npm run lint
 - [x] npm run typecheck
 - [x] npm run test
@@ -75,14 +70,13 @@ Complete suite:
 - [x] /en SSG
 - [x] /es SSG
 - [x] Proxy recognized
+- [x] git diff --check
+- [x] BUILD 01 closure record
 
-## Remaining before BUILD 01 closure
+## BUILD 02 entry condition
 
-- [ ] final composition verification
-- [ ] clean-install/reproducibility review
-- [ ] BUILD 01 state documentation
-- [ ] official BUILD 01 checkpoint
+READY
 
 ## Next Quality Gate
 
-PASSO 23 - BUILD 01 Final Integration and Closure.
+PASSO 24 - BUILD 02 Design System Foundation and Storefront Shell.

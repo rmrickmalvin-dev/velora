@@ -135,6 +135,14 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-105 | ACEITA | resetPersistentOverrides clears persistent stores and restores seed-backed repositories to baseline while clearing Cart and Order | Provide deterministic demo reset semantics |
 | CODAL-DEC-106 | ACEITA | createBrowserRepositories selects IndexedDbProvider only at Infrastructure composition while Application remains unchanged | Preserve dependency inversion across in-memory and persistent modes |
 | CODAL-DEC-107 | ACEITA | IndexedDB is treated as browser-only and unavailable runtimes fail explicitly instead of silently changing storage behavior | Keep SSR and browser persistence semantics truthful |
+| CODAL-DEC-116 | ACEITA | createVeloraApplication binds Repository Contracts into one stable Application facade for UI consumption | Reduce repeated dependency wiring while preserving Application independence from Infrastructure |
+| CODAL-DEC-109 | ACEITA | Concrete provider and repository selection belongs to an Infrastructure composition root | Keep browser persistence decisions outside Domain, Application and UI components |
+| CODAL-DEC-110 | ACEITA | Vitest project scripts execute tests only from src | Prevent backups and generated local artifacts from being discovered as project test suites |
+| CODAL-DEC-111 | ACEITA | BUILD 01 closure requires a successful npm ci before the final complete quality gate | Prove package manifest and lockfile reproducibility from a clean dependency install |
+| CODAL-DEC-112 | ACEITA | createBrowserVeloraRuntime selects IndexedDbProvider while createVeloraRuntime remains provider-injectable | Support browser production composition and deterministic test composition with the same Application surface |
+| CODAL-DEC-113 | ACEITA | Automated architecture tests protect Domain and Application dependency direction | Turn core CODAL architecture rules into executable regression evidence |
+| CODAL-DEC-114 | ACEITA | BUILD 02 UI should consume the Application facade and must not access persistence providers directly | Preserve the validated BUILD 01 architecture when visual development begins |
+| CODAL-DEC-115 | ACEITA | BUILD 01 Foundation is officially closed after clean install, architecture integration, full tests and production build pass | Authorize transition to BUILD 02 Storefront and Design System |
 
 ## Decisões por área
 
@@ -228,7 +236,7 @@ Uma IA ou desenvolvedor que continuar a VELORA deve:
 - não substituir decisões ACEITAS silenciosamente;
 - verificar se uma nova implementação contradiz alguma decisão existente;
 - registrar novas decisões com numeração sequencial;
-- utilizar o próximo número disponível após CODAL-DEC-107;
+- utilizar o próximo número disponível após CODAL-DEC-115;
 - preservar decisões históricas mesmo quando forem superadas.
 
 ## Próxima decisão disponível

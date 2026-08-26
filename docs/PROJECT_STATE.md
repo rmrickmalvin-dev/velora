@@ -1,6 +1,6 @@
 # PROJECT STATE - VELORA
 
-Last update: 2026-08-25
+Last update: 2026-08-26
 
 ## Project
 
@@ -10,157 +10,149 @@ VELORA - professional conceptual e-commerce for smartphones, accessories and mob
 
 BUILD 01 - Foundation
 
-## Current unit
-
-01D - Persistent Infrastructure
-
 ## State
 
-IN PROGRESS
+CLOSED AND VALIDATED
 
-## Latest validated step
+## Official BUILD 01 closure
 
-PASSO 22 - IndexedDB Provider and Persistent Local Adapters
+PASSO 23 - Final Integration and Closure
 
-## Current architecture
+## Foundation delivered
+
+Runtime and platform:
+
+- Next.js 16.3.1
+- React 19.2.8
+- TypeScript 5.9.3
+- Node 24.13.0
+- npm 11.6.2
+- locale routing for PT-BR, EN and ES
+- production SSG routes
+- Proxy recognized
+
+Domain:
+
+- Money
+- CurrencyCode
+- SKU
+- Slug
+- Catalog
+- Inventory
+- Cart
+- Order
+- Domain services
+- Repository Contracts
+
+Infrastructure:
+
+- deterministic VELORA seed
+- in-memory repositories
+- PersistenceProvider
+- native IndexedDbProvider
+- MemoryPersistenceProvider
+- persistent repository adapters
+- seed plus override strategy
+- Domain rehydration
+- demo reset
+
+Application:
+
+- Storefront queries
+- Cart orchestration
+- Inventory orchestration
+- Order orchestration
+- createVeloraApplication facade
+
+Composition:
+
+- createVeloraRuntime
+- createBrowserVeloraRuntime
+- resetDemo binding
+
+## BUILD 01 final architecture
 
 ```text
-UI
-|
-v
-Application
-|
-v
+Next.js UI
+    |
+    v
+VeloraApplication
+    |
+    v
+Application Use Cases
+    |
+    v
 Domain Repository Contracts
-^
-|
-+-- In-memory Local Repositories
-|
-`-- Persistent Repositories
-        |
-        v
+    ^
+    |
+Persistent Repository Adapters
+    |
+    v
 PersistenceProvider
-        |
-        +-- IndexedDbProvider
-        `-- MemoryPersistenceProvider (tests)
+    |
+    +-- IndexedDbProvider
+    `-- MemoryPersistenceProvider
 ```
 
-## Persistence Provider
+The same Application facade can also run with the in-memory Local Repositories.
 
-Infrastructure now defines a provider abstraction for record stores.
+## Dependency boundaries
 
-Operations:
+Validated by automated architecture tests:
 
-- get
-- getAll
-- put
-- add
-- delete
-- clear
+- Domain does not import Application
+- Domain does not import Infrastructure
+- Domain does not import React
+- Domain does not import Next.js
+- Application does not import Infrastructure
+- Application does not import React
+- Application does not import Next.js
 
-The provider abstraction does not leak into Domain or Application.
+## Test discovery
 
-## IndexedDB
+Vitest project scripts are constrained to `src`.
 
-`IndexedDbProvider` is the browser persistence implementation.
+This prevents `.codal-backups` or other local artifacts from being interpreted as production test suites.
 
-Characteristics:
+## Clean install proof
 
-- native browser IndexedDB
-- no new external dependency
-- database name defaults to `velora-demo`
-- schema version starts at 1
-- one object store per repository data family
-- explicit unavailable/open/transaction failure behavior
+BUILD 01 closure executed:
 
-IndexedDB is browser-only.
+`npm ci --no-audit --no-fund`
 
-SSR and Node execution do not pretend IndexedDB exists.
+before the final complete quality gate.
 
-## Persistent repositories
+This proves package.json and package-lock.json can recreate the project dependencies from a clean install.
 
-Implemented:
+## Final quality evidence
 
-- PersistentProductCategoryRepository
-- PersistentProductRepository
-- PersistentProductVariantRepository
-- PersistentProductMediaRepository
-- PersistentInventoryRepository
-- PersistentInventoryMovementRepository
-- PersistentCartRepository
-- PersistentOrderRepository
-
-## Baseline plus overrides
-
-Catalog and Inventory use:
-
-```text
-immutable veloraSeed baseline
-+
-persistent override records
-=
-current repository view
-```
-
-The baseline is never mutated.
-
-Cart and Order do not have seed fallback.
-
-## Rehydration
-
-Records read from persistence are recreated through Domain factories.
-
-This restores:
-
-- validation
-- normalization
-- immutable Domain objects
-- Money and branded Value Objects
-
-## Browser composition
-
-`createBrowserRepositories` creates persistent repositories backed by IndexedDB.
-
-Application Use Cases remain unchanged because they depend on Domain Repository Contracts.
-
-## Reset
-
-`resetPersistentOverrides` clears persistent stores.
-
-After reset:
-
-- Catalog and Inventory fall back to the immutable seed
-- Cart becomes empty
-- Order becomes empty
-- appended persistent movements are removed
-- seed movement history remains
-
-## Quality Gate
-
-Latest evidence:
-
-- PASSO 22 targeted tests: 20/20
-- complete suite: 204/204
-- 24 test files passed
-- lint passed with PASSO 21 warning removed
+- PASSO 23 targeted tests: 11/11
+- complete suite: 215/215
+- 26 test files passed
+- lint passed
 - typecheck passed
 - production build passed
 - `/pt-BR` SSG passed
 - `/en` SSG passed
 - `/es` SSG passed
 - Proxy recognized
+- clean install passed
 - `npm run check` passed
 
 ## Decisions
 
-After PASSO 22:
+After BUILD 01 closure:
 
-`CODAL-DEC-001 -> CODAL-DEC-107`
+`CODAL-DEC-001 -> CODAL-DEC-115`
 
 Next available decision:
 
-`CODAL-DEC-108`
+`CODAL-DEC-116`
 
-## Next step
+## Next phase
 
-PASSO 23 - BUILD 01 Final Integration and Closure.
+BUILD 02 - Storefront and Design System
+
+First action:
+
+PASSO 24 - BUILD 02 Design System Foundation and Storefront Shell.

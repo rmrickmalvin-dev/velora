@@ -1,4 +1,13 @@
 export {
+  createVeloraApplication,
+  type ChangeOrderStatusInput,
+  type RemoveProductFromCartInput,
+  type UpdateCartQuantityInput,
+  type VeloraApplication,
+  type VeloraApplicationDependencies,
+} from "./create-velora-application";
+
+export {
   ApplicationError,
 } from "./errors/application-error";
 

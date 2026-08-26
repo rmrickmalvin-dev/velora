@@ -1,6 +1,10 @@
 # DOMAIN - VELORA
 
-Last update: 2026-08-25
+Last update: 2026-08-26
+
+## BUILD 01 status
+
+CLOSED AND VALIDATED
 
 ## Dependency direction
 
@@ -17,149 +21,118 @@ Domain
 Infrastructure
 ```
 
-## Persistence boundary
+## Stable Domain foundation
 
-Domain defines Repository Contracts.
+Implemented and validated:
 
-Application consumes Repository Contracts.
+- CurrencyCode
+- Money
+- SKU
+- Slug
+- ProductCategory
+- Product
+- ProductVariant
+- ProductMedia
+- Inventory
+- InventoryMovement
+- Cart
+- CartItem
+- Order
+- OrderItem
+- Cart Service
+- Inventory Service
+- Order Service
+- Repository Contracts
 
-Infrastructure implements Repository Contracts.
+## Application facade
 
-PASSO 22 adds persistent Infrastructure without changing Domain or Application contracts.
+`createVeloraApplication` binds Repository Contracts once and exposes a UI-ready orchestration surface.
 
-## PersistenceProvider
+The UI does not need to repeatedly inject repositories into every use-case call.
 
-Infrastructure-level storage operations:
+Available behavior includes:
 
-- get
-- getAll
-- put
-- add
-- delete
-- clear
+- Storefront Product listing
+- Storefront Product detail
+- Add to Cart
+- Cart quantity update
+- Cart removal
+- Cart summary
+- Inventory adjustment
+- Order status transition
+- Customer Order listing
 
-This abstraction is intentionally not a Domain contract.
+## Composition root
 
-It exists below repository implementations.
+Infrastructure owns concrete provider selection.
 
-## IndexedDbProvider
+`createVeloraRuntime(provider)` composes:
 
-Browser implementation using native IndexedDB.
+- persistent repositories
+- Application facade
+- demo reset
 
-Object stores:
+`createBrowserVeloraRuntime()` selects IndexedDbProvider for browser usage.
 
-- productCategories
-- products
-- productVariants
-- productMedia
-- inventory
-- inventoryMovements
-- carts
-- orders
-
-Default database:
-
-`velora-demo`
-
-Version:
-
-`1`
-
-No external IndexedDB package was introduced.
-
-## Runtime boundary
-
-IndexedDB is browser-only.
-
-If IndexedDB is unavailable, the provider fails explicitly with PersistenceError.
-
-No SSR fallback silently changes persistence semantics.
-
-## Persistent Repository strategy
-
-Catalog and Inventory use immutable baseline plus overrides.
+## Persistence model
 
 ```text
-veloraSeed
-   +
+Catalog / Inventory
+=
+immutable seed
++
 persistent overrides
-   =
-current read model
+
+Cart / Order
+=
+persistent runtime state
+
+InventoryMovement
+=
+seed baseline history
++
+persistent appended history
 ```
 
-Saving a seeded entity writes an override with the same id.
+## Rehydration
 
-The original seed remains untouched.
+Persistent records are recreated through Domain factories before leaving repository adapters.
 
-## Mutable commerce state
+This restores validation and immutable Domain objects.
 
-Cart:
+## Dependency regression tests
 
-- persistent record only
-- no seed baseline
-- may be deleted
+Automated BUILD 01 architecture tests protect:
 
-Order:
+Domain:
 
-- persistent record only
-- no seed baseline
-- no repository delete contract
+- no Application import
+- no Infrastructure import
+- no React import
+- no Next.js import
 
-InventoryMovement:
+Application:
 
-- seed history remains baseline
-- new persistent movements append after baseline history
-- duplicate movement ids are rejected
+- no Infrastructure import
+- no React import
+- no Next.js import
 
-## Domain rehydration
+## UI rule for BUILD 02
 
-Structured persistence removes JavaScript freeze state.
+Storefront components should call the Application facade.
 
-Therefore persistent reads are rehydrated through Domain factories.
+They should not:
 
-This restores:
+- access IndexedDB directly
+- access localStorage directly
+- instantiate repository adapters inside components
+- duplicate Domain rules
+- bypass Application orchestration
 
-- entity validation
-- immutable objects
-- SKU normalization
-- Slug rules
-- Money construction
-- nested CartItem and OrderItem invariants
+## BUILD 02 readiness
 
-## Composition
+The data and behavior foundation is ready for visual Storefront integration.
 
-`createPersistentRepositories(provider)` supports any Infrastructure provider implementing PersistenceProvider.
+Next milestone:
 
-`createBrowserRepositories()` selects IndexedDbProvider for browser composition.
-
-Application Use Cases continue to depend only on Domain Repository Contracts.
-
-## Reset semantics
-
-`resetPersistentOverrides(provider)` clears all persistent stores.
-
-After reset:
-
-- seed Catalog returns
-- seed Inventory returns
-- seed InventoryMovement history returns
-- Cart is empty
-- Order is empty
-
-## Test state
-
-PASSO 22 adds:
-
-- 6 provider behavior tests
-- 14 persistent repository tests
-
-Complete suite:
-
-- 24 test files
-- 204 tests
-- 204 passed
-- 0 failed
-
-## Next milestone
-
-PASSO 23 - BUILD 01 Final Integration and Closure.
+PASSO 24 - BUILD 02 Design System Foundation and Storefront Shell.

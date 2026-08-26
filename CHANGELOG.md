@@ -1287,3 +1287,110 @@ Next available decision:
 #### Next
 
 PASSO 23 - BUILD 01 Final Integration and Closure.
+---
+
+### PASSO 23 - BUILD 01 Final Integration and Closure
+
+Status: COMPLETED AND TECHNICALLY VALIDATED
+
+#### Added
+
+Application composition:
+
+- createVeloraApplication
+- VeloraApplication
+- VeloraApplicationDependencies
+
+Infrastructure composition:
+
+- createVeloraRuntime
+- createBrowserVeloraRuntime
+- VeloraRuntime
+- resetDemo binding
+
+Architecture validation:
+
+- Domain dependency boundary test
+- Application dependency boundary test
+
+Closure record:
+
+- docs/BUILD_01_CLOSURE.md
+
+#### Test discovery hardening
+
+Updated project test scripts:
+
+- `vitest run` -> `vitest run src`
+- `vitest` -> `vitest src`
+
+This prevents `.codal-backups` and other local artifacts from being discovered as project tests.
+
+#### Clean install proof
+
+Executed:
+
+- npm ci --no-audit --no-fund
+
+Then executed the complete quality gate.
+
+#### Final testing
+
+PASSO 23 targeted:
+
+- 2 test files passed
+- 11 tests passed
+- 0 tests failed
+
+Complete suite:
+
+- 26 test files passed
+- 215 tests passed
+- 0 tests failed
+
+#### Technical validation
+
+Passed:
+
+- Node v24.13.0
+- npm 11.6.2
+- .nvmrc 24.13.0
+- npm ci
+- npm run lint
+- npm run typecheck
+- npm run test
+- npm run build
+- npm run check
+- git diff --check
+
+#### Architecture
+
+Validated:
+
+- Domain does not import Application
+- Domain does not import Infrastructure
+- Domain does not import React
+- Domain does not import Next.js
+- Application does not import Infrastructure
+- Application does not import React
+- Application does not import Next.js
+
+#### Decisions
+
+Added:
+
+- CODAL-DEC-108 through CODAL-DEC-115
+
+Next available decision:
+
+- CODAL-DEC-116
+
+#### BUILD 01
+
+CLOSED AND VALIDATED
+
+#### Next
+
+BUILD 02 - Storefront and Design System
+
+PASSO 24 - Design System Foundation and Storefront Shell.

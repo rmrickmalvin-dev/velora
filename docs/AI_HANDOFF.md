@@ -1,112 +1,115 @@
 # AI HANDOFF - VELORA
 
-Last update: 2026-08-25
+Last update: 2026-08-26
 
 CODAL OS - Complete Edition active.
 
 ## State
 
-BUILD 01 - Foundation
+BUILD 01 - CLOSED AND VALIDATED
 
-Latest validated step:
+Next:
 
-PASSO 22 - IndexedDB Provider and Persistent Local Adapters
+BUILD 02 - Storefront and Design System
 
-## Persistent Infrastructure
+## Latest validated step
 
-Available:
+PASSO 23 - BUILD 01 Final Integration and Closure
 
-- PersistenceProvider
-- PersistenceError
-- MemoryPersistenceProvider
+## Application entry point
+
+Use:
+
+`createVeloraApplication`
+
+for provider-independent Application composition.
+
+## Infrastructure entry point
+
+Browser composition:
+
+`createBrowserVeloraRuntime`
+
+Provider-controlled composition:
+
+`createVeloraRuntime`
+
+## UI dependency rule
+
+BUILD 02 UI should consume `runtime.application`.
+
+Do not make UI components depend directly on:
+
 - IndexedDbProvider
-- PersistentProductCategoryRepository
-- PersistentProductRepository
-- PersistentProductVariantRepository
-- PersistentProductMediaRepository
-- PersistentInventoryRepository
-- PersistentInventoryMovementRepository
-- PersistentCartRepository
-- PersistentOrderRepository
-- createPersistentRepositories
-- createBrowserRepositories
-- resetPersistentOverrides
+- PersistenceProvider
+- persistent repository classes
+- local repository classes
+- localStorage
 
-## Browser persistence
-
-`createBrowserRepositories()` selects native IndexedDB.
-
-Default database:
-
-`velora-demo`
-
-IndexedDB is browser-only.
-
-Do not call browser composition during SSR.
-
-## Baseline rule
-
-Catalog and Inventory:
+## Runtime structure
 
 ```text
-veloraSeed + persisted overrides
+runtime.application
+runtime.repositories
+runtime.resetDemo
 ```
 
-Cart and Order:
+Normal Storefront UI behavior should use `runtime.application`.
+
+`runtime.repositories` exists for Infrastructure composition and future privileged workflows, not routine component data access.
+
+## Test discovery
+
+The package scripts now scope Vitest to `src`.
+
+Do not place executable project tests inside `.codal-backups`.
+
+## Final BUILD 01 quality evidence
 
 ```text
-persisted runtime state only
-```
-
-InventoryMovement:
-
-```text
-seed baseline history + persisted appended history
-```
-
-## Rehydration rule
-
-Never trust raw persisted objects as final Domain objects.
-
-Persistent repositories must rehydrate through Domain factories.
-
-## Dependency rule
-
-Application must not import IndexedDbProvider or concrete persistent repositories.
-
-UI/composition chooses the Infrastructure adapter.
-
-## Quality Gate
-
-Latest evidence:
-
-```text
-PASSO 22 targeted: 20/20
-Full suite:         204/204
-Test files:         24/24
+PASSO 23 targeted: 11/11
+Full suite:         215/215
+Test files:         26/26
+clean install:      passed
 lint:               passed
 typecheck:          passed
 build:              passed
 check:              passed
 ```
 
-PASSO 21 unused-import lint warning was removed.
-
 ## Decisions
 
-After PASSO 22:
+After BUILD 01:
 
-`CODAL-DEC-001 -> CODAL-DEC-107`
+`CODAL-DEC-001 -> CODAL-DEC-115`
 
 Next:
 
-`CODAL-DEC-108`
+`CODAL-DEC-116`
 
 ## Next action
 
-PASSO 23 - BUILD 01 Final Integration and Closure.
+PASSO 24 - BUILD 02 Design System Foundation and Storefront Shell.
 
-The next step should verify composition, reproducibility and official BUILD 01 readiness before entering BUILD 02 Storefront and Design System.
+BUILD 02 should begin visual work now.
+
+Start with:
+
+- Pearl Technology visual tokens
+- typography
+- spacing
+- radius
+- shadows
+- borders
+- button primitives
+- input primitives
+- badges
+- cards
+- Storefront navigation shell
+- responsive page shell
+- locale-safe navigation
+
+Do not reopen BUILD 01 architecture without evidence of a defect.
 
 ## Reading order
 
@@ -115,4 +118,5 @@ The next step should verify composition, reproducibility and official BUILD 01 r
 3. docs/DOMAIN.md
 4. docs/QUALITY_STATE.md
 5. docs/STACK.md
-6. CHANGELOG.md
+6. docs/BUILD_01_CLOSURE.md
+7. CHANGELOG.md

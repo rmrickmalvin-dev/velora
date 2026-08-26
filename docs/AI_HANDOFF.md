@@ -14,64 +14,61 @@ BUILD 03 - IN PROGRESS
 
 Latest validated step:
 
-PASSO 29 - Browser Runtime, Cart Experience State and Add-to-Cart Integration
+PASSO 30 - Cart Drawer, Quantity Controls and Persistent Cart Review
 
-## Browser commerce composition
+## Cart Drawer
 
-Client components may use:
+Trigger:
 
-`getBrowserCartExperience`
+`CartIndicator`
 
-They must not import:
+Surface:
 
-- IndexedDbProvider
-- PersistenceProvider
-- concrete persistent repositories
+`CartDrawer`
 
-## Cart id
+Feature adapter:
 
-Stable:
+`CartExperience`
 
-`velora-demo-cart`
+## CartExperience operations
 
-## Add-to-cart
+Available:
 
-Product detail now activates the existing Application addProductToCart use case.
+- load
+- add
+- update
+- remove
 
-Do not duplicate merge or Inventory validation rules in React.
+Do not call Application Cart methods directly from Cart UI components.
 
-## Cart indicator
+## Cart line display
 
-Visible on:
+Cart line Product name and SKU are enriched from Application Storefront queries.
 
-- Storefront home
-- category page
-- Product detail
+Do not move Product display snapshots into Cart Domain.
 
-It reloads persisted Cart state on mount.
-
-Same-page mutations emit:
-
-`velora:cart-changed`
+OrderItem remains the commercial snapshot entity.
 
 ## Persistence
 
-IndexedDB remains selected by:
+Browser Cart persistence remains IndexedDB through createBrowserVeloraRuntime.
 
-`createBrowserVeloraRuntime`
-
-Do not move persistence into UI components.
+Do not add localStorage Cart persistence.
 
 ## Inventory
 
-Adding to Cart must not mutate Inventory.
+Add, update and remove Cart operations do not mutate Inventory.
+
+## Checkout boundary
+
+No real checkout or payment exists yet.
 
 ## Quality Gate
 
 ```text
-PASSO 29 targeted: 22/22
-Full suite:         319/319
-Test files:         41/41
+PASSO 30 targeted: 30/30
+Full suite:         335/335
+Test files:         42/42
 lint:               passed
 typecheck:          passed
 build:              passed
@@ -80,25 +77,24 @@ check:              passed
 
 ## Decisions
 
-After PASSO 29:
+After PASSO 30:
 
-`CODAL-DEC-001 -> CODAL-DEC-162`
+`CODAL-DEC-001 -> CODAL-DEC-170`
 
 Next:
 
-`CODAL-DEC-163`
+`CODAL-DEC-171`
 
 ## Next action
 
-PASSO 30 - Cart Drawer, Quantity Controls and Persistent Cart Review.
+PASSO 31 - Demo Checkout Foundation, Cart Validation and Conversion Journey.
 
 Focus:
 
-- accessible Cart surface
-- line-item review
-- quantity update
-- remove item
-- subtotal
-- empty state
-- persistent reload
-- no checkout/payment yet
+- demo checkout route/surface
+- Cart review handoff
+- contact/delivery form
+- Zod validation if already available
+- no real payment
+- clear demo wording
+- Order preparation without false security claims

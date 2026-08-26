@@ -6,63 +6,54 @@ Last update: 2026-08-26
 
 IN PROGRESS
 
-## Browser Cart boundary
+## Cart review boundary
 
-UI components do not select persistence providers.
+Cart Drawer is a UI surface.
 
-They call:
+It does not own Cart business rules.
 
-`browser-cart-runtime`
+Mutations flow through:
 
-which lazily selects:
+`CartExperience`
 
-`createBrowserVeloraRuntime`
+then:
 
-The Infrastructure composition root remains the only browser persistence selection point.
+`VeloraApplication`
 
-## Cart Experience
+then existing Domain services.
 
-Feature layer:
+## Cart line enrichment
 
-`createCartExperience`
+Cart Domain entities preserve purchase intent.
 
-Responsibilities:
+Presentation display metadata such as Product name and SKU is joined from Application Storefront data.
 
-- load Cart summary through Application
-- add one Product Variant through Application
-- transform Application summary into UI experience snapshot
+This avoids moving Product display snapshots into the mutable Cart Domain.
 
-It does not duplicate Cart merge rules.
+OrderItem remains the layer that owns commercial snapshots for placed orders.
 
-## Stable Cart identity
+## Quantity update
 
-Demo Cart:
+UI sends:
 
-`velora-demo-cart`
+- cartItemId
+- productVariantId
+- quantity
 
-Deterministic Cart item id:
+Feature adapter forwards the operation to the existing Application update use case.
 
-`cart-item-{productVariantId}`
+Domain/Application remain authoritative for valid Cart transitions.
 
-The existing Application/Domain Cart behavior remains authoritative.
+## Removal
 
-## Inventory boundary
+Removal uses the same Feature/Application path.
 
-Add-to-cart:
+UI does not edit persisted records directly.
 
-- validates Inventory availability
-- does not decrement Inventory
-- does not append InventoryMovement
-- does not reserve stock
+## Inventory
 
-## Browser event
-
-`velora:cart-changed`
-
-is a same-document Presentation synchronization signal.
-
-It is not persistence and does not replace repository state.
+Cart quantity operations do not mutate Inventory.
 
 ## Next milestone
 
-PASSO 30 - Cart Drawer, Quantity Controls and Persistent Cart Review.
+PASSO 31 - Demo Checkout Foundation, Cart Validation and Conversion Journey.

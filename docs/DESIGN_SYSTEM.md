@@ -298,3 +298,27 @@ Add-to-cart:
 - localized live feedback
 
 Commerce feedback should be clear without introducing aggressive sales styling.
+## Cart Drawer
+
+PASSO 30 expands the compact Cart indicator into a persistent review drawer.
+
+Visual rules:
+
+- right-side panel on desktop
+- full-width panel on narrow mobile
+- pearl background
+- Ink commercial hierarchy
+- gold reserved for technical accents
+- destructive remove action uses semantic danger token
+- quantity controls remain compact and circular
+- subtotal remains fixed in the drawer footer
+
+Accessibility rules:
+
+- dialog semantics
+- modal intent
+- Escape close
+- explicit close control
+- visible focus
+- reduced-motion fallback
+- body scroll lock only while the drawer is open

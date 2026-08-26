@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  useCallback,
   useEffect,
   useState,
 } from "react";
@@ -15,6 +16,10 @@ import {
   getBrowserCartExperience,
   subscribeBrowserCartChanged,
 } from "../../features/cart/browser-cart-runtime";
+
+import {
+  CartDrawer,
+} from "./cart-drawer";
 
 import styles from "./cart-indicator.module.css";
 
@@ -37,73 +42,96 @@ export function CartIndicator({
     setCount,
   ] = useState(0);
 
+  const [
+    open,
+    setOpen,
+  ] = useState(false);
+
+  const refresh =
+    useCallback(
+      () => {
+        void getBrowserCartExperience()
+          .load()
+          .then(
+            (snapshot) => {
+              setCount(
+                snapshot.totalItems,
+              );
+            },
+          )
+          .catch(
+            () => {
+              setCount(0);
+            },
+          );
+      },
+      [],
+    );
+
   useEffect(
     () => {
-      let active = true;
+      queueMicrotask(
+        refresh,
+      );
 
-      const load =
-        () => {
-          void getBrowserCartExperience()
-            .load()
-            .then(
-              (snapshot) => {
-                if (active) {
-                  setCount(
-                    snapshot.totalItems,
-                  );
-                }
-              },
-            )
-            .catch(
-              () => {
-                if (active) {
-                  setCount(0);
-                }
-              },
-            );
-        };
-
-      queueMicrotask(load);
-
-      const unsubscribe =
-        subscribeBrowserCartChanged(
-          load,
-        );
-
-      return () => {
-        active = false;
-        unsubscribe();
-      };
+      return subscribeBrowserCartChanged(
+        refresh,
+      );
     },
-    [],
+    [
+      refresh,
+    ],
   );
 
   return (
-    <span
-      className={styles.root}
-      aria-live="polite"
-      aria-label={
-        `${copy.cartLabel}: ${count}`
-      }
-      title={
-        count === 0
-          ? copy.emptyCart
-          : copy.cartLabel
-      }
-    >
-      <span
-        aria-hidden="true"
-        className={
-          styles.label
+    <>
+      <button
+        type="button"
+        className={styles.root}
+        aria-live="polite"
+        aria-haspopup="dialog"
+        aria-expanded={
+          open
+        }
+        aria-label={
+          `${copy.cartLabel}: ${count}`
+        }
+        title={
+          count === 0
+            ? copy.emptyCart
+            : copy.cartLabel
+        }
+        onClick={
+          () => {
+            setOpen(true);
+          }
         }
       >
-        {
-          copy.cartLabel
+        <span
+          aria-hidden="true"
+          className={
+            styles.label
+          }
+        >
+          {
+            copy.cartLabel
+          }
+        </span>
+
+        <strong>
+          {count}
+        </strong>
+      </button>
+
+      <CartDrawer
+        locale={locale}
+        open={open}
+        onClose={
+          () => {
+            setOpen(false);
+          }
         }
-      </span>
-      <strong>
-        {count}
-      </strong>
-    </span>
+      />
+    </>
   );
 }

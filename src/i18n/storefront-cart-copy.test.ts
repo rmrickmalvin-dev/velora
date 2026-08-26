@@ -64,5 +64,59 @@ describe(
         "No disponible",
       );
     });
+
+    it("provides a localized Cart drawer title", () => {
+      expect(
+        getStorefrontCartCopy(
+          "en",
+        ).drawerTitle,
+      ).toBe(
+        "Your cart",
+      );
+    });
+
+    it("provides localized quantity controls", () => {
+      const copy =
+        getStorefrontCartCopy(
+          "pt-BR",
+        );
+
+      expect(
+        copy.decrease,
+      ).toContain(
+        "Diminuir",
+      );
+
+      expect(
+        copy.increase,
+      ).toContain(
+        "Aumentar",
+      );
+    });
+
+    it("provides a localized remove action", () => {
+      expect(
+        getStorefrontCartCopy(
+          "es",
+        ).remove,
+      ).toBe(
+        "Eliminar",
+      );
+    });
+
+    it("provides singular and plural item nouns", () => {
+      const copy =
+        getStorefrontCartCopy(
+          "en",
+        );
+
+      expect(
+        copy.itemSingular,
+      ).toBe("item");
+
+      expect(
+        copy.itemPlural,
+      ).toBe("items");
+    });
   },
 );

@@ -20,121 +20,121 @@ CLOSED AND VALIDATED
 
 ## Latest validated step
 
-PASSO 29 - Browser Runtime, Cart Experience State and Add-to-Cart Integration
+PASSO 30 - Cart Drawer, Quantity Controls and Persistent Cart Review
 
-## Commerce activation
+## Cart review surface
 
-The first browser-persistent commerce mutation is now active.
+The persistent Cart is now reviewable from all existing Cart indicators.
 
-Product detail can add an available Product Variant to the demo Cart.
+Cart indicator opens an accessible side drawer.
 
-## Browser composition
+## Cart Drawer
 
-Browser Cart flow:
+Available:
 
-```text
-Client Component
-|
-v
-browser-cart-runtime
-|
-v
-createBrowserVeloraRuntime
-|
-v
-VeloraApplication
-|
-v
-Persistent Repositories
-|
-v
-IndexedDB
-```
+- persisted Cart reload
+- Product name
+- SKU
+- line quantity
+- line total
+- subtotal
+- increase quantity
+- decrease quantity
+- remove line
+- empty state
+- loading state
+- Escape close
+- backdrop close
+- focus on close control
+- body scroll lock while open
 
-Components do not import IndexedDB or concrete persistence providers.
+## Cart Feature model
 
-## Cart identity
-
-Stable demo Cart id:
-
-`velora-demo-cart`
-
-Cart item ids are deterministic per Product Variant:
-
-`cart-item-{productVariantId}`
-
-Repeated add on the same Variant therefore follows the existing Application merge behavior.
-
-## Cart experience snapshot
-
-UI reads a Presentation/Feature snapshot:
+CartExperienceSnapshot now includes:
 
 - totalItems
 - lineCount
 - subtotalMinorUnits
 - currency
+- lines
 
-Cart indicator count is the sum of Cart item quantities, not only line count.
+Each line includes:
 
-## Storefront integration
+- cartItemId
+- productVariantId
+- productName
+- SKU
+- quantity
+- unit price
+- currency
 
-Cart indicator is visible in:
+Product/SKU display metadata is enriched through Application Storefront data.
 
-- Home
-- Category
-- Product detail
+## Quantity mutation
 
-Product detail additionally provides:
+Quantity changes continue through:
 
-- add-to-cart button per active Variant
-- loading state
-- unavailable state
-- localized success feedback
-- localized error feedback
+```text
+Cart Drawer
+|
+v
+Browser Cart Experience
+|
+v
+VeloraApplication
+|
+v
+Domain Cart rules
+|
+v
+Persistent Repository
+```
+
+The Drawer does not call Application use cases directly.
 
 ## Persistence
 
-The browser runtime uses the already-validated IndexedDB Infrastructure composition.
+Cart quantity and removal changes persist through the same browser IndexedDB composition established in PASSO 29.
 
-Cart state is loaded again when route components mount after navigation/reload.
+Runtime recreation with the same provider preserves:
 
-A same-document `velora:cart-changed` browser event refreshes visible Cart indicators after mutation.
+- added lines
+- updated quantities
 
-The event is UI synchronization only.
+## Inventory
 
-Persistence remains IndexedDB.
+Cart quantity changes do not mutate Inventory.
 
-## Inventory rule
+No stock reservation occurs.
 
-Add-to-cart validates available Inventory through Application but does not mutate Inventory.
+## Checkout boundary
 
-Reservation/decrement remains outside this step.
+PASSO 30 is Cart review only.
+
+Checkout and payment remain deferred.
 
 ## Quality Gate
 
 Latest evidence:
 
-- PASSO 29 targeted tests: 22/22
-- complete suite: 319/319
-- 41 test files passed
+- PASSO 30 targeted tests: 30/30
+- complete suite: 335/335
+- 42 test files passed
 - lint passed
 - typecheck passed
 - production build passed
-- Storefront SSG passed
-- Category SSG passed
-- Product SSG passed
 - `npm run check` passed
 
 ## Decisions
 
-After PASSO 29:
+After PASSO 30:
 
-`CODAL-DEC-001 -> CODAL-DEC-162`
+`CODAL-DEC-001 -> CODAL-DEC-170`
 
 Next available decision:
 
-`CODAL-DEC-163`
+`CODAL-DEC-171`
 
 ## Next step
 
-PASSO 30 - Cart Drawer, Quantity Controls and Persistent Cart Review.
+PASSO 31 - Demo Checkout Foundation, Cart Validation and Conversion Journey.

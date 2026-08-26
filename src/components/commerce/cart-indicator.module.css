@@ -7,11 +7,31 @@
     0.8rem;
   display: inline-flex;
   align-items: center;
-  gap: var(--velora-space-2);
-  border: 1px solid var(--velora-border);
-  border-radius: var(--velora-radius-pill);
-  color: var(--velora-ink-700);
-  background: rgba(255, 255, 255, 0.5);
+  gap:
+    var(--velora-space-2);
+  border:
+    1px solid
+    var(--velora-border);
+  border-radius:
+    var(--velora-radius-pill);
+  cursor: pointer;
+  color:
+    var(--velora-ink-700);
+  background:
+    rgba(255, 255, 255, 0.5);
+  transition:
+    border-color
+    var(--velora-transition-fast),
+    background
+    var(--velora-transition-fast);
+}
+
+.root:hover,
+.root:focus-visible {
+  border-color:
+    var(--velora-gold-500);
+  background:
+    var(--velora-surface-strong);
 }
 
 .label {
@@ -24,9 +44,12 @@
   display: grid;
   place-items: center;
   border-radius: 50%;
-  color: var(--velora-pearl-0);
-  background: var(--velora-ink-900);
-  font-family: var(--velora-font-mono);
+  color:
+    var(--velora-pearl-0);
+  background:
+    var(--velora-ink-900);
+  font-family:
+    var(--velora-font-mono);
   font-size: 0.68rem;
 }
 
@@ -36,7 +59,8 @@
     width: 1px;
     height: 1px;
     overflow: hidden;
-    clip: rect(0, 0, 0, 0);
+    clip:
+      rect(0, 0, 0, 0);
     white-space: nowrap;
   }
 

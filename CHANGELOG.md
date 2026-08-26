@@ -1954,3 +1954,83 @@ Next available decision:
 #### Next
 
 PASSO 30 - Cart Drawer, Quantity Controls and Persistent Cart Review.
+---
+
+### PASSO 30 - Cart Drawer, Quantity Controls and Persistent Cart Review
+
+Status: COMPLETED AND TECHNICALLY VALIDATED
+
+#### Added - Cart review
+
+- CartDrawer
+- persistent Cart line review
+- Product name
+- SKU
+- line quantity
+- line total
+- subtotal
+- empty state
+- loading state
+
+#### Added - Cart mutation
+
+- increase quantity
+- decrease quantity
+- remove line
+
+All mutations flow through CartExperience and VeloraApplication.
+
+#### Accessibility
+
+- modal dialog semantics
+- Escape close
+- backdrop close
+- focus entry
+- body scroll lock
+- reduced-motion support
+
+#### Persistence
+
+Updated quantities survive runtime recreation with the same persistence provider.
+
+#### Inventory
+
+Cart quantity operations do not mutate Inventory.
+
+#### Testing
+
+PASSO 30 targeted:
+
+- 3 test files passed
+- 30 tests passed
+- 0 failed
+
+Complete suite:
+
+- 42 test files passed
+- 335 tests passed
+- 0 failed
+
+#### Technical Validation
+
+Passed:
+
+- npm run lint
+- npm run typecheck
+- npm run test
+- npm run build
+- npm run check
+
+#### Decisions
+
+Added:
+
+- CODAL-DEC-163 through CODAL-DEC-170
+
+Next available decision:
+
+- CODAL-DEC-171
+
+#### Next
+
+PASSO 31 - Demo Checkout Foundation, Cart Validation and Conversion Journey.

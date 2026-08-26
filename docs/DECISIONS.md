@@ -190,6 +190,14 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-160 | ACEITA | Product detail is the first BUILD 03 surface allowed to mutate Cart state | Introduce commerce interaction at the point of explicit Variant choice |
 | CODAL-DEC-161 | ACEITA | Add-to-cart may validate Inventory availability but never decrement, reserve or append Inventory movements | Preserve Inventory mutation boundaries until order/checkout semantics require them |
 | CODAL-DEC-162 | ACEITA | PASSO 29 exposes Cart indicators across Home, Category and Product journeys but defers full Cart review and quantity management to PASSO 30 | Activate persistent commerce state without overloading the first BUILD 03 unit |
+| CODAL-DEC-171 | ACEITA | CartIndicator is the global trigger for one accessible Cart Drawer surface across Storefront journeys | Keep Cart review consistent without introducing route-specific Cart implementations |
+| CODAL-DEC-164 | ACEITA | CartExperienceSnapshot exposes review lines enriched with Product name and SKU from Application Storefront data | Keep display metadata outside mutable Cart Domain while avoiding UI repository access |
+| CODAL-DEC-165 | ACEITA | Cart quantity update and removal are exposed only through CartExperience before reaching VeloraApplication | Prevent React components from duplicating Application orchestration |
+| CODAL-DEC-166 | ACEITA | Quantity decrement stops at one and explicit removal remains a separate destructive action | Make Cart intent clear and avoid accidental deletion through the decrement control |
+| CODAL-DEC-167 | ACEITA | Cart Drawer subtotal is derived from Application Cart summary and line totals are derived from immutable Cart unit price times quantity | Keep commercial display consistent with Cart Domain pricing |
+| CODAL-DEC-168 | ACEITA | Cart Drawer uses modal dialog semantics, Escape close, backdrop close, focus entry and temporary body scroll lock | Make persistent Cart review usable with keyboard and compact viewports |
+| CODAL-DEC-169 | ACEITA | Cart quantity and removal mutations continue to leave Inventory unchanged | Preserve the no-reservation rule until checkout/order semantics explicitly require stock mutation |
+| CODAL-DEC-170 | ACEITA | PASSO 30 completes persistent Cart review but defers checkout and payment behavior to the next verifiable BUILD 03 unit | Keep Commerce Interaction incremental and auditable |
 
 ## Decisões por área
 
@@ -283,7 +291,7 @@ Uma IA ou desenvolvedor que continuar a VELORA deve:
 - não substituir decisões ACEITAS silenciosamente;
 - verificar se uma nova implementação contradiz alguma decisão existente;
 - registrar novas decisões com numeração sequencial;
-- utilizar o próximo número disponível após CODAL-DEC-162;
+- utilizar o próximo número disponível após CODAL-DEC-170;
 - preservar decisões históricas mesmo quando forem superadas.
 
 ## Próxima decisão disponível

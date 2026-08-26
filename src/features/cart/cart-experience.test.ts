@@ -24,19 +24,17 @@ describe(
           new MemoryPersistenceProvider(),
         );
 
-      const cart =
-        createCartExperience(
-          runtime.application,
-        );
-
       expect(
-        await cart.load(),
+        await createCartExperience(
+          runtime.application,
+        ).load(),
       ).toEqual({
         totalItems: 0,
         lineCount: 0,
         subtotalMinorUnits:
           null,
         currency: null,
+        lines: [],
       });
     });
 
@@ -120,6 +118,34 @@ describe(
       ).toBe(2);
     });
 
+    it("enriches Cart lines from Storefront Application data", async () => {
+      const runtime =
+        createVeloraRuntime(
+          new MemoryPersistenceProvider(),
+        );
+
+      const snapshot =
+        await createCartExperience(
+          runtime.application,
+        ).add(
+          "variant-aster-xp-256-graphite",
+        );
+
+      expect(
+        snapshot.lines[0]
+          .productName,
+      ).toBe(
+        "Aster One X Pro",
+      );
+
+      expect(
+        snapshot.lines[0]
+          .sku,
+      ).toBe(
+        "VEL-ASTER-XP-256-GRA",
+      );
+    });
+
     it("derives subtotal from the Application Cart summary", async () => {
       const runtime =
         createVeloraRuntime(
@@ -140,6 +166,76 @@ describe(
       expect(
         snapshot.currency,
       ).toBe("BRL");
+    });
+
+    it("updates a Cart line quantity through Application", async () => {
+      const runtime =
+        createVeloraRuntime(
+          new MemoryPersistenceProvider(),
+        );
+
+      const cart =
+        createCartExperience(
+          runtime.application,
+        );
+
+      const added =
+        await cart.add(
+          "variant-aster-xp-256-graphite",
+        );
+
+      const line =
+        added.lines[0];
+
+      const updated =
+        await cart.update(
+          line.cartItemId,
+          line.productVariantId,
+          3,
+        );
+
+      expect(
+        updated.totalItems,
+      ).toBe(3);
+
+      expect(
+        updated.lines[0]
+          .quantity,
+      ).toBe(3);
+    });
+
+    it("removes a Cart line through Application", async () => {
+      const runtime =
+        createVeloraRuntime(
+          new MemoryPersistenceProvider(),
+        );
+
+      const cart =
+        createCartExperience(
+          runtime.application,
+        );
+
+      const added =
+        await cart.add(
+          "variant-aster-air-128-sky",
+        );
+
+      const line =
+        added.lines[0];
+
+      const removed =
+        await cart.remove(
+          line.cartItemId,
+          line.productVariantId,
+        );
+
+      expect(
+        removed.totalItems,
+      ).toBe(0);
+
+      expect(
+        removed.lines,
+      ).toEqual([]);
     });
 
     it("preserves Cart state across runtime recreation with the same provider", async () => {
@@ -171,7 +267,48 @@ describe(
       ).toBe(1);
     });
 
-    it("does not mutate Inventory when adding to Cart", async () => {
+    it("preserves updated quantities across runtime recreation", async () => {
+      const provider =
+        new MemoryPersistenceProvider();
+
+      const first =
+        createVeloraRuntime(
+          provider,
+        );
+
+      const cart =
+        createCartExperience(
+          first.application,
+        );
+
+      const added =
+        await cart.add(
+          "variant-aster-air-128-sky",
+        );
+
+      await cart.update(
+        added.lines[0]
+          .cartItemId,
+        added.lines[0]
+          .productVariantId,
+        2,
+      );
+
+      const second =
+        createVeloraRuntime(
+          provider,
+        );
+
+      expect(
+        (
+          await createCartExperience(
+            second.application,
+          ).load()
+        ).totalItems,
+      ).toBe(2);
+    });
+
+    it("does not mutate Inventory when changing Cart quantity", async () => {
       const runtime =
         createVeloraRuntime(
           new MemoryPersistenceProvider(),
@@ -184,10 +321,22 @@ describe(
             "variant-aster-air-128-sky",
           );
 
-      await createCartExperience(
-        runtime.application,
-      ).add(
-        "variant-aster-air-128-sky",
+      const cart =
+        createCartExperience(
+          runtime.application,
+        );
+
+      const added =
+        await cart.add(
+          "variant-aster-air-128-sky",
+        );
+
+      await cart.update(
+        added.lines[0]
+          .cartItemId,
+        added.lines[0]
+          .productVariantId,
+        2,
       );
 
       const after =

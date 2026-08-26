@@ -14,52 +14,57 @@ CLOSED AND VALIDATED
 
 IN PROGRESS
 
-## PASSO 29 - Browser Cart
+## PASSO 30 - Cart Drawer
 
-- [x] lazy browser runtime
-- [x] client-safe browser guard
-- [x] Infrastructure composition root selection
-- [x] no direct IndexedDB import from Cart components
-- [x] no localStorage Domain persistence
-- [x] stable demo Cart id
-- [x] deterministic Cart item id per Variant
-- [x] Cart snapshot model
-- [x] total quantity count
-- [x] persistent runtime recreation test
-- [x] Inventory unchanged by add-to-cart
-- [x] same-document Cart change event
+- [x] accessible dialog semantics
+- [x] aria-modal
+- [x] Cart trigger exposes dialog intent
+- [x] Escape closes
+- [x] backdrop closes
+- [x] close control receives focus
+- [x] body scroll locked only while open
+- [x] reduced-motion drawer behavior
+- [x] empty state
+- [x] loading state
 
-## PASSO 29 - UI
+## PASSO 30 - Cart review
 
-- [x] localized Cart copy
-- [x] Home Cart indicator
-- [x] Category Cart indicator
-- [x] Product Cart indicator
-- [x] Product Variant add-to-cart
-- [x] adding state
-- [x] success feedback
-- [x] error feedback
-- [x] unavailable state
-- [x] aria-live Cart indicator
-- [x] role=status mutation feedback
+- [x] Product name
+- [x] SKU
+- [x] line quantity
+- [x] line total
+- [x] subtotal
+- [x] total item count
+- [x] increase quantity
+- [x] decrease quantity
+- [x] remove line
+- [x] Application-enriched line metadata
 
-## PASSO 29 Test Evidence
+## PASSO 30 - Persistence boundaries
+
+- [x] update through Browser Cart Experience
+- [x] remove through Browser Cart Experience
+- [x] no direct IndexedDB UI access
+- [x] persisted quantity recreation test
+- [x] Inventory unchanged by quantity update
+
+## PASSO 30 Test Evidence
 
 Targeted:
 
 ```text
 3 test files
-22 tests
-22 passed
+30 tests
+30 passed
 0 failed
 ```
 
 Complete suite:
 
 ```text
-41 test files
-319 tests
-319 passed
+42 test files
+335 tests
+335 passed
 0 failed
 ```
 
@@ -73,4 +78,4 @@ Complete suite:
 
 ## Next Quality Gate
 
-PASSO 30 - Cart Drawer, Quantity Controls and Persistent Cart Review.
+PASSO 31 - Demo Checkout Foundation, Cart Validation and Conversion Journey.

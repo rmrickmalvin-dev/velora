@@ -1,0 +1,313 @@
+.layer {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  border: 0;
+  cursor: default;
+  background: rgba(23, 23, 20, 0.36);
+  backdrop-filter: blur(4px);
+}
+
+.drawer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: min(31rem, 100%);
+  height: 100%;
+  display: grid;
+  grid-template-rows:
+    auto 1fr auto;
+  border-left:
+    1px solid
+    var(--velora-border);
+  background:
+    var(--velora-pearl-50);
+  box-shadow:
+    -2rem 0 5rem
+    rgba(23, 23, 20, 0.16);
+  animation:
+    veloraCartDrawerIn
+    220ms
+    ease-out;
+}
+
+.header {
+  padding:
+    var(--velora-space-6);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap:
+    var(--velora-space-4);
+  border-bottom:
+    1px solid
+    var(--velora-border);
+}
+
+.header p {
+  margin: 0 0
+    var(--velora-space-2);
+  color:
+    var(--velora-gold-700);
+  font-family:
+    var(--velora-font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+}
+
+.header h2 {
+  margin: 0;
+  font-size: 1.8rem;
+  letter-spacing: -0.04em;
+}
+
+.header span {
+  display: block;
+  margin-top:
+    var(--velora-space-2);
+  color:
+    var(--velora-ink-500);
+  font-size: 0.75rem;
+}
+
+.close {
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  display: grid;
+  place-items: center;
+  border:
+    1px solid
+    var(--velora-border);
+  border-radius: 50%;
+  cursor: pointer;
+  color:
+    var(--velora-ink-800);
+  background:
+    var(--velora-surface-strong);
+  font-size: 1.4rem;
+}
+
+.content {
+  min-height: 0;
+  overflow-y: auto;
+  padding:
+    var(--velora-space-5);
+}
+
+.loading,
+.empty {
+  color:
+    var(--velora-ink-600);
+}
+
+.empty {
+  min-height: 20rem;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  text-align: center;
+}
+
+.empty span {
+  color:
+    var(--velora-gold-700);
+  font-family:
+    var(--velora-font-mono);
+  font-size: 0.7rem;
+}
+
+.empty h3 {
+  margin:
+    var(--velora-space-4)
+    0
+    var(--velora-space-2);
+}
+
+.empty p {
+  max-width: 22rem;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.lines {
+  display: grid;
+  gap:
+    var(--velora-space-4);
+}
+
+.line {
+  padding:
+    var(--velora-space-5);
+  border:
+    1px solid
+    var(--velora-border);
+  border-radius:
+    var(--velora-radius-lg);
+  background:
+    var(--velora-surface-strong);
+  box-shadow:
+    var(--velora-shadow-sm);
+}
+
+.lineHeading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap:
+    var(--velora-space-4);
+}
+
+.lineHeading > div {
+  min-width: 0;
+}
+
+.lineHeading h3 {
+  margin:
+    var(--velora-space-2)
+    0
+    0;
+  font-size: 1rem;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.lineHeading strong {
+  flex: 0 0 auto;
+  font-size: 0.9rem;
+}
+
+.sku {
+  color:
+    var(--velora-ink-500);
+  font-family:
+    var(--velora-font-mono);
+  font-size: 0.62rem;
+}
+
+.lineActions {
+  margin-top:
+    var(--velora-space-5);
+  padding-top:
+    var(--velora-space-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap:
+    var(--velora-space-4);
+  border-top:
+    1px solid
+    var(--velora-border);
+}
+
+.quantity {
+  display: inline-flex;
+  align-items: center;
+  gap:
+    var(--velora-space-2);
+}
+
+.quantity button {
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  border:
+    1px solid
+    var(--velora-border);
+  border-radius: 50%;
+  cursor: pointer;
+  background:
+    var(--velora-pearl-0);
+}
+
+.quantity button:disabled,
+.remove:disabled {
+  cursor: not-allowed;
+  opacity: 0.42;
+}
+
+.quantity span {
+  min-width: 2rem;
+  text-align: center;
+  font-family:
+    var(--velora-font-mono);
+  font-size: 0.78rem;
+}
+
+.remove {
+  min-height: 2.5rem;
+  padding:
+    0
+    var(--velora-space-3);
+  border: 0;
+  cursor: pointer;
+  color:
+    var(--velora-danger);
+  background: transparent;
+  font-size: 0.74rem;
+  font-weight: 700;
+}
+
+.footer {
+  padding:
+    var(--velora-space-5)
+    var(--velora-space-6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap:
+    var(--velora-space-4);
+  border-top:
+    1px solid
+    var(--velora-border);
+  background:
+    var(--velora-surface-strong);
+}
+
+.footer span {
+  color:
+    var(--velora-ink-600);
+  font-size: 0.78rem;
+}
+
+.footer strong {
+  font-size: 1.3rem;
+  letter-spacing: -0.03em;
+}
+
+@keyframes veloraCartDrawerIn {
+  from {
+    transform:
+      translateX(100%);
+  }
+
+  to {
+    transform:
+      translateX(0);
+  }
+}
+
+@media (max-width: 44rem) {
+  .drawer {
+    width: 100%;
+  }
+
+  .header,
+  .content,
+  .footer {
+    padding-left:
+      var(--velora-space-4);
+    padding-right:
+      var(--velora-space-4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drawer {
+    animation: none;
+  }
+}

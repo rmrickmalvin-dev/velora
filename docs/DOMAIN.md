@@ -6,62 +6,61 @@ Last update: 2026-08-27
 
 IN PROGRESS
 
-## Admin Catalog mutation
+## Inventory Application boundary
 
-Application use cases:
+Existing mutation:
 
-- updateAdminProduct
-- updateAdminVariantPrice
+`adjustInventory`
 
-The use cases load current Domain entities, recreate them through Domain factories, then save through repository contracts.
+New read:
 
-## Product update preservation
+`listInventoryMovements`
 
-Mutable in PASSO 36:
+## Domain invariants preserved
 
-- name
-- brand
-- model
-- featured
+InventoryMovement:
 
-Preserved:
+- id required
+- Inventory id required
+- type valid
+- delta is a non-zero safe integer
+- ENTRY requires positive delta
+- EXIT requires negative delta
+- reason required
 
-- id
-- slug
-- categoryId
-- status
+Inventory:
 
-## Variant price preservation
+- quantityOnHand remains a non-negative safe integer
+- applying a movement cannot produce negative Inventory
 
-Mutable:
+## Admin input mapping
 
-- Money minorUnits
+Feature validation converts human quantity input into Domain delta:
 
-Preserved:
+- ENTRY 5 -> +5
+- EXIT 5 -> -5
+- ADJUSTMENT -2 -> -2
+- ADJUSTMENT +2 -> +2
 
-- id
-- productId
-- SKU
-- currency
-- status
-- attributes
+The Domain remains the final rule boundary.
 
-## Inventory boundary
+## Movement history
 
-Price/Product mutation does not mutate Inventory.
+InventoryMovement currently contains no timestamp.
 
-## Presentation validation
+Do not invent movement dates.
 
-Admin form validation and decimal parsing live in Feature code.
+Repository append order is the available chronology.
 
-Domain remains the final invariant boundary through Product/ProductVariant/Money factories.
+## Side effects
 
-## Persistent overrides
+Inventory operations remain independent from:
 
-ProductRepository and ProductVariantRepository remain the persistence abstraction.
-
-Browser IndexedDB selection stays inside Infrastructure composition.
+- Cart
+- Order
+- Product
+- ProductVariant price
 
 ## Next milestone
 
-PASSO 37 - Inventory Adjustment Controls, Movement History and Admin Stock Operations.
+PASSO 38 - Customer Account Data, Saved Profile and Customer Order Experience.

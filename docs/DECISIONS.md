@@ -256,6 +256,16 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-226 | ACEITA | Product/price mutation never changes Inventory or InventoryMovement | Keep Catalog commercial data and stock operations independently auditable |
 | CODAL-DEC-227 | ACEITA | Existing resetDemo is the rollback mechanism for persistent Catalog overrides | Avoid introducing a second reset or seed restoration path |
 | CODAL-DEC-228 | ACEITA | PASSO 36 is complete only after persistent Product/price edits, Storefront browser refresh, 542 passing tests and production build validation | Preserve quality-first BUILD 04 mutation progression |
+| CODAL-DEC-229 | ACEITA | VeloraApplication exposes InventoryMovement history through listInventoryMovements in addition to existing adjustInventory mutation | Keep movement reads on the same UI to Application to Repository path as stock writes |
+| CODAL-DEC-230 | ACEITA | Admin Inventory operations expose ENTRY, EXIT and ADJUSTMENT with human quantity input mapped to signed Domain delta | Keep the UI understandable while preserving existing InventoryMovement sign rules |
+| CODAL-DEC-231 | ACEITA | Every Admin stock operation requires a normalized non-empty reason before review | Preserve auditable movement meaning and Domain reason requirements |
+| CODAL-DEC-232 | ACEITA | Inventory mutation requires an explicit review/confirmation state before adjustInventory is called | Prevent accidental stock writes in the demo Admin experience |
+| CODAL-DEC-233 | ACEITA | InventoryMovement history is presented by repository append order and no movement date is invented because the current Domain entity has no timestamp | Keep operational history honest to available data |
+| CODAL-DEC-234 | ACEITA | Admin Catalog Variant read models expose Inventory identity separately from SKU and Variant identity | Allow stock operations without deriving persistence identifiers from Presentation text |
+| CODAL-DEC-235 | ACEITA | Successful Inventory mutation emits `velora:inventory-changed` and Product Discovery subscribes to combined Storefront Catalog/Inventory change signals | Make persistent stock overrides visible while preserving SSG initial rendering |
+| CODAL-DEC-236 | ACEITA | Inventory operations do not mutate Cart, Order, Product identity or Variant price | Keep stock administration independently auditable |
+| CODAL-DEC-237 | ACEITA | Negative resulting stock remains rejected by existing Domain applyInventoryMovement rules rather than duplicated in React | Preserve one source of truth for Inventory validity |
+| CODAL-DEC-238 | ACEITA | PASSO 37 is complete only after persistent stock adjustment, movement history, Storefront refresh, 594 passing tests and production build validation | Preserve quality-first BUILD 04 progression |
 
 ## Decisões por área
 
@@ -288,7 +298,7 @@ Quando uma decisão precisar mudar:
 - CODAL-DEC-013 — Seed imutável + overrides locais;
 - CODAL-DEC-014 — IndexedDB para domínio mutável;
 - CODAL-DEC-015 — Zustand apenas para estado global necessário;
-- CODAL-DEC-229 — Domain independente de React e Next.js;
+- CODAL-DEC-239 — Domain independente de React e Next.js;
 - CODAL-DEC-027 — Repository Contracts independentes de providers;
 - CODAL-DEC-028 — componentes não acessam persistência diretamente.
 

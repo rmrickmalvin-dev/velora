@@ -16,7 +16,7 @@ import {
 } from "../../i18n/storefront-interaction-copy";
 import {
   loadBrowserStorefrontProductCards,
-  subscribeBrowserCatalogChanged,
+  subscribeBrowserStorefrontDataChanged,
 } from "../../features/catalog/browser-storefront-catalog";
 import {
   filterStorefrontProducts,
@@ -110,7 +110,7 @@ export function ProductDiscovery({
       );
 
       const unsubscribe =
-        subscribeBrowserCatalogChanged(
+        subscribeBrowserStorefrontDataChanged(
           refresh,
         );
 

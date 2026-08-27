@@ -15,6 +15,7 @@ export type AdminCatalogVariantModel =
     priceLabel: string;
     priceMinorUnits: number;
     currency: string;
+    inventoryId: string | null;
     quantityOnHand: number;
     available: boolean;
     lowStock: boolean;
@@ -85,6 +86,10 @@ export function buildAdminCatalogModel(
                 currency:
                   entry.variant.price
                     .currency,
+                inventoryId:
+                  entry.inventory
+                    ?.id ??
+                  null,
                 quantityOnHand,
                 available:
                   quantityOnHand > 0,

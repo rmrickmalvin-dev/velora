@@ -18,59 +18,55 @@ CLOSED AND VALIDATED
 
 IN PROGRESS
 
-## PASSO 36 - Product mutation
+## PASSO 37 - Inventory operations
 
-- [x] Application Product update
-- [x] Application Variant price update
-- [x] Product Domain factory validation
-- [x] Money Domain factory validation
-- [x] Product identity preservation
-- [x] Variant SKU preservation
-- [x] Variant currency preservation
-- [x] persistent Product override
-- [x] persistent price override
-- [x] reset restores seed values
-- [x] Inventory unchanged
+- [x] ENTRY form flow
+- [x] EXIT form flow
+- [x] ADJUSTMENT form flow
+- [x] integer quantity validation
+- [x] signed ADJUSTMENT validation
+- [x] reason validation
+- [x] explicit review before mutation
+- [x] Domain negative-stock protection preserved
+- [x] Inventory current state persistence
+- [x] InventoryMovement persistence
+- [x] movement history read
+- [x] newest-first Admin presentation
+- [x] no invented movement timestamp
 
-## PASSO 36 - Admin editor
+## Architecture
 
-- [x] Product name edit
-- [x] Brand edit
-- [x] Model edit
-- [x] Featured toggle
-- [x] Variant price controls
-- [x] decimal price parser
-- [x] comma decimal parser
-- [x] explicit Product confirmation
-- [x] explicit price confirmation
-- [x] localized Admin edit copy
+- [x] VeloraApplication listInventoryMovements
+- [x] browser Feature adapter
 - [x] no React repository access
 - [x] no React IndexedDB access
+- [x] dedicated Inventory changed event
+- [x] Storefront refresh subscription
 
-## Browser Catalog synchronization
+## Side-effect boundary
 
-- [x] catalog-changed browser event
-- [x] Product Discovery browser persistent reload
-- [x] initial SSG remains intact
-- [x] no second global state library
+- [x] Cart unchanged
+- [x] Orders unchanged
+- [x] Product identity unchanged
+- [x] Variant price unchanged
 
-## PASSO 36 Test Evidence
+## PASSO 37 Test Evidence
 
 Targeted:
 
 ```text
-6 test files
-48 tests
-48 passed
+7 test files
+52 tests
+52 passed
 0 failed
 ```
 
 Complete suite:
 
 ```text
-68 test files
-542 tests
-542 passed
+75 test files
+594 tests
+594 passed
 0 failed
 ```
 
@@ -84,4 +80,4 @@ Complete suite:
 
 ## Next Quality Gate
 
-PASSO 37 - Inventory Adjustment Controls, Movement History and Admin Stock Operations.
+PASSO 38 - Customer Account Data, Saved Profile and Customer Order Experience.

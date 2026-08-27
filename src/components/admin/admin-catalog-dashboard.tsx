@@ -19,6 +19,9 @@ import type {
 } from "../../presentation/admin/admin-catalog-model";
 
 import {
+  AdminInventoryOperations,
+} from "./admin-inventory-operations";
+import {
   AdminProductEditor,
 } from "./admin-product-editor";
 
@@ -395,6 +398,33 @@ export function AdminCatalogDashboard({
                             : copy.available
                         }
                       </span>
+
+                      {variant.inventoryId ? (
+                        <AdminInventoryOperations
+                          locale={locale}
+                          inventoryId={
+                            variant.inventoryId
+                          }
+                          sku={
+                            variant.sku
+                          }
+                          quantityOnHand={
+                            variant.quantityOnHand
+                          }
+                          onChanged={
+                            async () => {
+                              const next =
+                                await loadBrowserAdminCatalog(
+                                  locale,
+                                );
+
+                              setModel(
+                                next,
+                              );
+                            }
+                          }
+                        />
+                      ) : null}
                     </div>
                   ),
                 )}

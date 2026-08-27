@@ -16,69 +16,66 @@ BUILD 04 - IN PROGRESS
 
 Latest validated step:
 
-PASSO 36 - Admin Product Editing, Price Controls and Persistent Catalog Overrides
+PASSO 37 - Inventory Adjustment Controls, Movement History and Admin Stock Operations
 
-## Application mutations
-
-Available:
-
-- updateAdminProduct
-- updateAdminVariantPrice
-
-Always call through VeloraApplication.
-
-Do not save Product/ProductVariant directly from React.
-
-## Admin Product Editor
+## Inventory UI
 
 Component:
 
-`AdminProductEditor`
+`AdminInventoryOperations`
 
-Supports:
+It is rendered per Variant in the ADMIN Catalog Dashboard.
 
-- name
-- brand
-- model
-- featured
-- Variant prices
+Supported:
 
-Requires explicit confirmation before write.
+- ENTRY
+- EXIT
+- ADJUSTMENT
+- reason
+- review/confirm
+- movement history
 
-## Price rule
+## Application
 
-Admin decimal text is converted to minor units in Feature code.
+Use:
 
-Domain Money remains the final invariant.
+- `adjustInventory`
+- `listInventoryMovements`
 
-Currency is preserved from the existing Variant.
+Do not call repositories from React.
 
-## Browser persistence
+## Browser adapter
 
-Adapter:
+Use:
 
-`browser-admin-catalog-mutations`
+`browser-admin-inventory`
 
-Mutations emit:
+Successful mutation emits:
 
-`velora:catalog-changed`
+`velora:inventory-changed`
 
-Public Product Discovery hydrates browser Catalog overrides after SSG and subscribes to the same event.
+## Storefront refresh
 
-## Reset
+`ProductDiscovery` subscribes through:
 
-resetDemo restores seed Product and price values.
+`subscribeBrowserStorefrontDataChanged`
 
-## Inventory
+It responds to Catalog and Inventory changes.
 
-Catalog/price mutation does not mutate Inventory.
+## Movement chronology
+
+InventoryMovement has no timestamp.
+
+Use repository append order only.
+
+Do not invent timestamps.
 
 ## Quality Gate
 
 ```text
-PASSO 36 targeted: 48/48
-Full suite:         542/542
-Test files:         68/68
+PASSO 37 targeted: 52/52
+Full suite:         594/594
+Test files:         75/75
 lint:               passed
 typecheck:          passed
 build:              passed
@@ -87,25 +84,24 @@ check:              passed
 
 ## Decisions
 
-After PASSO 36:
+After PASSO 37:
 
-`CODAL-DEC-001 -> CODAL-DEC-228`
+`CODAL-DEC-001 -> CODAL-DEC-238`
 
 Next:
 
-`CODAL-DEC-229`
+`CODAL-DEC-239`
 
 ## Next action
 
-PASSO 37 - Inventory Adjustment Controls, Movement History and Admin Stock Operations.
+PASSO 38 - Customer Account Data, Saved Profile and Customer Order Experience.
 
 Focus:
 
-- explicit stock adjustment UI
-- reason required
-- signed delta validation
-- InventoryMovement history
-- persistent adjustment
-- confirmation before stock mutation
-- refresh Admin Inventory visibility
-- no Cart/Order side effects
+- demo Customer profile data
+- local persistence through abstraction
+- customer-facing account surface
+- Customer Order visibility
+- no fake authentication
+- no real personal account claim
+- preserve Guest/Admin behavior

@@ -2512,3 +2512,82 @@ Next available decision:
 #### Next
 
 PASSO 37 - Inventory Adjustment Controls, Movement History and Admin Stock Operations.
+---
+
+### PASSO 37 - Inventory Adjustment Controls, Movement History and Admin Stock Operations
+
+Status: COMPLETED AND TECHNICALLY VALIDATED
+
+#### Added - Inventory operations
+
+- ENTRY
+- EXIT
+- ADJUSTMENT
+- quantity validation
+- reason validation
+- explicit review/confirmation
+- persistent stock mutation
+
+#### Added - Movement history
+
+- Application listInventoryMovements
+- browser history adapter
+- movement type
+- signed delta
+- reason
+- newest-first append presentation
+
+No timestamps are invented because InventoryMovement currently has no timestamp field.
+
+#### Added - Storefront Inventory refresh
+
+- `velora:inventory-changed`
+- combined Storefront data subscription
+- Product Discovery refresh after stock mutation
+
+#### Side-effect boundary
+
+Inventory operations do not mutate:
+
+- Cart
+- Orders
+- Product identity
+- Variant price
+
+#### Testing
+
+PASSO 37 targeted:
+
+- 7 test files passed
+- 52 tests passed
+- 0 failed
+
+Complete suite:
+
+- 75 test files passed
+- 594 tests passed
+- 0 failed
+
+#### Technical Validation
+
+Passed:
+
+- npm run lint
+- npm run typecheck
+- npm run test
+- npm run build
+- npm run check
+
+#### Decisions
+
+Added:
+
+- CODAL-DEC-229 through CODAL-DEC-238
+
+Next available decision:
+
+- CODAL-DEC-239
+
+#### Next
+
+PASSO 38 - Customer Account Data, Saved Profile and Customer Order Experience.

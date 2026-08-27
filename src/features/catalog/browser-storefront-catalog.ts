@@ -12,6 +12,9 @@ import {
 export const VELORA_CATALOG_CHANGED_EVENT =
   "velora:catalog-changed";
 
+export const VELORA_INVENTORY_CHANGED_EVENT =
+  "velora:inventory-changed";
+
 export async function loadBrowserStorefrontProductCards(
   locale:
     StorefrontLocale,
@@ -55,6 +58,22 @@ export function emitBrowserCatalogChanged():
   );
 }
 
+export function emitBrowserInventoryChanged():
+  void {
+  if (
+    typeof window ===
+    "undefined"
+  ) {
+    return;
+  }
+
+  window.dispatchEvent(
+    new Event(
+      VELORA_INVENTORY_CHANGED_EVENT,
+    ),
+  );
+}
+
 export function subscribeBrowserCatalogChanged(
   listener:
     () => void,
@@ -75,6 +94,38 @@ export function subscribeBrowserCatalogChanged(
   return () => {
     window.removeEventListener(
       VELORA_CATALOG_CHANGED_EVENT,
+      listener,
+    );
+  };
+}
+
+export function subscribeBrowserStorefrontDataChanged(
+  listener:
+    () => void,
+): () => void {
+  if (
+    typeof window ===
+    "undefined"
+  ) {
+    return () =>
+      undefined;
+  }
+
+  const unsubscribeCatalog =
+    subscribeBrowserCatalogChanged(
+      listener,
+    );
+
+  window.addEventListener(
+    VELORA_INVENTORY_CHANGED_EVENT,
+    listener,
+  );
+
+  return () => {
+    unsubscribeCatalog();
+
+    window.removeEventListener(
+      VELORA_INVENTORY_CHANGED_EVENT,
       listener,
     );
   };

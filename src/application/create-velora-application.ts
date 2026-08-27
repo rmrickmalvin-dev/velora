@@ -22,6 +22,7 @@ import type {
 import type {
   CartId,
   CustomerId,
+  InventoryId,
 } from "../domain/types/identifiers";
 import type {
   Slug,
@@ -50,6 +51,9 @@ import {
 import {
   listDemoOrders,
 } from "./use-cases/list-demo-orders";
+import {
+  listInventoryMovements,
+} from "./use-cases/list-inventory-movements";
 import {
   changeOrderStatus,
   listCustomerOrders,
@@ -167,6 +171,14 @@ export type VeloraApplication =
         typeof adjustInventory
       >;
 
+    listInventoryMovements:
+      (
+        inventoryId:
+          InventoryId,
+      ) => ReturnType<
+        typeof listInventoryMovements
+      >;
+
     createDemoOrderFromCart:
       (
         input:
@@ -262,6 +274,13 @@ export function createVeloraApplication(
         adjustInventory(
           dependencies,
           input,
+        ),
+
+    listInventoryMovements:
+      (inventoryId) =>
+        listInventoryMovements(
+          dependencies.inventoryMovements,
+          inventoryId,
         ),
 
     createDemoOrderFromCart:

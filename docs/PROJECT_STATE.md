@@ -24,105 +24,101 @@ CLOSED AND VALIDATED
 
 ## Latest validated step
 
-PASSO 36 - Admin Product Editing, Price Controls and Persistent Catalog Overrides
+PASSO 37 - Inventory Adjustment Controls, Movement History and Admin Stock Operations
 
-## Admin Product mutation
+## Inventory operations
 
-VeloraApplication now exposes:
+The ADMIN workspace now exposes explicit Inventory operations per Product Variant.
 
-- updateAdminProduct
-- updateAdminVariantPrice
+Available movement types:
 
-Product update can change:
+- ENTRY
+- EXIT
+- ADJUSTMENT
 
-- name
-- brand
-- model
-- featured
+Human input is validated in Feature code.
 
-It preserves:
+Domain still validates:
 
-- id
-- slug
-- category
-- status
+- non-zero safe integer delta
+- ENTRY positive
+- EXIT negative
+- reason required
+- resulting Inventory cannot become negative
 
-Variant price update preserves:
+## Application
 
-- Variant id
-- Product id
-- SKU
-- currency
-- status
-- attributes
+VeloraApplication exposes:
 
-## Persistence
+- adjustInventory
+- listInventoryMovements
 
-Mutations are saved through existing ProductRepository and ProductVariantRepository contracts.
+History reads through InventoryMovementRepository.
 
-Browser flow:
+## Browser flow
 
 ```text
-AdminProductEditor
+AdminInventoryOperations
 |
 v
-browser-admin-catalog-mutations
+browser-admin-inventory
 |
 v
 VeloraApplication
 |
 v
-Application mutation use case
+adjustInventory / listInventoryMovements
 |
 v
-Persistent Repository
+InventoryRepository + InventoryMovementRepository
 |
 v
 IndexedDB
 ```
 
-React does not import repositories or IndexedDbProvider.
+React never imports repositories or IndexedDbProvider.
 
-## Confirmation
+## Movement history
 
-Product details and Variant prices require a review/confirmation step before mutation.
+History shows:
 
-## Price input
+- movement type
+- signed delta
+- reason
 
-Admin UI accepts:
+The current InventoryMovement Domain entity has no timestamp.
 
-- whole decimal values
-- dot decimal separator
-- comma decimal separator
-- maximum two decimal places
+Therefore the Admin UI presents newest-first append order without inventing dates.
 
-Application persists prices as Money minor units while preserving the current Variant currency.
+## Storefront refresh
 
-## Browser Storefront refresh
+A dedicated browser event exists:
 
-Product Discovery starts from SSG data for fast rendering, then hydrates current browser-persistent Catalog overrides through VeloraApplication.
+`velora:inventory-changed`
 
-Catalog mutation emits:
+Product Discovery subscribes to both:
 
-`velora:catalog-changed`
+- `velora:catalog-changed`
+- `velora:inventory-changed`
 
-Product Discovery subscribes and refreshes its browser Catalog cards.
+This keeps persistent local stock visible after Admin operations while preserving SSG initial rendering.
 
-## Reset
+## Side effects
 
-Existing resetDemo restores original seed Product and Variant price values.
+Stock operations do not:
 
-## Inventory
-
-Product and price mutation do not change Inventory.
+- alter Cart
+- create Order
+- change Product price
+- change Product identity
 
 ## Quality Gate
 
 Latest evidence:
 
-- PASSO 36 targeted tests: 48/48
-- complete suite: 542/542
-- 68 test files passed
+- PASSO 37 targeted tests: 52/52
+- complete suite: 594/594
+- 75 test files passed
 - lint passed
 - typecheck passed
 - production build passed
@@ -130,14 +126,14 @@ Latest evidence:
 
 ## Decisions
 
-After PASSO 36:
+After PASSO 37:
 
-`CODAL-DEC-001 -> CODAL-DEC-228`
+`CODAL-DEC-001 -> CODAL-DEC-238`
 
 Next available decision:
 
-`CODAL-DEC-229`
+`CODAL-DEC-239`
 
 ## Next step
 
-PASSO 37 - Inventory Adjustment Controls, Movement History and Admin Stock Operations.
+PASSO 38 - Customer Account Data, Saved Profile and Customer Order Experience.

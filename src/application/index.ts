@@ -51,6 +51,10 @@ export {
 } from "./use-cases/adjust-inventory";
 
 export {
+  listInventoryMovements,
+} from "./use-cases/list-inventory-movements";
+
+export {
   changeOrderStatus,
   listCustomerOrders,
 } from "./use-cases/order-use-cases";

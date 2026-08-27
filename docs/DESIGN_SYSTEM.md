@@ -413,3 +413,18 @@ Rules:
 - Admin Product cards remain readable while editor is open
 - Product Discovery may hydrate persistent browser overrides after SSG
 - mutation success must refresh the operational Admin view
+## Admin Inventory operations
+
+PASSO 37 activates stock operations inside the Admin Catalog.
+
+Rules:
+
+- Inventory controls belong to each Variant
+- current quantity remains visible before the operation
+- ENTRY, EXIT and ADJUSTMENT are explicit choices
+- every movement requires a reason
+- mutation requires review before confirmation
+- movement history uses append order because the current Domain entity has no timestamp
+- never invent dates for movement records
+- negative-stock rejection comes from Domain
+- Inventory feedback uses restrained operational styling rather than replacing the Product card

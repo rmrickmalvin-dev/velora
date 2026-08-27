@@ -2591,3 +2591,24 @@ Next available decision:
 #### Next
 
 PASSO 38 - Customer Account Data, Saved Profile and Customer Order Experience.
+---
+
+### PASSO 37 Quality Cleanup
+
+Status: COMPLETED
+
+Removed the remaining React Hook `exhaustive-deps` warning from `AdminInventoryOperations`.
+
+Technical validation:
+
+- ESLint with `--max-warnings=0`
+- TypeScript
+- Inventory UI targeted regression
+- complete 594-test suite
+- production build
+
+No architectural decision changed.
+
+Next decision remains:
+
+- CODAL-DEC-239

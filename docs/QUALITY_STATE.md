@@ -81,3 +81,18 @@ Complete suite:
 ## Next Quality Gate
 
 PASSO 38 - Customer Account Data, Saved Profile and Customer Order Experience.
+## PASSO 37 zero-warning cleanup
+
+- [x] React Hook exhaustive-deps warning removed
+- [x] refreshHistory stabilized with useCallback
+- [x] ESLint `--max-warnings=0` passed
+- [x] TypeScript passed
+- [x] Inventory UI regression passed
+- [x] complete 594-test suite passed
+- [x] production build passed
+
+No new architectural decision was introduced.
+
+Next decision remains:
+
+`CODAL-DEC-239`

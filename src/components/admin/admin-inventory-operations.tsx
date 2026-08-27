@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  useCallback,
   useEffect,
   useState,
 } from "react";
@@ -109,16 +110,22 @@ export function AdminInventoryOperations({
     setFeedback,
   ] = useState("");
 
-  async function refreshHistory() {
-    const next =
-      await loadBrowserAdminInventoryMovements(
-        inventoryId,
-      );
+  const refreshHistory =
+    useCallback(
+      async () => {
+        const next =
+          await loadBrowserAdminInventoryMovements(
+            inventoryId,
+          );
 
-    setMovements(
-      next,
+        setMovements(
+          next,
+        );
+      },
+      [
+        inventoryId,
+      ],
     );
-  }
 
   useEffect(
     () => {
@@ -134,7 +141,7 @@ export function AdminInventoryOperations({
     },
     [
       open,
-      inventoryId,
+      refreshHistory,
     ],
   );
 

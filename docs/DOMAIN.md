@@ -6,58 +6,59 @@ Last update: 2026-08-27
 
 IN PROGRESS
 
-## Commercial simulation boundary
+## Search boundary
 
-PASSO 40 intentionally keeps Promotion scenarios outside the canonical Domain.
+PASSO 41 Search Intelligence is Presentation logic over `StorefrontProductCard`.
 
-Reason:
+It does not create Domain Search entities.
 
-- they are planning/simulation artifacts
-- they do not affect checkout
-- they do not alter ProductVariant price
-- they do not alter Order snapshots
-- backend Promotion activation remains a later explicit step
+Search does not mutate:
 
-## Simulator arithmetic
+- Product
+- ProductVariant
+- Inventory
+- Cart
+- Order
+- Promotion scenarios
 
-Base price:
+## Search semantics
 
-existing ProductVariant price in minor units.
+Searchable fields:
 
-Discount:
+- Product name
+- Brand
+- localized Category label
+- stable Product slug
 
-percentage parsed into basis points.
+Multi-term matching uses AND semantics.
 
-Promotional price:
+Ranking is deterministic.
 
-base price minus rounded discount amount.
+Empty query preserves Catalog order.
 
-Gross profit simulation:
+## Browser navigation boundary
 
-promotional price minus estimated cost.
+URL-backed Search state lives behind:
 
-Gross margin simulation:
+`browser-discovery-navigation`
 
-gross profit divided by promotional price.
+State parameters:
 
-## Non-goals
+- `q`
+- `category`
 
-PASSO 40 does not model:
+Product Discovery sends both Search input and Category controls through the shared `updateDiscovery` path.
 
-- taxes
-- shipping
-- payment fees
-- accounting standards
-- real promotional eligibility
+No localStorage persistence is used for Search navigation.
 
-## Persistence
+## Design Token contract
 
-Scenario storage:
+`design-token-reference-contract.test.ts` verifies:
 
-`velora.demo.promotions.v1`
-
-This is browser-local Feature state.
+- every referenced VELORA variable exists in the primary registry
+- primary definitions are unique
+- scoped overrides may only redefine registered tokens
 
 ## Next milestone
 
-PASSO 41 - Search, Discovery Intelligence and Catalog Navigation Refinement.
+PASSO 42 - Product Detail Runtime Sync, Localization Integrity and BUILD 04 Readiness.

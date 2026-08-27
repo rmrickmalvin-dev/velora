@@ -10,72 +10,68 @@ BUILD 04 - IN PROGRESS
 
 Latest validated step:
 
-PASSO 40 - Promotions, Pricing Simulator and Commercial Controls
+PASSO 41 - Search, Discovery Intelligence and Catalog Navigation Refinement
 
-## Admin Commercial UI
+## Search Intelligence
 
-Component:
+Use:
 
-`AdminCommercialPanel`
+`buildStorefrontSearchExperience`
 
-It reads current Variant prices through:
+Search is:
 
-`loadBrowserAdminCatalog`
+- accent-insensitive
+- multi-term AND
+- deterministic
+- ranked only when query exists
 
-## Simulator
+Searchable fields:
 
-Pure Feature model:
+- Product name
+- Brand
+- localized Category label
+- slug
 
-`admin-commercial-simulator-model`
+## Discovery URL state
 
-Supports:
+Browser adapter:
 
-- cost parsing
-- discount basis points
-- promotional price
-- gross profit
-- gross margin
-- Promotion scenario validation
+`browser-discovery-navigation`
 
-## Browser persistence
+Parameters:
 
-Adapter:
+- `q`
+- `category`
 
-`browser-demo-promotions`
+Product Search input and Category controls must use:
 
-Storage key:
+`updateDiscovery`
 
-`velora.demo.promotions.v1`
+Do not reintroduce direct Category-only state changes that bypass URL synchronization.
 
-React must not access localStorage directly.
+Initial URL-state React updates are queued inside the effect.
 
-## Important boundary
+## Persistent Catalog compatibility
 
-Promotion scenarios are simulations only.
+Keep:
 
-They do not mutate:
+- `loadBrowserStorefrontProductCards`
+- `subscribeBrowserStorefrontDataChanged`
 
-- ProductVariant price
-- Storefront
-- Cart
-- checkout
-- Order
-- Inventory
+## Design Token quality
 
-Do not silently connect them to checkout.
+All referenced VELORA CSS variables under `src` must resolve to the primary Design Token registry.
 
-## Financial honesty
+Primary definitions are unique.
 
-Do not describe gross profit/margin as accounting truth.
-
-No tax, shipping or payment-fee model exists in PASSO 40.
+Registered scoped overrides are valid.
 
 ## Quality Gate
 
 ```text
-PASSO 40 targeted: 47/47
-Full suite:         737/737
-Test files:         93/93
+PASSO 41 targeted: 50/50
+Full suite:         787/787
+Test files:         99/99
 ESLint warnings:    0
 typecheck:          passed
 build:              passed
@@ -84,14 +80,23 @@ check:              passed
 
 ## Decisions
 
-After PASSO 40:
+After PASSO 41:
 
-`CODAL-DEC-001 -> CODAL-DEC-268`
+`CODAL-DEC-001 -> CODAL-DEC-278`
 
 Next:
 
-`CODAL-DEC-269`
+`CODAL-DEC-279`
 
 ## Next action
 
-PASSO 41 - Search, Discovery Intelligence and Catalog Navigation Refinement.
+PASSO 42 - Product Detail Runtime Sync, Localization Integrity and BUILD 04 Readiness.
+
+Focus:
+
+- Product Detail browser-persistent Catalog synchronization
+- persistent price/name/stock parity between Discovery and Detail
+- PT-BR/ES human-facing accent integrity
+- bounded i18n regression tests
+- BUILD 04 readiness audit
+- close BUILD 04 only if all gates pass

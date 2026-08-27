@@ -296,6 +296,16 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-266 | ACEITA | Global demo reset clears Promotion scenarios together with existing persistent demo overrides and Customer Profile | Keep reset semantics complete for browser-local portfolio state |
 | CODAL-DEC-267 | ACEITA | Promotion codes are normalized to uppercase and limited to 3-24 alphanumeric/hyphen characters for demo scenario consistency | Keep commercial scenario identifiers readable without implying a real coupon engine |
 | CODAL-DEC-268 | ACEITA | PASSO 40 is complete only after simulator, local Promotion scenarios, zero-warning lint, 737 passing tests and production build validation | Preserve quality-first BUILD 04 progression |
+| CODAL-DEC-269 | ACEITA | The Design Token contract defines every VELORA CSS variable currently referenced under `src`, including missing gold-400, gold-800, ink-400 and space-7 tokens | Prevent silent invalid CSS properties and make token integrity testable |
+| CODAL-DEC-270 | ACEITA | Product Discovery uses deterministic ranked Search Intelligence over StorefrontProductCard rather than React-only substring filtering | Improve discovery quality while keeping Search provider-independent |
+| CODAL-DEC-271 | ACEITA | Multi-term Search uses AND semantics across Product name, Brand, localized Category label and stable slug | Reduce broad false-positive results while keeping behavior explainable |
+| CODAL-DEC-272 | ACEITA | Empty Search preserves existing Catalog source order; ranking is activated only when a query exists | Avoid changing merchandising order when the user has not expressed Search intent |
+| CODAL-DEC-273 | ACEITA | Discovery state is represented by URL `q` and `category` parameters behind a browser Navigation adapter using history.replaceState | Make Search state shareable and restorable without history spam |
+| CODAL-DEC-274 | ACEITA | Search Navigation state is not persisted in localStorage and browser back/forward synchronization uses `popstate` | Keep navigation state in the navigation layer rather than durable experience storage |
+| CODAL-DEC-275 | ACEITA | Search Suggestions are derived only from the currently available local Catalog and use no network recommendation, analytics or tracking | Keep discovery deterministic and transparent in the portfolio demo |
+| CODAL-DEC-276 | ACEITA | Category counts are calculated from query matches before applying the active Category filter, and Category clicks use the shared Discovery URL updater | Keep result context visible while preserving equivalent React and URL state |
+| CODAL-DEC-277 | ACEITA | Ranked Search continues to consume browser-persistent Catalog and Inventory refreshes through the existing Storefront data adapter | Keep Search consistent with Admin Product, price and stock overrides |
+| CODAL-DEC-278 | ACEITA | PASSO 41 is complete only after ranked Search, URL navigation, Design Token integrity, zero-warning lint, 787 passing tests and production build validation | Preserve quality-first BUILD 04 progression |
 
 ## Decisões por área
 
@@ -328,7 +338,7 @@ Quando uma decisão precisar mudar:
 - CODAL-DEC-013 — Seed imutável + overrides locais;
 - CODAL-DEC-014 — IndexedDB para domínio mutável;
 - CODAL-DEC-015 — Zustand apenas para estado global necessário;
-- CODAL-DEC-269 — Domain independente de React e Next.js;
+- CODAL-DEC-279 — Domain independente de React e Next.js;
 - CODAL-DEC-027 — Repository Contracts independentes de providers;
 - CODAL-DEC-028 — componentes não acessam persistência diretamente.
 

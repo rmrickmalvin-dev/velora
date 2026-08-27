@@ -24,74 +24,74 @@ CLOSED AND VALIDATED
 
 ## Latest validated step
 
-PASSO 40 - Promotions, Pricing Simulator and Commercial Controls
+PASSO 41 - Search, Discovery Intelligence and Catalog Navigation Refinement
 
-## Commercial Simulator
+## Search Intelligence
 
-ADMIN now includes a commercial simulation workspace based on the persisted Variant price.
+Product Discovery now uses ranked, accent-insensitive Search Intelligence.
 
-Inputs:
+Searchable Presentation fields:
 
-- Variant
-- scenario label
-- promotional code
-- estimated cost
-- discount percentage
+- Product name
+- Brand
+- localized Category label
+- stable Product slug
 
-Outputs:
+Multi-term queries require every term to match.
 
-- base price
-- simulated promotional price
-- simulated gross profit
-- simulated gross margin
+Empty queries preserve the existing Catalog order.
 
-## Promotion scenarios
+## Discovery navigation
 
-Saved Promotion scenarios are browser-local Feature state.
+Search state is represented by URL query parameters:
 
-Storage key:
+- `q`
+- `category`
 
-`velora.demo.promotions.v1`
+Typing uses `history.replaceState`.
 
-They are intentionally not canonical Domain Promotion records yet.
+Browser back/forward is synchronized through `popstate`.
 
-They do not change:
+Category controls use the same `updateDiscovery` path as Search input so visible state and URL state remain equivalent.
 
-- ProductVariant persisted price
-- Storefront price
-- Cart
-- checkout
-- Orders
-- payment state
-- Inventory
+Search state is not stored in localStorage.
 
-## Simulation boundaries
+## Suggestions
 
-The simulator intentionally does not model:
+Suggestions are derived only from the current browser Catalog.
 
-- tax
-- shipping
-- payment fees
-- accounting truth
+No network Search, analytics or external recommendation system is used.
 
-Gross profit and margin are clearly presented as simulations.
+## Persistent data compatibility
 
-## Reset
+Product Discovery continues to react to browser-persistent:
 
-Global browser demo reset now clears:
+- Product edits
+- Variant price edits
+- Inventory changes
 
-- IndexedDB demo overrides
-- Customer Profile
-- Promotion scenarios
-- Cart presentation refresh
+## Design Token integrity
+
+Every referenced VELORA CSS variable under `src` must exist in the primary Design Token registry.
+
+Primary registry definitions are unique.
+
+Registered scoped overrides remain allowed.
+
+Added referenced tokens:
+
+- `--velora-ink-400`
+- `--velora-gold-800`
+- `--velora-gold-400`
+- `--velora-space-7`
 
 ## Quality Gate
 
 Latest evidence:
 
-- PASSO 40 targeted tests: 47/47
-- complete suite: 737/737
-- 93 test files passed
+- PASSO 41 targeted tests: 50/50
+- complete suite: 787/787
+- 99 test files passed
 - ESLint zero warnings
 - typecheck passed
 - production build passed
@@ -99,14 +99,14 @@ Latest evidence:
 
 ## Decisions
 
-After PASSO 40:
+After PASSO 41:
 
-`CODAL-DEC-001 -> CODAL-DEC-268`
+`CODAL-DEC-001 -> CODAL-DEC-278`
 
 Next available decision:
 
-`CODAL-DEC-269`
+`CODAL-DEC-279`
 
 ## Next step
 
-PASSO 41 - Search, Discovery Intelligence and Catalog Navigation Refinement.
+PASSO 42 - Product Detail Runtime Sync, Localization Integrity and BUILD 04 Readiness.

@@ -471,3 +471,19 @@ Rules:
 - tax, shipping and payment fees must not be invented
 - commercial controls reuse the Pearl Technology form language
 - scenario deletion is local-only and reversible through recreation
+## Storefront Search Intelligence
+
+PASSO 41 refines Product Discovery.
+
+Rules:
+
+- Search controls remain visually secondary to Product content
+- Search is accent-insensitive and supports multiple terms
+- ranked results remain deterministic
+- empty Search preserves Catalog order
+- Category controls expose query-aware result counts
+- Suggestions are derived from the current local Catalog only
+- Search state is reflected in URL `q` and `category`
+- Search input and Category controls share the same URL-state update path
+- browser back/forward restores visible Search state
+- no Search analytics or tracking is implied

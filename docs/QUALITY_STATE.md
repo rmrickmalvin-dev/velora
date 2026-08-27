@@ -6,54 +6,59 @@ Last update: 2026-08-27
 
 IN PROGRESS
 
-## PASSO 40 - Commercial controls
+## PASSO 41 - Search and navigation
 
-- [x] Variant-based pricing simulation
-- [x] estimated cost input
-- [x] discount percentage input
-- [x] promotional price calculation
-- [x] gross profit calculation
-- [x] gross margin calculation
-- [x] Promotion scenario label
-- [x] Promotion code normalization
-- [x] local scenario save
-- [x] local scenario delete
-- [x] global reset integration
-- [x] no Product price mutation
-- [x] no checkout mutation
-- [x] no tax/shipping assumptions
+- [x] accent-insensitive Search
+- [x] multi-term Search
+- [x] deterministic relevance ranking
+- [x] Brand Search
+- [x] Category label Search
+- [x] Product slug Search
+- [x] query-aware Category counts
+- [x] local Catalog Suggestions
+- [x] URL-backed query state
+- [x] URL-backed Category state
+- [x] Category controls synchronize URL state
+- [x] browser back/forward synchronization
+- [x] no Search localStorage
+- [x] persistent Catalog refresh preserved
+- [x] persistent Inventory refresh preserved
+- [x] React effect synchronous setState removed
 
-## Architecture
+## Design Token integrity
 
-- [x] pure Feature simulator model
-- [x] browser-local Promotion scenario adapter
-- [x] React no localStorage access
-- [x] existing Admin Catalog read reused
-- [x] existing money Presentation reused
+- [x] all referenced VELORA CSS variables defined
+- [x] primary token registry definitions unique
+- [x] registered scoped token overrides allowed
+- [x] gold-400 defined
+- [x] gold-800 defined
+- [x] ink-400 defined
+- [x] space-7 defined
+- [x] automated CSS token reference contract
 
-## PASSO 40 Test Evidence
+## PASSO 41 Test Evidence
 
 Targeted:
 
 ```text
 6 test files
-47 tests
-47 passed
+50 tests
+50 passed
 0 failed
 ```
 
 Complete suite:
 
 ```text
-93 test files
-737 tests
-737 passed
+99 test files
+787 tests
+787 passed
 0 failed
 ```
 
 ## Latest Technical Gate
 
-- [x] ESLint `--max-warnings=0`
+- [x] Product Discovery ESLint `--max-warnings=0`
 - [x] npm run lint
 - [x] npm run typecheck
 - [x] npm run test
@@ -62,4 +67,4 @@ Complete suite:
 
 ## Next Quality Gate
 
-PASSO 41 - Search, Discovery Intelligence and Catalog Navigation Refinement.
+PASSO 42 - Product Detail Runtime Sync, Localization Integrity and BUILD 04 Readiness.

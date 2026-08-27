@@ -9,10 +9,13 @@
   --velora-ink-700: #3a3933;
   --velora-ink-600: #5b5951;
   --velora-ink-500: #77746a;
+  --velora-ink-400: #989488;
 
+  --velora-gold-800: #665126;
   --velora-gold-700: #7d6530;
   --velora-gold-600: #987b3a;
   --velora-gold-500: #b89a56;
+  --velora-gold-400: #c9ad6c;
   --velora-gold-300: #d8c18d;
   --velora-gold-200: #eadbb9;
   --velora-gold-100: #f4ecd9;
@@ -34,6 +37,7 @@
   --velora-space-4: 1rem;
   --velora-space-5: 1.25rem;
   --velora-space-6: 1.5rem;
+  --velora-space-7: 1.75rem;
   --velora-space-8: 2rem;
   --velora-space-10: 2.5rem;
   --velora-space-12: 3rem;

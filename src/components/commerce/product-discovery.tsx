@@ -15,13 +15,23 @@ import {
   getStorefrontInteractionCopy,
 } from "../../i18n/storefront-interaction-copy";
 import {
+  getStorefrontSearchCopy,
+} from "../../i18n/storefront-search-copy";
+import {
   loadBrowserStorefrontProductCards,
   subscribeBrowserStorefrontDataChanged,
 } from "../../features/catalog/browser-storefront-catalog";
 import {
-  filterStorefrontProducts,
-  type ProductDiscoveryCategory,
+  readBrowserDiscoveryState,
+  subscribeBrowserDiscoveryNavigation,
+  writeBrowserDiscoveryState,
+} from "../../features/catalog/browser-discovery-navigation";
+import type {
+  ProductDiscoveryCategory,
 } from "../../presentation/storefront/product-discovery-model";
+import {
+  buildStorefrontSearchExperience,
+} from "../../presentation/storefront/storefront-search-intelligence";
 import type {
   StorefrontProductCard,
 } from "../../presentation/storefront/storefront-home-model";
@@ -59,6 +69,11 @@ export function ProductDiscovery({
       locale,
     ).discovery;
 
+  const searchCopy =
+    getStorefrontSearchCopy(
+      locale,
+    );
+
   const [
     displayProducts,
     setDisplayProducts,
@@ -84,6 +99,25 @@ export function ProductDiscovery({
     () => {
       let active =
         true;
+
+      queueMicrotask(
+        () => {
+          if (!active) {
+            return;
+          }
+
+          const initialDiscoveryState =
+            readBrowserDiscoveryState();
+
+          setQuery(
+            initialDiscoveryState.query,
+          );
+
+          setCategory(
+            initialDiscoveryState.category,
+          );
+        },
+      );
 
       const refresh =
         () => {
@@ -114,9 +148,26 @@ export function ProductDiscovery({
           refresh,
         );
 
+      const unsubscribeNavigation =
+        subscribeBrowserDiscoveryNavigation(
+          () => {
+            const next =
+              readBrowserDiscoveryState();
+
+            setQuery(
+              next.query,
+            );
+
+            setCategory(
+              next.category,
+            );
+          },
+        );
+
       return () => {
         active = false;
         unsubscribe();
+        unsubscribeNavigation();
       };
     },
     [
@@ -124,10 +175,10 @@ export function ProductDiscovery({
     ],
   );
 
-  const filtered =
+  const searchExperience =
     useMemo(
       () =>
-        filterStorefrontProducts(
+        buildStorefrontSearchExperience(
           displayProducts,
           query,
           category,
@@ -138,6 +189,37 @@ export function ProductDiscovery({
         category,
       ],
     );
+
+  const filtered =
+    searchExperience.results;
+
+  function updateDiscovery(
+    nextQuery: string,
+    nextCategory:
+      ProductDiscoveryCategory,
+  ) {
+    setQuery(
+      nextQuery,
+    );
+
+    setCategory(
+      nextCategory,
+    );
+
+    writeBrowserDiscoveryState({
+      query:
+        nextQuery,
+      category:
+        nextCategory,
+    });
+  }
+
+  function clearDiscovery() {
+    updateDiscovery(
+      "",
+      "all",
+    );
+  }
 
   const categories:
     readonly Readonly<{
@@ -188,6 +270,7 @@ export function ProductDiscovery({
         className={
           styles.controls
         }
+        role="search"
       >
         <label
           className={
@@ -214,11 +297,13 @@ export function ProductDiscovery({
           <input
             value={query}
             onChange={
-              (event) =>
-                setQuery(
+              (event) => {
+                updateDiscovery(
                   event.target
                     .value,
-                )
+                  category,
+                );
+              }
             }
             placeholder={
               copy.searchPlaceholder
@@ -255,15 +340,27 @@ export function ProductDiscovery({
                     item.key
                   }
                   onClick={
-                    () =>
-                      setCategory(
+                    () => {
+                      updateDiscovery(
+                        query,
                         item.key,
-                      )
+                      );
+                    }
                   }
                 >
                   {
                     item.label
                   }
+                <span
+                  className={
+                    styles.filterCount
+                  }
+                  aria-hidden="true"
+                >
+                  {
+                    searchExperience.categoryCounts[item.key]
+                  }
+                </span>
                 </button>
               ),
             )}
@@ -287,6 +384,83 @@ export function ProductDiscovery({
         </p>
       </div>
 
+      <div
+        className={
+          styles.searchMeta
+        }
+      >
+        <span>
+          {
+            searchCopy.hint
+          }
+        </span>
+
+        <span>
+          {
+            searchCopy.urlState
+          }
+        </span>
+
+        {query ||
+        category !==
+          "all" ? (
+          <button
+            type="button"
+            className={
+              styles.clearSearch
+            }
+            onClick={
+              clearDiscovery
+            }
+          >
+            {
+              searchCopy.clear
+            }
+          </button>
+        ) : null}
+      </div>
+
+      {searchExperience.suggestions.length > 0 ? (
+        <div
+          className={
+            styles.suggestions
+          }
+          aria-label={
+            searchCopy.suggestions
+          }
+        >
+          <span>
+            {
+              searchCopy.suggestions
+            }
+          </span>
+
+          {searchExperience.suggestions.map(
+              (
+                suggestion,
+              ) => (
+                <button
+                  key={
+                    `${suggestion.kind}-${suggestion.query}`
+                  }
+                  type="button"
+                  onClick={
+                    () => {
+                      updateDiscovery(
+                        suggestion.query,
+                        category,
+                      );
+                    }
+                  }
+                >
+                  {
+                    suggestion.label
+                  }
+                </button>
+              ),
+            )}
+        </div>
+      ) : null}
       {filtered.length === 0 ? (
         <div
           className={

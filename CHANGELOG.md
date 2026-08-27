@@ -2863,3 +2863,89 @@ Next available decision:
 #### Next
 
 PASSO 41 - Search, Discovery Intelligence and Catalog Navigation Refinement.
+---
+
+### PASSO 41 - Search, Discovery Intelligence and Catalog Navigation Refinement
+
+Status: COMPLETED AND TECHNICALLY VALIDATED
+
+#### Added - Search Intelligence
+
+- accent-insensitive normalization
+- multi-term AND matching
+- deterministic relevance ranking
+- Product name Search
+- Brand Search
+- Category label Search
+- Product slug Search
+- query-aware Category counts
+- local Catalog Suggestions
+
+#### Added - Discovery navigation
+
+- `q` URL state
+- `category` URL state
+- shared Search/Category URL update path
+- `history.replaceState`
+- browser back/forward synchronization
+- no Search localStorage
+
+#### Persistent Catalog compatibility
+
+Search continues to react to:
+
+- Product edits
+- Variant price edits
+- Inventory changes
+
+#### Design Token integrity
+
+Added missing referenced tokens:
+
+- gold-400
+- gold-800
+- ink-400
+- space-7
+
+Primary token definitions are unique.
+
+Registered scoped overrides remain valid.
+
+#### Testing
+
+PASSO 41 targeted:
+
+- 6 test files passed
+- 50 tests passed
+- 0 failed
+
+Complete suite:
+
+- 99 test files passed
+- 787 tests passed
+- 0 failed
+
+#### Technical Validation
+
+Passed:
+
+- Product Discovery ESLint `--max-warnings=0`
+- npm run lint
+- npm run typecheck
+- npm run test
+- npm run build
+- npm run check
+
+#### Decisions
+
+Added:
+
+- CODAL-DEC-269 through CODAL-DEC-278
+
+Next available decision:
+
+- CODAL-DEC-279
+
+#### Next
+
+PASSO 42 - Product Detail Runtime Sync, Localization Integrity and BUILD 04 Readiness.

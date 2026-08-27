@@ -16,67 +16,72 @@ BUILD 04 - IN PROGRESS
 
 Latest validated step:
 
-PASSO 37 - Inventory Adjustment Controls, Movement History and Admin Stock Operations
+PASSO 38 - Customer Account Data, Saved Profile and Customer Order Experience
 
-## Inventory UI
+## Customer Account
+
+Route:
+
+`/[locale]/account`
+
+The existing CUSTOMER role gate remains active.
 
 Component:
 
-`AdminInventoryOperations`
+`CustomerAccountPanel`
 
-It is rendered per Variant in the ADMIN Catalog Dashboard.
+## Demo Profile
 
-Supported:
+Feature model:
 
-- ENTRY
-- EXIT
-- ADJUSTMENT
-- reason
-- review/confirm
-- movement history
+`demo-customer-profile-model`
 
-## Application
+Browser adapter:
 
-Use:
+`browser-demo-customer-profile`
 
-- `adjustInventory`
-- `listInventoryMovements`
+Storage key:
 
-Do not call repositories from React.
+`velora.demo.customer-profile.v1`
 
-## Browser adapter
+Do not access localStorage from React.
 
-Use:
+## Identity warning
 
-`browser-admin-inventory`
+The Profile is not:
 
-Successful mutation emits:
+- real authentication
+- remote account identity
+- Domain Customer identity
+- checkout Customer binding
 
-`velora:inventory-changed`
+Do not silently change this boundary.
 
-## Storefront refresh
+## Customer Orders
 
-`ProductDiscovery` subscribes through:
+Account uses:
 
-`subscribeBrowserStorefrontDataChanged`
+`loadBrowserDemoOrders`
 
-It responds to Catalog and Inventory changes.
+These remain browser-local guest demo Orders.
 
-## Movement chronology
+Do not claim they are verified Customer Orders.
 
-InventoryMovement has no timestamp.
+## Reset
 
-Use repository append order only.
+`resetBrowserDemoData` also calls:
 
-Do not invent timestamps.
+`resetBrowserDemoCustomerProfile`
+
+Active session role remains untouched.
 
 ## Quality Gate
 
 ```text
-PASSO 37 targeted: 52/52
-Full suite:         594/594
-Test files:         75/75
-lint:               passed
+PASSO 38 targeted: 40/40
+Full suite:         634/634
+Test files:         81/81
+ESLint warnings:    0
 typecheck:          passed
 build:              passed
 check:              passed
@@ -84,24 +89,24 @@ check:              passed
 
 ## Decisions
 
-After PASSO 37:
+After PASSO 38:
 
-`CODAL-DEC-001 -> CODAL-DEC-238`
+`CODAL-DEC-001 -> CODAL-DEC-248`
 
 Next:
 
-`CODAL-DEC-239`
+`CODAL-DEC-249`
 
 ## Next action
 
-PASSO 38 - Customer Account Data, Saved Profile and Customer Order Experience.
+PASSO 39 - Admin Orders, Status Workflow and Operational Order Management.
 
 Focus:
 
-- demo Customer profile data
-- local persistence through abstraction
-- customer-facing account surface
-- Customer Order visibility
-- no fake authentication
-- no real personal account claim
-- preserve Guest/Admin behavior
+- Admin Order list
+- status transitions through existing Domain Order lifecycle
+- explicit confirmation
+- persistent status changes
+- operational filtering
+- no real payment claim
+- no Inventory side effects from status mutation

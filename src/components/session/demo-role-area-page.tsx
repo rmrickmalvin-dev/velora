@@ -30,6 +30,9 @@ import {
 import {
   CartIndicator,
 } from "../commerce/cart-indicator";
+import {
+  CustomerAccountPanel,
+} from "../customer/customer-account-panel";
 
 import styles from "./demo-session-page.module.css";
 
@@ -204,6 +207,13 @@ export function DemoRoleAreaPage({
                 </Link>
               </div>
             </div>
+
+            {area ===
+            "CUSTOMER" ? (
+              <CustomerAccountPanel
+                locale={locale}
+              />
+            ) : null}
 
             {area ===
             "ADMIN" ? (

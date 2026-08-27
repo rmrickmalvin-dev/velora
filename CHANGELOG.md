@@ -2612,3 +2612,90 @@ No architectural decision changed.
 Next decision remains:
 
 - CODAL-DEC-239
+---
+
+### PASSO 38 - Customer Account Data, Saved Profile and Customer Order Experience
+
+Status: COMPLETED AND TECHNICALLY VALIDATED
+
+#### Added - Customer Account
+
+- CUSTOMER role Account surface
+- fictional default Profile
+- Name
+- Email
+- Phone
+- City
+- validation
+- local save
+- fictional Profile restore
+
+#### Added - Profile persistence boundary
+
+- versioned local key
+- Feature adapter
+- same-document update event
+- cross-tab storage update
+- no React localStorage access
+
+#### Added - Customer Order experience
+
+- existing browser-local demo Order history
+- reference
+- status
+- item count
+- localized subtotal
+- empty state
+- explicit non-verified identity disclosure
+
+#### Reset
+
+Global browser demo reset now also clears the Demo Customer Profile.
+
+#### Identity boundary
+
+PASSO 38 does not:
+
+- create real authentication
+- create a remote Customer account
+- bind Profile to checkout identity
+- assign Order customerId
+
+#### Testing
+
+PASSO 38 targeted:
+
+- 6 test files passed
+- 40 tests passed
+- 0 failed
+
+Complete suite:
+
+- 81 test files passed
+- 634 tests passed
+- 0 failed
+
+#### Technical Validation
+
+Passed:
+
+- ESLint `--max-warnings=0`
+- npm run lint
+- npm run typecheck
+- npm run test
+- npm run build
+- npm run check
+
+#### Decisions
+
+Added:
+
+- CODAL-DEC-239 through CODAL-DEC-248
+
+Next available decision:
+
+- CODAL-DEC-249
+
+#### Next
+
+PASSO 39 - Admin Orders, Status Workflow and Operational Order Management.

@@ -6,61 +6,48 @@ Last update: 2026-08-27
 
 IN PROGRESS
 
-## Inventory Application boundary
+## Customer Profile boundary
 
-Existing mutation:
+PASSO 38 intentionally does not create a new Domain Customer entity or authentication model.
 
-`adjustInventory`
+`DemoCustomerProfile` is Feature-level browser-local experience state.
 
-New read:
+It exists to make the portfolio Account surface useful while keeping identity claims honest.
 
-`listInventoryMovements`
+## Profile fields
 
-## Domain invariants preserved
+- fullName
+- email
+- phone
+- city
 
-InventoryMovement:
+Feature validation normalizes and validates browser input before persistence.
 
-- id required
-- Inventory id required
-- type valid
-- delta is a non-zero safe integer
-- ENTRY requires positive delta
-- EXIT requires negative delta
-- reason required
+## Persistence
 
-Inventory:
+Profile storage:
 
-- quantityOnHand remains a non-negative safe integer
-- applying a movement cannot produce negative Inventory
+`velora.demo.customer-profile.v1`
 
-## Admin input mapping
+The adapter is isolated from React.
 
-Feature validation converts human quantity input into Domain delta:
+## Order boundary
 
-- ENTRY 5 -> +5
-- EXIT 5 -> -5
-- ADJUSTMENT -2 -> -2
-- ADJUSTMENT +2 -> +2
+Customer Account displays existing guest demo Orders.
 
-The Domain remains the final rule boundary.
+No Order customerId is assigned from the Profile in PASSO 38.
 
-## Movement history
+Therefore:
 
-InventoryMovement currently contains no timestamp.
+- Profile data cannot silently become Order identity
+- checkout behavior remains unchanged
+- existing Order lifecycle remains valid
+- no fake verified Customer relationship is introduced
 
-Do not invent movement dates.
+## Reset
 
-Repository append order is the available chronology.
-
-## Side effects
-
-Inventory operations remain independent from:
-
-- Cart
-- Order
-- Product
-- ProductVariant price
+Global browser demo reset clears the Profile in addition to existing persistent demo data.
 
 ## Next milestone
 
-PASSO 38 - Customer Account Data, Saved Profile and Customer Order Experience.
+PASSO 39 - Admin Orders, Status Workflow and Operational Order Management.

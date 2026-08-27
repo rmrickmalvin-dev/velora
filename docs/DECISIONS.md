@@ -266,6 +266,16 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-236 | ACEITA | Inventory operations do not mutate Cart, Order, Product identity or Variant price | Keep stock administration independently auditable |
 | CODAL-DEC-237 | ACEITA | Negative resulting stock remains rejected by existing Domain applyInventoryMovement rules rather than duplicated in React | Preserve one source of truth for Inventory validity |
 | CODAL-DEC-238 | ACEITA | PASSO 37 is complete only after persistent stock adjustment, movement history, Storefront refresh, 594 passing tests and production build validation | Preserve quality-first BUILD 04 progression |
+| CODAL-DEC-239 | ACEITA | PASSO 38 Demo Customer Profile is browser-local Feature experience state rather than a canonical Domain Customer or authentication identity | Provide a useful portfolio Account without making unsupported identity/security claims |
+| CODAL-DEC-240 | ACEITA | Demo Customer Profile persists behind a Feature adapter at `velora.demo.customer-profile.v1` and React never accesses localStorage directly | Preserve replaceability and UI boundary discipline for small browser experience state |
+| CODAL-DEC-241 | ACEITA | The default Customer Profile uses explicitly fictional values and an `example.com` email | Avoid suggesting a real person or production account exists |
+| CODAL-DEC-242 | ACEITA | Profile fullName, email, phone and city are normalized and validated before local persistence | Keep saved demo data coherent without creating premature Domain Customer rules |
+| CODAL-DEC-243 | ACEITA | The existing CUSTOMER role gate remains the Account experience gate and is not described as a security boundary | Preserve the transparent demo authentication model introduced in PASSO 34 |
+| CODAL-DEC-244 | ACEITA | Customer Account displays existing browser-local guest demo Orders and explicitly states they are not linked to a verified Customer identity | Add Customer Order visibility without silently changing Order ownership semantics |
+| CODAL-DEC-245 | ACEITA | PASSO 38 does not assign Order customerId from Demo Customer Profile or alter checkout completion | Prevent Feature Profile data from becoming canonical Order identity by side effect |
+| CODAL-DEC-246 | ACEITA | Global browser demo reset clears Demo Customer Profile in addition to existing persistent demo overrides while preserving the selected demo role | Keep reset semantics complete without unexpectedly changing the current experience role |
+| CODAL-DEC-247 | ACEITA | Customer Account Profile and Order presentation reuse existing localized Storefront money/order models rather than duplicate commercial calculations | Keep one source of truth for monetary presentation and Order history summaries |
+| CODAL-DEC-248 | ACEITA | PASSO 38 is complete only after saved Profile, Customer Account Order visibility, zero-warning lint, 634 passing tests and production build validation | Preserve quality-first BUILD 04 progression |
 
 ## Decisões por área
 
@@ -298,7 +308,7 @@ Quando uma decisão precisar mudar:
 - CODAL-DEC-013 — Seed imutável + overrides locais;
 - CODAL-DEC-014 — IndexedDB para domínio mutável;
 - CODAL-DEC-015 — Zustand apenas para estado global necessário;
-- CODAL-DEC-239 — Domain independente de React e Next.js;
+- CODAL-DEC-249 — Domain independente de React e Next.js;
 - CODAL-DEC-027 — Repository Contracts independentes de providers;
 - CODAL-DEC-028 — componentes não acessam persistência diretamente.
 

@@ -24,116 +24,86 @@ CLOSED AND VALIDATED
 
 ## Latest validated step
 
-PASSO 37 - Inventory Adjustment Controls, Movement History and Admin Stock Operations
+PASSO 38 - Customer Account Data, Saved Profile and Customer Order Experience
 
-## Inventory operations
+## Customer Account
 
-The ADMIN workspace now exposes explicit Inventory operations per Product Variant.
+The CUSTOMER role now receives a dedicated account surface inside the existing localized `/[locale]/account` route.
 
-Available movement types:
+The Account is still an experience gate, not a security boundary.
 
-- ENTRY
-- EXIT
-- ADJUSTMENT
+## Demo Customer Profile
 
-Human input is validated in Feature code.
+The Profile contains:
 
-Domain still validates:
+- fullName
+- email
+- phone
+- city
 
-- non-zero safe integer delta
-- ENTRY positive
-- EXIT negative
-- reason required
-- resulting Inventory cannot become negative
+Default values are fictional.
 
-## Application
+The Profile persists only in this browser through a Feature adapter:
 
-VeloraApplication exposes:
+`velora.demo.customer-profile.v1`
 
-- adjustInventory
-- listInventoryMovements
+React does not access localStorage directly.
 
-History reads through InventoryMovementRepository.
+## Profile boundary
 
-## Browser flow
+The saved Profile is browser-local experience state.
 
-```text
-AdminInventoryOperations
-|
-v
-browser-admin-inventory
-|
-v
-VeloraApplication
-|
-v
-adjustInventory / listInventoryMovements
-|
-v
-InventoryRepository + InventoryMovementRepository
-|
-v
-IndexedDB
-```
+It is not:
 
-React never imports repositories or IndexedDbProvider.
+- a real authenticated identity
+- a remote account
+- a canonical Domain Customer record
+- a checkout Customer binding
 
-## Movement history
+This separation is intentional until a later Customer/Authentication backend step.
 
-History shows:
+## Customer Order experience
 
-- movement type
-- signed delta
-- reason
+The Account reuses existing demo Order history.
 
-The current InventoryMovement Domain entity has no timestamp.
+Orders shown in the Account are the Orders created by this local browser demo.
 
-Therefore the Admin UI presents newest-first append order without inventing dates.
+They remain guest demo Orders with no verified Customer identity binding.
 
-## Storefront refresh
+This is explicitly disclosed in the UI.
 
-A dedicated browser event exists:
+## Reset
 
-`velora:inventory-changed`
+Existing global browser demo reset now clears:
 
-Product Discovery subscribes to both:
+- IndexedDB demo overrides through resetDemo
+- demo Customer Profile
+- Cart presentation refresh
 
-- `velora:catalog-changed`
-- `velora:inventory-changed`
-
-This keeps persistent local stock visible after Admin operations while preserving SSG initial rendering.
-
-## Side effects
-
-Stock operations do not:
-
-- alter Cart
-- create Order
-- change Product price
-- change Product identity
+The active demo role is not reset.
 
 ## Quality Gate
 
 Latest evidence:
 
-- PASSO 37 targeted tests: 52/52
-- complete suite: 594/594
-- 75 test files passed
-- lint passed
+- PASSO 38 targeted tests: 40/40
+- complete suite: 634/634
+- 81 test files passed
+- ESLint zero warnings
 - typecheck passed
 - production build passed
 - `npm run check` passed
 
 ## Decisions
 
-After PASSO 37:
+After PASSO 38:
 
-`CODAL-DEC-001 -> CODAL-DEC-238`
+`CODAL-DEC-001 -> CODAL-DEC-248`
 
 Next available decision:
 
-`CODAL-DEC-239`
+`CODAL-DEC-249`
 
 ## Next step
 
-PASSO 38 - Customer Account Data, Saved Profile and Customer Order Experience.
+PASSO 39 - Admin Orders, Status Workflow and Operational Order Management.

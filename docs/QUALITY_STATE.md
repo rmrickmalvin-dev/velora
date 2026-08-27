@@ -18,60 +18,60 @@ CLOSED AND VALIDATED
 
 IN PROGRESS
 
-## PASSO 37 - Inventory operations
+## PASSO 38 - Customer Account
 
-- [x] ENTRY form flow
-- [x] EXIT form flow
-- [x] ADJUSTMENT form flow
-- [x] integer quantity validation
-- [x] signed ADJUSTMENT validation
-- [x] reason validation
-- [x] explicit review before mutation
-- [x] Domain negative-stock protection preserved
-- [x] Inventory current state persistence
-- [x] InventoryMovement persistence
-- [x] movement history read
-- [x] newest-first Admin presentation
-- [x] no invented movement timestamp
+- [x] CUSTOMER role-gated account surface
+- [x] fictional default Profile
+- [x] local Profile persistence adapter
+- [x] Profile validation
+- [x] Profile save
+- [x] Profile restore
+- [x] same-document Profile event
+- [x] cross-tab Profile event
+- [x] no React localStorage access
+- [x] no fake authentication claim
 
-## Architecture
+## Customer Orders
 
-- [x] VeloraApplication listInventoryMovements
-- [x] browser Feature adapter
-- [x] no React repository access
-- [x] no React IndexedDB access
-- [x] dedicated Inventory changed event
-- [x] Storefront refresh subscription
+- [x] Account reads existing demo Orders
+- [x] Order reference
+- [x] Order status
+- [x] item count
+- [x] localized subtotal
+- [x] empty state
+- [x] explicit browser-local disclosure
+- [x] no verified Customer identity claim
 
-## Side-effect boundary
+## Reset
 
-- [x] Cart unchanged
-- [x] Orders unchanged
-- [x] Product identity unchanged
-- [x] Variant price unchanged
+- [x] existing IndexedDB reset preserved
+- [x] Customer Profile cleared
+- [x] Cart refresh preserved
+- [x] demo role preserved
 
-## PASSO 37 Test Evidence
+## PASSO 38 Test Evidence
 
 Targeted:
 
 ```text
-7 test files
-52 tests
-52 passed
+6 test files
+40 tests
+40 passed
 0 failed
 ```
 
 Complete suite:
 
 ```text
-75 test files
-594 tests
-594 passed
+81 test files
+634 tests
+634 passed
 0 failed
 ```
 
 ## Latest Technical Gate
 
+- [x] ESLint `--max-warnings=0`
 - [x] npm run lint
 - [x] npm run typecheck
 - [x] npm run test
@@ -80,19 +80,4 @@ Complete suite:
 
 ## Next Quality Gate
 
-PASSO 38 - Customer Account Data, Saved Profile and Customer Order Experience.
-## PASSO 37 zero-warning cleanup
-
-- [x] React Hook exhaustive-deps warning removed
-- [x] refreshHistory stabilized with useCallback
-- [x] ESLint `--max-warnings=0` passed
-- [x] TypeScript passed
-- [x] Inventory UI regression passed
-- [x] complete 594-test suite passed
-- [x] production build passed
-
-No new architectural decision was introduced.
-
-Next decision remains:
-
-`CODAL-DEC-239`
+PASSO 39 - Admin Orders, Status Workflow and Operational Order Management.

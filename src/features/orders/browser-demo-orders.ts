@@ -5,6 +5,9 @@ import {
   emitBrowserCartChanged,
 } from "../cart/browser-cart-runtime";
 import {
+  resetBrowserDemoCustomerProfile,
+} from "../customer/browser-demo-customer-profile";
+import {
   buildDemoOrderHistory,
   type DemoOrderHistoryItem,
 } from "../../presentation/orders/demo-order-history-model";
@@ -48,5 +51,6 @@ export async function resetBrowserDemoData():
     "velora-demo",
   ).resetDemo();
 
+  resetBrowserDemoCustomerProfile();
   emitBrowserCartChanged();
 }

@@ -428,3 +428,17 @@ Rules:
 - never invent dates for movement records
 - negative-stock rejection comes from Domain
 - Inventory feedback uses restrained operational styling rather than replacing the Product card
+## Customer Account experience
+
+PASSO 38 introduces the CUSTOMER account surface.
+
+Rules:
+
+- Account must clearly identify itself as a demo experience
+- Profile data is fictional by default
+- local-only persistence must be disclosed
+- Profile form uses the same Pearl Technology field language as Admin forms
+- validation appears beside affected fields
+- Customer Orders are presented as browser-local demo Orders
+- do not imply verified identity or real authentication
+- Profile restoration is available without destructive confirmation because it restores fictional seed data only

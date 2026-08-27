@@ -86,8 +86,8 @@ The active demo role is not reset.
 
 Latest evidence:
 
-- PASSO 38 targeted tests: 40/40
-- complete suite: 634/634
+- PASSO 38 targeted tests: 44/44
+- complete suite: 638/638
 - 81 test files passed
 - ESLint zero warnings
 - typecheck passed

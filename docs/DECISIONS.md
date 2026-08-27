@@ -275,7 +275,7 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-245 | ACEITA | PASSO 38 does not assign Order customerId from Demo Customer Profile or alter checkout completion | Prevent Feature Profile data from becoming canonical Order identity by side effect |
 | CODAL-DEC-246 | ACEITA | Global browser demo reset clears Demo Customer Profile in addition to existing persistent demo overrides while preserving the selected demo role | Keep reset semantics complete without unexpectedly changing the current experience role |
 | CODAL-DEC-247 | ACEITA | Customer Account Profile and Order presentation reuse existing localized Storefront money/order models rather than duplicate commercial calculations | Keep one source of truth for monetary presentation and Order history summaries |
-| CODAL-DEC-248 | ACEITA | PASSO 38 is complete only after saved Profile, Customer Account Order visibility, zero-warning lint, 634 passing tests and production build validation | Preserve quality-first BUILD 04 progression |
+| CODAL-DEC-248 | ACEITA | PASSO 38 is complete only after saved Profile, Customer Account Order visibility, zero-warning lint, 638 passing tests and production build validation | Preserve quality-first BUILD 04 progression |
 
 ## Decisões por área
 

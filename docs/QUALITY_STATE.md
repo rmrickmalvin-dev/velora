@@ -55,8 +55,8 @@ Targeted:
 
 ```text
 6 test files
-40 tests
-40 passed
+44 tests
+44 passed
 0 failed
 ```
 
@@ -64,8 +64,8 @@ Complete suite:
 
 ```text
 81 test files
-634 tests
-634 passed
+638 tests
+638 passed
 0 failed
 ```
 

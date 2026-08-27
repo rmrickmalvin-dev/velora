@@ -2325,7 +2325,7 @@ SessionIndicator is composed into the existing Cart cluster.
 PASSO 34 targeted:
 
 - 5 test files passed
-- 40 tests passed
+- 44 tests passed
 - 0 failed
 
 Complete suite:
@@ -2403,7 +2403,7 @@ Product, price and Inventory mutation remain deferred.
 PASSO 35 targeted:
 
 - 5 test files passed
-- 40 tests passed
+- 44 tests passed
 - 0 failed
 
 Complete suite:
@@ -2666,13 +2666,13 @@ PASSO 38 does not:
 PASSO 38 targeted:
 
 - 6 test files passed
-- 40 tests passed
+- 44 tests passed
 - 0 failed
 
 Complete suite:
 
 - 81 test files passed
-- 634 tests passed
+- 638 tests passed
 - 0 failed
 
 #### Technical Validation

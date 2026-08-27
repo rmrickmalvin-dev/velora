@@ -78,8 +78,8 @@ Active session role remains untouched.
 ## Quality Gate
 
 ```text
-PASSO 38 targeted: 40/40
-Full suite:         634/634
+PASSO 38 targeted: 44/44
+Full suite:         638/638
 Test files:         81/81
 ESLint warnings:    0
 typecheck:          passed

@@ -286,6 +286,16 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-256 | ACEITA | Admin Order UI distinguishes guest versus recorded customerId context without claiming verified identity | Preserve transparent demo identity semantics |
 | CODAL-DEC-257 | ACEITA | No Order date or chronology is invented because the current Order entity has no timestamp | Keep operational presentation faithful to available Domain data |
 | CODAL-DEC-258 | ACEITA | PASSO 39 is complete only after persistent Admin status workflow, zero-warning lint, 690 passing tests and production build validation | Preserve quality-first BUILD 04 progression |
+| CODAL-DEC-259 | ACEITA | PASSO 40 Promotion scenarios are browser-local Feature planning state rather than canonical Domain Promotion entities | Enable commercial portfolio interaction without silently affecting checkout or pricing rules |
+| CODAL-DEC-260 | ACEITA | Commercial simulation always starts from the currently persisted ProductVariant price loaded through the Admin Catalog read boundary | Keep simulation grounded in the actual local demo catalog state |
+| CODAL-DEC-261 | ACEITA | Estimated cost and discount are human simulation inputs parsed in Feature code; money remains represented in integer minor units | Preserve deterministic arithmetic and avoid floating-point commercial persistence |
+| CODAL-DEC-262 | ACEITA | Discount percentage is normalized to basis points and limited to greater than zero and at most 95 percent | Keep simulator behavior deterministic and avoid accidental free/negative prices |
+| CODAL-DEC-263 | ACEITA | Gross profit and gross margin are explicitly simulations and exclude tax, shipping, payment fees and accounting claims | Keep financial presentation honest to the available data |
+| CODAL-DEC-264 | ACEITA | Saved Promotion scenarios use the versioned local key `velora.demo.promotions.v1` behind a Feature adapter; React never accesses localStorage directly | Preserve replaceability and UI boundary discipline |
+| CODAL-DEC-265 | ACEITA | Promotion scenario save does not mutate ProductVariant price, Storefront, Cart, checkout, Order or Inventory | Separate commercial planning from active commerce behavior |
+| CODAL-DEC-266 | ACEITA | Global demo reset clears Promotion scenarios together with existing persistent demo overrides and Customer Profile | Keep reset semantics complete for browser-local portfolio state |
+| CODAL-DEC-267 | ACEITA | Promotion codes are normalized to uppercase and limited to 3-24 alphanumeric/hyphen characters for demo scenario consistency | Keep commercial scenario identifiers readable without implying a real coupon engine |
+| CODAL-DEC-268 | ACEITA | PASSO 40 is complete only after simulator, local Promotion scenarios, zero-warning lint, 737 passing tests and production build validation | Preserve quality-first BUILD 04 progression |
 
 ## Decisões por área
 
@@ -318,7 +328,7 @@ Quando uma decisão precisar mudar:
 - CODAL-DEC-013 — Seed imutável + overrides locais;
 - CODAL-DEC-014 — IndexedDB para domínio mutável;
 - CODAL-DEC-015 — Zustand apenas para estado global necessário;
-- CODAL-DEC-259 — Domain independente de React e Next.js;
+- CODAL-DEC-269 — Domain independente de React e Next.js;
 - CODAL-DEC-027 — Repository Contracts independentes de providers;
 - CODAL-DEC-028 — componentes não acessam persistência diretamente.
 

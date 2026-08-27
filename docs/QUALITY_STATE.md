@@ -2,69 +2,52 @@
 
 Last update: 2026-08-27
 
-## BUILD 01
-
-CLOSED AND VALIDATED
-
-## BUILD 02
-
-CLOSED AND VALIDATED
-
-## BUILD 03
-
-CLOSED AND VALIDATED
-
 ## BUILD 04
 
 IN PROGRESS
 
-## PASSO 39 - Admin Orders
+## PASSO 40 - Commercial controls
 
-- [x] list all persisted Orders
-- [x] guest and Customer Order visibility
-- [x] status filtering
-- [x] commercial snapshot subtotal
-- [x] Domain-allowed next status list
-- [x] explicit review
-- [x] explicit confirmation
-- [x] persistent status mutation
-- [x] terminal DELIVERED/CANCELLED handling
-- [x] no payment claim
-- [x] no invented timestamp
+- [x] Variant-based pricing simulation
+- [x] estimated cost input
+- [x] discount percentage input
+- [x] promotional price calculation
+- [x] gross profit calculation
+- [x] gross margin calculation
+- [x] Promotion scenario label
+- [x] Promotion code normalization
+- [x] local scenario save
+- [x] local scenario delete
+- [x] global reset integration
+- [x] no Product price mutation
+- [x] no checkout mutation
+- [x] no tax/shipping assumptions
 
 ## Architecture
 
-- [x] listAdminOrders Application use case
-- [x] existing changeOrderStatus reused
-- [x] OrderRepository persistence
-- [x] browser Admin adapter
-- [x] no React repository access
-- [x] no React IndexedDB access
+- [x] pure Feature simulator model
+- [x] browser-local Promotion scenario adapter
+- [x] React no localStorage access
+- [x] existing Admin Catalog read reused
+- [x] existing money Presentation reused
 
-## Side-effect boundary
-
-- [x] Inventory unchanged
-- [x] Cart unchanged
-- [x] Order item snapshots unchanged
-- [x] payment semantics unchanged
-
-## PASSO 39 Test Evidence
+## PASSO 40 Test Evidence
 
 Targeted:
 
 ```text
 6 test files
-52 tests
-52 passed
+47 tests
+47 passed
 0 failed
 ```
 
 Complete suite:
 
 ```text
-87 test files
-690 tests
-690 passed
+93 test files
+737 tests
+737 passed
 0 failed
 ```
 
@@ -79,4 +62,4 @@ Complete suite:
 
 ## Next Quality Gate
 
-PASSO 40 - Promotions, Pricing Simulator and Commercial Controls.
+PASSO 41 - Search, Discovery Intelligence and Catalog Navigation Refinement.

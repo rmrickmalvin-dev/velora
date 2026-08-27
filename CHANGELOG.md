@@ -2783,3 +2783,83 @@ Next available decision:
 #### Next
 
 PASSO 40 - Promotions, Pricing Simulator and Commercial Controls.
+---
+
+### PASSO 40 - Promotions, Pricing Simulator and Commercial Controls
+
+Status: COMPLETED AND TECHNICALLY VALIDATED
+
+#### Added - Commercial simulator
+
+- current Variant base price
+- estimated cost input
+- discount input
+- promotional price simulation
+- gross profit simulation
+- gross margin simulation
+
+#### Added - Promotion scenarios
+
+- scenario label
+- normalized Promotion code
+- local save
+- local list
+- local delete
+- global reset integration
+
+#### Commercial boundary
+
+Promotion scenarios do not mutate:
+
+- ProductVariant price
+- Storefront price
+- Cart
+- checkout
+- Order
+- Inventory
+
+The simulator does not invent:
+
+- tax
+- shipping
+- payment fees
+- accounting truth
+
+#### Testing
+
+PASSO 40 targeted:
+
+- 6 test files passed
+- 47 tests passed
+- 0 failed
+
+Complete suite:
+
+- 93 test files passed
+- 737 tests passed
+- 0 failed
+
+#### Technical Validation
+
+Passed:
+
+- ESLint `--max-warnings=0`
+- npm run lint
+- npm run typecheck
+- npm run test
+- npm run build
+- npm run check
+
+#### Decisions
+
+Added:
+
+- CODAL-DEC-259 through CODAL-DEC-268
+
+Next available decision:
+
+- CODAL-DEC-269
+
+#### Next
+
+PASSO 41 - Search, Discovery Intelligence and Catalog Navigation Refinement.

@@ -6,58 +6,58 @@ Last update: 2026-08-27
 
 IN PROGRESS
 
-## Order operational boundary
+## Commercial simulation boundary
 
-PASSO 39 reuses the existing Order Domain lifecycle.
+PASSO 40 intentionally keeps Promotion scenarios outside the canonical Domain.
 
-Mutation authority:
+Reason:
 
-`transitionOrderStatus`
+- they are planning/simulation artifacts
+- they do not affect checkout
+- they do not alter ProductVariant price
+- they do not alter Order snapshots
+- backend Promotion activation remains a later explicit step
 
-Application mutation:
+## Simulator arithmetic
 
-`changeOrderStatus`
+Base price:
 
-Admin read:
+existing ProductVariant price in minor units.
 
-`listAdminOrders`
+Discount:
 
-## Allowed transitions
+percentage parsed into basis points.
 
-- PENDING -> CONFIRMED, CANCELLED
-- CONFIRMED -> PREPARING, CANCELLED
-- PREPARING -> SHIPPED, CANCELLED
-- SHIPPED -> DELIVERED
-- DELIVERED -> none
-- CANCELLED -> none
+Promotional price:
 
-The Domain service exposes an immutable transition snapshot for Presentation through:
+base price minus rounded discount amount.
 
-`getAllowedOrderStatusTransitions`
+Gross profit simulation:
 
-React does not duplicate transition rules.
+promotional price minus estimated cost.
+
+Gross margin simulation:
+
+gross profit divided by promotional price.
+
+## Non-goals
+
+PASSO 40 does not model:
+
+- taxes
+- shipping
+- payment fees
+- accounting standards
+- real promotional eligibility
 
 ## Persistence
 
-Status mutation saves the recreated immutable Order through OrderRepository.
+Scenario storage:
 
-Order item commercial snapshots are preserved.
+`velora.demo.promotions.v1`
 
-## Side effects
-
-Order status mutation does not:
-
-- mutate Inventory
-- mutate Cart
-- alter Product pricing
-- represent payment capture
-
-## Chronology
-
-Order currently has no timestamp.
-
-Admin Order UI does not invent dates or chronological metadata.
+This is browser-local Feature state.
 
 ## Next milestone
 
-PASSO 40 - Promotions, Pricing Simulator and Commercial Controls.
+PASSO 41 - Search, Discovery Intelligence and Catalog Navigation Refinement.

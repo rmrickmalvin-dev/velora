@@ -24,88 +24,74 @@ CLOSED AND VALIDATED
 
 ## Latest validated step
 
-PASSO 39 - Admin Orders, Status Workflow and Operational Order Management
+PASSO 40 - Promotions, Pricing Simulator and Commercial Controls
 
-## Admin Orders
+## Commercial Simulator
 
-The ADMIN workspace now includes persistent Order operations.
+ADMIN now includes a commercial simulation workspace based on the persisted Variant price.
 
-Admin can:
+Inputs:
 
-- list all persisted Orders
-- filter by Order status
-- inspect reference and identity context
-- inspect item quantity and line count
-- inspect commercial snapshot subtotal
-- review the next Domain-allowed status
-- explicitly confirm a status transition
+- Variant
+- scenario label
+- promotional code
+- estimated cost
+- discount percentage
 
-## Application boundary
+Outputs:
 
-VeloraApplication exposes:
+- base price
+- simulated promotional price
+- simulated gross profit
+- simulated gross margin
 
-`listAdminOrders`
+## Promotion scenarios
 
-Existing mutation remains:
+Saved Promotion scenarios are browser-local Feature state.
 
-`changeOrderStatus`
+Storage key:
 
-Browser flow:
+`velora.demo.promotions.v1`
 
-```text
-AdminOrdersPanel
-|
-v
-browser-admin-orders
-|
-v
-VeloraApplication
-|
-v
-listAdminOrders / changeOrderStatus
-|
-v
-OrderRepository
-|
-v
-IndexedDB
-```
+They are intentionally not canonical Domain Promotion records yet.
 
-React does not access repositories or IndexedDbProvider.
+They do not change:
 
-## Domain lifecycle
+- ProductVariant persisted price
+- Storefront price
+- Cart
+- checkout
+- Orders
+- payment state
+- Inventory
 
-The Domain service now exposes an immutable read of allowed transitions.
+## Simulation boundaries
 
-Rules remain:
+The simulator intentionally does not model:
 
-- PENDING -> CONFIRMED or CANCELLED
-- CONFIRMED -> PREPARING or CANCELLED
-- PREPARING -> SHIPPED or CANCELLED
-- SHIPPED -> DELIVERED
-- DELIVERED -> terminal
-- CANCELLED -> terminal
+- tax
+- shipping
+- payment fees
+- accounting truth
 
-The existing `transitionOrderStatus` remains the mutation authority.
+Gross profit and margin are clearly presented as simulations.
 
-## Operational transparency
+## Reset
 
-Order status changes do not represent:
+Global browser demo reset now clears:
 
-- payment capture
-- financial settlement
-- real shipping integration
-- Inventory mutation
-
-No Order timestamps are invented because the current Order entity has no timestamp.
+- IndexedDB demo overrides
+- Customer Profile
+- Promotion scenarios
+- Cart presentation refresh
 
 ## Quality Gate
 
 Latest evidence:
 
-- PASSO 39 targeted tests: 52/52
-- complete suite: 690/690
-- 87 test files passed
+- PASSO 40 targeted tests: 47/47
+- complete suite: 737/737
+- 93 test files passed
 - ESLint zero warnings
 - typecheck passed
 - production build passed
@@ -113,14 +99,14 @@ Latest evidence:
 
 ## Decisions
 
-After PASSO 39:
+After PASSO 40:
 
-`CODAL-DEC-001 -> CODAL-DEC-258`
+`CODAL-DEC-001 -> CODAL-DEC-268`
 
 Next available decision:
 
-`CODAL-DEC-259`
+`CODAL-DEC-269`
 
 ## Next step
 
-PASSO 40 - Promotions, Pricing Simulator and Commercial Controls.
+PASSO 41 - Search, Discovery Intelligence and Catalog Navigation Refinement.

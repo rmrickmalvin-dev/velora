@@ -8,6 +8,9 @@ import {
   resetBrowserDemoCustomerProfile,
 } from "../customer/browser-demo-customer-profile";
 import {
+  resetBrowserDemoPromotions,
+} from "../pricing/browser-demo-promotions";
+import {
   buildDemoOrderHistory,
   type DemoOrderHistoryItem,
 } from "../../presentation/orders/demo-order-history-model";
@@ -52,5 +55,6 @@ export async function resetBrowserDemoData():
   ).resetDemo();
 
   resetBrowserDemoCustomerProfile();
+  resetBrowserDemoPromotions();
   emitBrowserCartChanged();
 }

@@ -457,3 +457,17 @@ Rules:
 - commercial subtotal uses immutable Order item snapshots
 - status changes must never look like payment capture
 - do not invent Order dates while Order has no timestamp
+## Admin Commercial Simulator
+
+PASSO 40 adds a restrained commercial planning surface.
+
+Rules:
+
+- current persisted Variant price is always shown as the base
+- simulated promotional price must be visually separated from persisted price
+- gross profit and margin must be labeled as simulations
+- Promotion scenarios are local planning artifacts
+- scenario save does not imply Storefront activation
+- tax, shipping and payment fees must not be invented
+- commercial controls reuse the Pearl Technology form language
+- scenario deletion is local-only and reversible through recreation

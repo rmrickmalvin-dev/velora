@@ -6,82 +6,76 @@ CODAL OS - Complete Edition active.
 
 ## State
 
-BUILD 01 - CLOSED
-
-BUILD 02 - CLOSED
-
-BUILD 03 - CLOSED
-
 BUILD 04 - IN PROGRESS
 
 Latest validated step:
 
-PASSO 39 - Admin Orders, Status Workflow and Operational Order Management
+PASSO 40 - Promotions, Pricing Simulator and Commercial Controls
 
-## Admin Order UI
+## Admin Commercial UI
 
 Component:
 
-`AdminOrdersPanel`
+`AdminCommercialPanel`
 
-Rendered inside the existing ADMIN role workspace.
+It reads current Variant prices through:
+
+`loadBrowserAdminCatalog`
+
+## Simulator
+
+Pure Feature model:
+
+`admin-commercial-simulator-model`
 
 Supports:
 
-- list all Orders
-- status filter
-- guest/Customer context
-- item quantity
-- line count
-- subtotal
-- next status selection
-- review
-- confirm
+- cost parsing
+- discount basis points
+- promotional price
+- gross profit
+- gross margin
+- Promotion scenario validation
 
-## Application
+## Browser persistence
 
-Use:
+Adapter:
 
-- `listAdminOrders`
-- `changeOrderStatus`
+`browser-demo-promotions`
 
-Do not call OrderRepository from React.
+Storage key:
 
-## Domain
+`velora.demo.promotions.v1`
 
-Use:
+React must not access localStorage directly.
 
-`getAllowedOrderStatusTransitions`
+## Important boundary
 
-for Presentation options.
+Promotion scenarios are simulations only.
 
-Use:
+They do not mutate:
 
-`transitionOrderStatus`
+- ProductVariant price
+- Storefront
+- Cart
+- checkout
+- Order
+- Inventory
 
-as the mutation authority.
+Do not silently connect them to checkout.
 
-Do not duplicate lifecycle rules in React.
+## Financial honesty
 
-## Transparency
+Do not describe gross profit/margin as accounting truth.
 
-Status change is not:
-
-- payment capture
-- payment confirmation
-- real logistics
-- Inventory mutation
-
-Order has no timestamp.
-
-Do not invent Order dates.
+No tax, shipping or payment-fee model exists in PASSO 40.
 
 ## Quality Gate
 
 ```text
-PASSO 39 targeted: 52/52
-Full suite:         690/690
-Test files:         87/87
+PASSO 40 targeted: 47/47
+Full suite:         737/737
+Test files:         93/93
 ESLint warnings:    0
 typecheck:          passed
 build:              passed
@@ -90,23 +84,14 @@ check:              passed
 
 ## Decisions
 
-After PASSO 39:
+After PASSO 40:
 
-`CODAL-DEC-001 -> CODAL-DEC-258`
+`CODAL-DEC-001 -> CODAL-DEC-268`
 
 Next:
 
-`CODAL-DEC-259`
+`CODAL-DEC-269`
 
 ## Next action
 
-PASSO 40 - Promotions, Pricing Simulator and Commercial Controls.
-
-Focus:
-
-- Promotion model and rules
-- Admin promotional controls
-- price/profit simulation
-- explicit simulation vs persisted price distinction
-- no fake tax/shipping precision
-- localized commercial feedback
+PASSO 41 - Search, Discovery Intelligence and Catalog Navigation Refinement.

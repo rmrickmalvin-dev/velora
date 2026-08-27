@@ -28,6 +28,9 @@ import {
   AdminCatalogDashboard,
 } from "../admin/admin-catalog-dashboard";
 import {
+  AdminCommercialPanel,
+} from "../admin/admin-commercial-panel";
+import {
   AdminOrdersPanel,
 } from "../admin/admin-orders-panel";
 import {
@@ -226,6 +229,10 @@ export function DemoRoleAreaPage({
                 />
 
                 <AdminOrdersPanel
+                  locale={locale}
+                />
+
+                <AdminCommercialPanel
                   locale={locale}
                 />
               </>

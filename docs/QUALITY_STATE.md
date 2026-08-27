@@ -1,6 +1,6 @@
 # QUALITY STATE - VELORA
 
-Last update: 2026-08-26
+Last update: 2026-08-27
 
 ## BUILD 01
 
@@ -18,43 +18,40 @@ CLOSED AND VALIDATED
 
 IN PROGRESS
 
-## PASSO 34 - Demo session
+## PASSO 35 - Admin Storefront context
 
-- [x] GUEST default role
-- [x] CUSTOMER role
-- [x] ADMIN role
-- [x] localStorage session adapter
-- [x] one role-only storage key
-- [x] same-document session event
-- [x] cross-tab storage event
-- [x] useSyncExternalStore shared UI
-- [x] no Domain persistence dependency
-- [x] no IndexedDB session dependency
+- [x] ADMIN-only contextual Product controls
+- [x] Product card Admin controls
+- [x] Product detail Admin controls
+- [x] numeric stock visibility
+- [x] localized Admin copy
+- [x] contextual links preserve locale
+- [x] no Product mutation from contextual controls
 
-## PASSO 34 - Role entry
+## PASSO 35 - Admin Catalog Dashboard
 
-- [x] localized login route
-- [x] localized account route
-- [x] localized admin route
-- [x] noindex role routes
-- [x] quick Customer entry
-- [x] quick Admin entry
-- [x] Guest continuation
-- [x] no password fields
-- [x] explicit demo-only notice
-- [x] Customer area role gate
-- [x] Admin area role gate
-- [x] global SessionIndicator
+- [x] active Product count
+- [x] active Variant count
+- [x] total Inventory units
+- [x] low-stock Variant count
+- [x] Product identity
+- [x] SKU visibility
+- [x] price visibility
+- [x] quantityOnHand visibility
+- [x] browser persistent data source
+- [x] Application facade read path
+- [x] no React repository access
+- [x] no React IndexedDB access
 
-## Security semantics
+## Mutation boundary
 
-- [x] no claim of real authentication
-- [x] no security boundary claim
-- [x] no credential storage
-- [x] no auth token
-- [x] no sensitive profile persistence
+- [x] no Product mutation
+- [x] no price mutation
+- [x] no Inventory mutation
+- [x] no InventoryMovement append
+- [x] read-only notice visible
 
-## PASSO 34 Test Evidence
+## PASSO 35 Test Evidence
 
 Targeted:
 
@@ -68,9 +65,9 @@ Targeted:
 Complete suite:
 
 ```text
-58 test files
-462 tests
-462 passed
+62 test files
+494 tests
+494 passed
 0 failed
 ```
 
@@ -84,4 +81,4 @@ Complete suite:
 
 ## Next Quality Gate
 
-PASSO 35 - Admin Storefront Context, Catalog Controls and Inventory Visibility.
+PASSO 36 - Admin Product Editing, Price Controls and Persistent Catalog Overrides.

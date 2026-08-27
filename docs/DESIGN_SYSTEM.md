@@ -385,3 +385,17 @@ Visual rules:
 Language rule:
 
 Always describe role switching as a local demonstration or interface mode, never as real secure authentication.
+## Admin Storefront context
+
+PASSO 35 introduces a discreet ADMIN layer over the public Storefront.
+
+Rules:
+
+- Admin context must not visually replace the customer-facing Storefront
+- contextual controls use restrained gold/dashed treatment
+- controls appear only for ADMIN demo role
+- stock is shown numerically to Admin
+- Product and Inventory actions navigate to Admin context
+- this pass is read-only
+- operational Dashboard remains consistent with Pearl Technology
+- low-stock attention may use semantic danger text without turning the entire card red

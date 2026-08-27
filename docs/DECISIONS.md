@@ -236,6 +236,16 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-206 | ACEITA | Customer and Admin workspace checks are experience gates only and must not be presented as authorization or security boundaries | Prevent misleading security claims in a local conceptual portfolio |
 | CODAL-DEC-207 | ACEITA | PASSO 34 establishes Customer/Admin entry foundations but defers Customer data and Admin Catalog/Inventory controls to later BUILD 04 units | Keep role/session activation small and verifiable |
 | CODAL-DEC-208 | ACEITA | BUILD 04 Application and Data Experience opens only after role/session routes, global role awareness, 462 passing tests and production build validation | Preserve quality-first phase transition |
+| CODAL-DEC-209 | ACEITA | ADMIN demo role adds discreet contextual controls to Product discovery and Product detail without replacing the customer-facing Storefront | Make the Admin role modify the global experience while preserving one shared Storefront |
+| CODAL-DEC-210 | ACEITA | StorefrontProductCard exposes numeric stockUnits in addition to localized stockLabel | Allow role-aware operational UI to use Inventory values without parsing Presentation strings |
+| CODAL-DEC-211 | ACEITA | Admin contextual Product controls are navigation/read-only in PASSO 35 | Introduce operational context before activating mutation workflows |
+| CODAL-DEC-212 | ACEITA | Admin Catalog Dashboard reads browser-persistent data through createBrowserVeloraRuntime and VeloraApplication.listStorefrontProducts | Preserve UI to Application to Repository boundaries |
+| CODAL-DEC-213 | ACEITA | Admin React components never import concrete repositories or IndexedDbProvider | Keep persistence selection inside Infrastructure composition |
+| CODAL-DEC-214 | ACEITA | Admin Catalog read model exposes Product identity, Variant SKU, price and quantityOnHand | Provide operational visibility required by the portfolio without duplicating Domain entities in React |
+| CODAL-DEC-215 | ACEITA | Admin low-stock state at quantity less than or equal to five is Presentation guidance rather than a Domain Inventory invariant | Keep merchandising attention separate from stock validity rules |
+| CODAL-DEC-216 | ACEITA | PASSO 35 Admin Dashboard is scoped to the active Storefront catalog returned by the current Application query | Keep the first operational read model aligned with what visitors can currently browse |
+| CODAL-DEC-217 | ACEITA | Product, price and Inventory mutations remain deferred until explicit Admin mutation use cases are implemented | Prevent hidden writes and keep every administrative mutation auditable |
+| CODAL-DEC-218 | ACEITA | PASSO 35 is complete only after ADMIN context, Catalog/Inventory visibility, 494 passing tests and production build validation | Preserve quality-first BUILD 04 progression |
 
 ## Decisões por área
 
@@ -268,7 +278,7 @@ Quando uma decisão precisar mudar:
 - CODAL-DEC-013 — Seed imutável + overrides locais;
 - CODAL-DEC-014 — IndexedDB para domínio mutável;
 - CODAL-DEC-015 — Zustand apenas para estado global necessário;
-- CODAL-DEC-209 — Domain independente de React e Next.js;
+- CODAL-DEC-219 — Domain independente de React e Next.js;
 - CODAL-DEC-027 — Repository Contracts independentes de providers;
 - CODAL-DEC-028 — componentes não acessam persistência diretamente.
 

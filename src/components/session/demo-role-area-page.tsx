@@ -25,6 +25,9 @@ import {
 } from "../../features/session/browser-demo-session";
 
 import {
+  AdminCatalogDashboard,
+} from "../admin/admin-catalog-dashboard";
+import {
   CartIndicator,
 } from "../commerce/cart-indicator";
 
@@ -201,6 +204,13 @@ export function DemoRoleAreaPage({
                 </Link>
               </div>
             </div>
+
+            {area ===
+            "ADMIN" ? (
+              <AdminCatalogDashboard
+                locale={locale}
+              />
+            ) : null}
           </>
         ) : (
           <div

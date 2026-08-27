@@ -5,6 +5,9 @@ import type {
 } from "../../presentation/storefront/storefront-product-detail-model";
 
 import {
+  AdminStorefrontControls,
+} from "../admin/admin-storefront-controls";
+import {
   ProductVisual,
 } from "./product-visual";
 
@@ -207,6 +210,29 @@ export function ProductDetail({
               model.brand
             }
           </p>
+
+          <AdminStorefrontControls
+            locale={
+              model.locale
+            }
+            productId={
+              model.id
+            }
+            productSlug={
+              model.slug
+            }
+            stockUnits={
+              model.variants.reduce(
+                (
+                  total,
+                  variant,
+                ) =>
+                  total +
+                  variant.quantityOnHand,
+                0,
+              )
+            }
+          />
 
           <a
             className={

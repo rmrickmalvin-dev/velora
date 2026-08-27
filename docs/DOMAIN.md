@@ -1,47 +1,44 @@
 # DOMAIN - VELORA
 
-Last update: 2026-08-26
+Last update: 2026-08-27
 
 ## BUILD 04 status
 
 IN PROGRESS
 
-## Demo session boundary
+## Admin read boundary
 
-Guest / Customer / Admin are experience roles in the Feature/UI layer.
+PASSO 35 does not introduce new Domain mutation rules.
 
-They are not Domain authentication identities.
+Admin Catalog visibility reads through the existing Application Storefront query and persistent repositories.
 
-## Session persistence
+## Presentation read model
 
-Demo role state is small UI/session state.
+`buildAdminCatalogModel`
 
-It is persisted through a dedicated browser adapter using localStorage.
+derives operational UI data from Storefront Application data.
 
-It is intentionally separate from:
+It includes:
 
-- IndexedDB Domain persistence
-- Cart
-- Orders
-- Catalog
-- Inventory
+- Product identity
+- Variant identity
+- SKU
+- current Variant price
+- current Inventory quantity
+- low-stock Presentation flag
 
-## Role access
+The low-stock flag is Presentation guidance and is not a new Inventory invariant.
 
-`canAccessDemoRoleArea`
+## Storefront Admin context
 
-controls which demo workspace content is rendered.
+ADMIN controls are Feature/UI role-aware navigation.
 
-It must not be described as real authorization.
+They do not bypass Application boundaries.
 
-## Server rendering
+## Mutation boundary
 
-The server snapshot is always:
-
-`GUEST`
-
-Client role state hydrates from browser storage through useSyncExternalStore.
+Product, price and Inventory writes are deliberately deferred.
 
 ## Next milestone
 
-PASSO 35 - Admin Storefront Context, Catalog Controls and Inventory Visibility.
+PASSO 36 - Admin Product Editing, Price Controls and Persistent Catalog Overrides.

@@ -1,6 +1,6 @@
 # AI HANDOFF - VELORA
 
-Last update: 2026-08-26
+Last update: 2026-08-27
 
 CODAL OS - Complete Edition active.
 
@@ -16,68 +16,56 @@ BUILD 04 - IN PROGRESS
 
 Latest validated step:
 
-PASSO 34 - Demo Authentication Roles, Session Experience and Customer/Admin Entry
+PASSO 35 - Admin Storefront Context, Catalog Controls and Inventory Visibility
 
-## Role model
+## Admin Storefront
 
-Roles:
+When demo role is ADMIN:
 
-- GUEST
-- CUSTOMER
-- ADMIN
+- Product cards expose Edit Product and Inventory controls
+- Product detail exposes the same controls
+- numeric stock is visible
 
-Default:
+These controls are read/navigation only in PASSO 35.
 
-GUEST
+## Admin Dashboard
 
-These are demo interface modes.
+Component:
 
-Do not describe them as secure authentication.
+`AdminCatalogDashboard`
 
-## Browser session adapter
+Data adapter:
 
-Use:
+`browser-admin-catalog`
 
-`browser-demo-session`
+Read model:
 
-Storage:
+`buildAdminCatalogModel`
 
-`velora.demo.session.v1`
+Data path:
 
-Persist only the demo role.
+`VeloraApplication.listStorefrontProducts`
 
-Do not store:
+Do not import repositories or IndexedDB into Admin React components.
 
-- passwords
-- auth tokens
-- personal account records
+## Low stock
 
-## Global UI
+`lowStock` in the Admin read model is Presentation guidance at quantity <= 5.
 
-SessionIndicator is composed into CartIndicator.
+It is not a Domain rule.
 
-This makes current role visible throughout existing Storefront commerce journeys.
+## Mutations
 
-## Demo routes
+Do not implement Product/price/Inventory writes as hidden side effects.
 
-- `/{locale}/login`
-- `/{locale}/account`
-- `/{locale}/admin`
-
-All are noindex.
-
-## Customer/Admin scope
-
-PASSO 34 creates role-aware entry foundations only.
-
-Do not invent full Customer profile or Admin CRUD yet.
+Next step owns those mutations explicitly.
 
 ## Quality Gate
 
 ```text
-PASSO 34 targeted: 40/40
-Full suite:         462/462
-Test files:         58/58
+PASSO 35 targeted: 40/40
+Full suite:         494/494
+Test files:         62/62
 lint:               passed
 typecheck:          passed
 build:              passed
@@ -86,22 +74,24 @@ check:              passed
 
 ## Decisions
 
-After PASSO 34:
+After PASSO 35:
 
-`CODAL-DEC-001 -> CODAL-DEC-208`
+`CODAL-DEC-001 -> CODAL-DEC-218`
 
 Next:
 
-`CODAL-DEC-209`
+`CODAL-DEC-219`
 
 ## Next action
 
-PASSO 35 - Admin Storefront Context, Catalog Controls and Inventory Visibility.
+PASSO 36 - Admin Product Editing, Price Controls and Persistent Catalog Overrides.
 
 Focus:
 
-- discreet Admin context on Storefront
-- role-aware Product controls
-- Catalog and Inventory read models
-- no direct repository access from React
-- mutations remain explicit and auditable
+- explicit Product edit form
+- Variant price edits
+- persistent Catalog overrides
+- Zod/domain validation boundaries
+- confirmation before meaningful mutations
+- Storefront refresh after mutation
+- no direct persistence from React

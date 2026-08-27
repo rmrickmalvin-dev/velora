@@ -2357,3 +2357,81 @@ Next available decision:
 #### Next
 
 PASSO 35 - Admin Storefront Context, Catalog Controls and Inventory Visibility.
+---
+
+### PASSO 35 - Admin Storefront Context, Catalog Controls and Inventory Visibility
+
+Status: COMPLETED AND TECHNICALLY VALIDATED
+
+#### Added - Admin Storefront context
+
+- ADMIN-only Product controls
+- Product card controls
+- Product detail controls
+- numeric stock visibility
+- localized Admin copy
+
+#### Added - Admin Catalog visibility
+
+- Admin Catalog read model
+- active Product count
+- active Variant count
+- total Inventory units
+- low-stock Variant count
+- SKU
+- price
+- quantityOnHand
+
+#### Architecture
+
+Admin React components read through:
+
+- browser-admin-catalog
+- createBrowserVeloraRuntime
+- VeloraApplication
+
+No direct repositories or IndexedDB imports are used by Admin React components.
+
+#### Mutation boundary
+
+PASSO 35 is read-only.
+
+Product, price and Inventory mutation remain deferred.
+
+#### Testing
+
+PASSO 35 targeted:
+
+- 5 test files passed
+- 40 tests passed
+- 0 failed
+
+Complete suite:
+
+- 62 test files passed
+- 494 tests passed
+- 0 failed
+
+#### Technical Validation
+
+Passed:
+
+- npm run lint
+- npm run typecheck
+- npm run test
+- npm run build
+- npm run check
+
+#### Decisions
+
+Added:
+
+- CODAL-DEC-209 through CODAL-DEC-218
+
+Next available decision:
+
+- CODAL-DEC-219
+
+#### Next
+
+PASSO 36 - Admin Product Editing, Price Controls and Persistent Catalog Overrides.

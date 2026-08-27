@@ -1,6 +1,6 @@
 # PROJECT STATE - VELORA
 
-Last update: 2026-08-26
+Last update: 2026-08-27
 
 ## Phase
 
@@ -24,105 +24,104 @@ CLOSED AND VALIDATED
 
 ## Latest validated step
 
-PASSO 34 - Demo Authentication Roles, Session Experience and Customer/Admin Entry
+PASSO 35 - Admin Storefront Context, Catalog Controls and Inventory Visibility
 
-## Demo roles
+## Admin Storefront context
 
-Available interface roles:
+When the current demo role is ADMIN, Product discovery cards and Product detail expose discreet contextual controls.
 
-- GUEST
-- CUSTOMER
-- ADMIN
+Controls:
 
-Default:
+- Edit Product
+- Inventory
+- numeric stock visibility
+- Admin mode label
 
-`GUEST`
+The controls route into the existing localized Admin workspace.
 
-These are portfolio experience modes.
+They do not mutate data in PASSO 35.
 
-They are not real authentication identities.
+## Admin Catalog Dashboard
 
-## Demo session
+The ADMIN workspace now loads a browser-persistent operational read model through:
 
-Small shared session state is persisted through:
+```text
+AdminCatalogDashboard
+|
+v
+browser-admin-catalog
+|
+v
+createBrowserVeloraRuntime
+|
+v
+VeloraApplication.listStorefrontProducts
+|
+v
+Persistent Repositories
+```
 
-`src/features/session/browser-demo-session.ts`
+React components do not access repositories or IndexedDB directly.
 
-Storage key:
+## Admin read model
 
-`velora.demo.session.v1`
+Dashboard includes:
 
-Only the role value is persisted.
+- active Product count
+- active Variant count
+- total Inventory units
+- low-stock Variant count
+- Product identity
+- Variant SKU
+- localized price
+- quantityOnHand
+- availability/attention state
 
-No password, credential, token or personal profile is stored.
+## Scope
 
-## Role entry
+PASSO 35 is read-only.
 
-Localized routes:
+It does not yet:
 
-- `/{locale}/login`
-- `/{locale}/account`
-- `/{locale}/admin`
+- create Product
+- edit Product
+- archive Product
+- change price
+- mutate Inventory
+- append InventoryMovement
 
-All three are noindex.
+Those mutations remain explicit later BUILD 04 units.
 
-## Quick exploration
+## Storefront model
 
-Login provides:
+StorefrontProductCard now also exposes numeric:
 
-- Explore as Customer
-- Explore Admin dashboard
-- Continue as Guest
+`stockUnits`
 
-No credentials are requested.
-
-## Global role awareness
-
-SessionIndicator is integrated into the existing global Cart cluster.
-
-The current role is therefore visible across Storefront journeys that already expose CartIndicator.
-
-Role state uses React useSyncExternalStore with:
-
-- same-document session event
-- browser storage event
-- GUEST server snapshot
-
-## Customer area
-
-PASSO 34 establishes Customer workspace entry only.
-
-Real account/profile data is not used yet.
-
-## Admin area
-
-PASSO 34 establishes Admin workspace entry only.
-
-Catalog, Inventory and operational controls remain for later BUILD 04 units.
+This allows ADMIN context to show real current Inventory totals without parsing localized stock labels.
 
 ## Quality Gate
 
 Latest evidence:
 
-- PASSO 34 targeted tests: 40/40
-- complete suite: 462/462
-- 58 test files passed
+- PASSO 35 targeted tests: 40/40
+- complete suite: 494/494
+- 62 test files passed
 - lint passed
 - typecheck passed
 - production build passed
-- login/account/admin SSG passed
 - `npm run check` passed
 
 ## Decisions
 
-After PASSO 34:
+After PASSO 35:
 
-`CODAL-DEC-001 -> CODAL-DEC-208`
+`CODAL-DEC-001 -> CODAL-DEC-218`
 
 Next available decision:
 
-`CODAL-DEC-209`
+`CODAL-DEC-219`
 
 ## Next step
 
-PASSO 35 - Admin Storefront Context, Catalog Controls and Inventory Visibility.
+PASSO 36 - Admin Product Editing, Price Controls and Persistent Catalog Overrides.

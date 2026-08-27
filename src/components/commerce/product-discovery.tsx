@@ -22,6 +22,9 @@ import type {
 } from "../../presentation/storefront/storefront-home-model";
 
 import {
+  AdminStorefrontControls,
+} from "../admin/admin-storefront-controls";
+import {
   ProductVisual,
 } from "./product-visual";
 
@@ -381,6 +384,19 @@ export function ProductDiscovery({
                       }
                     </span>
                   </div>
+
+                  <AdminStorefrontControls
+                    locale={locale}
+                    productId={
+                      product.id
+                    }
+                    productSlug={
+                      product.slug
+                    }
+                    stockUnits={
+                      product.stockUnits
+                    }
+                  />
 
                   <Link
                     className={

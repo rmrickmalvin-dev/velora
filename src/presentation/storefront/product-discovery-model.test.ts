@@ -28,6 +28,7 @@ const products:
           "R$ 1.00",
         stockLabel:
           "Em estoque",
+        stockUnits: 10,
         featured: true,
         visual:
           Object.freeze({
@@ -52,6 +53,7 @@ const products:
           "R$ 2.00",
         stockLabel:
           "Em estoque",
+        stockUnits: 10,
         featured: true,
         visual:
           Object.freeze({
@@ -76,6 +78,7 @@ const products:
           "R$ 3.00",
         stockLabel:
           "Em estoque",
+        stockUnits: 10,
         featured: false,
         visual:
           Object.freeze({

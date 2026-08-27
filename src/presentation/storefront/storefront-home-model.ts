@@ -29,6 +29,7 @@ export type StorefrontProductCard =
     categoryLabel: string;
     priceLabel: string;
     stockLabel: string;
+    stockUnits: number;
     featured: boolean;
     visual:
       StorefrontProductVisual;
@@ -210,6 +211,8 @@ function buildProductCard(
             .stockLow
         : copy.featured
             .stockAvailable,
+    stockUnits:
+      totalStock,
     featured:
       product.product
         .featured,

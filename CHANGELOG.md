@@ -2699,3 +2699,87 @@ Next available decision:
 #### Next
 
 PASSO 39 - Admin Orders, Status Workflow and Operational Order Management.
+---
+
+### PASSO 39 - Admin Orders, Status Workflow and Operational Order Management
+
+Status: COMPLETED AND TECHNICALLY VALIDATED
+
+#### Added - Admin Order operations
+
+- all persisted Order listing
+- status filter
+- guest/Customer context
+- item quantity
+- line count
+- commercial snapshot subtotal
+- Domain-driven next status
+- explicit review
+- explicit confirmation
+
+#### Added - Application and Domain reads
+
+- listAdminOrders
+- getAllowedOrderStatusTransitions
+
+Existing changeOrderStatus remains the status mutation path.
+
+#### Lifecycle
+
+Supported:
+
+- PENDING -> CONFIRMED / CANCELLED
+- CONFIRMED -> PREPARING / CANCELLED
+- PREPARING -> SHIPPED / CANCELLED
+- SHIPPED -> DELIVERED
+- DELIVERED terminal
+- CANCELLED terminal
+
+#### Side-effect boundary
+
+Status mutation does not change:
+
+- Inventory
+- Cart
+- Product pricing
+- Order item commercial snapshots
+- payment state
+
+#### Testing
+
+PASSO 39 targeted:
+
+- 6 test files passed
+- 52 tests passed
+- 0 failed
+
+Complete suite:
+
+- 87 test files passed
+- 690 tests passed
+- 0 failed
+
+#### Technical Validation
+
+Passed:
+
+- ESLint `--max-warnings=0`
+- npm run lint
+- npm run typecheck
+- npm run test
+- npm run build
+- npm run check
+
+#### Decisions
+
+Added:
+
+- CODAL-DEC-249 through CODAL-DEC-258
+
+Next available decision:
+
+- CODAL-DEC-259
+
+#### Next
+
+PASSO 40 - Promotions, Pricing Simulator and Commercial Controls.

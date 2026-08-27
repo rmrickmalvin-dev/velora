@@ -24,71 +24,88 @@ CLOSED AND VALIDATED
 
 ## Latest validated step
 
-PASSO 38 - Customer Account Data, Saved Profile and Customer Order Experience
+PASSO 39 - Admin Orders, Status Workflow and Operational Order Management
 
-## Customer Account
+## Admin Orders
 
-The CUSTOMER role now receives a dedicated account surface inside the existing localized `/[locale]/account` route.
+The ADMIN workspace now includes persistent Order operations.
 
-The Account is still an experience gate, not a security boundary.
+Admin can:
 
-## Demo Customer Profile
+- list all persisted Orders
+- filter by Order status
+- inspect reference and identity context
+- inspect item quantity and line count
+- inspect commercial snapshot subtotal
+- review the next Domain-allowed status
+- explicitly confirm a status transition
 
-The Profile contains:
+## Application boundary
 
-- fullName
-- email
-- phone
-- city
+VeloraApplication exposes:
 
-Default values are fictional.
+`listAdminOrders`
 
-The Profile persists only in this browser through a Feature adapter:
+Existing mutation remains:
 
-`velora.demo.customer-profile.v1`
+`changeOrderStatus`
 
-React does not access localStorage directly.
+Browser flow:
 
-## Profile boundary
+```text
+AdminOrdersPanel
+|
+v
+browser-admin-orders
+|
+v
+VeloraApplication
+|
+v
+listAdminOrders / changeOrderStatus
+|
+v
+OrderRepository
+|
+v
+IndexedDB
+```
 
-The saved Profile is browser-local experience state.
+React does not access repositories or IndexedDbProvider.
 
-It is not:
+## Domain lifecycle
 
-- a real authenticated identity
-- a remote account
-- a canonical Domain Customer record
-- a checkout Customer binding
+The Domain service now exposes an immutable read of allowed transitions.
 
-This separation is intentional until a later Customer/Authentication backend step.
+Rules remain:
 
-## Customer Order experience
+- PENDING -> CONFIRMED or CANCELLED
+- CONFIRMED -> PREPARING or CANCELLED
+- PREPARING -> SHIPPED or CANCELLED
+- SHIPPED -> DELIVERED
+- DELIVERED -> terminal
+- CANCELLED -> terminal
 
-The Account reuses existing demo Order history.
+The existing `transitionOrderStatus` remains the mutation authority.
 
-Orders shown in the Account are the Orders created by this local browser demo.
+## Operational transparency
 
-They remain guest demo Orders with no verified Customer identity binding.
+Order status changes do not represent:
 
-This is explicitly disclosed in the UI.
+- payment capture
+- financial settlement
+- real shipping integration
+- Inventory mutation
 
-## Reset
-
-Existing global browser demo reset now clears:
-
-- IndexedDB demo overrides through resetDemo
-- demo Customer Profile
-- Cart presentation refresh
-
-The active demo role is not reset.
+No Order timestamps are invented because the current Order entity has no timestamp.
 
 ## Quality Gate
 
 Latest evidence:
 
-- PASSO 38 targeted tests: 44/44
-- complete suite: 638/638
-- 81 test files passed
+- PASSO 39 targeted tests: 52/52
+- complete suite: 690/690
+- 87 test files passed
 - ESLint zero warnings
 - typecheck passed
 - production build passed
@@ -96,14 +113,14 @@ Latest evidence:
 
 ## Decisions
 
-After PASSO 38:
+After PASSO 39:
 
-`CODAL-DEC-001 -> CODAL-DEC-248`
+`CODAL-DEC-001 -> CODAL-DEC-258`
 
 Next available decision:
 
-`CODAL-DEC-249`
+`CODAL-DEC-259`
 
 ## Next step
 
-PASSO 39 - Admin Orders, Status Workflow and Operational Order Management.
+PASSO 40 - Promotions, Pricing Simulator and Commercial Controls.

@@ -16,71 +16,72 @@ BUILD 04 - IN PROGRESS
 
 Latest validated step:
 
-PASSO 38 - Customer Account Data, Saved Profile and Customer Order Experience
+PASSO 39 - Admin Orders, Status Workflow and Operational Order Management
 
-## Customer Account
-
-Route:
-
-`/[locale]/account`
-
-The existing CUSTOMER role gate remains active.
+## Admin Order UI
 
 Component:
 
-`CustomerAccountPanel`
+`AdminOrdersPanel`
 
-## Demo Profile
+Rendered inside the existing ADMIN role workspace.
 
-Feature model:
+Supports:
 
-`demo-customer-profile-model`
+- list all Orders
+- status filter
+- guest/Customer context
+- item quantity
+- line count
+- subtotal
+- next status selection
+- review
+- confirm
 
-Browser adapter:
+## Application
 
-`browser-demo-customer-profile`
+Use:
 
-Storage key:
+- `listAdminOrders`
+- `changeOrderStatus`
 
-`velora.demo.customer-profile.v1`
+Do not call OrderRepository from React.
 
-Do not access localStorage from React.
+## Domain
 
-## Identity warning
+Use:
 
-The Profile is not:
+`getAllowedOrderStatusTransitions`
 
-- real authentication
-- remote account identity
-- Domain Customer identity
-- checkout Customer binding
+for Presentation options.
 
-Do not silently change this boundary.
+Use:
 
-## Customer Orders
+`transitionOrderStatus`
 
-Account uses:
+as the mutation authority.
 
-`loadBrowserDemoOrders`
+Do not duplicate lifecycle rules in React.
 
-These remain browser-local guest demo Orders.
+## Transparency
 
-Do not claim they are verified Customer Orders.
+Status change is not:
 
-## Reset
+- payment capture
+- payment confirmation
+- real logistics
+- Inventory mutation
 
-`resetBrowserDemoData` also calls:
+Order has no timestamp.
 
-`resetBrowserDemoCustomerProfile`
-
-Active session role remains untouched.
+Do not invent Order dates.
 
 ## Quality Gate
 
 ```text
-PASSO 38 targeted: 44/44
-Full suite:         638/638
-Test files:         81/81
+PASSO 39 targeted: 52/52
+Full suite:         690/690
+Test files:         87/87
 ESLint warnings:    0
 typecheck:          passed
 build:              passed
@@ -89,24 +90,23 @@ check:              passed
 
 ## Decisions
 
-After PASSO 38:
+After PASSO 39:
 
-`CODAL-DEC-001 -> CODAL-DEC-248`
+`CODAL-DEC-001 -> CODAL-DEC-258`
 
 Next:
 
-`CODAL-DEC-249`
+`CODAL-DEC-259`
 
 ## Next action
 
-PASSO 39 - Admin Orders, Status Workflow and Operational Order Management.
+PASSO 40 - Promotions, Pricing Simulator and Commercial Controls.
 
 Focus:
 
-- Admin Order list
-- status transitions through existing Domain Order lifecycle
-- explicit confirmation
-- persistent status changes
-- operational filtering
-- no real payment claim
-- no Inventory side effects from status mutation
+- Promotion model and rules
+- Admin promotional controls
+- price/profit simulation
+- explicit simulation vs persisted price distinction
+- no fake tax/shipping precision
+- localized commercial feedback

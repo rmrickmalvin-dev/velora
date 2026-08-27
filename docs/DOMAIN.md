@@ -6,48 +6,58 @@ Last update: 2026-08-27
 
 IN PROGRESS
 
-## Customer Profile boundary
+## Order operational boundary
 
-PASSO 38 intentionally does not create a new Domain Customer entity or authentication model.
+PASSO 39 reuses the existing Order Domain lifecycle.
 
-`DemoCustomerProfile` is Feature-level browser-local experience state.
+Mutation authority:
 
-It exists to make the portfolio Account surface useful while keeping identity claims honest.
+`transitionOrderStatus`
 
-## Profile fields
+Application mutation:
 
-- fullName
-- email
-- phone
-- city
+`changeOrderStatus`
 
-Feature validation normalizes and validates browser input before persistence.
+Admin read:
+
+`listAdminOrders`
+
+## Allowed transitions
+
+- PENDING -> CONFIRMED, CANCELLED
+- CONFIRMED -> PREPARING, CANCELLED
+- PREPARING -> SHIPPED, CANCELLED
+- SHIPPED -> DELIVERED
+- DELIVERED -> none
+- CANCELLED -> none
+
+The Domain service exposes an immutable transition snapshot for Presentation through:
+
+`getAllowedOrderStatusTransitions`
+
+React does not duplicate transition rules.
 
 ## Persistence
 
-Profile storage:
+Status mutation saves the recreated immutable Order through OrderRepository.
 
-`velora.demo.customer-profile.v1`
+Order item commercial snapshots are preserved.
 
-The adapter is isolated from React.
+## Side effects
 
-## Order boundary
+Order status mutation does not:
 
-Customer Account displays existing guest demo Orders.
+- mutate Inventory
+- mutate Cart
+- alter Product pricing
+- represent payment capture
 
-No Order customerId is assigned from the Profile in PASSO 38.
+## Chronology
 
-Therefore:
+Order currently has no timestamp.
 
-- Profile data cannot silently become Order identity
-- checkout behavior remains unchanged
-- existing Order lifecycle remains valid
-- no fake verified Customer relationship is introduced
-
-## Reset
-
-Global browser demo reset clears the Profile in addition to existing persistent demo data.
+Admin Order UI does not invent dates or chronological metadata.
 
 ## Next milestone
 
-PASSO 39 - Admin Orders, Status Workflow and Operational Order Management.
+PASSO 40 - Promotions, Pricing Simulator and Commercial Controls.

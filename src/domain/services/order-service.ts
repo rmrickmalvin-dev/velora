@@ -37,6 +37,16 @@ const allowedTransitions: Readonly<
   CANCELLED: [],
 };
 
+export function getAllowedOrderStatusTransitions(
+  status: OrderStatus,
+): readonly OrderStatus[] {
+  return Object.freeze([
+    ...allowedTransitions[
+      status
+    ],
+  ]);
+}
+
 export function calculateOrderSubtotal(
   order: Order,
 ): Money {

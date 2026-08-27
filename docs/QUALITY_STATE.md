@@ -18,54 +18,53 @@ CLOSED AND VALIDATED
 
 IN PROGRESS
 
-## PASSO 38 - Customer Account
+## PASSO 39 - Admin Orders
 
-- [x] CUSTOMER role-gated account surface
-- [x] fictional default Profile
-- [x] local Profile persistence adapter
-- [x] Profile validation
-- [x] Profile save
-- [x] Profile restore
-- [x] same-document Profile event
-- [x] cross-tab Profile event
-- [x] no React localStorage access
-- [x] no fake authentication claim
+- [x] list all persisted Orders
+- [x] guest and Customer Order visibility
+- [x] status filtering
+- [x] commercial snapshot subtotal
+- [x] Domain-allowed next status list
+- [x] explicit review
+- [x] explicit confirmation
+- [x] persistent status mutation
+- [x] terminal DELIVERED/CANCELLED handling
+- [x] no payment claim
+- [x] no invented timestamp
 
-## Customer Orders
+## Architecture
 
-- [x] Account reads existing demo Orders
-- [x] Order reference
-- [x] Order status
-- [x] item count
-- [x] localized subtotal
-- [x] empty state
-- [x] explicit browser-local disclosure
-- [x] no verified Customer identity claim
+- [x] listAdminOrders Application use case
+- [x] existing changeOrderStatus reused
+- [x] OrderRepository persistence
+- [x] browser Admin adapter
+- [x] no React repository access
+- [x] no React IndexedDB access
 
-## Reset
+## Side-effect boundary
 
-- [x] existing IndexedDB reset preserved
-- [x] Customer Profile cleared
-- [x] Cart refresh preserved
-- [x] demo role preserved
+- [x] Inventory unchanged
+- [x] Cart unchanged
+- [x] Order item snapshots unchanged
+- [x] payment semantics unchanged
 
-## PASSO 38 Test Evidence
+## PASSO 39 Test Evidence
 
 Targeted:
 
 ```text
 6 test files
-44 tests
-44 passed
+52 tests
+52 passed
 0 failed
 ```
 
 Complete suite:
 
 ```text
-81 test files
-638 tests
-638 passed
+87 test files
+690 tests
+690 passed
 0 failed
 ```
 
@@ -80,4 +79,4 @@ Complete suite:
 
 ## Next Quality Gate
 
-PASSO 39 - Admin Orders, Status Workflow and Operational Order Management.
+PASSO 40 - Promotions, Pricing Simulator and Commercial Controls.

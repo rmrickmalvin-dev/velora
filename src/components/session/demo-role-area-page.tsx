@@ -28,6 +28,9 @@ import {
   AdminCatalogDashboard,
 } from "../admin/admin-catalog-dashboard";
 import {
+  AdminOrdersPanel,
+} from "../admin/admin-orders-panel";
+import {
   CartIndicator,
 } from "../commerce/cart-indicator";
 import {
@@ -217,9 +220,15 @@ export function DemoRoleAreaPage({
 
             {area ===
             "ADMIN" ? (
-              <AdminCatalogDashboard
-                locale={locale}
-              />
+              <>
+                <AdminCatalogDashboard
+                  locale={locale}
+                />
+
+                <AdminOrdersPanel
+                  locale={locale}
+                />
+              </>
             ) : null}
           </>
         ) : (

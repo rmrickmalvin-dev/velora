@@ -276,6 +276,16 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-246 | ACEITA | Global browser demo reset clears Demo Customer Profile in addition to existing persistent demo overrides while preserving the selected demo role | Keep reset semantics complete without unexpectedly changing the current experience role |
 | CODAL-DEC-247 | ACEITA | Customer Account Profile and Order presentation reuse existing localized Storefront money/order models rather than duplicate commercial calculations | Keep one source of truth for monetary presentation and Order history summaries |
 | CODAL-DEC-248 | ACEITA | PASSO 38 is complete only after saved Profile, Customer Account Order visibility, zero-warning lint, 638 passing tests and production build validation | Preserve quality-first BUILD 04 progression |
+| CODAL-DEC-249 | ACEITA | VeloraApplication exposes `listAdminOrders` using OrderRepository.list so ADMIN operations can read guest and future Customer Orders through the Application boundary | Keep Admin Order visibility complete and provider-agnostic |
+| CODAL-DEC-250 | ACEITA | Order Domain service exposes an immutable `getAllowedOrderStatusTransitions` query while `transitionOrderStatus` remains the mutation authority | Let Presentation render valid next actions without duplicating lifecycle rules in React |
+| CODAL-DEC-251 | ACEITA | Admin Order status mutation reuses existing `changeOrderStatus` and persists through OrderRepository | Preserve the established Domain -> Application -> Repository path |
+| CODAL-DEC-252 | ACEITA | Every Admin status change requires selection, review and explicit confirmation before persistence | Prevent accidental operational transitions |
+| CODAL-DEC-253 | ACEITA | DELIVERED and CANCELLED remain terminal in Admin UI because the Domain exposes no next statuses | Keep UI behavior aligned with terminal Domain states |
+| CODAL-DEC-254 | ACEITA | Admin Order filtering is Presentation-only and does not alter repository order or persisted Order data | Keep operational filtering reversible and side-effect free |
+| CODAL-DEC-255 | ACEITA | Order status mutation does not mutate Inventory, Cart, commercial snapshots or payment state | Keep lifecycle administration independent from stock, commerce and payment semantics |
+| CODAL-DEC-256 | ACEITA | Admin Order UI distinguishes guest versus recorded customerId context without claiming verified identity | Preserve transparent demo identity semantics |
+| CODAL-DEC-257 | ACEITA | No Order date or chronology is invented because the current Order entity has no timestamp | Keep operational presentation faithful to available Domain data |
+| CODAL-DEC-258 | ACEITA | PASSO 39 is complete only after persistent Admin status workflow, zero-warning lint, 690 passing tests and production build validation | Preserve quality-first BUILD 04 progression |
 
 ## Decisões por área
 
@@ -308,7 +318,7 @@ Quando uma decisão precisar mudar:
 - CODAL-DEC-013 — Seed imutável + overrides locais;
 - CODAL-DEC-014 — IndexedDB para domínio mutável;
 - CODAL-DEC-015 — Zustand apenas para estado global necessário;
-- CODAL-DEC-249 — Domain independente de React e Next.js;
+- CODAL-DEC-259 — Domain independente de React e Next.js;
 - CODAL-DEC-027 — Repository Contracts independentes de providers;
 - CODAL-DEC-028 — componentes não acessam persistência diretamente.
 

@@ -58,3 +58,6 @@ export {
   changeOrderStatus,
   listCustomerOrders,
 } from "./use-cases/order-use-cases";
+export {
+  listAdminOrders,
+} from "./use-cases/list-admin-orders";

@@ -442,3 +442,18 @@ Rules:
 - Customer Orders are presented as browser-local demo Orders
 - do not imply verified identity or real authentication
 - Profile restoration is available without destructive confirmation because it restores fictional seed data only
+## Admin Order operations
+
+PASSO 39 introduces operational Order management.
+
+Rules:
+
+- Admin Orders remain inside the ADMIN role workspace
+- status filtering is a Presentation concern
+- current status is always visible before a transition
+- next-status choices come from Domain transition data
+- a status mutation requires review and explicit confirmation
+- terminal Orders do not show mutation controls
+- commercial subtotal uses immutable Order item snapshots
+- status changes must never look like payment capture
+- do not invent Order dates while Order has no timestamp

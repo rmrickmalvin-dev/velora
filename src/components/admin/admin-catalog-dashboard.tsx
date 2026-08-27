@@ -18,6 +18,10 @@ import type {
   AdminCatalogModel,
 } from "../../presentation/admin/admin-catalog-model";
 
+import {
+  AdminProductEditor,
+} from "./admin-product-editor";
+
 import styles from "./admin-catalog-dashboard.module.css";
 
 type AdminCatalogDashboardProps =
@@ -48,6 +52,14 @@ export function AdminCatalogDashboard({
     setLoading,
   ] = useState(true);
 
+  const [
+    selectedProductId,
+    setSelectedProductId,
+  ] =
+    useState<
+      string | null
+    >(null);
+
   useEffect(
     () => {
       queueMicrotask(
@@ -56,7 +68,31 @@ export function AdminCatalogDashboard({
             locale,
           )
             .then(
-              setModel,
+              (next) => {
+                setModel(
+                  next,
+                );
+
+                const requested =
+                  new URLSearchParams(
+                    window.location.search,
+                  ).get(
+                    "product",
+                  );
+
+                if (
+                  requested &&
+                  next.products.some(
+                    (product) =>
+                      product.productId ===
+                      requested,
+                  )
+                ) {
+                  setSelectedProductId(
+                    requested,
+                  );
+                }
+              },
             )
             .finally(
               () => {
@@ -109,6 +145,14 @@ export function AdminCatalogDashboard({
       </section>
     );
   }
+
+  const selectedProduct =
+    model.products.find(
+      (product) =>
+        product.productId ===
+        selectedProductId,
+    ) ??
+    null;
 
   return (
     <section
@@ -204,6 +248,37 @@ export function AdminCatalogDashboard({
         )}
       </div>
 
+      {selectedProduct ? (
+        <AdminProductEditor
+          key={
+            selectedProduct.productId
+          }
+          locale={locale}
+          product={
+            selectedProduct
+          }
+          onClose={
+            () => {
+              setSelectedProductId(
+                null,
+              );
+            }
+          }
+          onChanged={
+            async () => {
+              const next =
+                await loadBrowserAdminCatalog(
+                  locale,
+                );
+
+              setModel(
+                next,
+              );
+            }
+          }
+        />
+      ) : null}
+
       <div
         className={
           styles.catalog
@@ -237,15 +312,36 @@ export function AdminCatalogDashboard({
                   </h3>
                 </div>
 
-                <strong>
-                  {
-                    product.totalStock
+                <div
+                  className={
+                    styles.productActions
                   }
-                  {" "}
-                  {
-                    copy.units
-                  }
-                </strong>
+                >
+                  <strong>
+                    {
+                      product.totalStock
+                    }
+                    {" "}
+                    {
+                      copy.units
+                    }
+                  </strong>
+
+                  <button
+                    type="button"
+                    onClick={
+                      () => {
+                        setSelectedProductId(
+                          product.productId,
+                        );
+                      }
+                    }
+                  >
+                    {
+                      copy.editProduct
+                    }
+                  </button>
+                </div>
               </header>
 
               <div

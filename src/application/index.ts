@@ -12,6 +12,13 @@ export {
 } from "./errors/application-error";
 
 export {
+  updateAdminProduct,
+  updateAdminVariantPrice,
+  type UpdateAdminProductInput,
+  type UpdateAdminVariantPriceInput,
+} from "./use-cases/admin-catalog-mutations";
+
+export {
   createDemoOrderFromCart,
   type CreateDemoOrderDependencies,
   type CreateDemoOrderFromCartInput,

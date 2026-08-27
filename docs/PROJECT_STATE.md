@@ -24,89 +24,105 @@ CLOSED AND VALIDATED
 
 ## Latest validated step
 
-PASSO 35 - Admin Storefront Context, Catalog Controls and Inventory Visibility
+PASSO 36 - Admin Product Editing, Price Controls and Persistent Catalog Overrides
 
-## Admin Storefront context
+## Admin Product mutation
 
-When the current demo role is ADMIN, Product discovery cards and Product detail expose discreet contextual controls.
+VeloraApplication now exposes:
 
-Controls:
+- updateAdminProduct
+- updateAdminVariantPrice
 
-- Edit Product
-- Inventory
-- numeric stock visibility
-- Admin mode label
+Product update can change:
 
-The controls route into the existing localized Admin workspace.
+- name
+- brand
+- model
+- featured
 
-They do not mutate data in PASSO 35.
+It preserves:
 
-## Admin Catalog Dashboard
+- id
+- slug
+- category
+- status
 
-The ADMIN workspace now loads a browser-persistent operational read model through:
+Variant price update preserves:
+
+- Variant id
+- Product id
+- SKU
+- currency
+- status
+- attributes
+
+## Persistence
+
+Mutations are saved through existing ProductRepository and ProductVariantRepository contracts.
+
+Browser flow:
 
 ```text
-AdminCatalogDashboard
+AdminProductEditor
 |
 v
-browser-admin-catalog
+browser-admin-catalog-mutations
 |
 v
-createBrowserVeloraRuntime
+VeloraApplication
 |
 v
-VeloraApplication.listStorefrontProducts
+Application mutation use case
 |
 v
-Persistent Repositories
+Persistent Repository
+|
+v
+IndexedDB
 ```
 
-React components do not access repositories or IndexedDB directly.
+React does not import repositories or IndexedDbProvider.
 
-## Admin read model
+## Confirmation
 
-Dashboard includes:
+Product details and Variant prices require a review/confirmation step before mutation.
 
-- active Product count
-- active Variant count
-- total Inventory units
-- low-stock Variant count
-- Product identity
-- Variant SKU
-- localized price
-- quantityOnHand
-- availability/attention state
+## Price input
 
-## Scope
+Admin UI accepts:
 
-PASSO 35 is read-only.
+- whole decimal values
+- dot decimal separator
+- comma decimal separator
+- maximum two decimal places
 
-It does not yet:
+Application persists prices as Money minor units while preserving the current Variant currency.
 
-- create Product
-- edit Product
-- archive Product
-- change price
-- mutate Inventory
-- append InventoryMovement
+## Browser Storefront refresh
 
-Those mutations remain explicit later BUILD 04 units.
+Product Discovery starts from SSG data for fast rendering, then hydrates current browser-persistent Catalog overrides through VeloraApplication.
 
-## Storefront model
+Catalog mutation emits:
 
-StorefrontProductCard now also exposes numeric:
+`velora:catalog-changed`
 
-`stockUnits`
+Product Discovery subscribes and refreshes its browser Catalog cards.
 
-This allows ADMIN context to show real current Inventory totals without parsing localized stock labels.
+## Reset
+
+Existing resetDemo restores original seed Product and Variant price values.
+
+## Inventory
+
+Product and price mutation do not change Inventory.
 
 ## Quality Gate
 
 Latest evidence:
 
-- PASSO 35 targeted tests: 40/40
-- complete suite: 494/494
-- 62 test files passed
+- PASSO 36 targeted tests: 48/48
+- complete suite: 542/542
+- 68 test files passed
 - lint passed
 - typecheck passed
 - production build passed
@@ -114,14 +130,14 @@ Latest evidence:
 
 ## Decisions
 
-After PASSO 35:
+After PASSO 36:
 
-`CODAL-DEC-001 -> CODAL-DEC-218`
+`CODAL-DEC-001 -> CODAL-DEC-228`
 
 Next available decision:
 
-`CODAL-DEC-219`
+`CODAL-DEC-229`
 
 ## Next step
 
-PASSO 36 - Admin Product Editing, Price Controls and Persistent Catalog Overrides.
+PASSO 37 - Inventory Adjustment Controls, Movement History and Admin Stock Operations.

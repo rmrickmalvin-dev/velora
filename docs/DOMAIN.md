@@ -6,39 +6,62 @@ Last update: 2026-08-27
 
 IN PROGRESS
 
-## Admin read boundary
+## Admin Catalog mutation
 
-PASSO 35 does not introduce new Domain mutation rules.
+Application use cases:
 
-Admin Catalog visibility reads through the existing Application Storefront query and persistent repositories.
+- updateAdminProduct
+- updateAdminVariantPrice
 
-## Presentation read model
+The use cases load current Domain entities, recreate them through Domain factories, then save through repository contracts.
 
-`buildAdminCatalogModel`
+## Product update preservation
 
-derives operational UI data from Storefront Application data.
+Mutable in PASSO 36:
 
-It includes:
+- name
+- brand
+- model
+- featured
 
-- Product identity
-- Variant identity
+Preserved:
+
+- id
+- slug
+- categoryId
+- status
+
+## Variant price preservation
+
+Mutable:
+
+- Money minorUnits
+
+Preserved:
+
+- id
+- productId
 - SKU
-- current Variant price
-- current Inventory quantity
-- low-stock Presentation flag
+- currency
+- status
+- attributes
 
-The low-stock flag is Presentation guidance and is not a new Inventory invariant.
+## Inventory boundary
 
-## Storefront Admin context
+Price/Product mutation does not mutate Inventory.
 
-ADMIN controls are Feature/UI role-aware navigation.
+## Presentation validation
 
-They do not bypass Application boundaries.
+Admin form validation and decimal parsing live in Feature code.
 
-## Mutation boundary
+Domain remains the final invariant boundary through Product/ProductVariant/Money factories.
 
-Product, price and Inventory writes are deliberately deferred.
+## Persistent overrides
+
+ProductRepository and ProductVariantRepository remain the persistence abstraction.
+
+Browser IndexedDB selection stays inside Infrastructure composition.
 
 ## Next milestone
 
-PASSO 36 - Admin Product Editing, Price Controls and Persistent Catalog Overrides.
+PASSO 37 - Inventory Adjustment Controls, Movement History and Admin Stock Operations.

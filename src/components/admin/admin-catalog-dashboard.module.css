@@ -234,3 +234,43 @@
     grid-template-columns: 1fr;
   }
 }
+
+.productActions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap:
+    var(--velora-space-3);
+}
+
+.productActions > strong {
+  font-family:
+    var(--velora-font-mono);
+  font-size: 0.72rem;
+}
+
+.productActions button {
+  min-height: 2.25rem;
+  padding:
+    0
+    var(--velora-space-3);
+  border:
+    1px solid
+    var(--velora-border-strong);
+  border-radius:
+    var(--velora-radius-pill);
+  cursor: pointer;
+  color:
+    var(--velora-ink-700);
+  background:
+    var(--velora-surface-strong);
+  font-size: 0.66rem;
+  font-weight: 700;
+}
+
+.productActions button:hover,
+.productActions button:focus-visible {
+  border-color:
+    var(--velora-gold-500);
+}

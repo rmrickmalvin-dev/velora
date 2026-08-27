@@ -246,6 +246,16 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-216 | ACEITA | PASSO 35 Admin Dashboard is scoped to the active Storefront catalog returned by the current Application query | Keep the first operational read model aligned with what visitors can currently browse |
 | CODAL-DEC-217 | ACEITA | Product, price and Inventory mutations remain deferred until explicit Admin mutation use cases are implemented | Prevent hidden writes and keep every administrative mutation auditable |
 | CODAL-DEC-218 | ACEITA | PASSO 35 is complete only after ADMIN context, Catalog/Inventory visibility, 494 passing tests and production build validation | Preserve quality-first BUILD 04 progression |
+| CODAL-DEC-219 | ACEITA | Product name, brand, model and featured state are mutable through explicit Application Admin use cases while id, slug, category and status are preserved | Allow meaningful Catalog editing without silently changing routing or lifecycle identity |
+| CODAL-DEC-220 | ACEITA | Variant price mutation recreates Money from validated minor units and preserves the Variant currency, SKU, status and attributes | Keep price editing aligned with Domain Money and Variant identity |
+| CODAL-DEC-221 | ACEITA | Product and Variant price writes persist through ProductRepository and ProductVariantRepository contracts | Maintain provider-agnostic persistence and IndexedDB replaceability |
+| CODAL-DEC-222 | ACEITA | Admin Product details and each Variant price require explicit review/confirmation before mutation | Make meaningful administrative writes intentional and auditable |
+| CODAL-DEC-223 | ACEITA | Decimal Admin price input is parsed in Feature code and Domain Money remains the final invariant boundary | Separate human-friendly form parsing from monetary Domain representation |
+| CODAL-DEC-224 | ACEITA | Browser Admin mutation adapters call VeloraApplication and emit `velora:catalog-changed` only after successful persistence | Keep React free of persistence logic and provide deterministic refresh signaling |
+| CODAL-DEC-225 | ACEITA | Public Product Discovery keeps SSG initial data then hydrates browser-persistent Catalog overrides through VeloraApplication | Preserve fast static rendering while making local Admin edits visible in the demo Storefront |
+| CODAL-DEC-226 | ACEITA | Product/price mutation never changes Inventory or InventoryMovement | Keep Catalog commercial data and stock operations independently auditable |
+| CODAL-DEC-227 | ACEITA | Existing resetDemo is the rollback mechanism for persistent Catalog overrides | Avoid introducing a second reset or seed restoration path |
+| CODAL-DEC-228 | ACEITA | PASSO 36 is complete only after persistent Product/price edits, Storefront browser refresh, 542 passing tests and production build validation | Preserve quality-first BUILD 04 mutation progression |
 
 ## Decisões por área
 
@@ -278,7 +288,7 @@ Quando uma decisão precisar mudar:
 - CODAL-DEC-013 — Seed imutável + overrides locais;
 - CODAL-DEC-014 — IndexedDB para domínio mutável;
 - CODAL-DEC-015 — Zustand apenas para estado global necessário;
-- CODAL-DEC-219 — Domain independente de React e Next.js;
+- CODAL-DEC-229 — Domain independente de React e Next.js;
 - CODAL-DEC-027 — Repository Contracts independentes de providers;
 - CODAL-DEC-028 — componentes não acessam persistência diretamente.
 

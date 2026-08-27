@@ -27,6 +27,12 @@ import type {
   Slug,
 } from "../domain/value-objects/slug";
 import {
+  updateAdminProduct,
+  updateAdminVariantPrice,
+  type UpdateAdminProductInput,
+  type UpdateAdminVariantPriceInput,
+} from "./use-cases/admin-catalog-mutations";
+import {
   adjustInventory,
   type AdjustInventoryInput,
 } from "./use-cases/adjust-inventory";
@@ -104,6 +110,22 @@ export type VeloraApplication =
         slug: Slug,
       ) => ReturnType<
         typeof getStorefrontProductBySlug
+      >;
+
+    updateAdminProduct:
+      (
+        input:
+          UpdateAdminProductInput,
+      ) => ReturnType<
+        typeof updateAdminProduct
+      >;
+
+    updateAdminVariantPrice:
+      (
+        input:
+          UpdateAdminVariantPriceInput,
+      ) => ReturnType<
+        typeof updateAdminVariantPrice
       >;
 
     addProductToCart:
@@ -191,6 +213,20 @@ export function createVeloraApplication(
         getStorefrontProductBySlug(
           dependencies,
           slug,
+        ),
+
+    updateAdminProduct:
+      (input) =>
+        updateAdminProduct(
+          dependencies.products,
+          input,
+        ),
+
+    updateAdminVariantPrice:
+      (input) =>
+        updateAdminVariantPrice(
+          dependencies.productVariants,
+          input,
         ),
 
     addProductToCart:

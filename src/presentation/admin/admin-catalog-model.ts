@@ -13,6 +13,8 @@ export type AdminCatalogVariantModel =
     variantId: string;
     sku: string;
     priceLabel: string;
+    priceMinorUnits: number;
+    currency: string;
     quantityOnHand: number;
     available: boolean;
     lowStock: boolean;
@@ -23,7 +25,9 @@ export type AdminCatalogProductModel =
     productId: string;
     slug: string;
     brand: string;
+    model: string;
     name: string;
+    featured: boolean;
     variantCount: number;
     totalStock: number;
     lowStockVariantCount: number;
@@ -75,6 +79,12 @@ export function buildAdminCatalogModel(
                     entry.variant.price
                       .currency,
                   ),
+                priceMinorUnits:
+                  entry.variant.price
+                    .minorUnits,
+                currency:
+                  entry.variant.price
+                    .currency,
                 quantityOnHand,
                 available:
                   quantityOnHand > 0,
@@ -108,8 +118,12 @@ export function buildAdminCatalogModel(
             product.product.slug,
           brand:
             product.product.brand,
+          model:
+            product.product.model,
           name:
             product.product.name,
+          featured:
+            product.product.featured,
           variantCount:
             variants.length,
           totalStock,

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import {
+  useEffect,
   useMemo,
   useState,
 } from "react";
@@ -13,6 +14,10 @@ import {
 import {
   getStorefrontInteractionCopy,
 } from "../../i18n/storefront-interaction-copy";
+import {
+  loadBrowserStorefrontProductCards,
+  subscribeBrowserCatalogChanged,
+} from "../../features/catalog/browser-storefront-catalog";
 import {
   filterStorefrontProducts,
   type ProductDiscoveryCategory,
@@ -55,6 +60,14 @@ export function ProductDiscovery({
     ).discovery;
 
   const [
+    displayProducts,
+    setDisplayProducts,
+  ] =
+    useState<
+      readonly StorefrontProductCard[]
+    >(products);
+
+  const [
     query,
     setQuery,
   ] = useState("");
@@ -67,16 +80,60 @@ export function ProductDiscovery({
       ProductDiscoveryCategory
     >("all");
 
+  useEffect(
+    () => {
+      let active =
+        true;
+
+      const refresh =
+        () => {
+          void loadBrowserStorefrontProductCards(
+            locale,
+          )
+            .then(
+              (next) => {
+                if (active) {
+                  setDisplayProducts(
+                    next,
+                  );
+                }
+              },
+            )
+            .catch(
+              () =>
+                undefined,
+            );
+        };
+
+      queueMicrotask(
+        refresh,
+      );
+
+      const unsubscribe =
+        subscribeBrowserCatalogChanged(
+          refresh,
+        );
+
+      return () => {
+        active = false;
+        unsubscribe();
+      };
+    },
+    [
+      locale,
+    ],
+  );
+
   const filtered =
     useMemo(
       () =>
         filterStorefrontProducts(
-          products,
+          displayProducts,
           query,
           category,
         ),
       [
-        products,
+        displayProducts,
         query,
         category,
       ],

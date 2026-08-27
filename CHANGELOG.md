@@ -2435,3 +2435,80 @@ Next available decision:
 #### Next
 
 PASSO 36 - Admin Product Editing, Price Controls and Persistent Catalog Overrides.
+---
+
+### PASSO 36 - Admin Product Editing, Price Controls and Persistent Catalog Overrides
+
+Status: COMPLETED AND TECHNICALLY VALIDATED
+
+#### Added - Application mutations
+
+- updateAdminProduct
+- updateAdminVariantPrice
+- Product identity preservation
+- Variant currency/SKU preservation
+- persistent repository writes
+
+#### Added - Admin Product Editor
+
+- Product name
+- Brand
+- Model
+- Featured toggle
+- Variant decimal price input
+- Product confirmation
+- price confirmation
+- localized validation
+
+#### Added - Browser Catalog synchronization
+
+- `velora:catalog-changed`
+- browser Storefront Catalog loader
+- Product Discovery persistent override hydration
+- same-document Catalog refresh
+
+#### Reset
+
+Existing resetDemo restores seed Product and price state.
+
+#### Inventory boundary
+
+Product and price writes do not mutate Inventory.
+
+#### Testing
+
+PASSO 36 targeted:
+
+- 6 test files passed
+- 48 tests passed
+- 0 failed
+
+Complete suite:
+
+- 68 test files passed
+- 542 tests passed
+- 0 failed
+
+#### Technical Validation
+
+Passed:
+
+- npm run lint
+- npm run typecheck
+- npm run test
+- npm run build
+- npm run check
+
+#### Decisions
+
+Added:
+
+- CODAL-DEC-219 through CODAL-DEC-228
+
+Next available decision:
+
+- CODAL-DEC-229
+
+#### Next
+
+PASSO 37 - Inventory Adjustment Controls, Movement History and Admin Stock Operations.

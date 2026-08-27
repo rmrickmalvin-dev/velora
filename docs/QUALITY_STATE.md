@@ -18,56 +18,59 @@ CLOSED AND VALIDATED
 
 IN PROGRESS
 
-## PASSO 35 - Admin Storefront context
+## PASSO 36 - Product mutation
 
-- [x] ADMIN-only contextual Product controls
-- [x] Product card Admin controls
-- [x] Product detail Admin controls
-- [x] numeric stock visibility
-- [x] localized Admin copy
-- [x] contextual links preserve locale
-- [x] no Product mutation from contextual controls
+- [x] Application Product update
+- [x] Application Variant price update
+- [x] Product Domain factory validation
+- [x] Money Domain factory validation
+- [x] Product identity preservation
+- [x] Variant SKU preservation
+- [x] Variant currency preservation
+- [x] persistent Product override
+- [x] persistent price override
+- [x] reset restores seed values
+- [x] Inventory unchanged
 
-## PASSO 35 - Admin Catalog Dashboard
+## PASSO 36 - Admin editor
 
-- [x] active Product count
-- [x] active Variant count
-- [x] total Inventory units
-- [x] low-stock Variant count
-- [x] Product identity
-- [x] SKU visibility
-- [x] price visibility
-- [x] quantityOnHand visibility
-- [x] browser persistent data source
-- [x] Application facade read path
+- [x] Product name edit
+- [x] Brand edit
+- [x] Model edit
+- [x] Featured toggle
+- [x] Variant price controls
+- [x] decimal price parser
+- [x] comma decimal parser
+- [x] explicit Product confirmation
+- [x] explicit price confirmation
+- [x] localized Admin edit copy
 - [x] no React repository access
 - [x] no React IndexedDB access
 
-## Mutation boundary
+## Browser Catalog synchronization
 
-- [x] no Product mutation
-- [x] no price mutation
-- [x] no Inventory mutation
-- [x] no InventoryMovement append
-- [x] read-only notice visible
+- [x] catalog-changed browser event
+- [x] Product Discovery browser persistent reload
+- [x] initial SSG remains intact
+- [x] no second global state library
 
-## PASSO 35 Test Evidence
+## PASSO 36 Test Evidence
 
 Targeted:
 
 ```text
-5 test files
-40 tests
-40 passed
+6 test files
+48 tests
+48 passed
 0 failed
 ```
 
 Complete suite:
 
 ```text
-62 test files
-494 tests
-494 passed
+68 test files
+542 tests
+542 passed
 0 failed
 ```
 
@@ -81,4 +84,4 @@ Complete suite:
 
 ## Next Quality Gate
 
-PASSO 36 - Admin Product Editing, Price Controls and Persistent Catalog Overrides.
+PASSO 37 - Inventory Adjustment Controls, Movement History and Admin Stock Operations.

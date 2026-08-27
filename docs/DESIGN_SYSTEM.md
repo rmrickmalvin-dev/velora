@@ -399,3 +399,17 @@ Rules:
 - this pass is read-only
 - operational Dashboard remains consistent with Pearl Technology
 - low-stock attention may use semantic danger text without turning the entire card red
+## Admin Product editing
+
+PASSO 36 activates explicit persistent Catalog mutation.
+
+Rules:
+
+- mutation UI remains visually inside Admin context
+- Product details and Variant price changes require review before confirmation
+- edit form must expose validation beside the affected field
+- persistent-local notice remains visible
+- Variant currency is informational and preserved
+- Admin Product cards remain readable while editor is open
+- Product Discovery may hydrate persistent browser overrides after SSG
+- mutation success must refresh the operational Admin view

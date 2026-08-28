@@ -96,6 +96,16 @@ export function CartDrawer({
       HTMLButtonElement
     >(null);
 
+  const drawer =
+    useRef<
+      HTMLElement
+    >(null);
+
+  const previousFocus =
+    useRef<
+      HTMLElement | null
+    >(null);
+
   const load =
     useCallback(
       () => {
@@ -120,6 +130,41 @@ export function CartDrawer({
       },
       [],
     );
+
+  useEffect(
+    () => {
+      if (open) {
+        previousFocus.current =
+          document.activeElement
+            instanceof HTMLElement
+            ? document.activeElement
+            : null;
+
+        return;
+      }
+
+      const target =
+        previousFocus.current;
+
+      previousFocus.current =
+        null;
+
+      if (
+        target?.isConnected
+      ) {
+        queueMicrotask(
+          () => {
+            if (
+              target.isConnected
+            ) {
+              target.focus();
+            }
+          },
+        );
+      }
+    },
+    [open],
+  );
 
   useEffect(
     () => {
@@ -158,7 +203,76 @@ export function CartDrawer({
             event.key ===
             "Escape"
           ) {
+            event.preventDefault();
             onClose();
+            return;
+          }
+
+          if (
+            event.key !==
+            "Tab"
+          ) {
+            return;
+          }
+
+          const root =
+            drawer.current;
+
+          if (!root) {
+            return;
+          }
+
+          const focusable =
+            Array.from(
+              root.querySelectorAll<HTMLElement>(
+                'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+              ),
+            );
+
+          if (
+            focusable.length ===
+            0
+          ) {
+            event.preventDefault();
+            closeButton.current
+              ?.focus();
+            return;
+          }
+
+          const first =
+            focusable[0]!;
+
+          const last =
+            focusable[
+              focusable.length -
+                1
+            ]!;
+
+          const active =
+            document.activeElement;
+
+          if (event.shiftKey) {
+            if (
+              active === first ||
+              !root.contains(
+                active,
+              )
+            ) {
+              event.preventDefault();
+              last.focus();
+            }
+
+            return;
+          }
+
+          if (
+            active === last ||
+            !root.contains(
+              active,
+            )
+          ) {
+            event.preventDefault();
+            first.focus();
           }
         };
 
@@ -274,6 +388,10 @@ export function CartDrawer({
       />
 
       <aside
+        ref={
+          drawer
+        }
+        id="velora-cart-dialog"
         className={
           styles.drawer
         }

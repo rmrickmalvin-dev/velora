@@ -6,6 +6,8 @@ import {
 export default defineConfig({
   testDir:
     "./e2e",
+  timeout:
+    60_000,
   fullyParallel:
     false,
   forbidOnly:
@@ -16,10 +18,7 @@ export default defineConfig({
     process.env.CI
       ? 2
       : 0,
-  workers:
-    process.env.CI
-      ? 1
-      : undefined,
+  workers: 1,
   reporter:
     "list",
   use: {

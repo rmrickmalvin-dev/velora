@@ -102,6 +102,7 @@ export function CartIndicator({
           className={styles.root}
         aria-live="polite"
         aria-haspopup="dialog"
+        aria-controls="velora-cart-dialog"
         aria-expanded={
           open
         }

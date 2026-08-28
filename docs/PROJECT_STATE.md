@@ -24,7 +24,7 @@ CLOSED AND VALIDATED
 
 ## Latest validated step
 
-PASSO 41 - Search, Discovery Intelligence and Catalog Navigation Refinement
+PASSO 44 - Keyboard, Dialog Focus, Navigation and Runtime Accessibility Hardening
 
 ## Search Intelligence
 
@@ -109,7 +109,7 @@ Next available decision:
 
 ## Next step
 
-PASSO 44 - Keyboard, Dialog Focus, Navigation and Runtime Accessibility Hardening.
+PASSO 45 - Runtime Performance, Responsive and SEO Hardening.
 
 ## PASSO 42 - BUILD 04 Closure
 
@@ -182,4 +182,50 @@ Next available decision:
 
 Next step:
 
-PASSO 44 - Keyboard, Dialog Focus, Navigation and Runtime Accessibility Hardening.
+PASSO 45 - Runtime Performance, Responsive and SEO Hardening.
+
+## PASSO 44 - Runtime Accessibility Hardening
+
+Status: COMPLETED AND TECHNICALLY VALIDATED
+
+BUILD 05 remains IN PROGRESS.
+
+Cart runtime accessibility now includes:
+
+- trigger `aria-controls` linked to a stable dialog id
+- modal focus entry on the close control
+- Tab and Shift+Tab focus trapping
+- Escape close with default prevention
+- focus restoration to the element that opened the Cart
+- existing body scroll lock
+- existing reduced-motion behavior
+
+Browser navigation quality verifies Product Discovery Category keyboard activation through the existing URL-backed discovery state.
+
+The browser harness removes known Next development warnings by allowing the isolated Playwright loopback origin and declaring intentional smooth scrolling on the root HTML element. Axe browser checks use a 60 second per-test budget, and the BUILD 05 browser quality harness runs with one worker to avoid local dev-server hydration contention. WCAG and keyboard assertions remain unchanged.
+
+Evidence:
+
+- PASSO 44 source contract: 8/8
+- Cart boundary regression: 8/8
+- keyboard runtime E2E: 4/4
+- Escape stability repeat: 3/3
+- complete browser E2E: 13/13
+- Vitest: 827/827
+- test files: 104/104
+- ESLint warnings: 0
+- TypeScript passed
+- production build passed
+- 57/57 static pages preserved
+
+Official decisions:
+
+`CODAL-DEC-001 -> CODAL-DEC-304`
+
+Next:
+
+`CODAL-DEC-305`
+
+Next step:
+
+PASSO 45 - Runtime Performance, Responsive and SEO Hardening.

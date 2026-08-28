@@ -10,7 +10,7 @@ BUILD 05 - IN PROGRESS
 
 Latest validated step:
 
-PASSO 43 - Runtime Quality Harness and Accessibility E2E
+PASSO 44 - Keyboard, Dialog Focus, Navigation and Runtime Accessibility Hardening
 
 ## Search Intelligence
 
@@ -90,7 +90,7 @@ Next:
 
 ## Next action
 
-PASSO 44 - Keyboard, Dialog Focus, Navigation and Runtime Accessibility Hardening.
+PASSO 45 - Runtime Performance, Responsive and SEO Hardening.
 
 Focus:
 
@@ -181,4 +181,41 @@ Next decision:
 
 Next action:
 
-PASSO 44 - Keyboard, Dialog Focus, Navigation and Runtime Accessibility Hardening.
+PASSO 45 - Runtime Performance, Responsive and SEO Hardening.
+
+## PASSO 44 Runtime Accessibility Handoff
+
+BUILD 05 remains IN PROGRESS.
+
+Preserve these Cart modal rules:
+
+- trigger uses `aria-haspopup="dialog"`
+- trigger uses `aria-expanded`
+- trigger uses `aria-controls="velora-cart-dialog"`
+- drawer uses `role="dialog"`
+- drawer uses `aria-modal="true"`
+- drawer id remains `velora-cart-dialog`
+- close control receives initial focus
+- Tab and Shift+Tab remain trapped in the open dialog
+- Escape closes
+- closing restores previous focus
+- body scroll lock remains scoped to the open drawer
+
+Preserve Product Discovery Category keyboard activation through the existing URL-backed Navigation adapter. Preserve the 60 second Playwright test budget and single-worker browser quality execution unless new browser evidence supports a different deterministic configuration.
+
+Browser evidence:
+
+```text
+Keyboard E2E: 4/4
+Escape stability repeat: 3/3
+Complete browser E2E: 13/13
+Vitest: 827/827
+```
+
+Next decision:
+
+`CODAL-DEC-305`
+
+Next action:
+
+PASSO 45 - Runtime Performance, Responsive and SEO Hardening.

@@ -130,6 +130,7 @@ export default async function LocaleLayout({
 
   return (
     <html
+      data-scroll-behavior="smooth"
       lang={metadata.htmlLang}
       className={`${manrope.variable} ${ibmPlexMono.variable}`}
     >

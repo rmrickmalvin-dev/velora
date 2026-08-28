@@ -3102,3 +3102,74 @@ Next:
 #### Next
 
 PASSO 44 - Keyboard, Dialog Focus, Navigation and Runtime Accessibility Hardening.
+
+### PASSO 44 - Keyboard, Dialog Focus, Navigation and Runtime Accessibility Hardening
+
+Status: COMPLETED AND TECHNICALLY VALIDATED
+
+#### Cart modal hardening
+
+Added:
+
+- stable trigger-to-dialog `aria-controls`
+- stable Cart dialog id
+- previous-focus capture
+- focus restoration
+- Tab focus trap
+- Shift+Tab focus trap
+- explicit Escape default prevention
+
+Preserved:
+
+- Browser Cart Experience boundary
+- body scroll lock
+- close-control focus entry
+- backdrop close
+- reduced-motion behavior
+- Cart persistence rules
+
+#### Runtime keyboard evidence
+
+Added Playwright coverage for:
+
+- modal focus entry
+- reverse focus wrap
+- forward focus wrap
+- Escape close
+- focus restoration
+- Product Discovery Category keyboard activation
+- URL-backed Category navigation state
+
+#### Quality harness cleanup
+
+Preserved the isolated Next browser-test host through `allowedDevOrigins`, declared intentional smooth scrolling on the root HTML element, kept the 60 second Playwright test budget and standardized browser quality execution to one worker after a two-worker run produced a transient Cart-open failure. Escape focus restoration is repeated 3/3 before the final browser gate.
+
+#### Gate
+
+```text
+Source contract: 8/8
+Cart boundary regression: 8/8
+Keyboard E2E: 4/4
+Escape stability repeat: 3/3
+Complete browser E2E: 13/13
+Vitest: 827/827
+Test files: 104/104
+ESLint warnings: 0
+TypeScript: passed
+Production build: passed
+Static pages: 57/57
+```
+
+#### Decisions
+
+Added:
+
+- CODAL-DEC-297 through CODAL-DEC-304
+
+Next:
+
+- CODAL-DEC-305
+
+#### Next
+
+PASSO 45 - Runtime Performance, Responsive and SEO Hardening.

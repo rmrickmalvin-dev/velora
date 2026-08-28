@@ -67,7 +67,7 @@ Complete suite:
 
 ## Next Quality Gate
 
-PASSO 44 - Keyboard, Dialog Focus, Navigation and Runtime Accessibility Hardening.
+PASSO 45 - Runtime Performance, Responsive and SEO Hardening.
 
 ## PASSO 42 Quality Evidence
 
@@ -130,6 +130,42 @@ Source contract: 8/8
 Browser E2E: 9/9
 Vitest: 819/819
 Test files: 103/103
+ESLint warnings: 0
+TypeScript: passed
+Production build: passed
+Static pages: 57/57
+```
+
+BUILD 05 remains IN PROGRESS.
+
+## PASSO 44 Runtime Accessibility Evidence
+
+- [x] Cart trigger controls stable dialog id
+- [x] Cart modal focus entry
+- [x] Tab focus trap
+- [x] Shift+Tab focus trap
+- [x] Escape close
+- [x] focus restoration
+- [x] body scroll lock preserved
+- [x] reduced-motion behavior preserved
+- [x] Product Discovery Category keyboard activation
+- [x] URL-backed Category state via keyboard
+- [x] Next smooth-scroll transition hint
+- [x] 60 second Playwright test budget for runtime accessibility stability
+- [x] deterministic single-worker browser quality execution
+- [x] Escape focus-restoration stability: 3/3 repeated
+- [x] clean Playwright loopback development origin
+
+Technical gate:
+
+```text
+Source contract: 8/8
+Cart boundary regression: 8/8
+Keyboard E2E: 4/4
+Escape stability repeat: 3/3
+Complete browser E2E: 13/13
+Vitest: 827/827
+Test files: 104/104
 ESLint warnings: 0
 TypeScript: passed
 Production build: passed

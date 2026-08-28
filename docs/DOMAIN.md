@@ -61,7 +61,7 @@ No localStorage persistence is used for Search navigation.
 
 ## Next milestone
 
-PASSO 44 - Keyboard, Dialog Focus, Navigation and Runtime Accessibility Hardening.
+PASSO 45 - Runtime Performance, Responsive and SEO Hardening.
 
 ## Product Detail browser synchronization
 
@@ -88,3 +88,18 @@ Playwright and axe are Quality tooling only.
 They do not change Domain, Application, Repository or persistence behavior.
 
 Browser quality tests exercise public Storefront output through the rendered application and complement existing source-level architecture, accessibility, responsive, SEO and Design Token contracts.
+
+## Cart modal runtime accessibility boundary
+
+Cart accessibility remains a UI and Quality concern.
+
+The Cart Drawer:
+
+- keeps data mutations behind Browser Cart Experience
+- exposes a stable dialog relationship from trigger to modal
+- traps keyboard focus while modal
+- restores focus after closure
+- preserves Escape close and body scroll lock
+- does not change Cart, Inventory or persistence Domain rules
+
+Product Discovery keyboard activation continues to use the existing URL-backed Navigation adapter. The 60 second Playwright test budget and single-worker browser execution are Quality tooling only and do not change application runtime behavior. The accessibility hardening does not add a new state or persistence system.

@@ -512,3 +512,21 @@ The Pearl Technology accessibility baseline is now verified both by source contr
 Runtime browser verification covers public Home, Category and Product journeys in PT-BR, EN and ES using axe WCAG A/AA rules.
 
 Global `:focus-visible` and `prefers-reduced-motion` behavior remain mandatory Design System foundations.
+
+## Modal Keyboard Contract
+
+VELORA modal surfaces must preserve visible keyboard orientation.
+
+The Cart Drawer baseline requires:
+
+- focus entry
+- visible focus
+- focus containment while modal
+- Escape close
+- focus restoration to the opening control
+- reduced-motion support
+- explicit trigger-to-dialog relationship
+
+Product Discovery Category filters remain native keyboard-operable buttons and continue to synchronize URL navigation state. Browser accessibility checks use a 60 second test budget and one deterministic worker while preserving the same WCAG A/AA and keyboard assertions.
+
+This behavior is verified in Chromium through Playwright in addition to source contracts.

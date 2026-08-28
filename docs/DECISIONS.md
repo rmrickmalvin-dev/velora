@@ -324,6 +324,14 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-294 | ACEITA | Playwright reports and test-result artifacts are ignored by Git | Prevent generated browser diagnostics from polluting project history |
 | CODAL-DEC-295 | ACEITA | Browser accessibility tests complement rather than replace existing focus-visible and reduced-motion source foundations | Preserve layered quality evidence instead of depending on one testing technique |
 | CODAL-DEC-296 | ACEITA | PASSO 43 completes only after 8 source-contract tests, 9 browser accessibility tests, 819 Vitest tests, zero-warning lint and production build validation | Open BUILD 05 with a reproducible browser-quality checkpoint |
+| CODAL-DEC-297 | ACEITA | PASSO 44 hardens the existing Cart Drawer modal contract rather than replacing its Browser Cart Experience or visual architecture | Improve runtime accessibility without changing validated commerce boundaries |
+| CODAL-DEC-298 | ACEITA | The Cart trigger identifies the controlled modal through `aria-controls="velora-cart-dialog"` while preserving `aria-haspopup` and `aria-expanded` | Make trigger and modal state relationships explicit to assistive technologies |
+| CODAL-DEC-299 | ACEITA | Cart Drawer captures the element focused before opening and restores focus after the drawer closes when that element remains connected | Preserve keyboard orientation across modal entry and exit |
+| CODAL-DEC-300 | ACEITA | Cart Drawer traps Tab and Shift+Tab navigation among focusable elements while the modal is open | Prevent keyboard focus from escaping behind an aria-modal surface |
+| CODAL-DEC-301 | ACEITA | Escape prevents its default browser action before closing the Cart Drawer and existing body scroll lock remains unchanged | Keep keyboard dismissal deterministic without weakening current modal behavior |
+| CODAL-DEC-302 | ACEITA | Playwright verifies Cart focus entry, focus containment, Escape close, focus restoration and Product Discovery Category keyboard activation with URL-backed state | Extend axe accessibility evidence with behavioral browser evidence aligned to the actual navigation controls |
+| CODAL-DEC-303 | ACEITA | The isolated Playwright loopback host is registered through Next `allowedDevOrigins`, the root layout declares intentional smooth scrolling, and browser tests use a 60 second timeout budget | Remove known Next warnings and local timing flakiness without weakening WCAG or keyboard assertions |
+| CODAL-DEC-304 | ACEITA | PASSO 44 completes only after 8 hardening contracts, 8 Cart regressions, 4 keyboard E2E tests, 13 complete browser tests, 827 Vitest tests, zero-warning lint and production build validation | Preserve CODAL quality-first progression through BUILD 05 |
 
 ## Decisões por área
 

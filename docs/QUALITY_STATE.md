@@ -67,7 +67,7 @@ Complete suite:
 
 ## Next Quality Gate
 
-PASSO 42 - Product Detail Runtime Sync, Localization Integrity and BUILD 04 Readiness.
+PASSO 44 - Keyboard, Dialog Focus, Navigation and Runtime Accessibility Hardening.
 
 ## PASSO 42 Quality Evidence
 
@@ -101,3 +101,39 @@ Static pages: 57/57
 ```
 
 BUILD 04 is CLOSED AND VALIDATED.
+
+## BUILD 05
+
+IN PROGRESS
+
+## PASSO 43 Browser Quality Evidence
+
+- [x] Playwright Chromium harness
+- [x] axe runtime accessibility harness
+- [x] PT-BR Home WCAG A/AA
+- [x] EN Home WCAG A/AA
+- [x] ES Home WCAG A/AA
+- [x] PT-BR Category WCAG A/AA
+- [x] EN Category WCAG A/AA
+- [x] ES Category WCAG A/AA
+- [x] PT-BR Product WCAG A/AA
+- [x] EN Product WCAG A/AA
+- [x] ES Product WCAG A/AA
+- [x] global focus-visible baseline preserved
+- [x] reduced-motion baseline preserved
+- [x] Playwright artifacts ignored
+
+Technical gate:
+
+```text
+Source contract: 8/8
+Browser E2E: 9/9
+Vitest: 819/819
+Test files: 103/103
+ESLint warnings: 0
+TypeScript: passed
+Production build: passed
+Static pages: 57/57
+```
+
+BUILD 05 remains IN PROGRESS.

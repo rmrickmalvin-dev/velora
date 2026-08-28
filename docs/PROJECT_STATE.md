@@ -4,11 +4,11 @@ Last update: 2026-08-27
 
 ## Phase
 
-BUILD 04 - Application and Data Experience
+BUILD 05 - Quality
 
 ## State
 
-CLOSED AND VALIDATED
+IN PROGRESS
 
 ## BUILD 01
 
@@ -109,7 +109,7 @@ Next available decision:
 
 ## Next step
 
-PASSO 42 - Product Detail Runtime Sync, Localization Integrity and BUILD 04 Readiness.
+PASSO 44 - Keyboard, Dialog Focus, Navigation and Runtime Accessibility Hardening.
 
 ## PASSO 42 - BUILD 04 Closure
 
@@ -142,3 +142,44 @@ Next available decision:
 Next phase:
 
 BUILD 05 - Quality.
+
+## PASSO 43 - Runtime Quality Harness
+
+Status: COMPLETED AND TECHNICALLY VALIDATED
+
+BUILD 05 is IN PROGRESS.
+
+The first BUILD 05 pass adds browser-executed quality evidence without replacing existing source-level contracts.
+
+Added:
+
+- Playwright Chromium harness
+- axe browser accessibility checks
+- PT-BR, EN and ES Home coverage
+- PT-BR, EN and ES Category coverage
+- PT-BR, EN and ES Product coverage
+- isolated browser test server on port 3100
+- separate `test:e2e` script
+- aggregate `quality` script
+- Playwright report and test-result ignore rules
+
+Existing global focus-visible and reduced-motion foundations remain preserved.
+
+Evidence:
+
+- PASSO 43 source contract: 8/8
+- browser accessibility E2E: 9/9
+- Vitest suite: 819/819
+- test files: 103/103
+- ESLint zero warnings
+- TypeScript passed
+- production build passed
+- 57/57 static pages preserved
+
+Next available decision:
+
+`CODAL-DEC-297`
+
+Next step:
+
+PASSO 44 - Keyboard, Dialog Focus, Navigation and Runtime Accessibility Hardening.

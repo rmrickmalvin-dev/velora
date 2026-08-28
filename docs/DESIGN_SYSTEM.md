@@ -504,3 +504,11 @@ Runtime-updatable visible information includes:
 The static server render remains the immediate initial experience.
 
 Localization quality is part of the Design System: PT-BR and ES visible copy must use correct orthography and accents.
+
+## Browser Accessibility Verification
+
+The Pearl Technology accessibility baseline is now verified both by source contracts and browser execution.
+
+Runtime browser verification covers public Home, Category and Product journeys in PT-BR, EN and ES using axe WCAG A/AA rules.
+
+Global `:focus-visible` and `prefers-reduced-motion` behavior remain mandatory Design System foundations.

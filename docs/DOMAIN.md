@@ -4,7 +4,7 @@ Last update: 2026-08-27
 
 ## BUILD 04 status
 
-IN PROGRESS
+CLOSED AND VALIDATED
 
 ## Search boundary
 
@@ -61,7 +61,7 @@ No localStorage persistence is used for Search navigation.
 
 ## Next milestone
 
-PASSO 42 - Product Detail Runtime Sync, Localization Integrity and BUILD 04 Readiness.
+PASSO 44 - Keyboard, Dialog Focus, Navigation and Runtime Accessibility Hardening.
 
 ## Product Detail browser synchronization
 
@@ -80,3 +80,11 @@ The browser Feature adapter:
 - does not expose repositories or localStorage to UI components
 
 Local browser overrides do not rewrite server-generated metadata. The visible Product Detail is the browser-synchronized experience; metadata remains the deterministic static baseline.
+
+## BUILD 05 browser quality boundary
+
+Playwright and axe are Quality tooling only.
+
+They do not change Domain, Application, Repository or persistence behavior.
+
+Browser quality tests exercise public Storefront output through the rendered application and complement existing source-level architecture, accessibility, responsive, SEO and Design Token contracts.

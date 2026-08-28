@@ -42,3 +42,5 @@ next-env.d.ts
 
 # CODAL local backups
 .codal-backups/
+/playwright-report/
+/test-results/

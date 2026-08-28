@@ -3029,3 +3029,76 @@ BUILD 04 - CLOSED AND VALIDATED
 Next phase:
 
 BUILD 05 - Quality.
+
+### PASSO 43 - Runtime Quality Harness and Accessibility E2E
+
+Status: COMPLETED AND TECHNICALLY VALIDATED
+
+#### BUILD 05 entry
+
+BUILD 05 - Quality is now IN PROGRESS.
+
+#### Browser quality tooling
+
+Added:
+
+- Playwright Chromium
+- axe Playwright integration
+- isolated Next browser test server
+- `test:e2e`
+- aggregate `quality` command
+
+#### Runtime accessibility
+
+Validated Home, Category and Product public journeys in:
+
+- PT-BR
+- EN
+- ES
+
+Browser rule coverage:
+
+- WCAG 2 A
+- WCAG 2 AA
+- WCAG 2.1 A
+- WCAG 2.1 AA
+
+#### Existing foundations preserved
+
+- global focus-visible
+- reduced-motion handling
+- source accessibility contracts
+- responsive contracts
+- SEO contracts
+- Design Token contracts
+
+#### Documentation repair
+
+Corrected the non-official decision-area index reference for Domain independence from CODAL-DEC-289 back to its official CODAL-DEC-021 reference.
+
+#### Gate
+
+```text
+Source contract: 8/8
+Browser E2E: 9/9
+Vitest: 819/819
+Test files: 103/103
+ESLint warnings: 0
+TypeScript: passed
+Production build: passed
+Static pages: 57/57
+```
+
+#### Decisions
+
+Added:
+
+- CODAL-DEC-289 through CODAL-DEC-296
+
+Next:
+
+- CODAL-DEC-297
+
+#### Next
+
+PASSO 44 - Keyboard, Dialog Focus, Navigation and Runtime Accessibility Hardening.

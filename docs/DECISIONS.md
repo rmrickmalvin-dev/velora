@@ -316,6 +316,14 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-286 | ACEITA | Localization integrity receives an automated regression contract covering the audited Storefront, Interaction, Cart and Checkout copy | Prevent previously corrected accent debt from silently returning |
 | CODAL-DEC-287 | ACEITA | BUILD 04 receives an explicit readiness test spanning roles, Admin Catalog, Inventory, Customer profile, Orders, commercial scenarios, Search and Product Detail runtime sync | Make BUILD 04 closure evidence executable rather than documentary only |
 | CODAL-DEC-288 | ACEITA | BUILD 04 closes only after zero-warning lint, TypeScript, 811 passing tests, production build and 57 static pages are validated | Preserve CODAL quality-first closure discipline before BUILD 05 |
+| CODAL-DEC-289 | ACEITA | BUILD 05 begins by adding browser-executed quality evidence instead of duplicating existing source-level accessibility contracts | Validate the rendered experience while preserving previously established static quality boundaries |
+| CODAL-DEC-290 | ACEITA | Playwright Chromium is the first browser E2E harness for VELORA | Add deterministic browser automation with minimal initial cross-browser complexity |
+| CODAL-DEC-291 | ACEITA | axe browser checks cover Home, Category and Product journeys in PT-BR, EN and ES against WCAG A and AA tags | Turn multilingual public accessibility into executable runtime evidence |
+| CODAL-DEC-292 | ACEITA | Browser E2E remains outside the Vitest `src` suite under `e2e` | Keep fast unit and contract tests separate from browser-dependent execution |
+| CODAL-DEC-293 | ACEITA | Playwright starts an isolated Next development server on port 3100 for browser tests | Avoid colliding with the normal local development port while keeping tests self-contained |
+| CODAL-DEC-294 | ACEITA | Playwright reports and test-result artifacts are ignored by Git | Prevent generated browser diagnostics from polluting project history |
+| CODAL-DEC-295 | ACEITA | Browser accessibility tests complement rather than replace existing focus-visible and reduced-motion source foundations | Preserve layered quality evidence instead of depending on one testing technique |
+| CODAL-DEC-296 | ACEITA | PASSO 43 completes only after 8 source-contract tests, 9 browser accessibility tests, 819 Vitest tests, zero-warning lint and production build validation | Open BUILD 05 with a reproducible browser-quality checkpoint |
 
 ## Decisões por área
 
@@ -348,7 +356,7 @@ Quando uma decisão precisar mudar:
 - CODAL-DEC-013 — Seed imutável + overrides locais;
 - CODAL-DEC-014 — IndexedDB para domínio mutável;
 - CODAL-DEC-015 — Zustand apenas para estado global necessário;
-- CODAL-DEC-289 — Domain independente de React e Next.js;
+- CODAL-DEC-021 — Domain independente de React e Next.js;
 - CODAL-DEC-027 — Repository Contracts independentes de providers;
 - CODAL-DEC-028 — componentes não acessam persistência diretamente.
 

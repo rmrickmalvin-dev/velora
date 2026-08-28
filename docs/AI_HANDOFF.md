@@ -6,11 +6,11 @@ CODAL OS - Complete Edition active.
 
 ## State
 
-BUILD 04 - CLOSED AND VALIDATED
+BUILD 05 - IN PROGRESS
 
 Latest validated step:
 
-PASSO 41 - Search, Discovery Intelligence and Catalog Navigation Refinement
+PASSO 43 - Runtime Quality Harness and Accessibility E2E
 
 ## Search Intelligence
 
@@ -90,7 +90,7 @@ Next:
 
 ## Next action
 
-PASSO 42 - Product Detail Runtime Sync, Localization Integrity and BUILD 04 Readiness.
+PASSO 44 - Keyboard, Dialog Focus, Navigation and Runtime Accessibility Hardening.
 
 Focus:
 
@@ -141,3 +141,44 @@ Next:
 Next phase:
 
 BUILD 05 - Quality.
+
+## PASSO 43 Quality Handoff
+
+BUILD 05 is IN PROGRESS.
+
+Browser Quality commands:
+
+```text
+npm run test:e2e
+npm run quality
+```
+
+Playwright:
+
+- Chromium
+- isolated port 3100
+- Home, Category and Product
+- PT-BR, EN and ES
+
+axe:
+
+- WCAG 2 A
+- WCAG 2 AA
+- WCAG 2.1 A
+- WCAG 2.1 AA
+
+Do not move browser E2E tests into the Vitest `src` suite.
+
+Keep:
+
+- `src/build05-quality-harness.test.ts`
+- `e2e/storefront-accessibility.spec.ts`
+- `playwright.config.ts`
+
+Next decision:
+
+`CODAL-DEC-297`
+
+Next action:
+
+PASSO 44 - Keyboard, Dialog Focus, Navigation and Runtime Accessibility Hardening.

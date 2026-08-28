@@ -6,7 +6,7 @@ CODAL OS - Complete Edition active.
 
 ## State
 
-BUILD 04 - IN PROGRESS
+BUILD 04 - CLOSED AND VALIDATED
 
 Latest validated step:
 
@@ -100,3 +100,44 @@ Focus:
 - bounded i18n regression tests
 - BUILD 04 readiness audit
 - close BUILD 04 only if all gates pass
+
+## PASSO 42 Closure Handoff
+
+BUILD 04 is CLOSED AND VALIDATED.
+
+Product Detail runtime rules:
+
+- keep the static route and `generateStaticParams`
+- keep the static model as the initial render
+- browser-visible Product Detail must refresh through `loadBrowserStorefrontProductDetail`
+- react to `subscribeBrowserStorefrontDataChanged`
+- UI must not access localStorage or repositories directly
+- Catalog and Inventory overrides must stay equivalent between Discovery and Detail
+
+Localization rules:
+
+- PT-BR and ES human-facing copy must preserve correct accents
+- keep TypeScript source automation-safe through Unicode escapes when needed
+- preserve `storefront-localization-integrity.test.ts`
+
+Validated BUILD 04 baseline:
+
+```text
+102 test files
+811 tests
+811 passed
+57 static pages
+ESLint warnings: 0
+```
+
+Decisions:
+
+`CODAL-DEC-001 -> CODAL-DEC-288`
+
+Next:
+
+`CODAL-DEC-289`
+
+Next phase:
+
+BUILD 05 - Quality.

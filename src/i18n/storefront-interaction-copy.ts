@@ -75,7 +75,7 @@ const interactionCopy:
         available:
           "Disponivel",
         unavailable:
-          "Indisponivel",
+          "Indispon\u00edvel",
         units:
           "unidades",
         readOnlyNote:

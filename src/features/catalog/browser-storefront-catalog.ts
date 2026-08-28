@@ -1,3 +1,7 @@
+import {
+  buildStorefrontProductDetailModel,
+  type StorefrontProductDetailModel,
+} from "../../presentation/storefront/storefront-product-detail-model";
 import type {
   StorefrontLocale,
 } from "../../i18n/storefront-copy";
@@ -129,4 +133,42 @@ export function subscribeBrowserStorefrontDataChanged(
       listener,
     );
   };
+}
+export async function loadBrowserStorefrontProductDetail(
+  locale:
+    StorefrontLocale,
+  slug: string,
+): Promise<
+  StorefrontProductDetailModel | null
+> {
+  if (
+    typeof window ===
+    "undefined"
+  ) {
+    throw new Error(
+      "Browser Storefront Product Detail requires a browser runtime.",
+    );
+  }
+
+  const products =
+    await createBrowserVeloraRuntime(
+      "velora-demo",
+    ).application
+      .listStorefrontProducts();
+
+  const product =
+    products.find(
+      (item) =>
+        item.product.slug ===
+        slug,
+    );
+
+  if (!product) {
+    return null;
+  }
+
+  return buildStorefrontProductDetailModel(
+    locale,
+    product,
+  );
 }

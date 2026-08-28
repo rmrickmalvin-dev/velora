@@ -2949,3 +2949,83 @@ Next available decision:
 #### Next
 
 PASSO 42 - Product Detail Runtime Sync, Localization Integrity and BUILD 04 Readiness.
+
+### PASSO 42 - Product Detail Runtime Sync, Localization Integrity and BUILD 04 Closure
+
+Status: COMPLETED AND TECHNICALLY VALIDATED
+
+#### Product Detail runtime sync
+
+Added:
+
+- browser Product Detail loader through the existing Storefront Catalog Feature adapter
+- Product Detail hydration from browser-persistent Application data
+- Catalog change refresh
+- Inventory change refresh
+- Product name and Brand parity
+- Variant price parity
+- stock label and quantity parity
+
+Preserved:
+
+- static Product route
+- `generateStaticParams`
+- static initial Product Detail shell
+- Admin Storefront controls
+- Add-to-Cart interaction
+- repository and localStorage boundaries
+
+#### Localization integrity
+
+Repaired audited PT-BR and ES human-facing copy in:
+
+- Storefront copy
+- Interaction copy
+- Cart copy
+- Checkout copy
+
+Added automated localization regression coverage.
+
+#### BUILD 04 readiness
+
+Added executable BUILD 04 readiness coverage across:
+
+- demo roles
+- Admin Catalog
+- Inventory operations
+- Customer profile
+- Admin Orders
+- commercial simulator and Promotions
+- ranked Search and URL navigation
+- Product Detail runtime synchronization
+- localization integrity
+
+#### Final gate
+
+```text
+102 test files passed
+811 tests passed
+0 failed
+ESLint warnings: 0
+TypeScript passed
+production build passed
+57/57 static pages
+```
+
+#### Decisions
+
+Added:
+
+- CODAL-DEC-279 through CODAL-DEC-288
+
+Next:
+
+- CODAL-DEC-289
+
+#### Phase
+
+BUILD 04 - CLOSED AND VALIDATED
+
+Next phase:
+
+BUILD 05 - Quality.

@@ -73,7 +73,7 @@ describe(
           "es",
         ).emptyTitle,
       ).toContain(
-        "vacio",
+        "vac\u00edo",
       );
     });
 
@@ -83,7 +83,7 @@ describe(
           "pt-BR",
         ).errorRequired,
       ).toContain(
-        "obrigatorio",
+        "obrigat\u00f3rio",
       );
     });
 

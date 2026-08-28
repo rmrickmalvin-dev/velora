@@ -41,9 +41,9 @@ const cartCopy:
       added:
         "Adicionado ao carrinho.",
       unavailable:
-        "Indisponivel",
+        "Indispon\u00edvel",
       error:
-        "Nao foi possivel adicionar.",
+        "N\u00e3o foi poss\u00edvel adicionar.",
       drawerTitle:
         "Seu carrinho",
       drawerBody:
@@ -109,7 +109,7 @@ const cartCopy:
       cartLabel:
         "Carrito",
       emptyCart:
-        "Carrito vacio",
+        "Carrito vac\u00edo",
       addToCart:
         "Agregar al carrito",
       adding:
@@ -139,9 +139,9 @@ const cartCopy:
       loading:
         "Cargando carrito...",
       itemSingular:
-        "articulo",
+        "art\u00edculo",
       itemPlural:
-        "articulos",
+        "art\u00edculos",
     },
   };
 

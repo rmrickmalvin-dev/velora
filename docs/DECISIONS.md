@@ -306,6 +306,16 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-276 | ACEITA | Category counts are calculated from query matches before applying the active Category filter, and Category clicks use the shared Discovery URL updater | Keep result context visible while preserving equivalent React and URL state |
 | CODAL-DEC-277 | ACEITA | Ranked Search continues to consume browser-persistent Catalog and Inventory refreshes through the existing Storefront data adapter | Keep Search consistent with Admin Product, price and stock overrides |
 | CODAL-DEC-278 | ACEITA | PASSO 41 is complete only after ranked Search, URL navigation, Design Token integrity, zero-warning lint, 787 passing tests and production build validation | Preserve quality-first BUILD 04 progression |
+| CODAL-DEC-279 | ACEITA | Product Detail preserves its statically generated route as the deterministic initial shell and synchronizes visible commercial data after browser hydration | Keep SSG performance and SEO while allowing local persistent Admin changes to appear in the active experience |
+| CODAL-DEC-280 | ACEITA | Browser Product Detail reads are exposed by `loadBrowserStorefrontProductDetail` inside the existing Catalog Feature adapter | Reuse the same browser composition boundary already trusted by Product Discovery |
+| CODAL-DEC-281 | ACEITA | Browser Product Detail reads use `VeloraApplication.listStorefrontProducts` and rebuild the canonical `StorefrontProductDetailModel` | Prevent UI components from bypassing Application and Presentation boundaries |
+| CODAL-DEC-282 | ACEITA | Product Detail subscribes to the combined Catalog and Inventory Storefront change contract | Keep visible Product name, Variant price, stock label and quantity equivalent with persistent Admin changes |
+| CODAL-DEC-283 | ACEITA | Product Detail UI does not access localStorage or concrete repositories and preserves Admin controls plus Add-to-Cart interaction | Maintain architecture boundaries while adding runtime synchronization |
+| CODAL-DEC-284 | ACEITA | Browser-local Product overrides update visible Product Detail but do not attempt to rewrite server-generated metadata | Keep metadata deterministic because browser persistence is unavailable during SSG |
+| CODAL-DEC-285 | ACEITA | Known PT-BR and ES human-facing orthography debt is repaired using TypeScript Unicode escapes where automation safety benefits from ASCII script source | Restore professional localization without reintroducing PowerShell encoding risk |
+| CODAL-DEC-286 | ACEITA | Localization integrity receives an automated regression contract covering the audited Storefront, Interaction, Cart and Checkout copy | Prevent previously corrected accent debt from silently returning |
+| CODAL-DEC-287 | ACEITA | BUILD 04 receives an explicit readiness test spanning roles, Admin Catalog, Inventory, Customer profile, Orders, commercial scenarios, Search and Product Detail runtime sync | Make BUILD 04 closure evidence executable rather than documentary only |
+| CODAL-DEC-288 | ACEITA | BUILD 04 closes only after zero-warning lint, TypeScript, 811 passing tests, production build and 57 static pages are validated | Preserve CODAL quality-first closure discipline before BUILD 05 |
 
 ## Decisões por área
 
@@ -338,7 +348,7 @@ Quando uma decisão precisar mudar:
 - CODAL-DEC-013 — Seed imutável + overrides locais;
 - CODAL-DEC-014 — IndexedDB para domínio mutável;
 - CODAL-DEC-015 — Zustand apenas para estado global necessário;
-- CODAL-DEC-279 — Domain independente de React e Next.js;
+- CODAL-DEC-289 — Domain independente de React e Next.js;
 - CODAL-DEC-027 — Repository Contracts independentes de providers;
 - CODAL-DEC-028 — componentes não acessam persistência diretamente.
 

@@ -55,7 +55,7 @@ const checkoutCopy:
       body:
         "Revise o carrinho e valide os dados de contato e entrega.",
       demoNotice:
-        "Esta experiencia faz parte de um portfolio conceitual. Nenhuma cobranca, pagamento ou pedido real sera realizado.",
+        "Esta experi\u00eancia faz parte de um portf\u00f3lio conceitual. Nenhuma cobran\u00e7a, pagamento ou pedido real ser\u00e1 realizado.",
       summaryTitle:
         "Resumo do carrinho",
       contactTitle:
@@ -67,49 +67,49 @@ const checkoutCopy:
       email:
         "E-mail",
       addressLine:
-        "Endereco",
+        "Endere\u00e7o",
       city:
         "Cidade",
       postalCode:
-        "CEP ou codigo postal",
+        "CEP ou c\u00f3digo postal",
       submit:
-        "Validar dados da demonstracao",
+        "Validar dados da demonstra\u00e7\u00e3o",
       submittedTitle:
         "Dados validados.",
       submittedBody:
-        "A jornada demonstrativa foi concluida localmente. Nenhum pedido foi enviado e nenhuma cobranca foi realizada.",
+        "A jornada demonstrativa foi conclu\u00edda localmente. Nenhum pedido foi enviado e nenhuma cobran\u00e7a foi realizada.",
       emptyTitle:
-        "Seu carrinho esta vazio.",
+        "Seu carrinho est\u00e1 vazio.",
       emptyBody:
         "Adicione um produto antes de iniciar o checkout demonstrativo.",
       invalidCartTitle:
-        "O carrinho precisa de revisao.",
+        "O carrinho precisa de revis\u00e3o.",
       invalidCartBody:
-        "Nao e possivel continuar enquanto os dados comerciais do carrinho estiverem inconsistentes.",
+        "N\u00e3o \u00e9 poss\u00edvel continuar enquanto os dados comerciais do carrinho estiverem inconsistentes.",
       backToStore:
         "Voltar para a loja",
       subtotal:
         "Subtotal",
       errorRequired:
-        "Campo obrigatorio.",
+        "Campo obrigat\u00f3rio.",
       errorEmail:
-        "Informe um e-mail valido.",
+        "Informe um e-mail v\u00e1lido.",
       errorShort:
         "Informe um valor mais completo.",
       errorPostal:
-        "Informe um codigo postal valido.",
+        "Informe um c\u00f3digo postal v\u00e1lido.",
       completingOrder:
         "Criando pedido demonstrativo...",
       completionError:
-        "Nao foi possivel concluir o pedido demonstrativo.",
+        "N\u00e3o foi poss\u00edvel concluir o pedido demonstrativo.",
       confirmationEyebrow:
         "Pedido demonstrativo",
       confirmationTitle:
-        "Jornada concluida.",
+        "Jornada conclu\u00edda.",
       confirmationBody:
-        "O pedido demonstrativo foi salvo localmente. Nenhuma cobranca foi realizada.",
+        "O pedido demonstrativo foi salvo localmente. Nenhuma cobran\u00e7a foi realizada.",
       reference:
-        "Referencia do pedido",
+        "Refer\u00eancia do pedido",
       orderStatus:
         "Status",
       continueShopping:
@@ -195,7 +195,7 @@ const checkoutCopy:
       body:
         "Revisa el carrito y valida los datos de contacto y entrega.",
       demoNotice:
-        "Esta experiencia forma parte de un portfolio conceptual. No se realizara ningun cobro, pago ni pedido real.",
+        "Esta experiencia forma parte de un portafolio conceptual. No se realizar\u00e1 ning\u00fan cobro, pago ni pedido real.",
       summaryTitle:
         "Resumen del carrito",
       contactTitle:
@@ -205,25 +205,25 @@ const checkoutCopy:
       fullName:
         "Nombre completo",
       email:
-        "Correo electronico",
+        "Correo electr\u00f3nico",
       addressLine:
-        "Direccion",
+        "Direcci\u00f3n",
       city:
         "Ciudad",
       postalCode:
-        "Codigo postal",
+        "C\u00f3digo postal",
       submit:
-        "Validar datos de demostracion",
+        "Validar datos de demostraci\u00f3n",
       submittedTitle:
         "Datos validados.",
       submittedBody:
-        "El recorrido demostrativo se completo localmente. No se envio ningun pedido ni se realizo ningun cobro.",
+        "El recorrido demostrativo se complet\u00f3 localmente. No se envi\u00f3 ning\u00fan pedido ni se realiz\u00f3 ning\u00fan cobro.",
       emptyTitle:
-        "Tu carrito esta vacio.",
+        "Tu carrito est\u00e1 vac\u00edo.",
       emptyBody:
         "Agrega un producto antes de iniciar el checkout demostrativo.",
       invalidCartTitle:
-        "El carrito necesita revision.",
+        "El carrito necesita revisi\u00f3n.",
       invalidCartBody:
         "No es posible continuar mientras los datos comerciales del carrito sean inconsistentes.",
       backToStore:
@@ -233,11 +233,11 @@ const checkoutCopy:
       errorRequired:
         "Campo obligatorio.",
       errorEmail:
-        "Ingresa un correo valido.",
+        "Ingresa un correo v\u00e1lido.",
       errorShort:
-        "Ingresa un valor mas completo.",
+        "Ingresa un valor m\u00e1s completo.",
       errorPostal:
-        "Ingresa un codigo postal valido.",
+        "Ingresa un c\u00f3digo postal v\u00e1lido.",
       completingOrder:
         "Creando pedido demostrativo...",
       completionError:
@@ -247,7 +247,7 @@ const checkoutCopy:
       confirmationTitle:
         "Recorrido completado.",
       confirmationBody:
-        "El pedido demostrativo se guardo localmente. No se realizo ningun cobro.",
+        "El pedido demostrativo se guard\u00f3 localmente. No se realiz\u00f3 ning\u00fan cobro.",
       reference:
         "Referencia del pedido",
       orderStatus:

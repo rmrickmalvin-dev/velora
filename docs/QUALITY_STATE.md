@@ -4,7 +4,7 @@ Last update: 2026-08-27
 
 ## BUILD 04
 
-IN PROGRESS
+CLOSED AND VALIDATED
 
 ## PASSO 41 - Search and navigation
 
@@ -68,3 +68,36 @@ Complete suite:
 ## Next Quality Gate
 
 PASSO 42 - Product Detail Runtime Sync, Localization Integrity and BUILD 04 Readiness.
+
+## PASSO 42 Quality Evidence
+
+- [x] Product Detail browser runtime sync
+- [x] Product name sync
+- [x] Brand sync
+- [x] Variant price sync
+- [x] Inventory quantity and availability sync
+- [x] Catalog change subscription
+- [x] Inventory change subscription
+- [x] SSG initial shell preserved
+- [x] Admin controls preserved
+- [x] Add-to-Cart interaction preserved
+- [x] PT-BR localization integrity
+- [x] ES localization integrity
+- [x] automated Product Detail runtime boundary tests
+- [x] automated localization integrity tests
+- [x] BUILD 04 readiness test
+
+Final BUILD 04 gate:
+
+```text
+102 test files
+811 tests
+811 passed
+0 failed
+ESLint warnings: 0
+TypeScript: passed
+Production build: passed
+Static pages: 57/57
+```
+
+BUILD 04 is CLOSED AND VALIDATED.

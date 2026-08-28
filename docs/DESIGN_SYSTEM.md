@@ -487,3 +487,20 @@ Rules:
 - Search input and Category controls share the same URL-state update path
 - browser back/forward restores visible Search state
 - no Search analytics or tracking is implied
+
+## Product Detail Runtime Experience
+
+The Product Detail keeps the Pearl Technology visual language while its commercial information can refresh after hydration.
+
+Runtime-updatable visible information includes:
+
+- Product name
+- Brand
+- Variant price
+- stock label
+- quantity on hand
+- Variant availability
+
+The static server render remains the immediate initial experience.
+
+Localization quality is part of the Design System: PT-BR and ES visible copy must use correct orthography and accents.

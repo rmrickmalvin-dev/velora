@@ -8,7 +8,7 @@ BUILD 04 - Application and Data Experience
 
 ## State
 
-IN PROGRESS
+CLOSED AND VALIDATED
 
 ## BUILD 01
 
@@ -110,3 +110,35 @@ Next available decision:
 ## Next step
 
 PASSO 42 - Product Detail Runtime Sync, Localization Integrity and BUILD 04 Readiness.
+
+## PASSO 42 - BUILD 04 Closure
+
+Status: CLOSED AND VALIDATED
+
+Product Detail now preserves the SSG route as its initial shell and synchronizes the visible Product name, Brand, Variant prices and Inventory state from the browser-persistent Application runtime.
+
+Catalog and Inventory change events refresh the Product Detail through the existing Storefront Feature adapter.
+
+PT-BR and ES human-facing localization debt identified by the BUILD 04 audit was repaired with source-safe TypeScript Unicode escapes.
+
+BUILD 04 closure evidence:
+
+- 102 test files
+- 811 tests
+- zero failures
+- ESLint zero warnings
+- typecheck passed
+- production build passed
+- 57 static pages preserved
+
+Official decisions:
+
+`CODAL-DEC-001 -> CODAL-DEC-288`
+
+Next available decision:
+
+`CODAL-DEC-289`
+
+Next phase:
+
+BUILD 05 - Quality.

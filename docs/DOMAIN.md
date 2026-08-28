@@ -62,3 +62,21 @@ No localStorage persistence is used for Search navigation.
 ## Next milestone
 
 PASSO 42 - Product Detail Runtime Sync, Localization Integrity and BUILD 04 Readiness.
+
+## Product Detail browser synchronization
+
+The Product Detail route keeps its static Application read as the initial SSG shell.
+
+After hydration, `ProductDetail` reads the same browser-persistent Application data used by Storefront Discovery through:
+
+`loadBrowserStorefrontProductDetail`
+
+The browser Feature adapter:
+
+- uses `createBrowserVeloraRuntime`
+- reads through `VeloraApplication.listStorefrontProducts`
+- rebuilds the existing `StorefrontProductDetailModel`
+- subscribes to Catalog and Inventory change events
+- does not expose repositories or localStorage to UI components
+
+Local browser overrides do not rewrite server-generated metadata. The visible Product Detail is the browser-synchronized experience; metadata remains the deterministic static baseline.

@@ -1,3 +1,14 @@
+"use client";
+
+import {
+  useEffect,
+  useState,
+} from "react";
+
+import {
+  loadBrowserStorefrontProductDetail,
+  subscribeBrowserStorefrontDataChanged,
+} from "../../features/catalog/browser-storefront-catalog";
 import Link from "next/link";
 
 import type {
@@ -31,12 +42,67 @@ type ProductDetailProps =
   }>;
 
 export function ProductDetail({
-  model,
+  model: initialModel,
 }: ProductDetailProps) {
   const accessibility =
     getStorefrontAccessibilityCopy(
-      model.locale,
+      initialModel.locale,
     );
+
+  const [
+    runtimeModel,
+    setRuntimeModel,
+  ] =
+    useState(
+      initialModel,
+    );
+
+  useEffect(
+    () => {
+      let active =
+        true;
+
+      const refresh =
+        () => {
+          void loadBrowserStorefrontProductDetail(
+            initialModel.locale,
+            initialModel.slug,
+          )
+            .then(
+              (next) => {
+                if (
+                  active &&
+                  next
+                ) {
+                  setRuntimeModel(
+                    next,
+                  );
+                }
+              },
+              () =>
+                undefined,
+            );
+        };
+
+      queueMicrotask(
+        refresh,
+      );
+
+      const unsubscribe =
+        subscribeBrowserStorefrontDataChanged(
+          refresh,
+        );
+
+      return () => {
+        active = false;
+        unsubscribe();
+      };
+    },
+    [
+      initialModel.locale,
+      initialModel.slug,
+    ],
+  );
 
   return (
     <main
@@ -62,7 +128,7 @@ export function ProductDetail({
           <Link
             className={styles.brand}
             href={
-              `/${model.locale}`
+              `/${runtimeModel.locale}`
             }
           >
             VELORA
@@ -73,7 +139,7 @@ export function ProductDetail({
               styles.back
             }
             href={
-              model.backHref
+              runtimeModel.backHref
             }
           >
             <span
@@ -82,13 +148,13 @@ export function ProductDetail({
               &larr;
             </span>
             {
-              model.copy
+              runtimeModel.copy
                 .backToStore
             }
           </Link>
 
           <CartIndicator
-            locale={model.locale}
+            locale={runtimeModel.locale}
           />
 
           <div
@@ -101,7 +167,7 @@ export function ProductDetail({
                 .languageNavigation
             }
           >
-            {model.localeLinks.map(
+            {runtimeModel.localeLinks.map(
               (item) => (
                 <Link
                   key={
@@ -118,13 +184,13 @@ export function ProductDetail({
                   }
                   aria-current={
                     item.locale ===
-                    model.locale
+                    runtimeModel.locale
                       ? "page"
                       : undefined
                   }
                   className={
                     item.locale ===
-                    model.locale
+                    runtimeModel.locale
                       ? styles.localeActive
                       : undefined
                   }
@@ -156,7 +222,7 @@ export function ProductDetail({
           />
           <ProductVisual
             visual={
-              model.visual
+              runtimeModel.visual
             }
             mode="detail"
           />
@@ -180,7 +246,7 @@ export function ProductDetail({
             }
           >
             {
-              model.copy
+              runtimeModel.copy
                 .eyebrow
             }
           </p>
@@ -191,13 +257,13 @@ export function ProductDetail({
             }
           >
             {
-              model.categoryLabel
+              runtimeModel.categoryLabel
             }
           </span>
 
           <h1>
             {
-              model.name
+              runtimeModel.name
             }
           </h1>
 
@@ -207,22 +273,22 @@ export function ProductDetail({
             }
           >
             {
-              model.brand
+              runtimeModel.brand
             }
           </p>
 
           <AdminStorefrontControls
             locale={
-              model.locale
+              runtimeModel.locale
             }
             productId={
-              model.id
+              runtimeModel.id
             }
             productSlug={
-              model.slug
+              runtimeModel.slug
             }
             stockUnits={
-              model.variants.reduce(
+              runtimeModel.variants.reduce(
                 (
                   total,
                   variant,
@@ -241,7 +307,7 @@ export function ProductDetail({
             href="#variants"
           >
             {
-              model.copy
+              runtimeModel.copy
                 .viewVariants
             }
             <span
@@ -257,7 +323,7 @@ export function ProductDetail({
             }
           >
             {
-              model.copy
+              runtimeModel.copy
                 .readOnlyNote
             }
           </p>
@@ -285,14 +351,14 @@ export function ProductDetail({
 
           <h2>
             {
-              model.copy
+              runtimeModel.copy
                 .variantsTitle
             }
           </h2>
 
           <p>
             {
-              model.copy
+              runtimeModel.copy
                 .variantsBody
             }
           </p>
@@ -303,7 +369,7 @@ export function ProductDetail({
             styles.variantGrid
           }
         >
-          {model.variants.map(
+          {runtimeModel.variants.map(
             (variant) => (
               <article
                 key={
@@ -336,7 +402,7 @@ export function ProductDetail({
                     }
                   >
                     {
-                      model.copy.sku
+                      runtimeModel.copy.sku
                     }
                     {" "}
                     {
@@ -371,14 +437,14 @@ export function ProductDetail({
                   }
                   {" "}
                   {
-                    model.copy
+                    runtimeModel.copy
                       .units
                   }
                 </span>
 
                 <AddToCartControl
                   locale={
-                    model.locale
+                    runtimeModel.locale
                   }
                   productVariantId={
                     variant.id

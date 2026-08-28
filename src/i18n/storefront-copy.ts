@@ -76,7 +76,7 @@ const copies:
         categories:
           "Categorias",
         experience:
-          "Experiencia",
+          "Experi\u00eancia",
       },
       hero: {
         eyebrow:
@@ -84,7 +84,7 @@ const copies:
         title:
           "Tecnologia no seu ritmo.",
         body:
-          "Smartphones e acessorios selecionados para unir desempenho, design e uma experiencia de compra mais clara.",
+          "Smartphones e acess\u00f3rios selecionados para unir desempenho, design e uma experi\u00eancia de compra mais clara.",
         primaryCta:
           "Explorar destaques",
         secondaryCta:
@@ -148,13 +148,13 @@ const copies:
         statement:
           "VELORA - Tecnologia no seu ritmo.",
         portfolio:
-          "Projeto conceitual para portfolio profissional.",
+          "Projeto conceitual para portf\u00f3lio profissional.",
       },
       metadata: {
         title:
           "VELORA | Tecnologia no seu ritmo",
         description:
-          "Storefront conceitual premium para smartphones, acessorios e tecnologia mobile.",
+          "Storefront conceitual premium para smartphones, acess\u00f3rios e tecnologia mobile.",
       },
     },
     en: {
@@ -264,7 +264,7 @@ const copies:
         title:
           "Tecnologia a tu ritmo.",
         body:
-          "Smartphones y accesorios seleccionados para unir rendimiento, diseno y una experiencia de compra mas clara.",
+          "Smartphones y accesorios seleccionados para unir rendimiento, dise\u00f1o y una experiencia de compra m\u00e1s clara.",
         primaryCta:
           "Explorar destacados",
         secondaryCta:
@@ -328,7 +328,7 @@ const copies:
         statement:
           "VELORA - Tecnologia a tu ritmo.",
         portfolio:
-          "Proyecto conceptual para portfolio profesional.",
+          "Proyecto conceptual para portafolio profesional.",
       },
       metadata: {
         title:

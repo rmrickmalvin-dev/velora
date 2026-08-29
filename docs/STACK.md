@@ -110,3 +110,31 @@ Vercel.
 ## Estado
 
 BUILD 01 em execução.
+
+## PASSO 45 SEO Runtime Infrastructure
+
+No new dependency was introduced.
+
+Public metadata remains inside the Next App Router metadata system.
+
+Added:
+
+- `src/app/robots.ts`
+- `src/app/sitemap.ts`
+- `src/lib/site-origin.ts`
+
+Deployment origin contract:
+
+```text
+NEXT_PUBLIC_SITE_URL
+```
+
+The value must be an absolute HTTP or HTTPS deployment origin.
+
+If the variable is absent or invalid:
+
+- no fake production host is invented
+- sitemap returns no absolute public entries
+- robots remains valid and does not advertise a false sitemap origin
+
+BUILD 06 Release is responsible for supplying and validating the real deployed origin.

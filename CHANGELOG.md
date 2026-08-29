@@ -3173,3 +3173,80 @@ Next:
 #### Next
 
 PASSO 45 - Runtime Performance, Responsive and SEO Hardening.
+
+### PASSO 45 - Runtime Performance, Responsive and SEO Hardening
+
+Status: COMPLETED AND TECHNICALLY VALIDATED
+
+#### Performance
+
+Established executable budgets for:
+
+- 18 reviewed Client Components
+- Server Component public route entries
+- SVG-only current conceptual product visuals
+- aggregate VELORA visual assets below 8 KB
+
+No `next/image` conversion was introduced because the current rendered product visual layer has no raw or raster image element to optimize.
+
+#### Responsive
+
+Added browser evidence across:
+
+- 320 px
+- 768 px
+- 1440 px
+
+for:
+
+- Home
+- Category
+- Product
+
+All nine combinations must remain free of page-level horizontal overflow.
+
+#### SEO
+
+Added:
+
+- Open Graph summaries
+- Twitter summaries
+- origin-safe `robots.ts`
+- origin-safe `sitemap.ts`
+- `NEXT_PUBLIC_SITE_URL` deployment-origin contract
+
+Preserved:
+
+- canonical paths
+- PT-BR / EN / ES language alternates
+- `x-default`
+- index/follow on public Storefront journeys
+
+Private demo journeys are excluded from robots discovery.
+
+#### Gate
+
+```text
+Targeted contracts: 30/30
+Responsive + SEO E2E: 12/12
+Vitest: 841/841
+Test files: 106/106
+Complete browser E2E: 25/25
+TypeScript: passed
+ESLint warnings: 0
+Production build: passed
+```
+
+#### Decisions
+
+Added:
+
+- CODAL-DEC-305 through CODAL-DEC-312
+
+Next:
+
+- CODAL-DEC-313
+
+#### Next
+
+PASSO 46 - Clean Install, CI Readiness and BUILD 05 Closure.

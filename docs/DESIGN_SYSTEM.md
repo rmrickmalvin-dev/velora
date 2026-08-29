@@ -530,3 +530,27 @@ The Cart Drawer baseline requires:
 Product Discovery Category filters remain native keyboard-operable buttons and continue to synchronize URL navigation state. Browser accessibility checks use a 60 second test budget and one deterministic worker while preserving the same WCAG A/AA and keyboard assertions.
 
 This behavior is verified in Chromium through Playwright in addition to source contracts.
+
+## PASSO 45 Responsive Runtime Contract
+
+The existing responsive visual architecture remains valid.
+
+Runtime quality now verifies the three main public journeys at:
+
+- 320 px compact
+- 768 px tablet
+- 1440 px desktop
+
+For Home, Category and Product:
+
+- `main` must remain visible
+- document width must not exceed viewport width
+- body width must not exceed viewport width
+- the primary content box must remain inside the viewport
+
+Performance policy:
+
+- preserve Server Components at public route entries
+- keep Client Component growth explicit and reviewed
+- do not introduce image optimization machinery where no image-rendering payload exists
+- keep current conceptual SVG assets lightweight

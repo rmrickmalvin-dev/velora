@@ -10,7 +10,7 @@ BUILD 05 - IN PROGRESS
 
 Latest validated step:
 
-PASSO 44 - Keyboard, Dialog Focus, Navigation and Runtime Accessibility Hardening
+PASSO 45 - Runtime Performance, Responsive and SEO Hardening
 
 ## Search Intelligence
 
@@ -218,4 +218,42 @@ Next decision:
 
 Next action:
 
-PASSO 45 - Runtime Performance, Responsive and SEO Hardening.
+PASSO 46 - Clean Install, CI Readiness and BUILD 05 Closure.
+
+## PASSO 45 Performance Responsive and SEO Handoff
+
+BUILD 05 remains IN PROGRESS.
+
+Preserve:
+
+- public Home, Category and Product as Server Component entry routes
+- Client Component reviewed budget at 18 unless a later decision explicitly raises it
+- current lightweight SVG-only conceptual visual asset layer
+- canonical locale paths and `x-default`
+- Open Graph and Twitter summary metadata on public Storefront journeys
+- private demo routes outside robots discovery
+- public-only sitemap policy
+- `NEXT_PUBLIC_SITE_URL` as the deployment-origin contract
+- 320 / 768 / 1440 responsive runtime matrix
+- single-worker Playwright quality execution from PASSO 44
+
+Do not hard-code a production host before Release.
+
+Current evidence:
+
+```text
+Vitest: 841/841
+Test files: 106/106
+Responsive + SEO E2E: 12/12
+Complete browser E2E: 25/25
+ESLint warnings: 0
+Production build: passed
+```
+
+Next decision:
+
+`CODAL-DEC-313`
+
+Next action:
+
+PASSO 46 - Clean Install, CI Readiness and BUILD 05 Closure.

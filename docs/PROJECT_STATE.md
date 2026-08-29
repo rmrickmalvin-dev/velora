@@ -24,7 +24,7 @@ CLOSED AND VALIDATED
 
 ## Latest validated step
 
-PASSO 44 - Keyboard, Dialog Focus, Navigation and Runtime Accessibility Hardening
+PASSO 45 - Runtime Performance, Responsive and SEO Hardening
 
 ## Search Intelligence
 
@@ -228,4 +228,56 @@ Next:
 
 Next step:
 
-PASSO 45 - Runtime Performance, Responsive and SEO Hardening.
+PASSO 46 - Clean Install, CI Readiness and BUILD 05 Closure.
+
+## PASSO 45 - Runtime Performance, Responsive and SEO Hardening
+
+Status: COMPLETED AND TECHNICALLY VALIDATED
+
+BUILD 05 remains IN PROGRESS.
+
+Performance hardening:
+
+- current Client Component budget is capped at 18 reviewed surfaces
+- current VELORA visual assets remain SVG-only and under an 8 KB aggregate budget
+- public Home, Category and Product route files remain Server Components
+- no unnecessary `next/image` migration is introduced because the current visual layer does not render raster or raw image elements
+
+Responsive hardening:
+
+- existing CSS overflow containment remains unchanged
+- Product Discovery horizontal overflow remains local to its filter strip
+- Playwright verifies Home, Category and Product at 320 px, 768 px and 1440 px
+- all 9 viewport/journey combinations reject page-level horizontal overflow
+
+SEO hardening:
+
+- public Home, Category and Product metadata now expose Open Graph and Twitter summary records
+- canonical and locale alternates remain preserved
+- `robots.ts` excludes Account, Admin, Checkout, Login and Orders demo journeys
+- `sitemap.ts` lists only public Home, Category and Product journeys
+- deployment origin is read from `NEXT_PUBLIC_SITE_URL`
+- no fake production domain is hard-coded; sitemap absolute URLs become active when Release provides the real origin
+
+Evidence:
+
+- targeted PASSO 45 contracts: 30/30
+- responsive and SEO runtime E2E: 12/12
+- Vitest: 841/841
+- test files: 106/106
+- complete browser E2E: 25/25
+- TypeScript passed
+- ESLint warnings: 0
+- production build passed
+
+Official decisions:
+
+`CODAL-DEC-001 -> CODAL-DEC-312`
+
+Next:
+
+`CODAL-DEC-313`
+
+Next step:
+
+PASSO 46 - Clean Install, CI Readiness and BUILD 05 Closure.

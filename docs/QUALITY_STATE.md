@@ -173,3 +173,35 @@ Static pages: 57/57
 ```
 
 BUILD 05 remains IN PROGRESS.
+
+## PASSO 45 Performance Responsive and SEO Evidence
+
+- [x] Client Component budget <= 18
+- [x] current VELORA media SVG-only
+- [x] current VELORA media aggregate < 8 KB
+- [x] public Storefront entries remain Server Components
+- [x] Open Graph metadata on Home, Category and Product
+- [x] Twitter summary metadata on Home, Category and Product
+- [x] canonical and hreflang preserved
+- [x] origin-safe robots and sitemap infrastructure
+- [x] private demo routes excluded from robots discovery
+- [x] responsive browser matrix: 320 / 768 / 1440
+- [x] Home / Category / Product overflow runtime evidence
+- [x] no CSS redesign required by current evidence
+
+Technical gate:
+
+```text
+Targeted contracts: 30/30
+Responsive + SEO E2E: 12/12
+Vitest: 841/841
+Test files: 106/106
+Complete browser E2E: 25/25
+TypeScript: passed
+ESLint warnings: 0
+Production build: passed
+```
+
+BUILD 05 remains IN PROGRESS.
+
+Next: PASSO 46 - Clean Install, CI Readiness and BUILD 05 Closure.

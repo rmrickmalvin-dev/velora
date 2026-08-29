@@ -108,6 +108,58 @@ describe(
       });
     });
 
+    it("builds Open Graph and Twitter summaries from the same public copy", () => {
+      const model =
+        buildStorefrontSeoModel(
+          "pt-BR",
+          "VELORA",
+          "Description",
+        );
+
+      expect(
+        model.openGraph,
+      ).toEqual({
+        title:
+          "VELORA",
+        description:
+          "Description",
+        type:
+          "website",
+      });
+
+      expect(
+        model.twitter,
+      ).toEqual({
+        card:
+          "summary",
+        title:
+          "VELORA",
+        description:
+          "Description",
+      });
+    });
+
+    it("freezes social metadata records", () => {
+      const model =
+        buildStorefrontSeoModel(
+          "es",
+          "VELORA",
+          "Description",
+        );
+
+      expect(
+        Object.isFrozen(
+          model.openGraph,
+        ),
+      ).toBe(true);
+
+      expect(
+        Object.isFrozen(
+          model.twitter,
+        ),
+      ).toBe(true);
+    });
+
     it("freezes the public SEO records", () => {
       const model =
         buildStorefrontSeoModel(

@@ -16,6 +16,18 @@ export type StorefrontSeoModel =
         index: true;
         follow: true;
       }>;
+    openGraph:
+      Readonly<{
+        title: string;
+        description: string;
+        type: "website";
+      }>;
+    twitter:
+      Readonly<{
+        card: "summary";
+        title: string;
+        description: string;
+      }>;
   }>;
 
 function normalizeSuffix(
@@ -75,6 +87,22 @@ export function buildStorefrontSeoModel(
         ),
     });
 
+  const openGraph =
+    Object.freeze({
+      title,
+      description,
+      type:
+        "website" as const,
+    });
+
+  const twitter =
+    Object.freeze({
+      card:
+        "summary" as const,
+      title,
+      description,
+    });
+
   return Object.freeze({
     title,
     description,
@@ -88,5 +116,7 @@ export function buildStorefrontSeoModel(
         index: true as const,
         follow: true as const,
       }),
+    openGraph,
+    twitter,
   });
 }

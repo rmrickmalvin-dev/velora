@@ -90,6 +90,10 @@ export async function generateMetadata({
         seo.languageAlternates,
     },
     robots: seo.robots,
+    openGraph:
+      seo.openGraph,
+    twitter:
+      seo.twitter,
   };
 }
 

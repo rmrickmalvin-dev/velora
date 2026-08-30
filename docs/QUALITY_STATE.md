@@ -104,7 +104,7 @@ BUILD 04 is CLOSED AND VALIDATED.
 
 ## BUILD 05
 
-IN PROGRESS
+CLOSED AND VALIDATED
 
 ## PASSO 43 Browser Quality Evidence
 
@@ -205,3 +205,35 @@ Production build: passed
 BUILD 05 remains IN PROGRESS.
 
 Next: PASSO 46 - Clean Install, CI Readiness and BUILD 05 Closure.
+
+## PASSO 46 Clean Install and BUILD 05 Closure Evidence
+
+BUILD 05 - Quality: CLOSED AND VALIDATED.
+
+- [x] Node 24.13.0
+- [x] npm 11.6.2
+- [x] package-lock present and unchanged
+- [x] isolated `npm ci`
+- [x] isolated `npm ls --depth=0`
+- [x] isolated Playwright Chromium install
+- [x] isolated `npm run quality`
+- [x] GitHub Actions quality workflow
+- [x] `.env.example`
+- [x] generated runtime artifacts remain untracked
+- [x] active workspace `node_modules` was not used as clean-install proof
+
+Closure gate:
+
+```text
+Vitest: 849/849
+Test files: 107/107
+Browser E2E: 25/25
+Production static generation: 59/59
+TypeScript: passed
+ESLint warnings: 0
+Clean install: passed
+Clean dependency tree: passed
+Package lock integrity: passed
+```
+
+Next: BUILD 06 - Release.

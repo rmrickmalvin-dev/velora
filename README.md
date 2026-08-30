@@ -34,3 +34,30 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Quality and CI
+
+Validated local runtime:
+
+```text
+Node 24.13.0
+npm 11.6.2
+```
+
+Local complete quality gate:
+
+```bash
+npm ci
+npx playwright install chromium
+npm run quality
+```
+
+GitHub Actions uses the same Node version from `.nvmrc`, aligns npm to `11.6.2`, installs Chromium and runs `npm run quality`.
+
+Release origin:
+
+```text
+NEXT_PUBLIC_SITE_URL
+```
+
+Keep it empty during conceptual/local development. BUILD 06 must provide the real deployed HTTP or HTTPS origin before production release validation.

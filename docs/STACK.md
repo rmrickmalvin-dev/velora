@@ -138,3 +138,30 @@ If the variable is absent or invalid:
 - robots remains valid and does not advertise a false sitemap origin
 
 BUILD 06 Release is responsible for supplying and validating the real deployed origin.
+
+## PASSO 46 CI and Reproducibility Contract
+
+Validated versions:
+
+```text
+Node 24.13.0
+npm 11.6.2
+```
+
+Reproducible install:
+
+```text
+npm ci
+```
+
+Canonical gate:
+
+```text
+npm run quality
+```
+
+CI provider: GitHub Actions.
+CI browser: Playwright Chromium.
+
+The workflow does not define a fake production value for `NEXT_PUBLIC_SITE_URL`.
+BUILD 06 must provide the real deployment origin when release validation begins.

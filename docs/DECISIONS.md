@@ -340,6 +340,14 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-310 | ACEITA | Absolute sitemap origin comes only from a validated `NEXT_PUBLIC_SITE_URL`; no deployment hostname is invented before Release | Prevent false canonical deployment data from entering a portfolio build |
 | CODAL-DEC-311 | ACEITA | Playwright verifies Home, Category and Product at 320 px, 768 px and 1440 px and rejects page-level horizontal overflow | Convert existing responsive CSS contracts into browser-executed viewport evidence |
 | CODAL-DEC-312 | ACEITA | PASSO 45 closes only after 30 targeted contracts, 12 responsive/SEO browser tests, 841 Vitest tests, 25 complete browser tests, zero-warning lint, TypeScript and production build validation | Preserve CODAL quality-first progression before clean-install and CI readiness |
+| CODAL-DEC-313 | ACEITA | BUILD 05 clean-install proof runs in an isolated OS temporary workspace instead of deleting the developer active `node_modules` | Prove reproducibility without risking the validated working environment |
+| CODAL-DEC-314 | ACEITA | Node 24.13.0 from `.nvmrc` and npm 11.6.2 are the validated CI runtime pair | Keep local and automated quality execution aligned with the project engines |
+| CODAL-DEC-315 | ACEITA | GitHub Actions installs dependencies with `npm ci` and Playwright Chromium before executing `npm run quality` | Make the repository quality gate reproducible from a fresh checkout |
+| CODAL-DEC-316 | ACEITA | The active historical `node_modules` tree is not accepted as clean-install evidence when `npm ls` reports extraneous packages | Separate local tooling residue from repository reproducibility |
+| CODAL-DEC-317 | ACEITA | `.env.example` documents `NEXT_PUBLIC_SITE_URL` but keeps the value empty until BUILD 06 has a real deployment origin | Preserve release readiness without inventing production identity |
+| CODAL-DEC-318 | ACEITA | Generated artifacts including `.next`, `node_modules`, Playwright reports, test results, coverage and CODAL backups remain untracked | Keep repository history limited to reproducible source and configuration |
+| CODAL-DEC-319 | ACEITA | PASSO 46 requires the isolated dependency tree and package-lock hash to remain clean after `npm ci` | Detect dependency drift before Release |
+| CODAL-DEC-320 | ACEITA | BUILD 05 closes only after isolated clean install, canonical quality execution, 849 Vitest tests, 25 browser tests, 59 static outputs, TypeScript and zero-warning lint validation | Establish a reproducible Quality checkpoint before BUILD 06 Release |
 
 ## Decisões por área
 

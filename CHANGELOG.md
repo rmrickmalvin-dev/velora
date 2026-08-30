@@ -3250,3 +3250,64 @@ Next:
 #### Next
 
 PASSO 46 - Clean Install, CI Readiness and BUILD 05 Closure.
+
+### PASSO 46 - Clean Install, CI Readiness and BUILD 05 Closure
+
+Status: CLOSED AND VALIDATED
+
+BUILD 05 - Quality is now CLOSED AND VALIDATED.
+
+#### Clean install
+
+Validated from an isolated OS temporary workspace:
+
+```text
+npm ci
+npm ls --depth=0
+npx playwright install chromium
+npm run quality
+```
+
+The active historical `node_modules` tree was deliberately not used as clean-install evidence because the diagnostic found local extraneous packages.
+
+The host `package-lock.json` hash remained unchanged.
+
+#### CI
+
+Added GitHub Actions quality automation using:
+
+- `.nvmrc`
+- Node 24.13.0
+- npm 11.6.2
+- `npm ci`
+- Playwright Chromium
+- `npm run quality`
+
+#### Environment
+
+Added `.env.example` for `NEXT_PUBLIC_SITE_URL`.
+No production hostname is invented before BUILD 06.
+
+#### BUILD 05 final gate
+
+```text
+Vitest: 849/849
+Test files: 107/107
+Browser E2E: 25/25
+Production static generation: 59/59
+TypeScript: passed
+ESLint warnings: 0
+Clean install: passed
+Clean dependency tree: passed
+Package lock integrity: passed
+```
+
+#### Decisions
+
+Added CODAL-DEC-313 through CODAL-DEC-320.
+
+Next: CODAL-DEC-321.
+
+#### Next
+
+PASSO 47 - BUILD 06 Release Candidate and Production Configuration.

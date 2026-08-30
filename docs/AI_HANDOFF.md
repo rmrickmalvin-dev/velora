@@ -6,11 +6,11 @@ CODAL OS - Complete Edition active.
 
 ## State
 
-BUILD 05 - IN PROGRESS
+BUILD 05 - CLOSED AND VALIDATED
 
 Latest validated step:
 
-PASSO 45 - Runtime Performance, Responsive and SEO Hardening
+PASSO 46 - Clean Install, CI Readiness and BUILD 05 Closure
 
 ## Search Intelligence
 
@@ -256,4 +256,36 @@ Next decision:
 
 Next action:
 
-PASSO 46 - Clean Install, CI Readiness and BUILD 05 Closure.
+PASSO 47 - BUILD 06 Release Candidate and Production Configuration.
+
+## PASSO 46 BUILD 05 Closure Handoff
+
+BUILD 05 - Quality is CLOSED AND VALIDATED.
+
+The project has clean-install proof independent from the active historical `node_modules`.
+
+Preserve:
+
+- Node 24.13.0
+- npm 11.6.2
+- `package-lock.json`
+- `npm ci`
+- `npm run quality`
+- Playwright single-worker browser execution
+- `.github/workflows/quality.yml`
+- `.env.example`
+- `NEXT_PUBLIC_SITE_URL` with no fake default production host
+- 849/849 Vitest
+- 107/107 test files
+- 25/25 browser E2E
+- 59/59 production static generation
+
+Do not accept the active workspace dependency tree as release reproducibility evidence when it contains historical extraneous packages. The isolated PASSO 46 clean install is the authoritative BUILD 05 proof.
+
+Next decision:
+
+`CODAL-DEC-321`
+
+Next action:
+
+PASSO 47 - BUILD 06 Release Candidate and Production Configuration.

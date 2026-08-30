@@ -8,7 +8,7 @@ BUILD 05 - Quality
 
 ## State
 
-IN PROGRESS
+CLOSED AND VALIDATED
 
 ## BUILD 01
 
@@ -24,7 +24,7 @@ CLOSED AND VALIDATED
 
 ## Latest validated step
 
-PASSO 45 - Runtime Performance, Responsive and SEO Hardening
+PASSO 46 - Clean Install, CI Readiness and BUILD 05 Closure
 
 ## Search Intelligence
 
@@ -280,4 +280,62 @@ Next:
 
 Next step:
 
-PASSO 46 - Clean Install, CI Readiness and BUILD 05 Closure.
+PASSO 47 - BUILD 06 Release Candidate and Production Configuration.
+
+## PASSO 46 - BUILD 05 Closure
+
+Status: CLOSED AND VALIDATED
+
+BUILD 05 - Quality is CLOSED AND VALIDATED.
+
+Clean-install evidence:
+
+- Node `24.13.0`
+- npm `11.6.2`
+- `npm ci` executed in an isolated OS temporary workspace
+- isolated `npm ls --depth=0` passed
+- Chromium installation passed
+- canonical `npm run quality` passed from the isolated install
+- host `package-lock.json` SHA256 remained unchanged
+- isolated workspace was removed after validation
+- compact evidence remains in `.codal-backups` using a non-discoverable text file
+
+CI readiness:
+
+- GitHub Actions quality workflow added
+- CI reads Node from `.nvmrc`
+- CI aligns npm to `11.6.2`
+- CI installs dependencies using `npm ci`
+- CI installs Playwright Chromium
+- CI executes the canonical `npm run quality`
+- no deployment hostname is invented in CI
+
+Release handoff:
+
+- `.env.example` documents `NEXT_PUBLIC_SITE_URL`
+- the variable remains empty until BUILD 06 has a real deployed origin
+- BUILD 06 owns production origin and deployment validation
+
+Final BUILD 05 evidence:
+
+- Vitest: 849/849
+- test files: 107/107
+- browser E2E: 25/25
+- production static generation: 59/59
+- TypeScript passed
+- ESLint warnings: 0
+- clean install: passed
+- dependency tree after clean install: passed
+- package lock integrity: passed
+
+Official decisions:
+
+`CODAL-DEC-001 -> CODAL-DEC-320`
+
+Next:
+
+`CODAL-DEC-321`
+
+Next step:
+
+PASSO 47 - BUILD 06 Release Candidate and Production Configuration.

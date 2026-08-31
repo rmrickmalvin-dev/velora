@@ -232,8 +232,37 @@ Production static generation: 59/59
 TypeScript: passed
 ESLint warnings: 0
 Clean install: passed
-Clean dependency tree: passed
+Dependency graph: reproducible; two known optional npm extraneous entries documented and prune dry-run reports no change
 Package lock integrity: passed
 ```
 
 Next: BUILD 06 - Release.
+
+## PASSO 46 Dependency and ESLint Clarification
+
+BUILD 05 remains CLOSED AND VALIDATED.
+
+Precise dependency evidence:
+
+```text
+npm ci: passed
+npm prune --dry-run: no change
+npm ls: two documented optional extraneous entries
+Git-normalized package-lock identity: matches HEAD
+```
+
+Known npm entries:
+
+- `@emnapi/wasi-threads@1.2.3`
+- `@img/sharp-wasm32@0.35.3`
+
+Validated lint line:
+
+```text
+package.json: eslint ^9
+package-lock resolution: ESLint 9.39.5
+eslint-config-next: 16.3.1
+warnings: 0
+```
+
+ESLint 10.9.1 was evaluated and rejected because the current Next / React lint stack reaches an incompatible eslint-plugin-react API.

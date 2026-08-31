@@ -348,6 +348,9 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-318 | ACEITA | Generated artifacts including `.next`, `node_modules`, Playwright reports, test results, coverage and CODAL backups remain untracked | Keep repository history limited to reproducible source and configuration |
 | CODAL-DEC-319 | ACEITA | PASSO 46 requires the isolated dependency tree and package-lock hash to remain clean after `npm ci` | Detect dependency drift before Release |
 | CODAL-DEC-320 | ACEITA | BUILD 05 closes only after isolated clean install, canonical quality execution, 849 Vitest tests, 25 browser tests, 59 static outputs, TypeScript and zero-warning lint validation | Establish a reproducible Quality checkpoint before BUILD 06 Release |
+| CODAL-DEC-321 | ACEITA | PASSO 46 clean-install evidence is clarified: npm 11.6.2 reproducibly labels `@emnapi/wasi-threads@1.2.3` and `@img/sharp-wasm32@0.35.3` as extraneous even though both are lockfile-linked optional entries and `npm prune --dry-run` reports no change | Replace the overly broad clean-dependency-tree claim with the exact observed npm behavior |
+| CODAL-DEC-322 | ACEITA | VELORA retains the validated `eslint: ^9` manifest contract with lockfile resolution `9.39.5` because ESLint 10.9.1 fails with the current `eslint-config-next@16.3.1` / eslint-plugin-react stack on the removed `context.getFilename()` API | Prefer the passing zero-warning lint baseline over an incompatible major upgrade or compatibility shim before Release |
+| CODAL-DEC-323 | ACEITA | Tracked package-lock integrity on Windows is validated through Git-normalized blob identity plus `git diff`, not raw working-tree SHA256 alone | Avoid false integrity failures caused only by CRLF/LF checkout normalization |
 
 ## Decisões por área
 

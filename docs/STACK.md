@@ -165,3 +165,19 @@ CI browser: Playwright Chromium.
 
 The workflow does not define a fake production value for `NEXT_PUBLIC_SITE_URL`.
 BUILD 06 must provide the real deployment origin when release validation begins.
+
+## PASSO 46 ESLint and Git Integrity Compatibility Note
+
+VELORA retains:
+
+```text
+package.json ESLint contract: ^9
+package-lock ESLint resolution: 9.39.5
+eslint-config-next: 16.3.1
+```
+
+ESLint 10.9.1 was evaluated before BUILD 06 and rejected because the current lint stack reaches eslint-plugin-react code that still calls the removed ESLint 10 `context.getFilename()` API.
+
+For tracked lockfile integrity on Windows, use Git-normalized identity and `git diff`, not a raw working-tree SHA256 alone. CRLF/LF checkout normalization can change raw bytes without changing the tracked Git content.
+
+Upgrade ESLint only when the complete Next / React lint stack passes the canonical zero-warning gate without compatibility shims.

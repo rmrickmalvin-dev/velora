@@ -3298,7 +3298,7 @@ Production static generation: 59/59
 TypeScript: passed
 ESLint warnings: 0
 Clean install: passed
-Clean dependency tree: passed
+Dependency graph: reproducible; two known optional npm extraneous entries documented and prune dry-run reports no change
 Package lock integrity: passed
 ```
 
@@ -3311,3 +3311,41 @@ Next: CODAL-DEC-321.
 #### Next
 
 PASSO 47 - BUILD 06 Release Candidate and Production Configuration.
+
+### PASSO 46 - Dependency, ESLint and Git Integrity Clarification
+
+A post-closure audit refined BUILD 05 dependency, lint-tooling and lock-integrity evidence.
+
+Dependency installation remains reproducible. npm 11.6.2 consistently labels two lockfile-linked optional packages as extraneous, while `npm prune --dry-run` reports no change.
+
+An attempted ESLint 10.9.1 upgrade was rejected after the current Next / React lint stack failed on the removed ESLint 10 `context.getFilename()` API.
+
+VELORA therefore retains:
+
+```text
+package.json: eslint ^9
+package-lock resolution: ESLint 9.39.5
+eslint-config-next: 16.3.1
+```
+
+A raw package-lock SHA256 mismatch after `git restore` was identified as a Windows line-ending normalization issue. Git-normalized blob equality and `git diff` are the canonical tracked-content checks.
+
+Recovery validation:
+
+```text
+package.json Git identity: matches HEAD
+package-lock Git identity: matches HEAD
+npm ci --dry-run: passed
+TypeScript: passed
+ESLint: passed
+ESLint warnings: 0
+```
+
+Decisions added:
+
+- CODAL-DEC-321 through CODAL-DEC-323
+
+Next:
+
+- CODAL-DEC-324
+- PASSO 47 - BUILD 06 Release Candidate and Production Configuration

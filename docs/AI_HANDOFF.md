@@ -289,3 +289,32 @@ Next decision:
 Next action:
 
 PASSO 47 - BUILD 06 Release Candidate and Production Configuration.
+
+## PASSO 46 Dependency and ESLint Compatibility Handoff
+
+BUILD 05 remains CLOSED AND VALIDATED.
+
+Do not upgrade ESLint to 10.x while `eslint-config-next@16.3.1` still loads incompatible eslint-plugin-react code in this project.
+
+Current validated line:
+
+- package.json keeps ESLint `^9`
+- package-lock resolves ESLint `9.39.5`
+- eslint-config-next `16.3.1`
+- zero-warning lint
+
+Preserve the precise npm dependency statement:
+
+- fresh npm 11.6.2 install is reproducible
+- two known optional packages are labeled extraneous by npm
+- prune dry-run reports no change
+
+For package-lock integrity on Windows, prefer Git-normalized blob equality plus `git diff --quiet`. Do not rely on raw working-tree SHA256 alone because line-ending normalization can change it.
+
+Next decision:
+
+`CODAL-DEC-324`
+
+Next action:
+
+PASSO 47 - BUILD 06 Release Candidate and Production Configuration.

@@ -325,7 +325,7 @@ Final BUILD 05 evidence:
 - TypeScript passed
 - ESLint warnings: 0
 - clean install: passed
-- dependency tree after clean install: passed
+- installation reproduced from `npm ci`; npm 11.6.2 reports two known lockfile-linked optional packages as extraneous, while `npm prune --dry-run` reports no change
 - package lock integrity: passed
 
 Official decisions:
@@ -335,6 +335,47 @@ Official decisions:
 Next:
 
 `CODAL-DEC-321`
+
+Next step:
+
+PASSO 47 - BUILD 06 Release Candidate and Production Configuration.
+
+## PASSO 46 Dependency Audit Clarification
+
+BUILD 05 remains CLOSED AND VALIDATED.
+
+Dependency evidence was refined after the clean-install checkpoint:
+
+- fresh npm 11.6.2 installs reproducibly report `@emnapi/wasi-threads@1.2.3` and `@img/sharp-wasm32@0.35.3` as extraneous
+- both packages are present in `package-lock.json` as optional entries
+- `npm prune --dry-run` reports no change
+- VELORA therefore claims reproducible installation with two documented npm optional-extraneous classifications, not a zero-problem `npm ls` tree
+
+ESLint compatibility was also audited:
+
+- ESLint 10.9.1 was tested and rejected
+- the current `eslint-config-next@16.3.1` / eslint-plugin-react stack fails on the removed ESLint 10 `context.getFilename()` API
+- the validated manifest remains `eslint: ^9`
+- the validated lockfile resolves ESLint `9.39.5`
+- the ESLint 9.39.5 deprecation notice is an accepted temporary tooling constraint until the complete lint stack supports ESLint 10 cleanly
+
+Lock integrity correction:
+
+- raw working-tree SHA256 is not treated as canonical across Windows CRLF/LF normalization
+- `git restore` returned package files to HEAD
+- Git-normalized blob identity matches HEAD for both `package.json` and `package-lock.json`
+- `git diff` reports no package-file difference
+- `npm ci --dry-run` passed
+- TypeScript passed
+- ESLint passed with zero warnings
+
+Official decisions:
+
+`CODAL-DEC-001 -> CODAL-DEC-323`
+
+Next:
+
+`CODAL-DEC-324`
 
 Next step:
 

@@ -358,6 +358,7 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-328 | ACEITA | VELORA keeps the standard Next.js build contract and does not add `output: export`, `basePath`, `assetPrefix` or provider configuration before a deployment target is selected | Prevent accidental coupling to GitHub Pages or another provider without evidence |
 | CODAL-DEC-329 | ACEITA | The existing GitHub Actions Quality workflow is release-ready configuration but is not considered remotely validated until a GitHub remote exists, the branch is pushed and the workflow actually succeeds | Separate local CI readiness from remote CI execution evidence |
 | CODAL-DEC-330 | ACEITA | BUILD 06 remains IN PROGRESS after PASSO 47 even when local quality passes; closure requires remote repository connection, real production origin, deployment and production smoke validation | Do not convert local Release Candidate readiness into a false production-release claim |
+| CODAL-DEC-331 | ACEITA | `scripts/release-readiness.mjs` resolves npm through `npm_execpath` when available and falls back to PATH-based invocation, using `cmd.exe` on Windows, so direct Node execution and npm-script execution share the same version gate | Make the Release Candidate preflight reliable outside npm lifecycle environment variables without weakening the exact npm 11.6.2 contract |
 
 ## Decisões por área
 

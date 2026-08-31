@@ -3389,3 +3389,34 @@ Next:
 
 - CODAL-DEC-331
 - PASSO 48 - Remote Repository, Deployment Origin and Production Validation
+
+### PASSO 47 - Direct Preflight Recovery
+
+Fixed direct execution of the BUILD 06 release-readiness tool.
+
+The original Release Candidate script relied on `npm_execpath`, which exists under npm scripts but is not guaranteed under direct Node invocation.
+
+Added:
+
+- npm PATH fallback
+- Windows `cmd.exe` npm shim resolution
+- direct-invocation regression test
+
+Validated:
+
+```text
+direct invocation regression: 1/1
+node scripts/release-readiness.mjs: pass
+npm run release:preflight: pass
+TypeScript: pass
+ESLint warnings: 0
+```
+
+Decision added:
+
+- CODAL-DEC-331
+
+Next:
+
+- CODAL-DEC-332
+- PASSO 48 - Remote Repository, Deployment Origin and Production Validation

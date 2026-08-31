@@ -289,3 +289,21 @@ production build: pass
 The strict deploy gate remains intentionally blocked until remote repository, upstream branch and real production origin exist.
 
 Remote GitHub Actions execution is not yet evidence because no Git remote is configured.
+
+## PASSO 47 Direct Preflight Recovery
+
+PASSO 47 post-commit validation found that direct Node invocation lacked `npm_execpath`.
+
+The release-readiness tool now supports direct and npm-script execution without weakening the npm `11.6.2` requirement.
+
+Recovery gate:
+
+```text
+direct invocation regression: 1/1
+direct Node preflight: pass
+npm-script preflight: pass
+TypeScript: pass
+ESLint warnings: 0
+```
+
+The previously completed canonical PASSO 47 quality gate remains valid because no application runtime code changed.

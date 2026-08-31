@@ -121,20 +121,68 @@ function currentNpmVersion() {
     process.env
       .npm_execpath;
 
-  if (!npmExecPath) {
-    return null;
+  if (npmExecPath) {
+    try {
+      return execFileSync(
+        process.execPath,
+        [
+          npmExecPath,
+          "--version",
+        ],
+        {
+          encoding:
+            "utf8",
+          stdio: [
+            "ignore",
+            "pipe",
+            "pipe",
+          ],
+        },
+      ).trim();
+    } catch {
+      // Fall through to a direct PATH-based npm lookup.
+    }
   }
 
   try {
+    if (
+      process.platform ===
+      "win32"
+    ) {
+      return execFileSync(
+        process.env.ComSpec ??
+          "cmd.exe",
+        [
+          "/d",
+          "/s",
+          "/c",
+          "npm --version",
+        ],
+        {
+          encoding:
+            "utf8",
+          stdio: [
+            "ignore",
+            "pipe",
+            "pipe",
+          ],
+        },
+      ).trim();
+    }
+
     return execFileSync(
-      process.execPath,
+      "npm",
       [
-        npmExecPath,
         "--version",
       ],
       {
         encoding:
           "utf8",
+        stdio: [
+          "ignore",
+          "pipe",
+          "pipe",
+        ],
       },
     ).trim();
   } catch {

@@ -211,3 +211,18 @@ Repository text policy:
 ```
 
 No historical mass-renormalization is performed in PASSO 47.
+
+## PASSO 47 npm Detection Compatibility
+
+Release tooling resolves the active npm version in two stages:
+
+1. `npm_execpath` under npm lifecycle execution
+2. PATH-based fallback for direct Node execution
+
+On Windows the fallback runs through `cmd.exe` to resolve the npm command shim.
+
+The required version remains:
+
+```text
+npm 11.6.2
+```

@@ -122,3 +122,18 @@ After deployment, verify at minimum:
 - production console/network health
 
 BUILD 06 remains IN PROGRESS until these external release checks are completed.
+
+## Direct preflight execution
+
+The readiness script supports both invocation modes:
+
+```bash
+npm run release:preflight
+node scripts/release-readiness.mjs
+```
+
+The npm version check first uses npm lifecycle metadata when available.
+
+When invoked directly, it falls back to the system PATH. On Windows the fallback uses `cmd.exe` so the npm command shim is resolved correctly.
+
+Both modes enforce npm `11.6.2`.

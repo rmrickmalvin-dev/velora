@@ -437,3 +437,42 @@ Next:
 Next step:
 
 PASSO 48 - Remote Repository, Deployment Origin and Production Validation.
+
+## PASSO 47 Post-Commit Preflight Recovery
+
+The PASSO 47 Release Candidate commit exposed one post-commit tooling issue only when the readiness script was invoked directly with Node.
+
+Cause:
+
+- `npm_execpath` is available under npm lifecycle execution
+- direct `node scripts/release-readiness.mjs` does not guarantee that environment variable
+- the original direct post-commit preflight therefore could not resolve the npm version
+
+Correction:
+
+- preserve `npm_execpath` as the primary path
+- add PATH-based npm fallback
+- use `cmd.exe` on Windows so the npm shim resolves reliably
+- add a regression test that explicitly removes `npm_execpath`
+
+Recovery evidence:
+
+- direct-invocation regression test: 1/1
+- direct Node preflight: passed
+- npm-script preflight: passed
+- TypeScript: passed
+- ESLint warnings: 0
+
+BUILD 06 remains IN PROGRESS.
+
+Official decisions:
+
+`CODAL-DEC-001 -> CODAL-DEC-331`
+
+Next:
+
+`CODAL-DEC-332`
+
+Next step:
+
+PASSO 48 - Remote Repository, Deployment Origin and Production Validation.

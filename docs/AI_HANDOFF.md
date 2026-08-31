@@ -360,3 +360,24 @@ Next decision:
 Next action:
 
 PASSO 48 - Remote Repository, Deployment Origin and Production Validation.
+
+## PASSO 47 Direct Preflight Recovery Handoff
+
+The Release Candidate readiness script may be invoked either through npm or directly with Node.
+
+Do not make `npm_execpath` a hard requirement.
+
+Validated behavior:
+
+- npm lifecycle path when `npm_execpath` exists
+- PATH fallback when direct Node invocation omits it
+- `cmd.exe` fallback on Windows
+- exact npm 11.6.2 requirement preserved
+
+Next decision:
+
+`CODAL-DEC-332`
+
+Next action:
+
+PASSO 48 - Remote Repository, Deployment Origin and Production Validation.

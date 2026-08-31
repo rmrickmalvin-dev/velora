@@ -3349,3 +3349,43 @@ Next:
 
 - CODAL-DEC-324
 - PASSO 47 - BUILD 06 Release Candidate and Production Configuration
+
+### PASSO 47 - BUILD 06 Release Candidate
+
+Prepared a provider-neutral local Release Candidate.
+
+Added:
+
+- repository `.gitattributes` LF policy
+- `scripts/release-readiness.mjs`
+- `release:preflight`
+- `release:candidate`
+- strict `release:deploy-check`
+- `docs/RELEASE.md`
+- BUILD 06 Release Candidate contract tests
+
+Refined:
+
+- `.env.example` release wording
+- generated placeholder comment removed from `next.config.ts`
+- README release commands
+
+Preserved deliberately:
+
+- no invented Git remote
+- no invented deployment provider
+- no invented production origin
+- no static-export contract
+- no claim of remote CI success
+- no claim of production deployment
+
+BUILD 06 remains IN PROGRESS.
+
+Decisions added:
+
+- CODAL-DEC-324 through CODAL-DEC-330
+
+Next:
+
+- CODAL-DEC-331
+- PASSO 48 - Remote Repository, Deployment Origin and Production Validation

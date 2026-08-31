@@ -61,3 +61,19 @@ NEXT_PUBLIC_SITE_URL
 ```
 
 Keep it empty during conceptual/local development. BUILD 06 must provide the real deployed HTTP or HTTPS origin before production release validation.
+
+## Release Candidate
+
+BUILD 06 release commands:
+
+```bash
+npm run release:preflight
+npm run release:candidate
+npm run release:deploy-check
+```
+
+`release:preflight` validates the local provider-neutral release contract.
+
+`release:deploy-check` is intentionally strict and remains blocked until a real Git remote, upstream branch and `NEXT_PUBLIC_SITE_URL` exist.
+
+See `docs/RELEASE.md` for the production handoff.

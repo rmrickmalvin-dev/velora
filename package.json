@@ -12,7 +12,10 @@
     "test": "vitest run src",
     "test:watch": "vitest src",
     "test:e2e": "playwright test",
-    "quality": "npm run check && npm run test:e2e"
+    "quality": "npm run check && npm run test:e2e",
+    "release:preflight": "node scripts/release-readiness.mjs",
+    "release:deploy-check": "node scripts/release-readiness.mjs --require-origin --require-remote --require-upstream --require-clean",
+    "release:candidate": "npm run quality && npm run release:preflight"
   },
   "dependencies": {
     "next": "16.3.1",

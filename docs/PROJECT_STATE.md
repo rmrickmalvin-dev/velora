@@ -380,3 +380,60 @@ Next:
 Next step:
 
 PASSO 47 - BUILD 06 Release Candidate and Production Configuration.
+
+## PASSO 47 - BUILD 06 Release Candidate
+
+Status:
+
+BUILD 06 - IN PROGRESS
+
+Local Release Candidate preparation is complete.
+
+Diagnostic facts:
+
+- no Git remote
+- no branch upstream
+- GitHub CLI unavailable
+- no deployment-provider configuration
+- `NEXT_PUBLIC_SITE_URL` unset
+- standard Next.js build contract
+- repository previously depended on machine-level `core.autocrlf`
+
+Implemented:
+
+- `.gitattributes` repository LF policy
+- provider-neutral `scripts/release-readiness.mjs`
+- `release:preflight`
+- `release:candidate`
+- strict `release:deploy-check`
+- `docs/RELEASE.md`
+- generated placeholder comment removed from `next.config.ts`
+- BUILD 06 release contract tests
+
+Local evidence:
+
+- targeted Release Candidate contract: 8/8
+- canonical quality gate: passed
+- strict deploy-check: blocked as expected while external release inputs are absent
+
+External blockers preserved intentionally:
+
+- Git remote
+- branch upstream
+- deployment provider
+- real `NEXT_PUBLIC_SITE_URL`
+- remote CI run
+- real deployment
+- production smoke validation
+
+Official decisions:
+
+`CODAL-DEC-001 -> CODAL-DEC-330`
+
+Next:
+
+`CODAL-DEC-331`
+
+Next step:
+
+PASSO 48 - Remote Repository, Deployment Origin and Production Validation.

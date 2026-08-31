@@ -318,3 +318,45 @@ Next decision:
 Next action:
 
 PASSO 47 - BUILD 06 Release Candidate and Production Configuration.
+
+## PASSO 47 BUILD 06 Release Candidate Handoff
+
+BUILD 06 is IN PROGRESS.
+
+The local Release Candidate is provider-neutral.
+
+Do not invent:
+
+- Git remote
+- GitHub repository URL
+- deployment provider
+- production host
+- deployment success
+- remote CI success
+
+Use:
+
+```text
+npm run release:preflight
+npm run release:candidate
+npm run release:deploy-check
+```
+
+`release:deploy-check` must remain blocked until all real external release inputs exist.
+
+Current external blockers:
+
+- no remote
+- no upstream
+- no real `NEXT_PUBLIC_SITE_URL`
+- no selected provider
+- no remote CI execution
+- no deployed production URL
+
+Next decision:
+
+`CODAL-DEC-331`
+
+Next action:
+
+PASSO 48 - Remote Repository, Deployment Origin and Production Validation.

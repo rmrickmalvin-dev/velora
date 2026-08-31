@@ -266,3 +266,26 @@ warnings: 0
 ```
 
 ESLint 10.9.1 was evaluated and rejected because the current Next / React lint stack reaches an incompatible eslint-plugin-react API.
+
+## PASSO 47 Release Candidate Quality
+
+BUILD 06 remains IN PROGRESS.
+
+PASSO 47 establishes the local Release Candidate gate without claiming a production deployment.
+
+Validated locally:
+
+```text
+release contract tests: 8/8
+release:preflight: pass with expected external WAIT states
+release:deploy-check: blocked as expected
+canonical quality: pass
+TypeScript: pass
+ESLint warnings: 0
+browser quality: pass
+production build: pass
+```
+
+The strict deploy gate remains intentionally blocked until remote repository, upstream branch and real production origin exist.
+
+Remote GitHub Actions execution is not yet evidence because no Git remote is configured.

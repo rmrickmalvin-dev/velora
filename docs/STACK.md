@@ -181,3 +181,33 @@ ESLint 10.9.1 was evaluated before BUILD 06 and rejected because the current lin
 For tracked lockfile integrity on Windows, use Git-normalized identity and `git diff`, not a raw working-tree SHA256 alone. CRLF/LF checkout normalization can change raw bytes without changing the tracked Git content.
 
 Upgrade ESLint only when the complete Next / React lint stack passes the canonical zero-warning gate without compatibility shims.
+
+## PASSO 47 Release Tooling
+
+Release tooling:
+
+```text
+scripts/release-readiness.mjs
+npm run release:preflight
+npm run release:candidate
+npm run release:deploy-check
+```
+
+Release configuration remains provider-neutral.
+
+Next.js remains on the standard build contract:
+
+```text
+next build
+next start
+```
+
+No static-export, base-path or provider-specific configuration is introduced.
+
+Repository text policy:
+
+```gitattributes
+* text=auto eol=lf
+```
+
+No historical mass-renormalization is performed in PASSO 47.

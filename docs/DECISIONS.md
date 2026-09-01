@@ -360,6 +360,14 @@ Quando uma decisão precisar mudar:
 | CODAL-DEC-330 | ACEITA | BUILD 06 remains IN PROGRESS after PASSO 47 even when local quality passes; closure requires remote repository connection, real production origin, deployment and production smoke validation | Do not convert local Release Candidate readiness into a false production-release claim |
 | CODAL-DEC-331 | ACEITA | `scripts/release-readiness.mjs` resolves npm through `npm_execpath` when available and falls back to PATH-based invocation, using `cmd.exe` on Windows, so direct Node execution and npm-script execution share the same version gate | Make the Release Candidate preflight reliable outside npm lifecycle environment variables without weakening the exact npm 11.6.2 contract |
 
+| CODAL-DEC-332 | ACEITA | PASSO 48 treats GitHub remote state, GitHub Actions and Vercel as independently verified external release evidence instead of inferring provider state from the provider-neutral local readiness script | Preserve the provider-neutral Release Candidate design while accepting real external production evidence |
+| CODAL-DEC-333 | ACEITA | The canonical public production origin is `https://velora-nine-delta.vercel.app`; `NEXT_PUBLIC_SITE_URL` is configured only in the Vercel Production environment while committed `.env.example` remains blank | Activate real production discovery metadata without hard-coding a deployment host into source control |
+| CODAL-DEC-334 | ACEITA | VELORA production deployments are triggered from GitHub `master` through the Vercel Git integration; direct local CLI source upload is not part of the validated production path | Use the deployment path that produced reproducible READY deployments and avoid the previously failed local upload channel |
+| CODAL-DEC-335 | ACEITA | Public portfolio production keeps Vercel SSO protection disabled while retaining project Git fork protection | Make the portfolio publicly reachable without weakening unrelated repository-origin protection |
+| CODAL-DEC-336 | ACEITA | The application-bearing release SHA `001f393` is accepted only because GitHub Actions Quality completed successfully and the Vercel production deployment built from the same SHA reached READY | Bind remote CI and deployed runtime evidence to the same release source state |
+| CODAL-DEC-337 | ACEITA | Production smoke requires root redirect to `/pt-BR`, HTTP 200 for PT-BR, EN, ES, a representative Product route, `robots.txt` and `sitemap.xml`, with robots and sitemap bound to the canonical production origin | Make final public release evidence explicit, repeatable and user-facing |
+| CODAL-DEC-338 | ACEITA | BUILD 06 is CLOSED AND VALIDATED after remote repository/upstream, remote CI, Vercel provider/project, real production origin, READY deployment and public smoke all pass; the readiness script provider WAIT remains informational because provider detection is intentionally external | Close Release without weakening or rewriting the provider-neutral local gate |
+
 ## Decisões por área
 
 ### Experiência e Produto
@@ -452,9 +460,9 @@ Uma IA ou desenvolvedor que continuar a VELORA deve:
 - não substituir decisões ACEITAS silenciosamente;
 - verificar se uma nova implementação contradiz alguma decisão existente;
 - registrar novas decisões com numeração sequencial;
-- utilizar o próximo número disponível após CODAL-DEC-198;
+- utilizar o próximo número disponível após CODAL-DEC-338;
 - preservar decisões históricas mesmo quando forem superadas.
 
 ## Próxima decisão disponível
 
-CODAL-DEC-042
+CODAL-DEC-339

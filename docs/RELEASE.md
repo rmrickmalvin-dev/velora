@@ -2,18 +2,23 @@
 
 ## BUILD 06 status
 
-PASSO 47 prepares a provider-neutral local Release Candidate.
+BUILD 06 - Release is CLOSED AND VALIDATED.
 
-The application is not deployed by this pass.
+PASSO 48 completed the external release contract.
 
-Current external release inputs are intentionally unresolved:
+Current production evidence:
 
-- Git remote
-- branch upstream
-- deployment provider
-- real public deployment origin
-- remote CI execution
-- production smoke validation
+- Git remote: `https://github.com/rmrickmalvin-dev/velora.git`
+- upstream: `origin/master`
+- application-bearing release SHA: `001f393727a32039898c2c575db68e9321660a34`
+- GitHub Actions Quality: completed / success
+- deployment provider: Vercel
+- project: `velora`
+- framework: Next.js
+- deployment source: Git
+- production deployment: READY
+- canonical public origin: `https://velora-nine-delta.vercel.app`
+- production smoke: PASS
 
 ## Release commands
 
@@ -44,50 +49,66 @@ The strict deploy gate requires:
 
 ## Production origin
 
-`NEXT_PUBLIC_SITE_URL` must be the exact public HTTP or HTTPS origin of the deployed application.
-
-Examples of valid shape:
+The canonical public origin is:
 
 ```text
-https://your-real-deployment-host
+https://velora-nine-delta.vercel.app
 ```
 
-Do not commit a fake origin into `.env.example`.
+Vercel Production configures:
 
-The committed template remains:
+```text
+NEXT_PUBLIC_SITE_URL=https://velora-nine-delta.vercel.app
+```
+
+The committed template intentionally remains:
 
 ```text
 NEXT_PUBLIC_SITE_URL=
 ```
 
-When the real deployment exists, configure the variable in the deployment environment.
-
-This activates the absolute sitemap origin while preserving the existing robots and sitemap contracts.
+This preserves source portability while enabling real production robots and sitemap discovery through the deployment environment.
 
 ## Deployment provider
 
-PASSO 47 does not select Vercel, Netlify, GitHub Pages or another provider without evidence.
+Vercel is the validated production provider for this release.
 
-The current application keeps the standard Next.js build contract:
+Validated project facts:
+
+- project: `velora`
+- framework preset: Next.js
+- Git integration: `rmrickmalvin-dev/velora`
+- production branch: `master`
+- deployment source: Git
+- public SSO protection: disabled
+- production deployment for release SHA `001f393`: READY
+
+The standard Next.js build contract remains unchanged:
 
 ```text
 next build
 next start
 ```
 
-There is no `output: "export"`, `basePath` or `assetPrefix` release contract.
-
-A deployment provider must therefore be selected deliberately in the deployment pass.
+No static-export, `basePath` or `assetPrefix` release contract was introduced.
 
 ## Git and CI
 
-Local quality is authoritative until a remote repository exists.
+The production repository is:
 
-The existing GitHub Actions Quality workflow is prepared but cannot be described as remotely passing until:
+```text
+https://github.com/rmrickmalvin-dev/velora
+```
 
-1. a GitHub remote exists
-2. the branch is pushed
-3. the workflow actually runs successfully
+Release branch:
+
+```text
+master -> origin/master
+```
+
+GitHub Actions Quality executed remotely for application-bearing release SHA `001f393727a32039898c2c575db68e9321660a34` and completed successfully.
+
+Local and remote quality remain aligned to Node 24.13.0, npm 11.6.2, `npm ci`, Playwright Chromium and the canonical `npm run quality` workflow.
 
 ## Line endings
 
@@ -103,25 +124,25 @@ PASSO 47 does not mass-renormalize historical files.
 
 ## Final production validation
 
-After deployment, verify at minimum:
+Completed production validation:
 
-- `/pt-BR`
-- `/en`
-- `/es`
-- locale switching
-- catalog and product routes
-- cart
-- checkout demo flow
-- customer demo flow
-- admin demo flow
-- `/robots.txt`
-- `/sitemap.xml`
-- public metadata
-- responsive behavior
-- browser accessibility
-- production console/network health
+- [x] root redirects to `/pt-BR`
+- [x] `/pt-BR`
+- [x] `/en`
+- [x] `/es`
+- [x] representative Product route
+- [x] `/robots.txt`
+- [x] `/sitemap.xml`
+- [x] canonical production origin in robots and sitemap
+- [x] GitHub Actions Quality success
+- [x] Vercel production deployment READY
+- [x] no runtime errors observed during the verification window
 
-BUILD 06 remains IN PROGRESS until these external release checks are completed.
+PASSO 48D also ran `npm run release:deploy-check` with the real production origin and validated Node, npm, package privacy, Quality contract, environment template, LF policy, origin, Git remote, upstream and clean working tree.
+
+The release-readiness script intentionally remains provider-neutral. Its provider WAIT line is informational; Vercel selection and deployment state are external evidence documented here.
+
+BUILD 06 - Release is CLOSED AND VALIDATED.
 
 ## Direct preflight execution
 

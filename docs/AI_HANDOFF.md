@@ -1,16 +1,16 @@
 # AI HANDOFF - VELORA
 
-Last update: 2026-08-27
+Last update: 2026-09-01
 
 CODAL OS - Complete Edition active.
 
 ## State
 
-BUILD 05 - CLOSED AND VALIDATED
+BUILD 06 - RELEASE CLOSED AND VALIDATED
 
 Latest validated step:
 
-PASSO 46 - Clean Install, CI Readiness and BUILD 05 Closure
+PASSO 48D - Production Verification
 
 ## Search Intelligence
 
@@ -381,3 +381,54 @@ Next decision:
 Next action:
 
 PASSO 48 - Remote Repository, Deployment Origin and Production Validation.
+
+## PASSO 48 BUILD 06 Production Closure Handoff
+
+BUILD 06 - Release is CLOSED AND VALIDATED.
+
+Production identity:
+
+- GitHub: `rmrickmalvin-dev/velora`
+- branch/upstream: `master -> origin/master`
+- provider: Vercel
+- project: `velora`
+- canonical origin: `https://velora-nine-delta.vercel.app`
+- deployment source: Git
+- public SSO protection: disabled
+- `NEXT_PUBLIC_SITE_URL` is configured only in Vercel Production
+- committed `.env.example` remains blank
+
+Release evidence:
+
+- application-bearing release SHA `001f393`
+- GitHub Actions Quality: success
+- Vercel deployment: READY
+- PASSO 48D `release:deploy-check`: pass for all strict local requirements
+- public production smoke: pass
+- robots and sitemap use the canonical production origin
+- no runtime errors observed during the verification window
+
+Preserve:
+
+- provider-neutral `scripts/release-readiness.mjs`
+- Git-based Vercel production deployment
+- Node 24.13.0
+- npm 11.6.2
+- `eslint: ^9` until the complete Next / React lint stack supports ESLint 10
+- LF repository policy
+- Playwright single-worker browser quality contract
+- public-only sitemap policy
+- private demo routes outside robots discovery
+- no fake payment, identity or security claims
+
+Do not treat the readiness-script provider WAIT as a failed production gate. Provider selection is intentionally verified outside that local provider-neutral script.
+
+Official decisions:
+
+`CODAL-DEC-001 -> CODAL-DEC-338`
+
+Next:
+
+`CODAL-DEC-339`
+
+No new BUILD is automatically open.

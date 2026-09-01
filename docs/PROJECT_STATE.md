@@ -1,10 +1,10 @@
 # PROJECT STATE - VELORA
 
-Last update: 2026-08-27
+Last update: 2026-09-01
 
 ## Phase
 
-BUILD 05 - Quality
+BUILD 06 - Release
 
 ## State
 
@@ -24,7 +24,7 @@ CLOSED AND VALIDATED
 
 ## Latest validated step
 
-PASSO 46 - Clean Install, CI Readiness and BUILD 05 Closure
+PASSO 48D - Production Verification
 
 ## Search Intelligence
 
@@ -476,3 +476,73 @@ Next:
 Next step:
 
 PASSO 48 - Remote Repository, Deployment Origin and Production Validation.
+
+## PASSO 48 - Remote Repository, Deployment Origin and Production Validation
+
+Status: CLOSED AND VALIDATED
+
+BUILD 06 - Release is CLOSED AND VALIDATED.
+
+Remote repository evidence:
+
+- GitHub repository: `rmrickmalvin-dev/velora`
+- branch: `master`
+- upstream: `origin/master`
+- application-bearing release SHA: `001f393727a32039898c2c575db68e9321660a34`
+
+Remote CI evidence:
+
+- GitHub Actions workflow: `Quality`
+- release SHA: `001f393727a32039898c2c575db68e9321660a34`
+- status: completed
+- conclusion: success
+
+Production provider evidence:
+
+- provider: Vercel
+- project: `velora`
+- framework preset: Next.js
+- deployment source: Git
+- production deployment: READY
+- canonical origin: `https://velora-nine-delta.vercel.app`
+- `NEXT_PUBLIC_SITE_URL`: configured for Production
+- Vercel SSO protection: disabled for public portfolio access
+
+PASSO 48D local release verification:
+
+- Node 24.13.0: PASS
+- npm 11.6.2: PASS
+- package privacy: PASS
+- canonical Quality gate contract: PASS
+- environment template: PASS
+- repository LF policy: PASS
+- production origin: PASS
+- Git remote: PASS
+- branch upstream: PASS
+- clean tree: PASS
+- provider WAIT remains informational because the readiness script is intentionally provider-neutral and provider evidence is verified externally
+
+Public production smoke:
+
+- `/` -> HTTP 307 -> `/pt-BR`
+- `/pt-BR` -> HTTP 200
+- `/en` -> HTTP 200
+- `/es` -> HTTP 200
+- `/pt-BR/products/aster-air` -> HTTP 200
+- `/robots.txt` -> HTTP 200
+- `/sitemap.xml` -> HTTP 200
+- robots references the canonical sitemap origin
+- sitemap entries use the canonical production origin
+- no runtime errors were observed during the production verification window
+
+Official decisions:
+
+`CODAL-DEC-001 -> CODAL-DEC-338`
+
+Next available decision:
+
+`CODAL-DEC-339`
+
+Next action:
+
+No new BUILD is opened automatically. Continue only from a new explicitly defined objective, maintenance task or portfolio refinement.

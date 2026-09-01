@@ -1,6 +1,6 @@
 # STACK — VELORA
 
-Última atualização: 2026-08-24
+Última atualização: 2026-09-01
 
 ## Runtime
 
@@ -109,7 +109,7 @@ Vercel.
 
 ## Estado
 
-BUILD 01 em execução.
+BUILD 06 - Release CLOSED AND VALIDATED.
 
 ## PASSO 45 SEO Runtime Infrastructure
 
@@ -226,3 +226,29 @@ The required version remains:
 ```text
 npm 11.6.2
 ```
+
+## PASSO 48 Production Release Runtime
+
+Validated production stack:
+
+```text
+Source control: GitHub
+Repository: rmrickmalvin-dev/velora
+Branch: master
+CI: GitHub Actions Quality
+Deploy provider: Vercel
+Vercel project: velora
+Framework preset: Next.js
+Deployment source: Git
+Production origin: https://velora-nine-delta.vercel.app
+```
+
+Production environment contract:
+
+```text
+NEXT_PUBLIC_SITE_URL=https://velora-nine-delta.vercel.app
+```
+
+The committed `.env.example` remains blank so local/source configuration does not hard-code the deployment hostname.
+
+The provider-neutral release-readiness script remains unchanged. Provider status is verified through external Vercel evidence.

@@ -3420,3 +3420,80 @@ Next:
 
 - CODAL-DEC-332
 - PASSO 48 - Remote Repository, Deployment Origin and Production Validation
+
+---
+
+### PASSO 48 - Remote Repository, Deployment Origin and Production Validation
+
+Status: CLOSED AND VALIDATED
+
+#### GitHub
+
+Validated:
+
+- public repository `rmrickmalvin-dev/velora`
+- `master` tracking `origin/master`
+- application-bearing release SHA `001f393727a32039898c2c575db68e9321660a34`
+- GitHub Actions `Quality` completed successfully for the release SHA
+
+#### Vercel
+
+Validated:
+
+- project `velora`
+- framework preset Next.js
+- GitHub integration connected
+- production deployment source Git
+- production deployment READY
+- canonical public origin `https://velora-nine-delta.vercel.app`
+- `NEXT_PUBLIC_SITE_URL` configured for Production
+- public SSO protection disabled
+
+Direct local Vercel source upload was not adopted as the production path after upload failure. Git integration is the validated deployment channel.
+
+#### PASSO 48D local gate
+
+```text
+Node: PASS
+npm: PASS
+Package privacy: PASS
+Quality contract: PASS
+Environment template: PASS
+Line endings: PASS
+Production origin: PASS
+Git remote: PASS
+Branch upstream: PASS
+Working tree: PASS
+LOCAL RELEASE CANDIDATE: READY
+```
+
+The provider-neutral readiness script retains an informational provider WAIT. Provider evidence is verified independently through Vercel.
+
+#### Production smoke
+
+```text
+/                              307 -> /pt-BR
+/pt-BR                         200
+/en                            200
+/es                            200
+/pt-BR/products/aster-air      200
+/robots.txt                    200
+/sitemap.xml                   200
+PRODUCTION SMOKE               PASS
+```
+
+Robots and sitemap reference the canonical production origin. No runtime errors were observed during the production verification window.
+
+#### Decisions
+
+Added:
+
+- CODAL-DEC-332 through CODAL-DEC-338
+
+Next available decision:
+
+- CODAL-DEC-339
+
+#### BUILD 06
+
+BUILD 06 - Release is CLOSED AND VALIDATED.

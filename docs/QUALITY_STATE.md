@@ -1,6 +1,6 @@
 # QUALITY STATE - VELORA
 
-Last update: 2026-08-27
+Last update: 2026-09-01
 
 ## BUILD 04
 
@@ -307,3 +307,42 @@ ESLint warnings: 0
 ```
 
 The previously completed canonical PASSO 47 quality gate remains valid because no application runtime code changed.
+
+## PASSO 48 Release Quality and Production Evidence
+
+BUILD 06 - Release: CLOSED AND VALIDATED.
+
+External release quality:
+
+- [x] GitHub remote configured
+- [x] `master` tracks `origin/master`
+- [x] GitHub Actions Quality completed successfully for release SHA `001f393`
+- [x] Vercel project linked to GitHub
+- [x] Vercel framework preset is Next.js
+- [x] production origin configured
+- [x] Vercel SSO protection disabled for public portfolio access
+- [x] Git-triggered production deployment reached READY
+- [x] public PT-BR, EN and ES routes return HTTP 200
+- [x] representative Product route returns HTTP 200
+- [x] root redirects to `/pt-BR`
+- [x] robots returns HTTP 200 and references canonical sitemap
+- [x] sitemap returns HTTP 200 and uses canonical production origin
+- [x] production runtime observation found no errors
+- [x] PASSO 48D strict local deploy requirements passed
+
+PASSO 48D public smoke:
+
+```text
+/                              307 -> /pt-BR
+/pt-BR                         200
+/en                            200
+/es                            200
+/pt-BR/products/aster-air      200
+/robots.txt                    200
+/sitemap.xml                   200
+PRODUCTION SMOKE               PASS
+```
+
+The provider-neutral release-readiness script still reports provider as WAIT by design. Vercel provider evidence is verified independently and this informational WAIT is not a failed gate.
+
+BUILD 06 is CLOSED AND VALIDATED.
